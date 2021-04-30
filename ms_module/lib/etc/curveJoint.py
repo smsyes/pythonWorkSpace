@@ -12,8 +12,8 @@ __UPDATE__ = 20200624
 from lib.m_lib import NurbsCurveNode
 reload(NurbsCurveNode)
 
-blah blah blah blah blah blah
-blah blah blah blah blah blah
+blah blah blah blah blah blah blah
+blah blah blah blah blah blah blah
 ============================================================================"""
 #
 # when start coding 3 empty lines.
