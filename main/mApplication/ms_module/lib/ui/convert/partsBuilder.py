@@ -37,7 +37,7 @@ except ImportError:
   from PySide import __version__
   from shiboken import wrapInstance
 
-module_path = 'E:\script\msscoding\pythonWorkspace\main\mApplication\ms_module\lib'
+module_path = 'D:\script\main\mApplication\ms_module\lib'
 ui_path = os.path.join(module_path, 'ui', 'convert')
 parts_path = os.path.join(module_path, 'parts')
 
@@ -71,6 +71,7 @@ class myUIClass(QWidget):
         
         self.ui.addParts_pushButton.clicked.connect(self.addTreeParts)
         self.ui.clear_pushButton.clicked.connect(self.treeClear)
+        self.ui.Parts_treeWidget.itemClicked.connect(self.ItemClicked)
     
     
     def search(self, dirName):
@@ -102,32 +103,52 @@ class myUIClass(QWidget):
     def getComboParts(self):
         return self.ui.fitPrt_comboBox.currentText()
     
-    def PrintTextEdit(self) :
-        if prefixName != " Insert Prefix Name ":
-            prefixName = self.ui.prefix_textEdit.toPlainText()
-        else:
-            prefixName = None
+    def PrintTextEdit(self):
+        prefixName = self.ui.prefix_textEdit.text()
+        if prefixName == 'Base Name':
+            prefixName = ''
         return prefixName
         
     def treeClear(self):
-        self.ui.Parts_treeWidget.clear()
+        selItem_ = self.selTreeItem()
+        root = self.ui.Parts_treeWidget.invisibleRootItem()
+        object_ = ls(sl=1, r=1)
+        for i, item in enumerate(selItem_):
+            (item.parent() or root).removeChild(item)
+            object_[i].referenceFile(rr=1)
         
-    
-    def addTreeParts(self):
-        partsName = self.getComboParts().split('.')[0]
-        itemTop1 = QTreeWidgetItem(self.ui.Parts_treeWidget,['Name', partsName])
-        
-        label_cmb = QComboBox()
-        label_cmb.setObjectName('{}_cmb'.format(partsName))
-        label_cmb.addItems(['L', 'R', 'M'])
-        
-        item_1 = QTreeWidgetItem()
-        item_1.setText(0, "Label")
-        self.ui.Parts_treeWidget.setItemWidget(item_1, 1, label_cmb)
-        itemTop1.addChild(item_1)
+    def selTreeItem(self):
+        selItem_ = self.ui.Parts_treeWidget.selectedItems()
+        return selItem_
 
+    def addTreeParts(self):
+        parts_ = self.getComboParts()
+        name_ = self.PrintTextEdit()
+        partsName = parts_.split('.')[0]
+        if name_:
+            partsName = ':'.join([name_, parts_.split('.')[0]])
+        itemTop1 = QTreeWidgetItem(self.ui.Parts_treeWidget,[partsName])
+        self.importParts(parts_, name_)
+
+    def importParts(self, parts_, name_):
+        dir_ = os.path.join(self.fitDirList[0], parts_)
+        createReference( dir_, reference=True, namespace=name_)
         
-        print label_cmb.currentText()
+    def ItemClicked(self):
+        items = self.selTreeItem()
+        for i in items:
+            if ':' in i.text(0):
+                object_ = '{}_GRP'.format(i.text(0))
+            else:
+                object_ = '{}:{}_GRP'.format(i.text(0), i.text(0))
+            object_ = PyNode(object_)
+            select(object_)
+            print i.text(0)
+            print i
+            
+
+
+
 
 
 
