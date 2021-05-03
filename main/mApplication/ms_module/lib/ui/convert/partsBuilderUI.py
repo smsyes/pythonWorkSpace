@@ -45,7 +45,7 @@ class Ui_Form(object):
         self.Parts_treeWidget = QtWidgets.QTreeWidget(Form)
         self.Parts_treeWidget.setDragEnabled(True)
         self.Parts_treeWidget.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
-        self.Parts_treeWidget.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.Parts_treeWidget.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.Parts_treeWidget.setObjectName("Parts_treeWidget")
         self.Parts_treeWidget.header().setDefaultSectionSize(100)
         self.horizontalLayout_4.addWidget(self.Parts_treeWidget)

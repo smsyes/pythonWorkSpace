@@ -88,7 +88,7 @@
           <enum>QAbstractItemView::InternalMove</enum>
          </property>
          <property name="selectionMode">
-          <enum>QAbstractItemView::ExtendedSelection</enum>
+          <enum>QAbstractItemView::SingleSelection</enum>
          </property>
          <attribute name="headerDefaultSectionSize">
           <number>100</number>
