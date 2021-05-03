@@ -71,7 +71,7 @@ class myUIClass(QWidget):
         
         self.ui.addParts_pushButton.clicked.connect(self.addTreeParts)
         self.ui.clear_pushButton.clicked.connect(self.treeClear)
-        self.ui.Parts_treeWidget.itemClicked.connect(self.ItemClicked)
+        self.ui.Parts_treeWidget.itemClicked.connect(self.itemClicked)
     
     
     def search(self, dirName):
@@ -106,16 +106,16 @@ class myUIClass(QWidget):
     def PrintTextEdit(self):
         prefixName = self.ui.prefix_textEdit.text()
         if prefixName == 'Base Name':
-            prefixName = ''
+            prefixName = 'base'
         return prefixName
         
     def treeClear(self):
-        selItem_ = self.selTreeItem()
+        selItem_ = self.selTreeItem()[0]
+        object_ = ls(sl=1,r=1)[0]
         root = self.ui.Parts_treeWidget.invisibleRootItem()
-        object_ = ls(sl=1, r=1)
-        for i, item in enumerate(selItem_):
-            (item.parent() or root).removeChild(item)
-            object_[i].referenceFile(rr=1)
+        if objExists(object_):
+            (selItem_.parent() or root).removeChild(selItem_)
+            object_.referenceFile().remove()
         
     def selTreeItem(self):
         selItem_ = self.ui.Parts_treeWidget.selectedItems()
@@ -124,28 +124,43 @@ class myUIClass(QWidget):
     def addTreeParts(self):
         parts_ = self.getComboParts()
         name_ = self.PrintTextEdit()
-        partsName = parts_.split('.')[0]
-        if name_:
-            partsName = ':'.join([name_, parts_.split('.')[0]])
+        partsSpl = parts_.split('.')[0]
+        partsName = ':'.join([name_, partsSpl])
         itemTop1 = QTreeWidgetItem(self.ui.Parts_treeWidget,[partsName])
-        self.importParts(parts_, name_)
+        refNode = self.importParts(parts_, name_)
+        dateObject = '{}:{}_GRP'.format(refNode, partsSpl)
+        self.setDates(dateObject, 'test')
 
     def importParts(self, parts_, name_):
         dir_ = os.path.join(self.fitDirList[0], parts_)
-        createReference( dir_, reference=True, namespace=name_)
+        ref = createReference( dir_, reference=True, namespace=name_)
+        refNode = referenceQuery(ref, referenceNode=True)
+        return refNode
         
-    def ItemClicked(self):
+        
+    def gatDateDag(self, name_):
+        return '{}_GRP'.format(name_)
+
+    
+    def itemClicked(self):
         items = self.selTreeItem()
+        objects = []
+        parts = []
         for i in items:
             if ':' in i.text(0):
                 object_ = '{}_GRP'.format(i.text(0))
             else:
                 object_ = '{}:{}_GRP'.format(i.text(0), i.text(0))
-            object_ = PyNode(object_)
-            select(object_)
-            print i.text(0)
-            print i
-            
+            objects.append(object_)
+            parts.append(i.text(0))
+        # select(objects)
+        print items
+        return items, objects
+
+    def setDates(self, object_, itemID):
+        object_.addAttr(ln ='itemID', sn='ii', at='string')
+        object_.setAttr('ii', itemID)
+
 
 
 
