@@ -12,8 +12,8 @@ __UPDATE__ = 20200624
 from lib.m_lib import NurbsCurveNode
 reload(NurbsCurveNode)
 
-blah blah blah blah blah blah blah
-blah blah blah blah blah blah blah
+blah blah blah blah blah blah
+blah blah blah blah blah blah
 ============================================================================"""
 #
 # when start coding 3 empty lines.
@@ -28,10 +28,10 @@ import math
 import random 
 from collections import OrderedDict
 
-module_path = 'C:\Users\minsung\Google Drive\script\msscoding\pythonWorkspace\main\mApplication\ms_module\lib\dict_lib'
+module_path = 'D:\script\main\mApplication\ms_module\lib\dict_lib'
 if not module_path in sys.path:
     sys.path.append(module_path)
-
+    
 import _shape_dic
 reload(_shape_dic)
 #(add import something more...)
@@ -1153,12 +1153,17 @@ selObject = ls(sl=1, fl=1, r=1)
 # local_matrix(selObject)
 # mtx_ = selObject[0].getMatrix(worldSpace=True)
 # addAttr(selObject[0], ln = 'offset', at = 'matrix')
-# cntAttr = connection_list(selObject[0], 'rebuildMode')
+# cntAttr = connection_list(selObject[0], 'tempJoints')
 # select(cntAttr)
-# message_(selObject, "init")
+# message_(selObject, "tempJoints")
 # matrixConstraint(selObject, 't','r')
 # deleteAttrs(selObject, 'package')
 # dir(selObject[0])
 
 
+items, targets = divide_in_two(selObject)
+for i,target in enumerate(targets):
+    mtx_ = items[i].getMatrix(worldSpace=True)
+    addAttr(target, ln = 'Boffset', at = 'matrix')
+    setAttr('{}.{}'.format(target,'Boffset'), mtx_)
 
