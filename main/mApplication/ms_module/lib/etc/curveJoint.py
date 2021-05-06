@@ -1075,7 +1075,15 @@ def deleteAttrs(object_, attr):
         if(attrExist == True):
             deleteAttr(i, at=attr)
             
-            
+
+def offsetMTX(object_, attrName_):
+    items, targets = divide_in_two(object_)
+    for i,target in enumerate(targets):
+        mtx_ = items[i].getMatrix(worldSpace=True)
+        addAttr(target, ln = attrName_, at = 'matrix')
+        setAttr('{}.{}'.format(target,attrName_), mtx_)
+        
+                    
 
 selObject = ls(sl=1, fl=1, r=1) 
 # curve_at_joint(selObject)
@@ -1152,18 +1160,14 @@ selObject = ls(sl=1, fl=1, r=1)
 # connect_attrs(selObject, 'os', 'c2')
 # local_matrix(selObject)
 # mtx_ = selObject[0].getMatrix(worldSpace=True)
-# addAttr(selObject[0], ln = 'offset', at = 'matrix')
+# addAttr(selObject[0], ln = 'offset2', at = 'matrix')
 # cntAttr = connection_list(selObject[0], 'tempJoints')
 # select(cntAttr)
 # message_(selObject, "tempJoints")
 # matrixConstraint(selObject, 't','r')
 # deleteAttrs(selObject, 'package')
 # dir(selObject[0])
+# offsetMTX(selObject, 'offsetA')
 
 
-items, targets = divide_in_two(selObject)
-for i,target in enumerate(targets):
-    mtx_ = items[i].getMatrix(worldSpace=True)
-    addAttr(target, ln = 'Boffset', at = 'matrix')
-    setAttr('{}.{}'.format(target,'Boffset'), mtx_)
 
