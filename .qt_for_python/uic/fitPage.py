@@ -26,11 +26,10 @@ class Ui_Form(object):
         self.fitToolBox.setLineWidth(1)
         self.fitSkeleton_page = QWidget()
         self.fitSkeleton_page.setObjectName(u"fitSkeleton_page")
-        self.fitSkeleton_page.setGeometry(QRect(0, 0, 208, 386))
+        self.fitSkeleton_page.setGeometry(QRect(0, 0, 208, 210))
         self.gridLayout_2 = QGridLayout(self.fitSkeleton_page)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.fit_treeWidget = QTreeWidget(self.fitSkeleton_page)
-        self.fit_treeWidget.headerItem().setText(0, "")
         self.fit_treeWidget.setObjectName(u"fit_treeWidget")
         self.fit_treeWidget.setFrameShape(QFrame.NoFrame)
         self.fit_treeWidget.setColumnCount(1)
@@ -40,11 +39,10 @@ class Ui_Form(object):
         self.fitToolBox.addItem(self.fitSkeleton_page, u"Fit Skeleton")
         self.partsSkeleton_page = QWidget()
         self.partsSkeleton_page.setObjectName(u"partsSkeleton_page")
-        self.partsSkeleton_page.setGeometry(QRect(0, 0, 208, 386))
+        self.partsSkeleton_page.setGeometry(QRect(0, 0, 208, 210))
         self.gridLayout_3 = QGridLayout(self.partsSkeleton_page)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.part_treeWidget = QTreeWidget(self.partsSkeleton_page)
-        self.part_treeWidget.headerItem().setText(0, "")
         self.part_treeWidget.setObjectName(u"part_treeWidget")
         self.part_treeWidget.setFrameShape(QFrame.NoFrame)
         self.part_treeWidget.setFrameShadow(QFrame.Raised)
@@ -56,10 +54,14 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.fitToolBox, 0, 0, 1, 1)
 
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer, 1, 0, 1, 1)
+
 
         self.retranslateUi(Form)
 
-        self.fitToolBox.setCurrentIndex(0)
+        self.fitToolBox.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -67,7 +69,11 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        ___qtreewidgetitem = self.fit_treeWidget.headerItem()
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("Form", u"Reference", None));
         self.fitToolBox.setItemText(self.fitToolBox.indexOf(self.fitSkeleton_page), QCoreApplication.translate("Form", u"Fit Skeleton", None))
+        ___qtreewidgetitem1 = self.part_treeWidget.headerItem()
+        ___qtreewidgetitem1.setText(0, QCoreApplication.translate("Form", u"Parts", None));
         self.fitToolBox.setItemText(self.fitToolBox.indexOf(self.partsSkeleton_page), QCoreApplication.translate("Form", u"Parts Skeleton", None))
     # retranslateUi
 
