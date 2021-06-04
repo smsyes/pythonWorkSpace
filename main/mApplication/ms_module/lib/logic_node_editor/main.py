@@ -12,7 +12,7 @@ __UPDATE__ = 20210602
 #
 # when start coding 3 empty lines.
 #
-import maya.OpenMayaUI as omui
+# import maya.OpenMayaUI as omui
 
 from PySide2.QtCore import * 
 from PySide2.QtGui import * 
@@ -26,13 +26,12 @@ import logging
 import sys
 import os
 
-module_path = 'D:\script\main\mApplication\ms_module\lib\logic_node_editor'
-gui_path = os.path.join(module_path, 'node_editor', 'gui')
+baseDir = os.path.dirname(__file__)
+guiDir = os.path.join(baseDir, 'node_editor', 'gui')
 
-path_list = [gui_path]
-for i in path_list:
-    if not i in sys.path:
-        sys.path.append(i)
+if not guiDir in sys.path:
+    sys.path.append(guiDir)
+
 
 from node_widget import NodeWidget
 from palette import palette
@@ -49,8 +48,8 @@ class NodeEditor(QMainWindow):
         icon = QIcon("resources\\app.ico")
         self.setWindowIcon(icon)
 
-        self.setWindowTitle("Logic Node Editor")
-        settings = QSettings("node-editor", "NodeEditor")
+        self.setWindowTitle("MS Node Editor")
+        settings = QSettings("MSNodeEditor", "NodeEditor")
 
         # Layouts
         main_widget = QWidget()
@@ -78,12 +77,12 @@ class NodeEditor(QMainWindow):
             )
 
     def closeEvent(self, event):
-        self.settings = QSettings("node-editor", "NodeEditor")
+        self.settings = QSettings("MSNodeEditor", "NodeEditor")
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("splitterSize", self.splitter.saveState())
         QWidget.closeEvent(self, event)
 
-
+'''
 def maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(long(main_window_ptr), QWidget)
@@ -97,6 +96,12 @@ def runWin():
         pass
     MainWindow = NodeEditor(parent=maya_main_window())
     MainWindow.show()
-    
-
-runWin()   
+'''    
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("resources\\app.ico"))
+    app.setPalette(palette)
+    launcher = NodeEditor()
+    launcher.show()
+    app.exec_()
+    sys.exit()    

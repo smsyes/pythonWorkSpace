@@ -18,18 +18,21 @@ from PySide2.QtWidgets import *
 from PySide2 import __version__
 from shiboken2 import wrapInstance 
 
+from path_item import PathItem
+from palette import palette
+import fitPageUI as fitPage
 
-class NodeList(QListWidget):
+class NodeList(QWidget):
     def __init__(self, parent=None):
         super(NodeList, self).__init__(parent)
+        self.ui = fitPage.Ui_Form()
+        self.ui.setupUi(self)
 
-        self.addItem("Input")
-        self.addItem("Output")
-        self.addItem("And")
-        self.addItem("Not")
-        self.addItem("Nor")
-
-        self.setDragEnabled(True)  # enable dragging
+        self.PI = PathItem()
+        
+        self.addItem(self.PI.tempsName, self.ui.temp_listWidget)
+        self.addItem(self.PI.partsName, self.ui.parts_listWidget)
+        
 
     def contextMenuEvent(self, event):
         menu = QMenu(self)
@@ -67,3 +70,10 @@ class NodeList(QListWidget):
         drag.exec_()
 
         super(NodeList, self).mousePressEvent(event)
+
+    def addItem(self, item_, parent_):
+        return [parent_.addItem(i) for i in item_]
+
+
+
+    

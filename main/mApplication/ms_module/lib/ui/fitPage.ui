@@ -15,15 +15,15 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QToolBox" name="fitToolBox">
+    <widget class="QToolBox" name="templateToolBox">
      <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="lineWidth">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="fitSkeleton_page">
       <property name="geometry">
@@ -35,22 +35,35 @@
        </rect>
       </property>
       <attribute name="label">
-       <string>Fit Skeleton</string>
+       <string>Template Skeleton</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
-        <widget class="QTreeWidget" name="fit_treeWidget">
+        <widget class="QListWidget" name="temp_listWidget">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="columnCount">
-          <number>1</number>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
-         <column>
-          <property name="text">
-           <string>Reference</string>
-          </property>
-         </column>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::NoDragDrop</enum>
+         </property>
+         <property name="defaultDropAction">
+          <enum>Qt::IgnoreAction</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>false</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
         </widget>
        </item>
       </layout>
@@ -69,21 +82,28 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QTreeWidget" name="part_treeWidget">
+        <widget class="QListWidget" name="parts_listWidget">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Plain</enum>
          </property>
-         <property name="columnCount">
-          <number>1</number>
+         <property name="lineWidth">
+          <number>0</number>
          </property>
-         <column>
-          <property name="text">
-           <string>Parts</string>
-          </property>
-         </column>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::NoDragDrop</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>false</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::MultiSelection</enum>
+         </property>
         </widget>
        </item>
       </layout>
