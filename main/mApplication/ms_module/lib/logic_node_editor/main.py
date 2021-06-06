@@ -48,8 +48,8 @@ class NodeEditor(QMainWindow):
         icon = QIcon("resources\\app.ico")
         self.setWindowIcon(icon)
 
-        self.setWindowTitle("MS Node Editor")
-        settings = QSettings("MSNodeEditor", "NodeEditor")
+        self.setWindowTitle("Custom Node Editor")
+        settings = QSettings("NodeEditor", "NodeEditor")
 
         # Layouts
         main_widget = QWidget()
@@ -77,7 +77,7 @@ class NodeEditor(QMainWindow):
             )
 
     def closeEvent(self, event):
-        self.settings = QSettings("MSNodeEditor", "NodeEditor")
+        self.settings = QSettings("NodeEditor", "NodeEditor")
         self.settings.setValue("geometry", self.saveGeometry())
         self.settings.setValue("splitterSize", self.splitter.saveState())
         QWidget.closeEvent(self, event)
@@ -104,4 +104,4 @@ if __name__ == "__main__":
     launcher = NodeEditor()
     launcher.show()
     app.exec_()
-    sys.exit()    
+    sys.exit()

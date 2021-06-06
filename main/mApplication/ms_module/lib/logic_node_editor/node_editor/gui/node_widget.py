@@ -22,6 +22,7 @@ from shiboken2 import wrapInstance
 from view import View
 from node import Node
 from node_editor import NodeEditor
+from path_item import PathItem
 
 # import lorem
 # import random
@@ -75,6 +76,33 @@ def create_nor():
     node.build()
     return node
 
+def create_fit_arm():
+    node = Node()
+    node.title = "arm"
+    node.type_text = "built-in"
+    node.add_port(name="input", is_output=False)
+    node.add_port(name="output", is_output=True)
+    node.build()
+    return node
+
+def create_fit_Qarm():
+    node = Node()
+    node.title = "Qarm"
+    node.type_text = "built-in"
+    node.add_port(name="input", is_output=False)
+    node.add_port(name="output", is_output=True)
+    node.build()
+    return node
+
+def create_fit_Qleg():
+    node = Node()
+    node.title = "Qleg"
+    node.type_text = "built-in"
+    node.add_port(name="input", is_output=False)
+    node.add_port(name="output", is_output=True)
+    node.build()
+    return node
+
 
 class NodeScene(QGraphicsScene):
     def dragEnterEvent(self, e):
@@ -109,7 +137,7 @@ class NodeWidget(QWidget):
         self.node_editor.install(self.scene)
 
         main_layout.addWidget(self.view)
-
+        
         self.view.request_node.connect(self.create_node)
 
     def create_node(self, name):
@@ -126,6 +154,12 @@ class NodeWidget(QWidget):
             node = create_not()
         elif name == "Nor":
             node = create_nor()
+        elif name == "fit_arm":
+            node = create_fit_arm()
+        elif name == "fit_quadruped_arm":
+            node = create_fit_Qarm()
+        elif name == "fit_quadruped_leg":
+            node = create_fit_Qleg()
 
         self.scene.addItem(node)
 

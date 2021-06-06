@@ -22,17 +22,18 @@ from path_item import PathItem
 from palette import palette
 import fitPageUI as fitPage
 
-class NodeList(QWidget):
+class NodeList(QListWidget):
     def __init__(self, parent=None):
         super(NodeList, self).__init__(parent)
-        self.ui = fitPage.Ui_Form()
-        self.ui.setupUi(self)
+        # self.ui = fitPage.Ui_Form()
+        # self.ui.setupUi(self)
 
         self.PI = PathItem()
         
-        self.addItem(self.PI.tempsName, self.ui.temp_listWidget)
-        self.addItem(self.PI.partsName, self.ui.parts_listWidget)
+        # self.addItem(self.PI.tempsName, self.ui.temp_listWidget)
+        self.itemAdd(self.PI.partsName)
         
+        self.setDragEnabled(True)  # enable dragging
 
     def contextMenuEvent(self, event):
         menu = QMenu(self)
@@ -71,8 +72,8 @@ class NodeList(QWidget):
 
         super(NodeList, self).mousePressEvent(event)
 
-    def addItem(self, item_, parent_):
-        return [parent_.addItem(i) for i in item_]
+    def itemAdd(self, item_):
+        return [self.addItem(i) for i in item_]
 
 
 
