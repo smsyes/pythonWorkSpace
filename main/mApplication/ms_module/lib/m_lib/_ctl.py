@@ -4,7 +4,7 @@ import string
 import os
 import sys
 
-module_path = 'D:\main\m_application\maya\lib\dict_lib'
+module_path = 'D:\script\main\mApplication\ms_module\lib\dict_lib'
 if not module_path in sys.path:
     sys.path.append(module_path)
 
