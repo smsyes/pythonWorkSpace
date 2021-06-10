@@ -8,7 +8,7 @@ import ctl_
 reload(ctl_)
 
 nameDic = {}
-nameDic["global"] = ["fit", "IK", "FK", "joint", "output"]
+nameDic["global"] = ["fit", "IK", "FK", "init", "joint", "output"]
 nameDic["base"] = "neck"
 nameDic["prefix"] = ["D", "M", "U"]
 nameDic["suffix"] = ["OS", "JNT", "GRP"]
@@ -202,38 +202,52 @@ def fit_SET(dictNum_, dict_, poseDic_):
         if fitDict[key]:
             parent(fitDict[key][-1], fitSpace_)
     return fitDict
-
-def IK_control(dict_):
-    ctlDict = {}
+'''
+# base name dictionary
+def base_name_dict(dict_):
+    nameDict ={}
     for key in dict_.keys():
-        ctlList = []
+        nameList = []
         for i,value in enumerate(dict_[key]):
-            name_ = '_'.join([nameDic["global"][1], 
-                             nameDic["prefix"][key], 
-                             nameDic["base"]])
-            
+            name_ = '_'.join([nameDic["prefix"][key], 
+                              nameDic["base"]])
             if len(ls(dict_[key]))>1:
                 name_ = '_'.join([name_, padding_(i)])
-            ctl_ = controller_(name_, 'roundSquare', 3.5)
-            set_transform_(ls(value, ctl_))
-            offset_ = offset_space(ctl_)
-            ctlList.append(ctl_)
-        ctlDict[key] = ctlList
-    return ctlDict
+            nameList.append(name_)
+        nameDict[key] = nameList
+    return nameDict
+'''
+def control_SET(prefix_, list_, type_, scale_):
+    offList = []
+    for name_ in list_:
+        name_ = '_'.join(prefix_, name_)
+        ctl_ = controller_(name_, type_, scale_)
+        offset_ = offset_space(ctl_)
+        offList.append(offset_)
+    return offList
 
-def main_control(num_, dict_):
-    ctlDict = {}
+
+def IK_control(dict_):
+    list_ = dict_.values()
+    IKOff_ = control_SET(nameDic["global"][1], list_,
+                         'roundSquare',3.5)
+
     if num_<4 or Odd_or_Even(num_)==1:
         dict_ = {0:dict_[0], 1:dict_[2]}
-    for key in dict_.keys():
-        name_ = '_'.join([nameDic["prefix"][1], 
-                          nameDic["prefix"][key],
-                          nameDic["base"]])
-        ctl_ = controller_(name_, 'circle', 5)
-        set_transform_(ls(dict_[key][-1], ctl_))
-        offset_ = offset_space(ctl_)
-        ctlDict[key] = ctl_
-    return ctlDict
+    MOff_ = control_SET(nameDic["prefix"][1], mainList_,
+                            'circle',5)
+    set_transform_(ls(mainList_[-1], MOff_))
+
+
+def main_control(num_, dict_):
+    if num_<4 or Odd_or_Even(num_)==1:
+        dict_ = {0:dict_[0], 1:dict_[2]}
+    list_ = [dict_[key][-1] for key in dict_.keys()]
+    MOff_ = control_SET(nameDic["prefix"][1], list_,
+                            'circle',5)
+    set_transform_(ls(dict_[key][-1], ctl_))
+
+'''
 
 def twist_control(dict_):
     ctlDict = {}
@@ -247,44 +261,59 @@ def twist_control(dict_):
         offset_ = offset_space(ctl_)
         ctlDict[key] = ctl_
     return ctlDict
-
+'''
 # def upVec_control(dict_):
 
-def FK_local_space(num_, dict_):
+def FK_local_space(num_, MULTList, POCIList):
     FKNum_ = num_+1
     baseName_ = '_'.join([nameDic["base"], nameDic["sub"][2]])
     DIVD_ = multiply_(baseName_, type_="DIVD")
     DIVD_.setAttr('i1x', 1)
     DIVD_.setAttr('i2x', FKNum_)
     DIVD_.setAttr('operation', 2)
-    
-    rootName_ = '_'.join(['root',
-                      nameDic["base"],
-                      nameDic["sub"][2]])
+    for MULT in MULTList:
+        connect_attrs(ls(DIVD_, MULT), 'ox', 'i1x')
+        baseName_ = '_'.join([nameDic["global"][3],
+                              nameDic["base"],
+                              nameDic["sub"][2]])
+
+
+def curve_param_SET(curve_, dict_):
+    baseName_ = '_'.join([nameDic["base"],
+                          nameDic["sub"][2]])
+    rootName_ = '_'.join(['root', baseName_])
 
     MULTList = [multiply_(rootName_)]
+    POCIList = []
+
     for key in dict_.keys():
         for i,value in enumerate(dict_[key]):
             name_ = '_'.join([nameDic["prefix"][key], 
-                            nameDic["base"],
-                            nameDic["sub"][2]])
-            
+                              baseName_])
             if len(ls(dict_[key]))>1:
                 name_ = '_'.join([name_, padding_(i)])
             MULT_ = multiply_(name_)
+            POCI_ = po_crv_info(curve_.getShape())
+            connect_attrs(ls(MULT_, POCI_), 'ox', 'parameter')
+            POCIList.append(POCI_)
             MULTList.append(MULT_)
+    
+    return MULTList, POCIList
+
+
 
 
 num_ = 3
 curve_, poseDic_ = bez_curve(num_)
 dict_ = num_dict(num_)
 fitsDict_ = fit_SET(num_, dict_, poseDic_)
-IK_control(fitsDict_)
-main_control(num_, fitsDict_)
-twist_control(fitsDict_)
-FK_local_space(num_, fitsDict_)
-
-
+'''
+IKCTLDict_ = IK_control(fitsDict_)
+MCTLDict_ = main_control(num_, fitsDict_)
+TWCTLDict_ = twist_control(fitsDict_)
+MULTList, POCIList = curve_param_SET(curve_, dict_)
+FK_local_space(num_, MULTList, POCIList)
+'''
 
 
 
