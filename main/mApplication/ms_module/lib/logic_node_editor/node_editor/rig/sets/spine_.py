@@ -202,7 +202,7 @@ def fit_SET(dictNum_, dict_, poseDic_):
         if fitDict[key]:
             parent(fitDict[key][-1], fitSpace_)
     return fitDict
-'''
+
 # base name dictionary
 def base_name_dict(dict_):
     nameDict ={}
@@ -216,11 +216,11 @@ def base_name_dict(dict_):
             nameList.append(name_)
         nameDict[key] = nameList
     return nameDict
-'''
+
 def control_SET(prefix_, list_, type_, scale_):
     offList = []
     for name_ in list_:
-        name_ = '_'.join(prefix_, name_)
+        name_ = '_'.join([prefix_, name_])
         ctl_ = controller_(name_, type_, scale_)
         offset_ = offset_space(ctl_)
         offList.append(offset_)
@@ -228,41 +228,42 @@ def control_SET(prefix_, list_, type_, scale_):
 
 
 def IK_control(dict_):
+    nameList_ = base_name_dict(dict_)
     list_ = dict_.values()
-    IKOff_ = control_SET(nameDic["global"][1], list_,
+    IKOff_ = control_SET(nameDic["global"][1], nameList_,
                          'roundSquare',3.5)
-
-    if num_<4 or Odd_or_Even(num_)==1:
-        dict_ = {0:dict_[0], 1:dict_[2]}
-    MOff_ = control_SET(nameDic["prefix"][1], mainList_,
-                            'circle',5)
-    set_transform_(ls(mainList_[-1], MOff_))
+    set_transform_(ls(list_, IKOff_))
+    print IKOff_
 
 
 def main_control(num_, dict_):
     if num_<4 or Odd_or_Even(num_)==1:
         dict_ = {0:dict_[0], 1:dict_[2]}
+    nameList_ = base_name_dict(dict_)
+    
     list_ = [dict_[key][-1] for key in dict_.keys()]
-    MOff_ = control_SET(nameDic["prefix"][1], list_,
-                            'circle',5)
-    set_transform_(ls(dict_[key][-1], ctl_))
+    MOff_ = control_SET(nameDic["prefix"][1], nameList_,
+                        'circle',5)
+    set_transform_(ls(list_, MOff_))
+    print MOff_
 
-'''
 
 def twist_control(dict_):
-    ctlDict = {}
-    dict_ = {0:dict_[0][-1], 1:dict_[2][-1]}
-    for key in dict_.keys():
-        name_ = '_'.join([nameDic["sub"][0], 
-                          nameDic["prefix"][key],
-                          nameDic["base"]])
-        ctl_ = controller_(name_, 'cross', 4.5)
-        set_transform_(ls(dict_[key], ctl_))
-        offset_ = offset_space(ctl_)
-        ctlDict[key] = ctl_
-    return ctlDict
-'''
+    dict_ = {0:dict_[0], 1:dict_[2]}
+    nameList_ = base_name_dict(dict_)
+    
+    list_ = [dict_[key][-1] for key in dict_.keys()]
+    TWOff_ = control_SET(nameDic["sub"][0], nameList_,
+                        'cross',4.5)
+    set_transform_(ls(list_, TWOff_))
+    print TWOff_
+    
+
+
+
 # def upVec_control(dict_):
+
+
 
 def FK_local_space(num_, MULTList, POCIList):
     FKNum_ = num_+1
@@ -307,13 +308,11 @@ num_ = 3
 curve_, poseDic_ = bez_curve(num_)
 dict_ = num_dict(num_)
 fitsDict_ = fit_SET(num_, dict_, poseDic_)
-'''
 IKCTLDict_ = IK_control(fitsDict_)
 MCTLDict_ = main_control(num_, fitsDict_)
 TWCTLDict_ = twist_control(fitsDict_)
 MULTList, POCIList = curve_param_SET(curve_, dict_)
 FK_local_space(num_, MULTList, POCIList)
-'''
 
 
 
