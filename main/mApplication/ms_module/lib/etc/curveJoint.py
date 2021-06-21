@@ -712,9 +712,9 @@ def set_rot(object_):
                         
 def crvShape_(object_, type_):
     shape_dic = _shape_dic.load_dic(type_)
-    _name = to_str(object_)
-    crv_ = cmds.curve(n = '{}_CTL'.format(_name), d = shape_dic[0], 
-                p = shape_dic[1], k = shape_dic[2])
+    _name = object_.name()
+    crv_ = cmds.curve(n = _name, d = shape_dic[0], 
+                      p = shape_dic[1], k = shape_dic[2])
     return crv_
     
 
@@ -745,13 +745,8 @@ def OS_(object_):
 def controller_(object_, type_):
     CTLList_ = []
     for i,object in enumerate(object_):
-        if type_ == 'softcircle':
-            _name = '{}_CTL'.format('_'.join(object.split('_')[:-1]))
-            CTL_ = circle(n = _name)
-            CTL_ = CTL_[0]
-        else:
-            CTL_ = crvShape_(object, type_)
-            shape_name_match(ls(CTL_))
+        CTL_ = crvShape_(object, type_)
+        shape_name_match(ls(CTL_))
         CTLList_.append(CTL_)
     return CTLList_
     
@@ -1084,7 +1079,17 @@ def offsetMTX(object_, attrName_):
         setAttr('{}.{}'.format(target,attrName_), mtx_)
         
                     
+def shapeChange(object_, type_):
+    ctrl_ = controller_(object_, type_)
+    for i,ctrl in enumerate(ctrl_):
+        ctrl = PyNode(ctrl)
+        itemShape = ctrl.getShape()
+        shape_ = object_[i].getShape()
+        delete(shape_)
+        parent(itemShape, object_[i], r=1, s=1)
+        delete(ctrl)
 
+        
 selObject = ls(sl=1, fl=1, r=1) 
 # curve_at_joint(selObject)
 # curve_at_null(selObject)
@@ -1168,6 +1173,4 @@ selObject = ls(sl=1, fl=1, r=1)
 # deleteAttrs(selObject, 'package')
 # dir(selObject[0])
 # offsetMTX(selObject, 'offsetA')
-
-
-
+# shapeChange(selObject, 'circle')
