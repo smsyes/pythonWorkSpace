@@ -2,7 +2,7 @@ from pymel.core import *
 import sys
 import os
 
-baseDir = os.path.dirname(__file__)
+baseDir = "E:\script\main\mApplication\ms_module\lib\logic_node_editor\node_editor\lib"
 
 if not baseDir in sys.path:
     sys.path.append(baseDir)

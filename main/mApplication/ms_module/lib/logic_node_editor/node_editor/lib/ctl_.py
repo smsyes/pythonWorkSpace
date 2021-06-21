@@ -2,12 +2,6 @@ from pymel.core import *
 import sys
 import os
 
-baseDir = os.path.dirname(os.path.dirname(__file__))
-dicDir = os.path.join(baseDir, 'dict_lib')
-
-if not dicDir in sys.path:
-    sys.path.append(dicDir)
-    
 import _shape_dic
 reload(_shape_dic)
 
