@@ -882,13 +882,12 @@ def connect_pairBlend(object_):
     PRBL_list = []
     BLCL_list = []
     for i,object in enumerate(items):
-        objectName_ = name_(object)
-        if 'FK' in objectName_:
-            _name = objectName_.split('FK')[0]
-        elif 'IK' in objectName_:
-            _name = objectName_.split('IK')[0]
-        else:
-            _name = objectName_.split('_')[0]
+        _name = name_(object).split('_')
+        if 'IK' in _name:
+            _name.remove('IK')
+        elif 'FK' in _name:
+            _name.remove('FK')
+        _name = '_'.join(_name)
         PRBL_ = pairBlend_(_name)
         BLCL_ = blendColors_(_name)
         PRBL_list.append(PRBL_)
@@ -984,16 +983,15 @@ def mirror_connect(object_, type_=None):
 def local_matrix(object_):
     items, targets = divide_in_two(object_)
     for i,target in enumerate(targets):
-        _name_ = name_(target)  
-        localMat = items[i].getMatrix(worldSpace=True)
-        MTMX_ = multMatrix_(_name_)
-        DCMX_ = decompose_(_name_)  
+        _name = '{}_local'.format(name_(target))
+        MTMX_ = multMatrix_(_name)
+        DCMX_ = decompose_(_name)  
         connect_attrs(ls(items[i], MTMX_), 'wm', 'matrixIn[0]')
         connect_attrs(ls(target, MTMX_), 'pim', 'matrixIn[1]')
         connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
         connect_attrs(ls(DCMX_, target), 'ot', 't')
-        connect_attrs(ls(DCMX_, target), 'or', 'r')
-        connect_attrs(ls(DCMX_, target), 'os', 's')
+        # connect_attrs(ls(DCMX_, target), 'or', 'r')
+        # connect_attrs(ls(DCMX_, target), 'os', 's')
         
                    
 def connection_list(object_, attr):
@@ -1089,6 +1087,16 @@ def shapeChange(object_, type_):
         parent(itemShape, object_[i], r=1, s=1)
         delete(ctrl)
 
+
+def inverse_scale(object_):
+    items, targets = divide_in_two(object_)
+    for i,item in enumerate(items):
+        DCMXName = '{}_inverse'.format(item)
+        ivsDCMX = decompose_(DCMXName)
+        connect_attrs(ls(item, ivsDCMX), 'wim', 'inputMatrix')
+        connect_attrs(ls(ivsDCMX, targets[i]), 'os', 's')
+
+
         
 selObject = ls(sl=1, fl=1, r=1) 
 # curve_at_joint(selObject)
@@ -1139,7 +1147,7 @@ selObject = ls(sl=1, fl=1, r=1)
 # controller_(selObject, 'triangle')
 # nameList = nameList_(selObject)
 # parentChain(selObject)
-# CTLList_ = controller_(selObject, 'trianglet')
+# CTLList_ = controller_(selObject, 'circle')
 # set_transform_list = ls(selObject, CTLList_)
 # set_transform_(set_transform_list)
 # offList_, spcList_ = OS_(CTLList_)
@@ -1173,4 +1181,9 @@ selObject = ls(sl=1, fl=1, r=1)
 # deleteAttrs(selObject, 'package')
 # dir(selObject[0])
 # offsetMTX(selObject, 'offsetA')
-# shapeChange(selObject, 'circle')
+# shapeChange(selObject, 'locate')
+# inverse_scale(selObject)
+# local_matrix(selObject)
+
+
+
