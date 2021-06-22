@@ -234,6 +234,12 @@ def joint_(_name):
     JNT = joint(n='{}_JNT'.format(_name))
     return JNT
 
+def jointHier(object_):
+    hierJNT_ = object_[0].listRelatives(ad=1, c=1, typ='joint')
+    hierJNT_ = hierJNT_ + object_
+    hierJNT_.reverse()
+    return hierJNT_
+
 
 def object_at_joint(object_):
     JNTList = []
@@ -882,13 +888,12 @@ def connect_pairBlend(object_):
     PRBL_list = []
     BLCL_list = []
     for i,object in enumerate(items):
-        objectName_ = name_(object)
-        if 'FK' in objectName_:
-            _name = objectName_.split('FK')[0]
-        elif 'IK' in objectName_:
-            _name = objectName_.split('IK')[0]
-        else:
-            _name = objectName_.split('_')[0]
+        _name = name_(object).split('_')
+        if 'IK' in _name:
+            _name.remove('IK')
+        elif 'FK' in _name:
+            _name.remove('FK')
+        _name = '_'.join(_name)
         PRBL_ = pairBlend_(_name)
         BLCL_ = blendColors_(_name)
         PRBL_list.append(PRBL_)
@@ -1139,7 +1144,7 @@ selObject = ls(sl=1, fl=1, r=1)
 # controller_(selObject, 'triangle')
 # nameList = nameList_(selObject)
 # parentChain(selObject)
-# CTLList_ = controller_(selObject, 'trianglet')
+# CTLList_ = controller_(selObject, 'circle')
 # set_transform_list = ls(selObject, CTLList_)
 # set_transform_(set_transform_list)
 # offList_, spcList_ = OS_(CTLList_)
@@ -1169,8 +1174,34 @@ selObject = ls(sl=1, fl=1, r=1)
 # cntAttr = connection_list(selObject[0], 'tempJoints')
 # select(cntAttr)
 # message_(selObject, "tempJoints")
-# matrixConstraint(selObject, 't','r')
+# matrixConstraint(selObject, 't', 'r')
 # deleteAttrs(selObject, 'package')
 # dir(selObject[0])
 # offsetMTX(selObject, 'offsetA')
-# shapeChange(selObject, 'circle')
+# shapeChange(selObject, 'locate')
+
+
+# dir(selObject[0])
+
+
+
+hierJNT_ = jointHier(selObject)
+IKJNT_ = duplicate(selObject, rc=1)
+FKJNT_ = duplicate(selObject, rc=1)
+
+hierIKJNT_ = jointHier(IKJNT_)
+[rename(i, 'IK_{}JNT'.format(i.split('JNT')[0])) for i in hierIKJNT_]
+
+hierFKJNT_ = jointHier(FKJNT_)
+[rename(i, 'FK_{}JNT'.format(i.split('JNT')[0])) for i in hierFKJNT_]
+
+
+set_transform_()
+
+
+
+
+
+
+
+
