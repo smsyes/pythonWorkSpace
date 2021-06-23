@@ -172,13 +172,12 @@ def blendColors_(name_):
     return _node
     
 
-def space_(_name, type_, parent_):
-    space_ = createNode('transform', 
-                        n='{}_{}GRP'.format(_name, type_), 
+def space_(name_, parent_=None):
+    space_ = createNode('transform',
+                        n='{}_GRP'.format(name_),
                         p=parent_)
     return space_
-    
-    
+
 #
 # get, set
 #
@@ -239,7 +238,6 @@ def jointHier(object_):
     hierJNT_ = hierJNT_ + object_
     hierJNT_.reverse()
     return hierJNT_
-
 
 def object_at_joint(object_):
     JNTList = []
@@ -346,6 +344,17 @@ def cvs_at_param(_shape):
     cvs_pos = get_cvs(_shape)
     for i in cvs_pos:
         param = get_param_at_point(_shape, i)
+        param_list.append(param)
+    return param_list
+
+
+def pos_at_param(_shape, *args):
+    args = ls(args)
+    param_list = []
+    cvs_pos = get_cvs(_shape)
+    for i in args:
+        trans, rot = get_transform(i)
+        param = get_param_at_point(_shape, trans)
         param_list.append(param)
     return param_list
                     
@@ -497,6 +506,17 @@ def surf_param_space(object_, uNum, vNum):
             connect_attrs([_rotH, _DCM], 'rotateMatrix', 'inputMatrix')
             connect_attrs([_DCM, _space], 'or', 'r')
                 
+
+def param_at_objectPositions(object_):
+    _shape = object_[0].getShape()
+    _object = object_[1:]
+    params_ = pos_at_param(_shape, _object)
+    
+    for i,object in enumerate(_object):
+        POCI = po_crv_info(_shape)
+        setAttr('{}.parameter'.format(POCI), params_[i])
+        connect_attr(POCI, 'p', object, 't')
+
    
 def even_or_odd(num):
     if num%2 == 0:
@@ -989,16 +1009,15 @@ def mirror_connect(object_, type_=None):
 def local_matrix(object_):
     items, targets = divide_in_two(object_)
     for i,target in enumerate(targets):
-        _name_ = name_(target)  
-        localMat = items[i].getMatrix(worldSpace=True)
-        MTMX_ = multMatrix_(_name_)
-        DCMX_ = decompose_(_name_)  
+        _name = '{}_local'.format(name_(target))
+        MTMX_ = multMatrix_(_name)
+        DCMX_ = decompose_(_name)  
         connect_attrs(ls(items[i], MTMX_), 'wm', 'matrixIn[0]')
         connect_attrs(ls(target, MTMX_), 'pim', 'matrixIn[1]')
         connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
         connect_attrs(ls(DCMX_, target), 'ot', 't')
-        connect_attrs(ls(DCMX_, target), 'or', 'r')
-        connect_attrs(ls(DCMX_, target), 'os', 's')
+        # connect_attrs(ls(DCMX_, target), 'or', 'r')
+        # connect_attrs(ls(DCMX_, target), 'os', 's')
         
                    
 def connection_list(object_, attr):
@@ -1094,6 +1113,16 @@ def shapeChange(object_, type_):
         parent(itemShape, object_[i], r=1, s=1)
         delete(ctrl)
 
+
+def inverse_scale(object_):
+    items, targets = divide_in_two(object_)
+    for i,item in enumerate(items):
+        DCMXName = '{}_inverse'.format(item)
+        ivsDCMX = decompose_(DCMXName)
+        connect_attrs(ls(item, ivsDCMX), 'wim', 'inputMatrix')
+        connect_attrs(ls(ivsDCMX, targets[i]), 'os', 's')
+
+
         
 selObject = ls(sl=1, fl=1, r=1) 
 # curve_at_joint(selObject)
@@ -1174,30 +1203,14 @@ selObject = ls(sl=1, fl=1, r=1)
 # cntAttr = connection_list(selObject[0], 'tempJoints')
 # select(cntAttr)
 # message_(selObject, "tempJoints")
-# matrixConstraint(selObject, 't', 'r')
+# matrixConstraint(selObject, 't','r')
 # deleteAttrs(selObject, 'package')
-# dir(selObject[0])
 # offsetMTX(selObject, 'offsetA')
 # shapeChange(selObject, 'locate')
-
-
-# dir(selObject[0])
-
-
-
-hierJNT_ = jointHier(selObject)
-IKJNT_ = duplicate(selObject, rc=1)
-FKJNT_ = duplicate(selObject, rc=1)
-
-hierIKJNT_ = jointHier(IKJNT_)
-[rename(i, 'IK_{}JNT'.format(i.split('JNT')[0])) for i in hierIKJNT_]
-
-hierFKJNT_ = jointHier(FKJNT_)
-[rename(i, 'FK_{}JNT'.format(i.split('JNT')[0])) for i in hierFKJNT_]
-
-
-set_transform_()
-
+# inverse_scale(selObject)
+# local_matrix(selObject)
+# dir(selObject[0].getShape())
+# param_at_objectPositions(selObject)
 
 
 
