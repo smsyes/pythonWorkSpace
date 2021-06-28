@@ -42,13 +42,8 @@ def checkAttrExist(obj,attr,type,replace):
     newAttr = PyNode('{}.{}'.format(obj, attr))
     return (attrExist,newAttr)
     
-object_ = PyNode("arm_GRP")
-msg = "reBuildMode"
-cntAttrs = ["rebuildTrans", "rebuildRot"]
-
 
 def msg_check(object_, msg):
-    
     objects_ = []
     msgAttr_ = attributeQuery(msg, node=object_, msg=1)
     if msgAttr_ == True:
@@ -58,15 +53,31 @@ def msg_check(object_, msg):
             if pln == msg:
                 objects_.append(pAttr.node())
     return objects_
-        
-# cntAttr_ = object_.listConnections(attr)
 
-   
-   
-'''    
-attr_ = ["rebuildTrans", "rebuildRot"]
+def connect_(attrDict, objects_):
+    for object in objects_:
+        for i,attr in enumerate(cntAttrs.values()):
+            if object.hasAttr(attr):
+                itemAttr = '{}.{}'.format(object, attr)
+                targetAttr = '{}.{}'.format(object,cntAttrs.keys()[i])
+                connectAttr(itemAttr, targetAttr)
+                print "Connect {0} to {1}".format(itemAttr, targetAttr)
 
-if item.hasAttr(attr_):
-    connect_attrs(object_, output, input) 
-else:
-'''
+def dis_connect(attrDict, objects_):
+    for object in objects_:
+        for i,attr in enumerate(cntAttrs.values()):
+            if object.hasAttr(attr):
+                itemAttr = '{}.{}'.format(object, attr)
+                targetAttr = '{}.{}'.format(object,cntAttrs.keys()[i])
+                object.disconnectAttr(attr, targetAttr)
+                print "Disconnect {0} to {1}".format(itemAttr, targetAttr)
+
+    
+object_ = PyNode("arm_GRP")
+msg = "reBuildMode"
+objects_ = msg_check(object_, msg)
+cntAttrs = {'t':"rebuildTrans", 'r':"rebuildRot"}
+connect_(cntAttrs, objects_)
+# dis_connect(cntAttrs, objects_)
+
+
