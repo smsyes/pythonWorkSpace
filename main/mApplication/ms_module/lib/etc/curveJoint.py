@@ -234,8 +234,9 @@ def joint_(_name):
     return JNT
 
 def jointHier(object_):
-    hierJNT_ = object_[0].listRelatives(ad=1, c=1, typ='joint')
-    hierJNT_ = hierJNT_ + object_
+    object_ = PyNode(object_)
+    hierJNT_ = object_.listRelatives(ad=1, c=1, typ='joint')
+    hierJNT_ = hierJNT_ + [object_]
     hierJNT_.reverse()
     return hierJNT_
 
@@ -445,6 +446,20 @@ def decompose_connect(object_):
         '''
     return DCM_list
     
+
+def connect_pairBlend(items_, target_, PRBL_list, BLCL_list):
+    items, targets = divide_in_two(items_)
+    for i,item in enumerate(items):
+        connect_attrs([item, PRBL_list[i]], 't', 'it1')
+        connect_attrs([item, PRBL_list[i]], 'r', 'ir1')
+        connect_attrs([item, BLCL_list[i]], 's', 'c2')
+        connect_attrs([targets[i], PRBL_list[i]], 't', 'it2')
+        connect_attrs([targets[i], PRBL_list[i]], 'r', 'ir2')
+        connect_attrs([targets[i], BLCL_list[i]], 's', 'c1')
+        connect_attrs([PRBL_list[i], target_[i]], 'ot', 't')
+        connect_attrs([PRBL_list[i], target_[i]], 'or', 'r')
+        connect_attrs([BLCL_list[i], target_[i]], 'output', 's')
+
 
 def selected_find(object_, find):
     all_deg = object_[0].listRelatives(ad=1)
@@ -903,12 +918,11 @@ def random_color(object_):
         setAttr('{}.{}'.format(i,'overrideColor'), tmp)
         
 
-def connect_pairBlend(object_):
-    items, targets = divide_in_two(object_)
+def IK_FK_Blend(items_, target_):
     PRBL_list = []
     BLCL_list = []
-    for i,object in enumerate(items):
-        _name = name_(object).split('_')
+    for target in target_:
+        _name = name_(target).split('_')
         if 'IK' in _name:
             _name.remove('IK')
         elif 'FK' in _name:
@@ -918,12 +932,7 @@ def connect_pairBlend(object_):
         BLCL_ = blendColors_(_name)
         PRBL_list.append(PRBL_)
         BLCL_list.append(BLCL_)
-        connect_attrs([object, PRBL_], 't', 'it1')
-        connect_attrs([object, PRBL_], 'r', 'ir1')
-        connect_attrs([object, BLCL_], 's', 'c1')
-        connect_attrs([targets[i], PRBL_], 't', 'it2')
-        connect_attrs([targets[i], PRBL_], 'r', 'ir2')
-        connect_attrs([targets[i], BLCL_], 's', 'c2')
+    connect_pairBlend(items_, target_, PRBL_list, BLCL_list)
     return PRBL_list, BLCL_list
                 
 
@@ -1006,18 +1015,27 @@ def mirror_connect(object_, type_=None):
     return mirror_MULT_list    
     
     
-def local_matrix(object_):
+def local_matrix(object_, t=None, r=None, s=None):
     items, targets = divide_in_two(object_)
     for i,target in enumerate(targets):
+        if target.getParent():
+            parent_ = target.getParent()
+            atts_ = 'wim'
+        else:
+            parent_ = target
+            atts_ = 'pim'
         _name = '{}_local'.format(name_(target))
         MTMX_ = multMatrix_(_name)
         DCMX_ = decompose_(_name)  
         connect_attrs(ls(items[i], MTMX_), 'wm', 'matrixIn[0]')
-        connect_attrs(ls(target, MTMX_), 'pim', 'matrixIn[1]')
+        connect_attrs(ls(parent_, MTMX_), atts_, 'matrixIn[1]')
         connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
-        connect_attrs(ls(DCMX_, target), 'ot', 't')
-        # connect_attrs(ls(DCMX_, target), 'or', 'r')
-        # connect_attrs(ls(DCMX_, target), 'os', 's')
+        if t:
+            connect_attrs(ls(DCMX_, target), 'ot', t)
+        if r:
+            connect_attrs(ls(DCMX_, target), 'or', r)
+        if s:
+            connect_attrs(ls(DCMX_, target), 'os', s)
         
                    
 def connection_list(object_, attr):
@@ -1182,12 +1200,8 @@ selObject = ls(sl=1, fl=1, r=1)
 # add_space(selObject, 'spr')
 # alpha_number_pad(selObject, name_)
 # random_color(selObject)
-# PRBL_list, BLCL_list = connect_pairBlend(selObject)
-# list_ = ls(PRBL_list, selObject)
-# connect_attrs(list_, 'ot', 't')
-# connect_attrs(list_, 'or', 'r')
-# list_ = ls(BLCL_list, selObject)
-# connect_attrs(list_, 'output', 's')
+# jointABC_ = [jointHier(i) for i in selObject]
+# PRBL_list, BLCL_list = IK_FK_Blend(ls(jointABC_[0], jointABC_[1]), jointABC_[2])
 # globalScale_, output_ = curve_stretch_set(selObject)
 # one_to_n_connect(ls(selObject, globalScale_), 's', 'i1')
 # one_to_n_connect(selObject, 'outputR', 'sx')
@@ -1197,7 +1211,6 @@ selObject = ls(sl=1, fl=1, r=1)
 # suffix_(selObject, 'wrap')
 # mirror_connect(selObject, type_='t')
 # connect_attrs(selObject, 'os', 'c2')
-# local_matrix(selObject)
 # mtx_ = selObject[0].getMatrix(worldSpace=True)
 # addAttr(selObject[0], ln = 'offset2', at = 'matrix')
 # cntAttr = connection_list(selObject[0], 'tempJoints')
@@ -1208,7 +1221,7 @@ selObject = ls(sl=1, fl=1, r=1)
 # offsetMTX(selObject, 'offsetA')
 # shapeChange(selObject, 'locate')
 # inverse_scale(selObject)
-# local_matrix(selObject)
+# local_matrix(ls(FKCTLList, hierFKJNT_[:-1]), 't', 'jointOrient', 's')
 # dir(selObject[0].getShape())
 # param_at_objectPositions(selObject)
 
