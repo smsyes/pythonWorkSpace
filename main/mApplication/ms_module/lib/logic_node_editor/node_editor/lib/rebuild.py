@@ -28,8 +28,9 @@ def checkAttr(object_,attr):
         bool
     """
     attrExist = attributeQuery(attr, node=object_, exists=True)
-    print "attrExist is {}".format(attrExist)
+    # print "attrExist is {}".format(attrExist)
     return attrExist
+
 
 def checkConnection(item_attr, target_attr):
     """Return Check if properties are connected
@@ -41,8 +42,9 @@ def checkConnection(item_attr, target_attr):
         bool
     """
     connection = isConnected(item_attr,target_attr)
-    print "connection is {}".format(connection)
+    # print "connection is {}".format(connection)
     return connection
+
 
 def divide_in_two(object_):
     """Return list split in half
@@ -58,6 +60,7 @@ def divide_in_two(object_):
     targets = object_[divideNum:]
     return items, targets
 
+
 def attributes(object_, attr):
     """Return attributes
 
@@ -70,7 +73,8 @@ def attributes(object_, attr):
     attr_ = PyNode('{}.{}'.format(object_, attr))
     return attr_
 
-def attrDict(dict_, attrs):
+
+def attrDict(list_, attr_):
     """Return Checks whether the attribute exists in the object and 
               returns it in the form of a dictionary
 
@@ -80,14 +84,34 @@ def attrDict(dict_, attrs):
     Returns:
         dictionary : dict_[0] = item.attr list, dict_[1] = target.attr list
     """
-    dictAttr_ = {}
-    for dic in dict_.values():
-        for obj in dic:
-            for i,attr in enumerate(attrs.keys()):
-                value_ = attrs.values()[i]
-                if checkAttr(obj,attr) and checkAttr(obj,value_):
-                    dictAttr_[attributes(obj, attr)] = attributes(obj, value_)
-    return dictAttr_    
+    dict_ = {}
+    for key in attr_:
+        attrList = []
+        dict_[key] = attrList
+        for obj_ in list_:
+            if checkAttr(obj_,key):
+                obj_attr = attributes(obj_, key)
+                attrList.append(obj_attr)
+    return dict_
+
+
+def cntAttrDict(attr_):
+    """Returns the attributes associated with attributes as output.
+    
+    Arguments:
+        attr (dictionary): dict_[0] = attributes name, dict_[1] = item attributes
+    Returns:
+        dictionary : dict_[0] = attributes name, dict_[1] = attached attributes
+    """
+    dict_ = {}
+    for key in attr_.keys():
+        dict_[key] = []
+        for value in attr_[key]:
+            cntAttr_ = value.listConnections(p=1, scn=0)
+            if cntAttr_:
+                dict_[key].append(cntAttr_[0])
+    return dict_
+    
 
 def msg_check(object_, msg_):
     """Return objects connected by message attribute
@@ -108,34 +132,58 @@ def msg_check(object_, msg_):
                 list_.append(pAttr.node())
     return list_
 
-def rebuild_(dict_, type=None):
-    for key in dict_.keys():
-        if checkConnection(key, dict_[key]):
-            disconnectAttr(key, dict_[key])
-        if type == True:
-            connectAttr(key, dict_[key])
-            
 
+def rebuild_(itemDict, targetDict, type=None):
+    for key in itemDict.keys():
+        for i,item_ in enumerate(itemDict[key]):
+            target_ = targetDict[key][i]
+            if type == True:
+                connectAttr(item_, target_)
+                print "connectAttr", item_
+            elif type == False:
+                if checkConnection(item_, target_):
+                    disconnectAttr(item_, target_)
+                print "disconnectAttr", item_
+
+            
+def reset_attr(attr_, type_=None):
+    for attr in attr_:
+        str_ = attr.get()
+        node_ = attr.node()
+        if type_ == True:
+            node_.setAttr(str_, 0)
+        if type_ == False:
+            node_.setAttr(str_, 10)
+        print "string, node ==",str_, node_
+
+            
 object_ = PyNode("arm_GRP")
 fit_ = PyNode("L:fit_arm")
 
-msg_ = {0:"reBuildMode", 1:"input", 2:"init"}
+# message attributes name dictionary
+msg_ = {0:"reBuildMode", 1:"input", 2:"init", 3:"reBuildAttr"}
 
-selfAttr_ = {"rebuildTrans":'t', "rebuildRot":'r'}
-fitAttr_ = {'t':'t', 'r':'r'}
+# Attribute names to be associated with rebuild
+cntAttrDict_ = {'self':['rebuildTrans', 'rebuildRot'], 'fit':['t', 'r']}
 
+# Attribute name whose set value will be changed during rebuild
+resetAttr_ = ['resetAttr']
+
+# List of objects associated with message attributes
 self_ = msg_check(object_, msg_[0])
 input_ = msg_check(object_, msg_[1])
 init_ = msg_check(fit_, msg_[2])
+reset_ = msg_check(object_, msg_[3])
 
-selfDict = {0:self_, 1:self_}
-fitDict = {0:init_, 1:input_}
+# dictionary of rebuild attributes
+selfDict_ = attrDict(self_, cntAttrDict_['self'])
+selfInputDict_ = attrDict(self_, cntAttrDict_['fit'])
+inputDict_ = attrDict(input_, cntAttrDict_['fit'])
+initDict_ = attrDict(init_, cntAttrDict_['fit'])
+reSetDict_ = attrDict(reset_, resetAttr_)
 
-selfAttrDict_ = attrDict(selfDict, selfAttr_)
-fitAttrDict_ = attrDict(fitDict, fitAttr_)
+# Run build mode and rebuild mode
+# rebuild_(selfDict_, selfInputDict_, type=False)
+# rebuild_(inputDict_, initDict_, type=False)
+# reset_attr(reSetDict_.values()[0], type_=False)
 
-rebuild_(selfAttrDict_, type=False)
-    
-dir(selfAttrDict_[selfAttrDict_.keys()[5]])
-selfAttrDict_[selfAttrDict_.keys()[5]].plugAttr()
-# select(selfDict.values()[0])
