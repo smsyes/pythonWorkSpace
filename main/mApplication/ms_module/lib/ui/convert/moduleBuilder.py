@@ -57,11 +57,6 @@ class myUIClass(QWidget):
         self.fit_ = self.search(self.fitDir)
         self.set_ = self.search(self.setDir)
 
-        print self.fitDir
-        print self.setDir
-        print self.fit_
-        print self.set_
-
         self.ui.import_pushButton.clicked.connect(self.moduleType)
 
     def search(self, dirName):
@@ -74,7 +69,6 @@ class myUIClass(QWidget):
     
     def getCombo(self):
         get_ = self.ui.module_comboBox.currentText()
-        print get_
         return get_
 
     def moduleType(self):
@@ -84,7 +78,8 @@ class myUIClass(QWidget):
             dir_ = self.joinPath(self.fitDir, type_)
             self.importFile(dir_)
         else:            
-            print "doesn't exist yet :", type_
+            print "The {0} fit file does not exist in the path.".format(type_)
+            print "path : {0}".format(self.fitDir)
 
     
     def PrintTextEdit(self):
@@ -95,11 +90,11 @@ class myUIClass(QWidget):
     
     def importFile(self, dir_):
         type_ = self.PrintTextEdit()
-        print type_
         if type_:
             ref = createReference( dir_, reference=True, namespace=type_)
             refNode = referenceQuery(ref, referenceNode=True)
         else:
+            print "A prefix name is required."
             refNode = None
         return refNode
         

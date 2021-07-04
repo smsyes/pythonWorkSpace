@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>476</width>
-    <height>431</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,9 +36,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="preffix_lineEdit">
+    <widget class="QLabel" name="label_9">
      <property name="text">
-      <string>Preffix Name..</string>
+      <string># If a fit file exists in the prefix name and path, it will be imported.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="prefix_lineEdit">
+     <property name="text">
+      <string>Prefix Name..</string>
      </property>
     </widget>
    </item>
@@ -46,7 +53,7 @@
     <widget class="QComboBox" name="module_comboBox">
      <item>
       <property name="text">
-       <string>Spine</string>
+       <string>spine</string>
       </property>
      </item>
      <item>
@@ -183,6 +190,34 @@
    </item>
    <item>
     <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Module Parent</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string># Selection List [0] = Parents Joint / Selection List [1] = Child top Group</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="parent_pushButton">
+     <property name="text">
+      <string>Parent</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
