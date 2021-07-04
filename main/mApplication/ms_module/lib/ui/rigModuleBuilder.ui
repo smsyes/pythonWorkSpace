@@ -6,53 +6,157 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>609</height>
+    <width>442</width>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="11" column="0">
-    <widget class="QLineEdit" name="enum_lineEdit">
+   <item row="8" column="0" colspan="3">
+    <spacer name="horizontalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QLineEdit" name="preffix_lineEdit">
      <property name="text">
-      <string>Enum Name..</string>
+      <string>Preffix Name..</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="4">
+   <item row="10" column="0" colspan="3">
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="6" column="3">
-    <widget class="QPushButton" name="outputAdd_pushButton">
+   <item row="12" column="0" colspan="3">
+    <spacer name="horizontalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="13" column="0">
+    <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>Output Add</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;# Selection List [:-1] = Follower &lt;br/&gt;/ Selection List [-1] = Following&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="3">
-    <widget class="QPushButton" name="rebuild_pushButton">
+   <item row="9" column="0" colspan="2">
+    <widget class="QPushButton" name="Build_pushButton">
      <property name="text">
-      <string>ReBuild</string>
+      <string>Build</string>
      </property>
     </widget>
    </item>
-   <item row="12" column="0" colspan="4">
-    <widget class="Line" name="line_2">
+   <item row="5" column="2">
+    <widget class="QPushButton" name="import_pushButton">
+     <property name="text">
+      <string>Import</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="Line" name="line_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_2">
+   <item row="6" column="0" colspan="3">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="11" column="0">
+    <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Module Structure</string>
+      <string>Follow Setting</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="midLineWidth">
+      <number>0</number>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;# Selection List [0] = Base Fit top group &lt;br/&gt;/ Selection List [1] = Mirror Fit top group&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="0" colspan="2">
+    <widget class="QLineEdit" name="enum_lineEdit">
+     <property name="text">
+      <string>Enum Name..</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="19" column="0" colspan="3">
+    <widget class="QLabel" name="author">
+     <property name="text">
+      <string>AUTHOR : MINSUNG</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="18" column="0" colspan="3">
+    <widget class="QLabel" name="data">
+     <property name="font">
+      <font>
+       <family>굴림</family>
+      </font>
+     </property>
+     <property name="text">
+      <string>DATA : 20210625</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -69,55 +173,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="4">
-    <widget class="QTreeWidget" name="module_treeWidget">
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="dragEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="dragDropMode">
-      <enum>QAbstractItemView::InternalMove</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0" colspan="3">
-    <widget class="QLabel" name="label_4">
+   <item row="9" column="2">
+    <widget class="QPushButton" name="rebuild_pushButton">
      <property name="text">
-      <string># Selection List [:-1] = Follower / Selection List [-1] = Following</string>
+      <string>ReBuild</string>
      </property>
     </widget>
    </item>
-   <item row="9" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Follow Setting</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="4">
-    <widget class="QLineEdit" name="preffix_lineEdit">
-     <property name="text">
-      <string>Preffix Name..</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QPushButton" name="module_pushButton">
-     <property name="text">
-      <string>Import</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QPushButton" name="Build_pushButton">
-     <property name="text">
-      <string>Build</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="3">
+   <item row="5" column="0" colspan="2">
     <widget class="QComboBox" name="module_comboBox">
      <item>
       <property name="text">
@@ -171,51 +234,46 @@
      </item>
     </widget>
    </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string># Default output is one, and can be added after selection</string>
+   <item row="15" column="0" colspan="3">
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="11" column="3">
+   <item row="7" column="2">
+    <widget class="QPushButton" name="mirror_pushButton_2">
+     <property name="text">
+      <string>Break Connection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="1">
+    <widget class="QPushButton" name="mirror_pushButton">
+     <property name="text">
+      <string>Mirror</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="2">
     <widget class="QPushButton" name="followAdd_pushButton">
      <property name="text">
       <string>Add</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="4">
-    <widget class="Line" name="line_3">
+   <item row="17" column="0" colspan="3">
+    <spacer name="horizontalSpacer_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item row="13" column="0" colspan="4">
-    <widget class="QLabel" name="data">
-     <property name="font">
-      <font>
-       <family>굴림</family>
-      </font>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
      </property>
-     <property name="text">
-      <string>DATA : 20210625</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="0" colspan="4">
-    <widget class="QLabel" name="author">
-     <property name="text">
-      <string>AUTHOR : MINSUNG</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>
