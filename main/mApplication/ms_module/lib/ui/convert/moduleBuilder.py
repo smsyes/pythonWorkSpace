@@ -17,7 +17,6 @@ tool_.run()
 # when start coding 3 empty lines.
 #
 import maya.OpenMayaUI as omui
-import maya.OpenMaya as om
 from pymel import util
 from pymel.core import datatypes, nodetypes
 from pymel.core import *

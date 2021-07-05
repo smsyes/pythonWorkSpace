@@ -19,20 +19,6 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
-from __future__ import division
-
-def rename_(*args):
-    names_ = [name for name in args[:-1]]
-    list_ = args[-1]
-    joinName = [] 
-    for i,object_ in enumerate(list_):
-        if names_[0] : joinName.append(names_[0])
-        if names_[1] : joinName.append(names_[1])
-        joinName.append(num_padding_(i+1))
-        if names_[2] : joinName.append(names_[2])
-        name_ = '_'.join(joinName)
-        rename(object_, name_)
-        joinName=[]
 
 def jointHier(object_):
     object_ = PyNode(object_)
@@ -74,13 +60,9 @@ def joint_orient(jointChain):
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
 
-prefix_ = ""
-name_ = "FK"
-suffix_ = "JNT"
 
 selObject = ls(sl=1, fl=1, r=1)
 jointChain = jointHier(selObject[0])
-rename_(prefix_, name_, suffix_, jointChain)
 joint_orient(jointChain)
 
 
