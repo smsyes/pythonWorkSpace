@@ -416,11 +416,10 @@ def FK_control(object_, name_):
     return FKCTLList, FKOffList
 
 def chain_structure(object_):
-    childList = object_[1:]
-    parentList = object_[:-1]
-    
+    parentList = object_[1:]
+    childList = object_[:-1]
     for i,object in enumerate(childList):
-        parent_ = parentList[i].listRelatives(ad=1, c=1, typ='transform')[0]
+        parent_ = childList[i].listRelatives(ad=1, c=1, typ='transform')[0]
         parent(object, parent_)
 
 def IK_Axis(IKCTLs, offList, spaceList, upVecList, up=None):
