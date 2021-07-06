@@ -19,7 +19,18 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
+import string
+import sys
+import os
 
+module_path = 'E:\script\main\mApplication\ms_module\lib\dict_lib'
+if not module_path in sys.path:
+    sys.path.append(module_path)
+    
+import _shape_dic
+reload(_shape_dic)
+
+# joint drive
 def jointHier(object_):
     object_ = PyNode(object_)
     hierJNT_ = object_.listRelatives(ad=1, c=1, typ='joint')
@@ -72,6 +83,8 @@ def joint_insert(joint_, pos_):
         _joint(JNT, e=True, co=True, p=pos_)
         return PyNode(JNT)
 
+
+
 def get_trans(object_):
     return object_.getMatrix(worldSpace=True)[-1][:-1]
     
@@ -91,6 +104,8 @@ def space_(name_, parent_=None):
 def add_joint(jointChain, num):
     stJoint = jointChain[0]
     enJoint = jointChain[-1]
+    stTrans_= get_trans(stJoint)
+    enTrans_= get_trans(enJoint)
     length_ = length(stTrans_, enTrans_)
     divValue = length_/(num+1)
     
@@ -110,8 +125,29 @@ def linear_spacing_joint(num):
         joint_orient(jointChain)
         add_joint(jointChain, num)
 
+def duplicate_joint(object_): # base joint duplicate IK, FK joint
+    IKJNT_ = duplicate(object_, rc=1)
+    hierIKJNT_ = jointHier(IKJNT_)
+    [rename(i, 'IK_{}JNT'.format(i.split('JNT')[0])) for i in hierIKJNT_]
+    return hierIKJNT_
 
-linear_spacing_joint(3)
+def FK_control(object_, name_):
+    FKList = object_[:-1]
+    FKCTLList = []
+    FKOffList = []
+    for i,JNT in enumerate(FKList):
+        pad_ = padding_('num', i)
+        _name = 'FK_{}_{}'.format(name_, pad_)
+        FKCTL_ = crvShape_(_name, 'circle')
+        FKCTL_ = PyNode(FKCTL_)
+        set_transform_(ls(JNT, FKCTL_))
+        FKCTLOffset = offset_(FKCTL_, num_=2)
+        FKCTLList.append(FKCTL_)
+        FKOffList.append(FKCTLOffset)
+    return FKCTLList, FKOffList
+        
+sel = ls(sl=1, r=1, fl=1)
+# linear_spacing_joint(3)
 
 
 

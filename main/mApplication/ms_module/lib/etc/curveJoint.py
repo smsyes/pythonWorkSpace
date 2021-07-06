@@ -183,8 +183,8 @@ def space_(name_, parent_=None):
 #
 def get_transform(object_):
     _name = name_(object_)
-    trans = cmds.xform(_name, q=1, ws=1, rp=1 )
-    rot = cmds.xform(_name, q=1, ws=1, ro=1 )
+    trans = xform(_name, q=1, ws=1, rp=1 )
+    rot = xform(_name, q=1, ws=1, ro=1 )
     return trans, rot
 
 
@@ -212,7 +212,7 @@ def set_rot_xform_axis(object_, axis=None):
 def connect_param_of_point(_shape):
     connectionList = listConnections('{}.ws'.format(_shape))
     if '{}_POCI'.format(_shape) in connectionList:
-        print 'aready Connections InCurve'
+        pass
     else:
         infoNode = po_crv_info(_shape)
 
@@ -488,7 +488,6 @@ def shape_name_match(object_):
         _shape = shape_(name)
         shape_name = '{}Shape'.format(name)
         if _shape != shape_name:
-            print 'rename {} -> {}'.format(_shape, shape_name)
             rename(_shape, shape_name)
                             
 
@@ -622,7 +621,6 @@ def curve_param_at_pos(object_, div=None):
             i = i*div
         trans = get_point_at_param(_shape, i)
         posList.append(trans)
-    print posList
     return posList
 
 
@@ -649,6 +647,32 @@ def select_constraint(object_):
     return pointConst, orientConst, parentConst_, scaleConst_
 
 
+def blendshape_attrList(object_):
+    bs_ = object_.listHistory(type='blendShape')[0]
+    indexList = bs_.weightIndexList()
+    indexattrs = []
+    for index in indexList:
+        attrName_ = aliasAttr('{0}.weight[{1}]'.format(bs_,index), query = True)
+        indexattrs.append(PyNode('{}.{}'.format(bs_, attrName_)))
+    return indexattrs
+
+
+def connection_list(attrList):
+    plugList = []
+    for i in attrList:
+        plugAttr = i.listConnections(p=1, d=0, s=1)[0]
+        plugList.append(plugAttr)
+    return plugList
+
+def blendshape_reconnection(object_):
+    items, targets = divide_in_two(selObject)
+    for i,item in enumerate(items):
+        item_bsAttrList = blendshape_attrList(item)
+        plugList = connection_list(item_bsAttrList)
+        target_bsAttrList = blendshape_attrList(targets[i])
+        for i,plug in enumerate(plugList):
+            connectAttr(plug, target_bsAttrList[i])
+
 def blendshape_target_list(blendshape_):
     index_list = [0] + blendshape_.weightIndexList()
     base_object = blendshape_.getBaseObjects()[0]
@@ -657,9 +681,8 @@ def blendshape_target_list(blendshape_):
     for index in index_list:
         attr = aliasAttr( '{0}.weight[{1}]'.format( blendshape_, index ), query = True )
         if attr == '':
-            print 'empty'
+            pass
         else:
-            print attr
             attr_full_name = '{}.{}'.format(blendshape_, attr)
             setAttr(attr_full_name, 1)
             dupl_object = duplicate(base_object)
@@ -754,7 +777,7 @@ def set_rot(object_):
 def crvShape_(object_, type_):
     shape_dic = _shape_dic.load_dic(type_)
     _name = object_.name()
-    crv_ = cmds.curve(n = _name, d = shape_dic[0], 
+    crv_ = curve(n = _name, d = shape_dic[0], 
                       p = shape_dic[1], k = shape_dic[2])
     return crv_
     
@@ -959,7 +982,6 @@ def curve_stretch_set(object_):
         MULT_list.append(MULT_)
         BLCL_list.append(BLCL_)
         select(cl=1)
-    print 'GlobalScale Node List {}, Output List {}'.format(MULT_list, BLCL_list)
     return MULT_list, BLCL_list
     
 
@@ -991,7 +1013,6 @@ def suffix_(object_, suffixName):
         _name = name_(target)
         rename_ = '{}_{}'.format(_name, suffixName)
         rename(items[i], rename_)
-        print rename_
         
                 
 def mirror_connect(object_, type_=None):
@@ -1041,7 +1062,6 @@ def local_matrix(object_, t=None, r=None, s=None):
 def connection_list(object_, attr):
     attr_ = PyNode('{}.{}'.format(str(object_), attr))
     cntAttr = listConnections(attr_, d=0, s=1)
-    print cntAttr
     return cntAttr
 
 
@@ -1059,9 +1079,7 @@ def message_(object_, attr_):
         addAttr(object,ln=attr_,at='message',m=True,im=False)
         objectAttr = PyNode('{}.{}'.format(object, attr_))
         connectAttr(objectAttr,itemAttr,na=True)
-      
-    print 'Multi Connection',listConnections(itemAttr)
-      
+            
 
 def checkAttrExist(obj,attr,type,replace):
     attrExist = attributeQuery(attr, node=obj, exists=True)
@@ -1224,6 +1242,7 @@ selObject = ls(sl=1, fl=1, r=1)
 # local_matrix(ls(FKCTLList, hierFKJNT_[:-1]), 't', 'jointOrient', 's')
 # dir(selObject[0].getShape())
 # param_at_objectPositions(selObject)
+# blendshape_reconnection(selObject)
 
 
 
