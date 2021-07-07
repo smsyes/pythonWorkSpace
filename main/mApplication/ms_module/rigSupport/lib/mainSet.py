@@ -268,7 +268,12 @@ def IK_FK_Blend(items_, target_):
 def main_structure(name_):
     GRPDict = OrderedDict()
     GRPDict['main'] = space_('{}_{}_'.format('main',name_))
-    addAttr(GRPDict['main'], ln="FK_IK", nn="FK / IK", at="enum", en="IK:FK:", k=1)
+    addAttr(GRPDict['main'], 
+            ln="FK_IK", 
+            nn="FK / IK", 
+            at="enum", 
+            en="IK:FK:", 
+            k=1)
     GRPDict['CTL'] = space_('CTL_', parent_=GRPDict['main'])
     GRPDict['FK_CTL'] = space_('FK_CTL_', parent_=GRPDict['CTL'])
     GRPDict['IK_CTL'] = space_('IK_CTL_', parent_=GRPDict['CTL'])
@@ -276,16 +281,16 @@ def main_structure(name_):
     return GRPDict
 
 
-
-num = 3
 base_name = 'cape'       
 sel = ls(sl=1, r=1, fl=1)
 
 mainGRPs = main_structure(base_name)
 
 ordict_ = OrderedDict()
-prefixList = ['main', 'main_FK', 'main_IK', 'main_FK', 'main_IK', 'FK_IK', 'FK_IK', 'FK_IK']
-suffixList = ['JNT', 'JNT', 'JNT', 'CTL', 'CTL', 'PRBL', 'BLCL', 'RVS']
+prefixList = ['main', 'main_FK', 'main_IK', 'main_FK', 
+              'main_IK', 'FK_IK', 'FK_IK', 'FK_IK']
+suffixList = ['JNT', 'JNT', 'JNT', 'CTL', 
+              'CTL', 'PRBL', 'BLCL', 'RVS']
 
 ordict_['baseJNTs'] = duplicate_joint(sel[0])        
 ordict_['FKJNTs'] = duplicate_joint(sel[0])     
@@ -312,9 +317,15 @@ local_matrix(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), t='t', s='s')
 # IK Setting
 IKCTLoffset = [offset_(i, num_=2) for i in ordict_['IKCTLs']]
 local_matrix(ls(ordict_['IKCTLs'], ordict_['IKJNTs']), t='t', r='r', s='s')
-IKConstList = {0:[ordict_['IKCTLs'][0],ordict_['IKCTLs'][-1],ordict_['IKCTLs'][2].getParent(2)],
-               1:[ordict_['IKCTLs'][0],ordict_['IKCTLs'][2],ordict_['IKCTLs'][1].getParent(2)],
-               2:[ordict_['IKCTLs'][-1],ordict_['IKCTLs'][2],ordict_['IKCTLs'][3].getParent(2)]}
+IKConstList = {0:[ordict_['IKCTLs'][0],
+                  ordict_['IKCTLs'][-1],
+                  ordict_['IKCTLs'][2].getParent(2)],
+               1:[ordict_['IKCTLs'][0],
+                  ordict_['IKCTLs'][2],
+                  ordict_['IKCTLs'][1].getParent(2)],
+               2:[ordict_['IKCTLs'][-1],
+                  ordict_['IKCTLs'][2],
+                  ordict_['IKCTLs'][3].getParent(2)]}
 IKConsts = [n_to_one_constrain(i,'parent',mo_=1) for i in IKConstList.values()]
 [i[0].setAttr('interpType', 2) for i in IKConsts]
 

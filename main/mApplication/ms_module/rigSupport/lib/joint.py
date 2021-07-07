@@ -75,6 +75,13 @@ def joint_insert(joint_, pos_):
         _joint(JNT, e=True, co=True, p=pos_)
         return PyNode(JNT)
 
+def divide_in_two(object_):
+    object_ = ls(object_)
+    divideNum = len(object_)/2
+    items = object_[:divideNum]
+    targets = object_[divideNum:]
+    return items, targets
+
 def get_transform(object_):
     _name = object_.name()
     trans = xform(_name, q=1, ws=1, rp=1 )
@@ -165,7 +172,7 @@ def linear_spacing_joint(num):
 num = 3
 base_name = 'cape'       
 sel = ls(sl=1, r=1, fl=1)
-linear_spacing_joint(3)
+linear_spacing_joint(num)
 
 
 

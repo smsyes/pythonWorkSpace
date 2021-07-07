@@ -38,6 +38,12 @@ def hierarchy_(object_, type_=None):
     hier_.reverse()
     return hier_
 
+def joint_orient(jointChain):
+    for joint_ in jointChain:
+        _joint(joint_, e=True, oj='xzy', sao='zup', zso=True)
+        if joint_ == jointChain[-1]:
+            joint_.attr('jo').set(0,0,0) 
+
 def checkAttrExist(obj,attr,type,replace):
     attrExist = attributeQuery(attr, node=obj, exists=True)
     newAttr = ''
@@ -51,6 +57,9 @@ def checkAttrExist(obj,attr,type,replace):
              
     newAttr = PyNode('{}.{}'.format(obj, attr))
     return (attrExist,newAttr)  
+
+def get_cvs(_shape):
+    return _shape.getCVs(space='world')
 
 def shape_name_match(curve_):
     shape_ = curve_.getShape()
@@ -161,6 +170,7 @@ def duplicate_joint(object_):
 
 def make_name(object_, 
               name_):
+    object_ = ls(object_)
     if object_:
         for i,obj in enumerate(object_):
             pad_ = padding(i+1)
@@ -170,6 +180,7 @@ def make_name(object_,
 def append_name(object_, 
                 name_, 
                 mode=None):
+    object_ = ls(object_)
     if object_:
         for obj in object_:
             if mode ==0:
@@ -186,22 +197,25 @@ def crvShape_(type_):
     shape_name_match(crv_)
     return crv_
 
-def control_(object_):
+def control_(object_, type_):
+    object_ = ls(object_)
     CTLList = []
     for i,obj in enumerate(object_):
-        CTL_ = crvShape_('circle')
+        CTL_ = crvShape_(type_)
         CTL_ = PyNode(CTL_)
         set_transform_(ls(obj, CTL_))
         CTLList.append(CTL_)
     return CTLList
 
 def chain_structure(object_):
+    object_ = ls(object_)
     childList = object_[1:]
     parentList = object_[:-1]
     for i,object in enumerate(childList):
         parent(object, parentList[i])
 
 def divide_in_two(object_):
+    object_ = ls(object_)
     divideNum = len(object_)/2
     items = object_[:divideNum]
     targets = object_[divideNum:]
@@ -213,12 +227,14 @@ def connect_attr(*args):
 
 def connect_attrs(object_, 
                   output, input):
+    object_ = ls(object_)
     items, targets = divide_in_two(object_)
     for i, item in enumerate(items):
         connect_attr(item, output, targets[i], input)
 
 def one_to_n_connect(object_, 
                      output, input):
+    object_ = ls(object_)
     item = object_[0]
     target = object_[1:]
     for i, object in enumerate(target):
@@ -239,6 +255,7 @@ def constraint_(*args, **kwargs):
 def constraints_(object_, 
                  type_, 
                  mo_):
+    object_ = ls(object_)
     items, targets = divide_in_two(object_)
     consts_ = []
     for i, item in enumerate(items):
@@ -249,6 +266,7 @@ def constraints_(object_,
 def one_to_n_constrain(object_, 
                        type_, 
                        mo_):
+    object_ = ls(object_)
     item = object_[0]
     target = object_[1:]
     consts_ = [constraint_(item, i, type=type_, mo=mo_) for i in target]
@@ -258,6 +276,7 @@ def one_to_n_constrain(object_,
 def n_to_one_constrain(object_, 
                        type_, 
                        mo_):
+    object_ = ls(object_)
     item = object_[:-1]
     target = object_[-1]
     consts_ = [constraint_(i, target, type=type_, mo=mo_) for i in item]
@@ -274,6 +293,7 @@ def pos_at_param(_shape, *args): # get current object Position at parameter
         
 # current object Position >> curve Parameter >> object Position
 def param_at_objectPositions(object_):
+    object_ = ls(object_)
     _shape = object_[0].getShape()
     _object = object_[1:]
     params_ = pos_at_param(_shape, _object)
@@ -286,6 +306,7 @@ def param_at_objectPositions(object_):
 
 def local_matrix(object_, 
                  t=None, r=None, s=None):
+    object_ = ls(object_)
     items, targets = divide_in_two(object_)
     for i,target in enumerate(targets):
         if target.getParent():
@@ -309,6 +330,7 @@ def local_matrix(object_,
 
 def matrixConstraint(object_, 
                      t=None, r=None, s=None):
+    object_ = ls(object_)
     item, target = object_[0],object_[1]
     _name = '{}2{}'.format(item.name(), target.name())
 
@@ -355,7 +377,11 @@ def po_crv_info(_shape):
     connect_attr(_shape, 'ws', _node, 'ic')
     return _node
 
+def joint_(_name):
+    return joint(n='{}_JNT'.format(_name))
+
 def object_cv_curve(object_, dgree_=None):
+    object_ = ls(object_)
     if not dgree_:
         dgree_ = 1
     trans_list = []
@@ -376,7 +402,8 @@ def rebuild_curve(curve_,
                   kt=None,
                   s=None,
                   d=None,
-                  tol=None):
+                  tol=None
+                  ):
     data={}
     if ch is not None:
         data["constructionHistory"] = ch
@@ -409,7 +436,8 @@ def ikHandle_(n=None,
               sol=None,
               ccv=None,
               scv=None,
-              pcv=None):
+              pcv=None
+              ):
     data={}
     if n is not None:
         data["name"] = n
@@ -428,6 +456,40 @@ def ikHandle_(n=None,
     if pcv is not None:
         data["parentCurve"] = pcv
     ikHandle(**data)
+
+def _joint(joint_,
+           e=None,
+           q=None,
+           ex=None,
+           oj=None,
+           o=None,
+           sao=None,
+           zso=None,
+           p=None,
+           co=None
+           ):
+    
+    data = {}
+
+    if e is not None:
+        data["e"] = e
+    if q is not None:
+        data["q"] = q
+    if ex is not None:
+        data["exists"] = ex
+    if oj is not None:
+        data["orientJoint"] = oj
+    if o is not None:
+        data["orientation"] = o
+    if sao is not None:
+        data["secondaryAxisOrient"] = sao
+    if zso is not None:
+        data["zeroScaleOrient"] = zso
+    if p is not None:
+        data["position"] = p
+    if co is not None:
+        data["component"] = co
+    joint(joint_, **data)
     
 def IK_Axis(IK_CTL, IK_LOC_off, IK_LOC, upVec_LOC, up=None):
     if up:
@@ -456,67 +518,58 @@ def IK_Axis(IK_CTL, IK_LOC_off, IK_LOC, upVec_LOC, up=None):
                       aimVector=(-1,0,0), upVector=up_, 
                       worldUpType='object', worldUpObject=aimUpVec)
 
-def main_structure(name_):
+def curve_at_joint(object_):
+    _shape = object_.getShape()
+    cvs = get_cvs(_shape)
+    JNTList = []
+
+    for j,pos in enumerate(cvs):
+        select(cl=1)
+        JNT = joint()
+        set_trans_xform(JNT, pos)
+        JNTList.append(JNT)
+
+        if j == 0:
+            stJNT = JNT
+        if pos == cvs[-1]:
+            enJNT = JNT
+        if j > 0:
+            JNT.setParent(JNTList[j-1])
+    return JNTList
+
+
+def hybrid_structure(name_):
     GRPDict = OrderedDict()
-    GRPDict['main'] = space_('{}_{}_'.format('main',name_))
-    addAttr(GRPDict['main'], ln="FK_IK", nn="FK / IK", at="enum", en="IK:FK:", k=1)
-    GRPDict['CTL'] = space_('CTL_', parent_=GRPDict['main'])
+    GRPDict['hybrid'] = space_('{}_{}_'.format('hybrid',name_))
+    GRPDict['CTL'] = space_('CTL_', parent_=GRPDict['hybrid'])
     GRPDict['FK_CTL'] = space_('FK_CTL_', parent_=GRPDict['CTL'])
     GRPDict['IK_CTL'] = space_('IK_CTL_', parent_=GRPDict['CTL'])
-    GRPDict['JNT'] = space_('JNT_', parent_=GRPDict['main'])
+    GRPDict['JNT'] = space_('JNT_', parent_=GRPDict['hybrid'])
+    GRPDict['bind_JNT'] = space_('bind_JNT_', parent_=GRPDict['JNT'])
+    GRPDict['CRV'] = space_('CRV_', parent_=GRPDict['hybrid'])
+    GRPDict['motion'] = space_('motion_', parent_=GRPDict['hybrid'])
+    GRPDict['IK_motion'] = space_('IK_motion_', parent_=GRPDict['motion'])
+    GRPDict['IK_space'] = space_('IK_space_', parent_=GRPDict['IK_motion'])
+    GRPDict['IK_upVec'] = space_('IK_upVec_', parent_=GRPDict['IK_motion'])
     return GRPDict
+
 
 base_name = 'cape'       
 sel = ls(sl=1, r=1, fl=1)
 
-# mainGRPs = main_structure(base_name)
+hybridGRPs = hybrid_structure(base_name)
 
 ordict_ = OrderedDict()
-prefixList = ['FK', 'IK', 'FK', 'IK', 'IK_space', 'IK', 'IK_upVec']
-suffixList = ['JNT', 'JNT', 'CTL', 'CRV', 'LOC', 'CTL', 'LOC']
+prefixList = ['FK', 'IK', 'FK', 'IK', 'IK_space', 
+              'IK_upVec', 'IK_bind', 'IK', 'IK_upVec']
+suffixList = ['JNT', 'JNT', 'CTL', 'CRV', 'LOC', 
+              'LOC', 'JNT', 'CTL', 'CRV']
 
 ordict_['FKJNTs'] = duplicate_joint(sel[0])
 ordict_['IKJNTs'] = duplicate_joint(sel[0])
-ordict_['FKCTLs'] = control_(ordict_['FKJNTs'])
-
+ordict_['FKCTLs'] = control_(ordict_['FKJNTs'], 'cube')
+chain_structure(ordict_['FKCTLs'])
 ordict_['IKCRV'] = [object_cv_curve(ordict_['IKJNTs'], dgree_=1)]
-ordict_['IKLOC'] = [locator_(JNT) for JNT in ordict_['IKJNTs']]
-ordict_['IKCTLs'] = control_(ordict_['IKLOC'])
-
-ordict_['IKupVec'] = [locator_(JNT) for JNT in ordict_['IKJNTs']]
-
-for i,value in enumerate(ordict_.values()):
-    renamer(value,
-            name_=base_name, 
-            prefix_=prefixList[i], 
-            suffix_=suffixList[i])
-
-# FK Setting
-FK_off_space = [offset_(i, num_=2) for i in ordict_['FKCTLs']]
-FK_cnt_space = [insert_space(CTL, 'cnt') for CTL in ordict_['FKCTLs']]
-FK_spc_space = [CTL.getParent(2) for CTL in ordict_['FKCTLs']]
-connect_attrs(ls(ordict_['FKCTLs'], 
-                 ordict_['FKJNTs']), 
-                 'r', 'r')
-local_matrix(ls(ordict_['FKCTLs'], 
-                ordict_['FKJNTs']), 
-                t='t', s='s')
-
-connect_attrs(ls(ordict_['IKJNTs'][1:], 
-                 FK_spc_space[1:]), 
-                 'r', 'r')
-local_matrix(ls(ordict_['IKJNTs'][0], 
-                ordict_['FKCTLs'][0].getParent(3)), 
-                t='t',r='r',s='s')
-
-[matrixConstraint(ls(CTL, 
-                  FK_off_space[1:][i]), 
-                  t='t', r='r') for i,
-                  CTL in enumerate(ordict_['FKCTLs'][:-1])]
-
-
-# IK Setting
-IK_off_space = [offset_(i, num_=2) for i in ordict_['IKCTLs']]
 rebuild_curve(ordict_['IKCRV'],
               ch=1,
               rpo=1,
@@ -528,27 +581,94 @@ rebuild_curve(ordict_['IKCRV'],
               kt=0,
               s=2,
               d=3,
-              tol=0.01)
-IK_locOffs = [offset_(LOC, num_=2) for LOC in ordict_['IKLOC']]
+              tol=0.01
+              )
+ordict_['IKLOC'] = [locator_(JNT) for JNT in ordict_['IKJNTs']]
+ordict_['IKupVec'] = [locator_(JNT) for JNT in ordict_['IKJNTs']]
+IKGuideCRV = [object_cv_curve(ordict_['IKupVec'], dgree_=1)]
+rebuild_curve(IKGuideCRV,
+              ch=1,
+              rpo=1,
+              rt=0,
+              end=1,
+              kr=0,
+              kcp=0,
+              kep=1,
+              kt=0,
+              s=2,
+              d=1,
+              tol=0.01
+              )
+ordict_['IKBindJNT'] = curve_at_joint(IKGuideCRV[0])
+joint_orient(ordict_['IKBindJNT'])
+[parent(JNT, w=1) for JNT in ordict_['IKBindJNT']]
+ordict_['IKCTLs'] = control_(ordict_['IKBindJNT'], 'circle')
 [LOC.setAttr('tz', 3) for LOC in ordict_['IKupVec']]
-upVec_locOffs = [offset_(LOC, num_=2) for LOC in ordict_['IKupVec']]
-IKupVecCRV = [object_cv_curve(ordict_['IKupVec'], dgree_=1)]
-renamer(IKupVecCRV,
-        name_=base_name, 
-        prefix_='IK_upVec', 
-        suffix_='CRV')
-param_at_objectPositions(ls(ordict_['IKCRV'], IK_locOffs))
-param_at_objectPositions(ls(IKupVecCRV, upVec_locOffs))
-IK_Axis(ordict_['IKCTLs'], IK_locOffs, ordict_['IKLOC'], ordict_['IKupVec'])
-local_matrix(ls(ordict_['IKLOC'], ordict_['IKJNTs']), 't', 'jointOrient', 's')
+delete(IKGuideCRV)
+ordict_['IKupVecCRV'] = [object_cv_curve(ordict_['IKupVec'], dgree_=1)]
+rebuild_curve(ordict_['IKupVecCRV'],
+              ch=1,
+              rpo=1,
+              rt=0,
+              end=1,
+              kr=2,
+              kcp=0,
+              kep=1,
+              kt=0,
+              s=2,
+              d=3,
+              tol=0.01
+              )
 
-'''
-[parent(JNTs_[0], mainGRPs['JNT']) for JNTs_ in ordict_.values()[:3]]
-parent(ordict_['FKCTLs'][0].getParent(2), mainGRPs['FK_CTL'])
-[parent(CTLs_.getParent(2), mainGRPs['IK_CTL']) for CTLs_ in ordict_['IKCTLs']]
-'''
+for i,value in enumerate(ordict_.values()):
+    renamer(value,
+            name_=base_name, 
+            prefix_=prefixList[i], 
+            suffix_=suffixList[i]
+            )
+
+# FK Setting
+FK_off_space = [offset_(i, num_=2) for i in ordict_['FKCTLs']]
+FK_cnt_space = [insert_space(CTL, 'cnt') for CTL in ordict_['FKCTLs']]
+FK_spc_space = [CTL.getParent(2) for CTL in ordict_['FKCTLs']]
+connect_attrs(ls(ordict_['FKCTLs'], 
+                 ordict_['FKJNTs']), 
+                 'r', 'r')
+local_matrix(ls(ordict_['FKCTLs'], 
+                ordict_['FKJNTs']), 
+                t='t', s='s'
+                )
+connect_attrs(ls(ordict_['IKJNTs'], 
+                 FK_off_space), 
+                 't', 't'
+                 )
+connect_attrs(ls(ordict_['IKJNTs'], 
+                 FK_off_space), 
+                 'r', 'r'
+                 )
+
+# IK Setting
+IK_off_space = [offset_(CTL, num_=2) for CTL in ordict_['IKCTLs']]
+IK_loc_offset = [offset_(LOC, num_=2) for LOC in ordict_['IKLOC']]
+upVec_offset = [offset_(LOC, num_=2) for LOC in ordict_['IKupVec']]
+IK_bind_offset = [offset_(LOC, num_=2) for LOC in ordict_['IKBindJNT']]
+param_at_objectPositions(ls(ordict_['IKCRV'], IK_loc_offset))
+param_at_objectPositions(ls(ordict_['IKupVecCRV'], upVec_offset))
+IK_Axis(ordict_['IKCTLs'], IK_loc_offset, ordict_['IKLOC'], ordict_['IKupVec'])
+local_matrix(ls(ordict_['IKLOC'], ordict_['IKJNTs']), 't', 'r', 's')
+[JNT.setAttr('jointOrient', (0,0,0)) for JNT in ordict_['IKJNTs']]
+local_matrix(ls(ordict_['IKCTLs'], IK_bind_offset), 't', 'r', 's')
 
 
+JNTs = ls(ordict_['FKJNTs'][0], ordict_['IKJNTs'][0])
+CRVs = ls(ordict_['IKCRV'], ordict_['IKupVecCRV'])
+[parent(JNT, hybridGRPs['bind_JNT']) for JNT in IK_bind_offset]
+[parent(JNT, hybridGRPs['JNT']) for JNT in JNTs]
+[parent(CRV, hybridGRPs['CRV']) for CRV in CRVs]
+parent(FK_off_space[0], hybridGRPs['FK_CTL'])
+[parent(CTL, hybridGRPs['IK_CTL']) for CTL in IK_off_space]
+[parent(LOC, hybridGRPs['IK_space']) for LOC in IK_loc_offset]
+[parent(LOC, hybridGRPs['IK_upVec']) for LOC in upVec_offset]
 
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>647</height>
+    <width>515</width>
+    <height>713</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="rename_tap">
       <attribute name="title">
@@ -203,6 +203,23 @@
         </widget>
        </item>
        <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="text">
+          <string> Base Name entering..</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_15">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
@@ -235,6 +252,9 @@
            <property name="text">
             <string>Spacing Number : </string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
           </widget>
          </item>
          <item>
@@ -242,6 +262,84 @@
            <property name="value">
             <number>3</number>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>orientJoint : </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="oj_comboBox">
+           <item>
+            <property name="text">
+             <string>xzy</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>yxz</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>zyx</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>xyz</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>yzx</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>zxy</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="sao_comboBox">
+           <item>
+            <property name="text">
+             <string>zup</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>yup</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>xup</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>zdown</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ydown</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>xdown</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>
@@ -309,7 +407,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Surface Parameter Get Position Joint</string>
+          <string>Surface Parameter Space</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -327,9 +425,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="surfParamJoint_pushButton">
+        <widget class="QPushButton" name="paramSpace_pushButton">
          <property name="text">
-          <string>Get Joint</string>
+          <string>Get Space</string>
          </property>
         </widget>
        </item>
@@ -405,6 +503,24 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QPushButton" name="objCV_pushButton">
+           <property name="text">
+            <string>Object CV Curve</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="crvNull_pushButton">
+           <property name="text">
+            <string>Curve At Null</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QPushButton" name="attach_pushButton">
