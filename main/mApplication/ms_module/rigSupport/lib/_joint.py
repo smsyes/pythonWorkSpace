@@ -121,7 +121,7 @@ def linear_spacing_joint(num):
 
 
 def duplicate_joint(object_):
-    dupJNT_ = duplicate(object_)
+    dupJNT_ = duplicate(object_, rc=1)
     jointChain = hierarchy_(dupJNT_[0], type_='joint')
     return jointChain
 

@@ -121,3 +121,11 @@ def msg_check(object_, msg_):
             if pln == msg_:
                 list_.append(pAttr.node())
     return list_
+
+
+def checkID(uuid_):
+    alldag_ = ls(dag=1, type='transform')
+    moduleTops_ = [obj for obj in alldag_ if checkAttr(obj,'uuid')]
+    attr_ = [PyNode('{}.uuid'.format(mod)) for mod in moduleTops_]
+    matchModule_ = [attr for attr in attr_ if attr.get('uuid')==uuid_]
+    return matchModule_

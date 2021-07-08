@@ -24,10 +24,12 @@ reload(_check)
 reload(_node)
 
 class Rebuild():
-    def __init__(self, type_, *args, **kwargs):
+    def __init__(self, object_, type_, *args, **kwargs):
         
-        self.object_, self.fit_ = ls(sl=1,fl=1,r=1)
+        self.object_ = object_[0]
+        self.fit_ = object_[1]
         self.type_ = type_
+            
 
         # message attributes name dictionary
         self.msg_ = {0:"reBuildMode", 1:"input", 2:"init", 3:"reBuildAttr"}

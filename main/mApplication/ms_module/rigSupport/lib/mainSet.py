@@ -71,7 +71,7 @@ class MainSet():
                     suffix_=suffixList[i])
 
         # FK Setting
-        self.chain_structure(ordict_['FKCTLs'])
+        _transform.chain_structure(ordict_['FKCTLs'])
         FKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['FKCTLs']]
         self.connect_attrs(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 'r', 'r')
         _matrix.local_matrix(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), t='t', s='s')
@@ -106,12 +106,6 @@ class MainSet():
         items, targets = _transform.divide_in_two(object_)
         for i, item in enumerate(items):
             _connect.connect_attr(item, output, targets[i], input)
-    
-    def chain_structure(self, object_):
-        childList = object_[1:]
-        parentList = object_[:-1]
-        for i,object in enumerate(childList):
-            parent(object, parentList[i])
 
     def connect_pairBlend(self, items_, target_, PRBL_list, BLCL_list):
         items, targets = _transform.divide_in_two(items_)
