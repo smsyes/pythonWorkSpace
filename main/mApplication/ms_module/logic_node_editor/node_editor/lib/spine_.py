@@ -10,106 +10,6 @@ if not module_path in sys.path:
 import _shape_dic
 reload(_shape_dic)
 
-# Data
-def to_str(unicode_or_str):
-    '''Function || method descriptions.
-    unicode to str
-    '''
-    if isinstance(unicode_or_str, unicode):
-        value = unicode_or_str.encode('utf-8')
-    else:
-        value = unicode_or_str
-    return value
-
-def name_(object_):
-    return to_str(object_.name())
-
-def divide_in_two(object_):
-    divideNum = len(object_)/2
-    items = object_[:divideNum]
-    targets = object_[divideNum:]
-    return items, targets
-
-def jointHier(object_): # Children of the first selected joint
-    hierJNT_ = object_[0].listRelatives(ad=1, c=1, typ='joint')
-    hierJNT_ = hierJNT_ + object_
-    hierJNT_.reverse()
-    return hierJNT_
-
-def get_param_at_point(_shape, point):
-    return _shape.getParamAtPoint(point)
-
-def shape_name_match(object_):
-    for i,name in enumerate(object_):
-        _shape = name.getShape()
-        shape_name = '{}Shape'.format(name)
-        if _shape != shape_name:
-            rename(_shape, shape_name)
-
-def padding_(type_, num_):
-    if type_ == 'alpha':
-        pad_ = string.ascii_uppercase[num_]
-    if type_ == 'num':
-        pad_ = str(num_).zfill(2)
-    return pad_
-
-def getTransform(object_):
-    return object_.getMatrix(worldSpace=True)
-    
-def getInverseTransform(object_):
-    return object_.getMatrix(worldSpace=True).inverse()
-    
-def getMultMatrix(mat1, mat2):
-    return mat1*mat2    
-
-# Attributes
-def checkAttrExist(obj,attr,type,replace):
-    attrExist = attributeQuery(attr, node=obj, exists=True)
-    newAttr = ''
-    if(attrExist == False):
-        newAttr = addAttr(obj, longName=attr, at=type)
-         
-    else:
-        if(replace == True):
-            deleteAttr(obj, at=attr)
-            newAttr = addAttr(obj, longName=attr, at=type)
-             
-    newAttr = PyNode('{}.{}'.format(obj, attr))
-    return attrExist, newAttr 
-
-def get_transform(object_):
-    object_ = PyNode(object_)
-    trans = xform(object_, q=1, ws=1, rp=1 )
-    rot = xform(object_, q=1, ws=1, ro=1 )
-    return trans, rot
-
-def set_trans_xform(object_, trans):
-    xform(object_, r = 1, t = trans)
-
-def set_rot_xform(object_, rot):
-    xform(object_, r = 1, ro = rot)
-
-def set_transform_(object_): # list to list set transform
-    items, targets = divide_in_two(object_)
-    for i,item in enumerate(items):
-        pos, rot = get_transform(item)
-        set_trans_xform(targets[i], pos)
-        set_rot_xform(targets[i], rot)
-
-def connect_attr(*args):
-    connectAttr('{}.{}'.format(args[0], args[1]),
-                '{}.{}'.format(args[2], args[3]))
-
-def connect_attrs(object_, output, input): # list to list attribute connection
-    items, targets = divide_in_two(object_)
-    for i, item in enumerate(items):
-        connect_attr(item, output, targets[i], input)
-
-def one_to_n_connect(object_, output, input):
-    item = object_[0]
-    target = object_[1:]
-    for i, object in enumerate(target):
-        connect_attr(item, output, object, input)
 
 def upVec_position(object_, direct_ = None): # upVector object move
     if direct_:
@@ -124,73 +24,6 @@ def upVec_position(object_, direct_ = None): # upVector object move
     if direct_ == 'z':
         move(object_, 5, z=1)  
 
-def constraint_(*args, **kwargs):
-    if kwargs['type'] == 'parent':
-        const_ = parentConstraint(args, maintainOffset=kwargs['mo'])
-    if kwargs['type'] == 'point':
-        const_ = pointConstraint(args, maintainOffset=kwargs['mo'])
-    if kwargs['type'] == 'orient':
-        const_ = orientConstraint(args, maintainOffset=kwargs['mo'])
-    if kwargs['type'] == 'scale':
-        const_ = scaleConstraint(args, maintainOffset=kwargs['mo'])
-    return const_
-
-def constraints_(object_, type_, mo_):
-    constList=[]
-    items, targets = divide_in_two(object_)
-    for i, item in enumerate(items):
-        const_ = constraint_(item, targets[i], type=type_, mo=mo_)
-        constList.append(const_)
-    return constList
-
-def matrixConstraint(object_, t=None, r=None, s=None):
-    items, targets = divide_in_two(object_)
-    for i,target in enumerate(targets):
-        _name = '{}2{}'.format(name_(items[i]), name_(target))
-    
-        MTMX_ = multMatrix_(_name)
-        DCMX_ = decompose_(_name)
-        mat1_ = getTransform(target)
-        mat2_ = getInverseTransform(items[i])
-        multmat_ = getMultMatrix(mat1_, mat2_)
-        
-        attrExist, newAttr = checkAttrExist(target,'offset','matrix',True)
-        setAttr(newAttr, multmat_)
-        connect_attrs(ls(target, MTMX_), 'offset', 'matrixIn[0]')
-        connect_attrs(ls(items[0], MTMX_), 'wm', 'matrixIn[1]')
-        if target.getParent():
-            connect_attrs(ls(target.getParent(), MTMX_), 'wim', 'matrixIn[2]')
-        else:
-            connect_attrs(ls(target, MTMX_), 'pim', 'matrixIn[2]')
-        connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
-        if t:
-            connect_attrs(ls(DCMX_, target), 'ot', 't')
-        if r:
-            connect_attrs(ls(DCMX_, target), 'or', 'r')
-        if s:
-            connect_attrs(ls(DCMX_, target), 'os', 's')
-
-def local_matrix(object_, t=None, r=None, s=None):
-    items, targets = divide_in_two(object_)
-    for i,target in enumerate(targets):
-        if target.getParent():
-            parent_ = target.getParent()
-            atts_ = 'wim'
-        else:
-            parent_ = target
-            atts_ = 'pim'
-        _name = '{}_local'.format(name_(target))
-        MTMX_ = multMatrix_(_name)
-        DCMX_ = decompose_(_name)  
-        connect_attrs(ls(items[i], MTMX_), 'wm', 'matrixIn[0]')
-        connect_attrs(ls(parent_, MTMX_), atts_, 'matrixIn[1]')
-        connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
-        if t:
-            connect_attrs(ls(DCMX_, target), 'ot', t)
-        if r:
-            connect_attrs(ls(DCMX_, target), 'or', r)
-        if s:
-            connect_attrs(ls(DCMX_, target), 'os', s)
 
 def connect_pairBlend(items_, target_, PRBL_list, BLCL_list):
     items, targets = divide_in_two(items_)
@@ -204,93 +37,7 @@ def connect_pairBlend(items_, target_, PRBL_list, BLCL_list):
         connect_attrs([PRBL_list[i], target_[i]], 'ot', 't')
         connect_attrs([PRBL_list[i], target_[i]], 'or', 'jointOrient')
         connect_attrs([BLCL_list[i], target_[i]], 'output', 's')
-        
-        
-# Node
-def space_(name_, parent_=None): # create transform Node
-    space_ = createNode('transform',
-                        n='{}_GRP'.format(name_),
-                        p=parent_)
-    return space_
-
-def multMatrix_(name_):
-    _node = createNode('multMatrix', n='{}_MTMX'.format(name_))
-    return _node
-
-def decompose_(name_):
-    _node = createNode('decomposeMatrix', n='{}_DCMX'.format(name_))
-    return _node
-    
-def po_crv_info(_shape):
-    _node = createNode('pointOnCurveInfo', n='{}_POCI'.format(_shape))
-    connect_attr(_shape, 'ws', _node, 'ic')
-    return _node
-
-def crvShape_(_name, type_):
-    _name = '{}_CTL'.format(_name)
-    shape_dic = _shape_dic.load_dic(type_)
-    crv_ = curve(n = _name, d = shape_dic[0], 
-                      p = shape_dic[1], k = shape_dic[2])
-    shape_name_match(ls(crv_))
-    return crv_ 
-
-def object_cv_curve(object_, dgree_ = None):
-    if not dgree_:
-        dgree_ = 1
-    trans_list = []
-    for i in object_:
-        trans, rot = get_transform(i)
-        trans_list.append(trans)
-    crv_ = curve(d=dgree_, p = trans_list)
-    return crv_
-
-def joint_(_name):
-    JNT = joint(n='{}_JNT'.format(_name))
-    return JNT
-
-def bindSkin_(joints_, object_):
-    influences = ls(joints_)
-    kwargs = {
-        'name': 'skinCluster',
-        'toSelectedBones': True,
-        'bindMethod': 0,
-        'skinMethod': 0,
-        'normalizeWeights': 1
-    }
-    scls = skinCluster(influences, object_, **kwargs)[0]
-    return scls      
-
-def pairBlend_(name_):
-    _node = createNode('pairBlend', n='{}_PRBL'.format(name_))
-    return _node
-
-def blendColors_(name_):
-    _node = createNode('blendColors', n='{}_BLCL'.format(name_))
-    return _node
-
-def reverse_(name_):
-    _node = shadingNode('reverse', n='{}_RVS'.format(name_), au=1)
-    return _node
-
-# Build
-def pos_at_param(_shape, *args): # get current object Position at parameter
-    args = ls(args)
-    param_list = []
-    for i in args:
-        trans, rot = get_transform(i)
-        param = get_param_at_point(_shape, trans)
-        param_list.append(param)
-    return param_list
-
-def param_at_objectPositions(object_): # current object Position >> curve Parameter >> object Position
-    _shape = object_[0].getShape()
-    _object = object_[1:]
-    params_ = pos_at_param(_shape, _object)
-    
-    for i,object in enumerate(_object):
-        POCI = po_crv_info(_shape)
-        setAttr('{}.parameter'.format(POCI), params_[i])
-        connect_attr(POCI, 'p', object, 't')
+           
 
 def IK_FK_joint(object_): # base joint duplicate IK, FK joint
     IKJNT_ = duplicate(object_, rc=1)
@@ -314,29 +61,6 @@ def space_locator(object_): # IK space set
         spaceList.append(loc_)
     return offList, spaceList
 
-def offset_(object_, num_=None):
-    object_ = PyNode(object_)
-    _name = object_.name()
-    type_ = ['off', 'spc']
-    offsetList = []
-    for i in range(num_):
-        if i > 0:
-            _type = 1
-            _parent = offset
-        else:
-            _type = 0
-            _parent = object_
-        join_name = '_'.join([_name, type_[_type]])
-        offset = space_(join_name, _parent)
-        if i==0:
-            if object_.getParent():
-                _parent = object_.getParent()
-                parent(offset, _parent)
-            else:
-                parent(offset, w=1)
-        offsetList.append(offset)
-    parent(object_, offset)
-    return offsetList[0]
 
 def upVec_locator(object_): # upVec locator set
     upVecList = []
@@ -356,14 +80,22 @@ def main_structure(name_): # Group heirarchy Structure
     CTLList = ['IK_CTL', 'FK_CTL']
     
     GRPDict['main'] = space_(name_)
-    worldName = ['{}_{}'.format(name_, world) for world in worldList]
-    GRPDict['world'] = [space_(world, GRPDict['main']) for world in worldName]
-    typeName = ['{}_{}'.format(name_, type) for type in typeList]
-    GRPDict['motion'] = [space_(type, GRPDict['world'][0]) for type in typeName]
-    IKTypeName = ['{}_{}'.format(name_, IKtype) for IKtype in IKTypeList]
-    GRPDict['IK'] = [space_(IKtype, GRPDict['motion'][0]) for IKtype in IKTypeName]
-    CTLName = ['{}_{}'.format(name_, CTL) for CTL in CTLList]
-    GRPDict['CTL'] = [space_(CTL, GRPDict['world'][1]) for CTL in CTLName]
+    worldName = ['{}_{}'.format(name_, 
+                                world) for world in worldList]
+    GRPDict['world'] = [space_(world, 
+                               GRPDict['main']) for world in worldName]
+    typeName = ['{}_{}'.format(name_, 
+                               type) for type in typeList]
+    GRPDict['motion'] = [space_(type, 
+                               GRPDict['world'][0]) for type in typeName]
+    IKTypeName = ['{}_{}'.format(name_, 
+                                 IKtype) for IKtype in IKTypeList]
+    GRPDict['IK'] = [space_(IKtype, 
+                            GRPDict['motion'][0]) for IKtype in IKTypeName]
+    CTLName = ['{}_{}'.format(name_, 
+                              CTL) for CTL in CTLList]
+    GRPDict['CTL'] = [space_(CTL, 
+                             GRPDict['world'][1]) for CTL in CTLName]
     return GRPDict
 
 def IK_curves(object_, name_): # create IK curves
@@ -415,12 +147,6 @@ def FK_control(object_, name_):
         FKOffList.append(FKCTLOffset)
     return FKCTLList, FKOffList
 
-def chain_structure(object_):
-    parentList = object_[1:]
-    childList = object_[:-1]
-    for i,object in enumerate(childList):
-        parent_ = childList[i].listRelatives(ad=1, c=1, typ='transform')[0]
-        parent(object, parent_)
 
 def IK_Axis(IKCTLs, offList, spaceList, upVecList, up=None):
     if up:

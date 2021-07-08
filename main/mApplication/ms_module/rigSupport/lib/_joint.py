@@ -17,18 +17,22 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
-from collections import OrderedDict
-import string
-import sys
-import os
+from lib import _transform
 
-# joint drive
+reload(_transform)
+
+
+
 def hierarchy_(object_, type_=None):
     object_ = PyNode(object_)
     hier_ = object_.listRelatives(ad=1, c=1, typ=type_)
     hier_ = hier_ + [object_]
     hier_.reverse()
     return hier_
+
+def joint_(_name):
+    return joint(n='{}_JNT'.format(_name))
+
 
 def _joint(joint_,
            e=None,
@@ -63,11 +67,13 @@ def _joint(joint_,
         data["component"] = co
     joint(joint_, **data)
 
+
 def joint_orient(jointChain):
     for joint_ in jointChain:
         _joint(joint_, e=True, oj='xzy', sao='zup', zso=True)
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
+
 
 def joint_insert(joint_, pos_):
     if joint_.type() == 'joint':
@@ -75,41 +81,11 @@ def joint_insert(joint_, pos_):
         _joint(JNT, e=True, co=True, p=pos_)
         return PyNode(JNT)
 
-def divide_in_two(object_):
-    object_ = ls(object_)
-    divideNum = len(object_)/2
-    items = object_[:divideNum]
-    targets = object_[divideNum:]
-    return items, targets
-
-def get_transform(object_):
-    _name = object_.name()
-    trans = xform(_name, q=1, ws=1, rp=1 )
-    rot = xform(_name, q=1, ws=1, ro=1 )
-    return trans, rot
-
-def set_trans_xform(object_, trans):
-    xform(object_, r = 1, t = trans)
-
-def set_rot_xform(object_, rot):
-    xform(object_, r = 1, ro = rot)
-
-def get_trans(object_):
-    return object_.getMatrix(worldSpace=True)[-1][:-1]
-    
-def get_rot(object_):
-    return xform(object_, q=1, ws=1, ro=1 )
-
-def set_transform_(object_):
-    items, targets = divide_in_two(object_)
-    for i,item in enumerate(items):
-        pos, rot = get_transform(item)
-        set_trans_xform(targets[i], pos)
-        set_rot_xform(targets[i], rot)
 
 def length(v0, v1):
     v = v1 - v0
     return v.length()
+
 
 def space_(name_, parent_=None):
     space_ = createNode('transform',
@@ -117,38 +93,12 @@ def space_(name_, parent_=None):
                         p=parent_)
     return space_
 
-def padding(num_):
-    return str(num_).zfill(2)
-
-def offset_(object_, num_=None):
-    object_ = PyNode(object_)
-    _name = object_.name()
-    type_ = ['off', 'spc']
-    offsetList = []
-    for i in range(num_):
-        if i > 0:
-            _type = 1
-            _parent = offset
-        else:
-            _type = 0
-            _parent = object_
-        join_name = '_'.join([_name, type_[_type]])
-        offset = space_(join_name, _parent)
-        if i==0:
-            if object_.getParent():
-                _parent = object_.getParent()
-                parent(offset, _parent)
-            else:
-                parent(offset, w=1)
-        offsetList.append(offset)
-    parent(object_, offset)
-    return offsetList[0]
     
 def add_joint(jointChain, num):
     stJoint = jointChain[0]
     enJoint = jointChain[-1]
-    stTrans_= get_trans(stJoint)
-    enTrans_= get_trans(enJoint)
+    stTrans_= _transform.get_trans(stJoint)
+    enTrans_= _transform.get_trans(enJoint)
     length_ = length(stTrans_, enTrans_)
     divValue = length_/(num+1)
     
@@ -156,12 +106,13 @@ def add_joint(jointChain, num):
     for i in range(num):
         localspace = space_(stJoint.name(), parent_=insertList[i])
         localspace.setAttr('t',(divValue,0,0))
-        pos_ = get_trans(localspace)
+        pos_ = _transform.get_trans(localspace)
         JNT = joint_insert(insertList[i], pos_)
         delete(localspace)
         insertList.append(JNT)
-    
-def linear_spacing_joint(num):    
+
+
+def linear_spacing_joint(num):
     sel = ls(sl=1, fl=1, r=1)
     for i in sel:
         jointChain = hierarchy_(i, type_='joint')
@@ -169,12 +120,47 @@ def linear_spacing_joint(num):
         add_joint(jointChain, num)
 
 
-num = 3
-base_name = 'cape'       
-sel = ls(sl=1, r=1, fl=1)
-linear_spacing_joint(num)
+def duplicate_joint(object_):
+    dupJNT_ = duplicate(object_)
+    jointChain = hierarchy_(dupJNT_[0], type_='joint')
+    return jointChain
 
 
+def bindSkin_(object_,
+              n=None,
+              tsb=None,
+              bm=None,
+              sm=None,
+              nw=None,
+              mi=None,
+              dr=None,
+              ):
+
+    data={}
+    if n is not None:
+        data["name"] = n
+    if tsb is not None:
+        data["toSelectedBones"] = tsb
+    if bm is not None:
+        data["bindMethod"] = bm
+    if sm is not None:
+        data["skinMethod"] = sm
+    if nw is not None:
+        data["normalizeWeights"] = nw
+    if mi is not None:
+        data["maximumInfluences"] = mi
+    if dr is not None:
+        data["dropoffRate"] = dr
+    scls = skinCluster(object_, **data)[0]
+    return scls
 
 
-
+def object_at_joint(object_):
+    JNTList = []
+    for i,object in enumerate(object_):
+        select(cl=1)
+        _name = object.name()
+        JNT = joint(_name)
+        parent(JNT, w=1)
+        JNTList.append(JNT)
+    return JNTList
