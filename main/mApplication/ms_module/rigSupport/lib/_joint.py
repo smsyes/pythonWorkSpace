@@ -7,8 +7,8 @@ __AUTHOR__ = 'minsung'
 __UPDATE__ = 20210707
 
 :Example:
-from lib.m_lib import NurbsCurveNode
-reload(NurbsCurveNode)
+from lib import _joint
+reload(_joint)
 
 blah blah blah blah blah blah
 blah blah blah blah blah blah
@@ -22,9 +22,10 @@ from lib import _transform
 reload(_transform)
 
 
-
 def hierarchy_(object_, type_=None):
     object_ = PyNode(object_)
+    if not type_:
+        type_ = 'transform'
     hier_ = object_.listRelatives(ad=1, c=1, typ=type_)
     hier_ = hier_ + [object_]
     hier_.reverse()
@@ -68,9 +69,26 @@ def _joint(joint_,
     joint(joint_, **data)
 
 
-def joint_orient(jointChain):
+def joint_orient(jointChain,
+                 e=None,
+                 oj=None,
+                 sao=None,
+                 zso=None
+                 ):
+    
+    data = {}
+
+    if e is not None:
+        data["e"] = e
+    if oj is not None:
+        data["oj"] = oj
+    if sao is not None:
+        data["sao"] = sao
+    if zso is not None:
+        data["zso"] = zso
+
     for joint_ in jointChain:
-        _joint(joint_, e=True, oj='xzy', sao='zup', zso=True)
+        _joint(jointChain, **data)
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
 
@@ -94,30 +112,51 @@ def space_(name_, parent_=None):
     return space_
 
     
-def add_joint(jointChain, num):
+def add_joint(jointChain, num, axis=None):
     stJoint = jointChain[0]
     enJoint = jointChain[-1]
     stTrans_= _transform.get_trans(stJoint)
     enTrans_= _transform.get_trans(enJoint)
     length_ = length(stTrans_, enTrans_)
     divValue = length_/(num+1)
+
+    if axis:
+        if axis=='x':
+            value = (divValue,0,0)
+        if axis=='y':
+            value = (0,divValue,0)
+        if axis=='z':
+            value = (0,0,divValue)
+    else:
+        value = (divValue,0,0)
     
     insertList = [stJoint]
     for i in range(num):
         localspace = space_(stJoint.name(), parent_=insertList[i])
-        localspace.setAttr('t',(divValue,0,0))
+        localspace.setAttr('t',value)
         pos_ = _transform.get_trans(localspace)
         JNT = joint_insert(insertList[i], pos_)
         delete(localspace)
         insertList.append(JNT)
 
 
-def linear_spacing_joint(num):
+def linear_spacing_joint(num, 
+                         e=True, 
+                         oj='xzy', 
+                         sao='zup', 
+                         zso=True, 
+                         axis='x'
+                         ):
     sel = ls(sl=1, fl=1, r=1)
     for i in sel:
         jointChain = hierarchy_(i, type_='joint')
-        joint_orient(jointChain)
-        add_joint(jointChain, num)
+        joint_orient(jointChain,
+                     e=e,
+                     oj=oj,
+                     sao=sao,
+                     zso=zso
+                     )
+        add_joint(jointChain, num, axis)
 
 
 def duplicate_joint(object_):

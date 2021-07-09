@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="rename_tap">
       <attribute name="title">
@@ -203,7 +203,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="baseName_lineEdit">
          <property name="text">
           <string> Base Name entering..</string>
          </property>
@@ -645,7 +645,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="prefix_lineEdit_2">
+        <widget class="QLineEdit" name="M_prefix_lineEdit">
          <property name="text">
           <string>Prefix Name..</string>
          </property>

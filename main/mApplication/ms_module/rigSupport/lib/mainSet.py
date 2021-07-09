@@ -44,7 +44,13 @@ class MainSet():
         self.base_name = name_
         self.sel = ls(sl=1, r=1, fl=1)
 
-        _joint.linear_spacing_joint(3)
+        _joint.linear_spacing_joint(3, 
+                                    e=True, 
+                                    oj='xyz', 
+                                    sao='zup', 
+                                    zso=True, 
+                                    axis='x'
+                                    )
 
         mainGRPs = self.main_structure(name_)
 
@@ -57,10 +63,11 @@ class MainSet():
         ordict_['baseJNTs'] = _joint.duplicate_joint(self.sel[0])        
         ordict_['FKJNTs'] = _joint.duplicate_joint(self.sel[0])     
         ordict_['IKJNTs'] = _joint.duplicate_joint(self.sel[0])
-        ordict_['FKCTLs'] = _control.control_(ordict_['FKJNTs'], 'circlr')
-        ordict_['IKCTLs'] = _control.control_(ordict_['IKJNTs'], 'circlr')
-        PRBLs, BLCLs = self.IK_FK_Blend(ls(ordict_['IKJNTs'], ordict_['IKJNTs']), 
-                                ordict_['baseJNTs'])
+        ordict_['FKCTLs'] = _control.control_(ordict_['FKJNTs'], 'circle')
+        ordict_['IKCTLs'] = _control.control_(ordict_['IKJNTs'], 'circle')
+        PRBLs, BLCLs = self.IK_FK_Blend(ls(ordict_['IKJNTs'], 
+                                           ordict_['IKJNTs']), 
+                                           ordict_['baseJNTs'])
         ordict_['PRBLs'] = PRBLs
         ordict_['BLCLs'] = BLCLs
         ordict_['RVS'] = ls(_node.reverse_())
@@ -71,7 +78,7 @@ class MainSet():
                     suffix_=suffixList[i])
 
         # FK Setting
-        _transform.chain_structure(ordict_['FKCTLs'])
+        _connect.chain_structure(ordict_['FKCTLs'])
         FKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['FKCTLs']]
         self.connect_attrs(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 'r', 'r')
         _matrix.local_matrix(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), t='t', s='s')

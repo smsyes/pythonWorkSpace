@@ -24,6 +24,7 @@ from lib import _name
 from lib import _connect
 from lib import _control
 from lib import _curve
+from lib import _transform
 
 reload(_joint)
 reload(_node)
@@ -31,9 +32,10 @@ reload(_name)
 reload(_connect)
 reload(_control)
 reload(_curve)
+reload(_transform)
 
 
-class attachSet():
+class AttachSet():
     def __init__(self, name_, *args, **kwargs):
         self.base_name = name_
         self.sel = ls(sl=1, fl=1, r=1)

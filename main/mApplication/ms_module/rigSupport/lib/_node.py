@@ -90,6 +90,17 @@ def po_crv_info(_shape):
     _connect.connect_attr(_shape, 'ws', _node, 'ic')
     return _node
 
+def rot_helper(name_, object_):
+    _node = createNode('rotateHelper', n='{}_ROHP'.format(name_))
+    _connect.connect_attr(object_, 'n', _node, 'up')
+    _connect.connect_attr(object_, 'tv', _node, 'f')
+    return _node
+
+def po_surf_info(name_, _shape):
+    _node = createNode('pointOnSurfaceInfo', n='{}_POSI'.format(name_))
+    _connect.connect_attr(_shape, 'ws', _node, 'is')
+    return _node
+
 def attributes(object_, attr):
     """Return attributes
 

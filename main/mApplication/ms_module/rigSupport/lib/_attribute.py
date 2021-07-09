@@ -35,3 +35,10 @@ def update_id():
         attrList.append(attribute)
 
     return PyNode(attribute)
+
+
+def surface_uvSpans_num(_shape):
+    Uspans = _shape.numSpansInU()
+    Vspans = _shape.numSpansInV()
+    print('U number is ({0}), V number is ({1})'.format(Uspans, Vspans))
+    return Uspans, Vspans
