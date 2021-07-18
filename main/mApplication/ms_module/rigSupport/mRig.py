@@ -1,10 +1,10 @@
 import sys
 import os
+import _path
 
 
-def path_():
-    currentDir = os.path.dirname(os.path.dirname(__file__))
-    module_path = os.path.join(currentDir, 'rigSupport')
-
-    print module_path
-    return module_path
+def mRigRun():
+    _path.path_()
+    from ui.convert import mRigTool
+    reload(mRigTool)
+    mRigTool.runWin()

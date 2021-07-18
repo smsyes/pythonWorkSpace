@@ -1,25 +1,27 @@
 //Maya ASCII 2019 scene
 //Name: arm.ma
-//Last modified: Fri, Jul 09, 2021 11:20:43 AM
+//Last modified: Sun, Jul 18, 2021 02:52:41 PM
 //Codeset: 949
 requires maya "2019";
+requires "mtoa" "3.2.2";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
-requires "mtoa" "4.0.3";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2019";
 fileInfo "version" "2019";
-fileInfo "cutIdentifier" "202004141915-92acaa8c08";
+fileInfo "cutIdentifier" "201907021615-48e59968a3";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19042)\n";
 createNode transform -n "arm_GRP";
 	rename -uid "1A3BC927-4398-9953-6125-2B8E661EFF22";
 	addAttr -r false -s false -ci true -m -im false -sn "init" -ln "init" -at "message";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
+	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
 	setAttr -s 4 ".init";
-	setAttr -l on -k on ".type" -type "string" "arm";
+	setAttr -l on -k on ".type" -type "string" "set";
 	setAttr -cb on ".mirror";
+	setAttr -l on -k on ".fileName" -type "string" "arm";
 createNode transform -n "arm_motion_GRP" -p "arm_GRP";
 	rename -uid "D80FCDA6-4A7F-B9CA-84BD-1DB88F6929B9";
 	addAttr -r false -s false -ci true -m -im false -sn "rename01" -ln "rename01" -at "message";
@@ -217,7 +219,7 @@ createNode joint -n "IK_shoulder" -p "IK_scapula";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoint" -ln "tempJoint" 
 		-at "message";
 	setAttr ".t" -type "double3" 1 0 0 ;
-	setAttr ".r" -type "double3" -8.2828211664794569e-07 -9.1954235876027133e-06 -2.070703822022333e-07 ;
+	setAttr ".r" -type "double3" -1.3614415852913579e-14 -9.2743557084026993e-06 -3.4036015488333327e-15 ;
 	setAttr ".ds" 2;
 	setAttr ".sd" 1;
 	setAttr ".typ" 18;
@@ -231,7 +233,7 @@ createNode joint -n "IK_elbow" -p "IK_shoulder";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoint" -ln "tempJoint" 
 		-at "message";
 	setAttr ".t" -type "double3" 4.123105525970459 0 -1.779642877508536e-09 ;
-	setAttr ".r" -type "double3" 0 1.8560926502105663e-05 0 ;
+	setAttr ".r" -type "double3" 0 1.8560926402362237e-05 0 ;
 	setAttr ".ds" 2;
 	setAttr ".sd" 1;
 	setAttr ".typ" 18;
@@ -801,7 +803,7 @@ select -ne :defaultShaderList1;
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 54 ".u";
+	setAttr -s 42 ".u";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
 	setAttr ".ro" yes;
@@ -815,13 +817,12 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
 select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "input_space.init" "arm_GRP.init" -na;
 connectAttr "input_shoulder.init" "arm_GRP.init" -na;
 connectAttr "input_elbow.init" "arm_GRP.init" -na;
 connectAttr "input_wrist.init" "arm_GRP.init" -na;
-connectAttr "mirror_switch_COND.oc" "input_space.s";
 connectAttr "arm_GRP.mirror" "input_space.mirror";
+connectAttr "mirror_switch_COND.oc" "input_space.s";
 connectAttr "input_space.t" "motion_IK_GRP.t";
 connectAttr "input_space.r" "motion_IK_GRP.r";
 connectAttr "input_space.s" "motion_IK_GRP.s";

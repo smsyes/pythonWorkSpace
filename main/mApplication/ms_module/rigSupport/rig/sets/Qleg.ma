@@ -1,19 +1,19 @@
 //Maya ASCII 2019 scene
 //Name: Qleg.ma
-//Last modified: Fri, Jul 09, 2021 11:23:48 AM
+//Last modified: Sun, Jul 18, 2021 02:53:25 PM
 //Codeset: 949
 requires maya "2019";
+requires "mtoa" "3.2.2";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
-requires "mtoa" "4.0.3";
-requires "RenderMan_for_Maya" "4.0.3";
 requires "Mayatomr" "2013.0 - 3.10.1.11 ";
+requires "RenderMan_for_Maya" "4.0.3";
 requires "redshift4maya" "2.6.31";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2019";
 fileInfo "version" "2019";
-fileInfo "cutIdentifier" "202004141915-92acaa8c08";
+fileInfo "cutIdentifier" "201907021615-48e59968a3";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19042)\n";
 createNode transform -n "leg_GRP";
 	rename -uid "F004B73D-4FFC-5476-C145-3DB393EDF5AE";
@@ -24,10 +24,12 @@ createNode transform -n "leg_GRP";
 		-at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "input" -ln "input" -at "message";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
-	setAttr -s 6 ".reBuildMode";
+	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
+	setAttr -s 9 ".reBuildMode";
 	setAttr -s 2 ".reBuildAttr";
 	setAttr -s 7 ".input";
-	setAttr -l on -k on ".type" -type "string" "Qleg";
+	setAttr -l on -k on ".type" -type "string" "set";
+	setAttr -l on -k on ".fileName" -type "string" "Qleg";
 createNode transform -n "leg_motion_GRP" -p "leg_GRP";
 	rename -uid "4AE3E21D-4FF7-1FB2-5DBA-288BA13656BD";
 createNode transform -n "input_hip" -p "leg_motion_GRP";
@@ -277,7 +279,7 @@ createNode joint -n "IK_thigh" -p "IK_hip";
 	addAttr -ci true -sn "bendy_Num" -ln "bendy_Num" -dv 2 -min 1 -at "long";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoint" -ln "tempJoint" 
 		-at "message";
-	setAttr ".r" -type "double3" 8.3132923069138813e-07 -0.17335078064134832 -1.9700808517891377e-07 ;
+	setAttr ".r" -type "double3" 0 -0.17335078064134973 0 ;
 	setAttr ".ds" 2;
 	setAttr ".sd" 1;
 	setAttr ".typ" 18;
@@ -302,7 +304,7 @@ createNode joint -n "IK_B_knee" -p "IK_F_knee";
 	rename -uid "C173DF05-4F7D-5EC9-1025-00AA4DDD9653";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoint" -ln "tempJoint" 
 		-at "message";
-	setAttr ".r" -type "double3" 5.8422502059885328e-05 0.25841742637570059 -7.1091660071341293e-23 ;
+	setAttr ".r" -type "double3" 5.8422502059874337e-05 0.25841742637570059 -4.8726277131642379e-15 ;
 	setAttr ".ds" 2;
 	setAttr ".sd" 1;
 	setAttr ".typ" 18;
@@ -311,7 +313,7 @@ createNode joint -n "IK_ankle" -p "IK_B_knee";
 	rename -uid "2935B709-4BA6-F381-4EBD-9E901CE08E68";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoints" -ln "tempJoints" 
 		-at "message";
-	setAttr ".r" -type "double3" -3.871282399863261e-05 -0.25992317145138022 4.3931041306673553e-05 ;
+	setAttr ".r" -type "double3" -3.8712823998724022e-05 -0.25992317145138022 4.3931041346978043e-05 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".ds" 2;
@@ -319,7 +321,7 @@ createNode joint -n "IK_hind_toe" -p "IK_ankle";
 	rename -uid "0D7A4BEE-470F-47CE-CDA6-7582923D5A49";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoints" -ln "tempJoints" 
 		-at "message";
-	setAttr ".r" -type "double3" 5.0891578668281412e-14 0.0014856093232487055 2.0855850373204676e-13 ;
+	setAttr ".r" -type "double3" 5.0890857664972403e-14 0.001485609568578809 1.5294292800078008e-13 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".ds" 2;
@@ -653,6 +655,7 @@ createNode transform -n "B_IK_foot_CTL" -p "B_IK_foot_CTL_spcGRP";
 		-at "message";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 17;
+	setAttr ".t" -type "double3" -8.8817841970012523e-16 -5.3056926206147695e-16 0 ;
 	setAttr -k on ".roll";
 	setAttr -k on ".rollStartAngle" 15;
 	setAttr -k on ".bank";
@@ -731,7 +734,7 @@ createNode transform -n "B_IK_toe" -p "B_IK_heel_CTL";
 		-at "message";
 	setAttr ".uoc" 1;
 	setAttr ".oc" 2;
-	setAttr ".t" -type "double3" -0.00047531438057291098 4.3110167732830127e-07 5.4953483366282398 ;
+	setAttr ".t" -type "double3" -0.0004753143805720228 4.3110167777239048e-07 5.4953483366282398 ;
 createNode locator -n "B_IK_toeShape" -p "B_IK_toe";
 	rename -uid "79D043A6-4D0D-BA43-F6F8-D3A2DF7148E6";
 	setAttr -k off ".v" no;
@@ -934,15 +937,15 @@ createNode orientConstraint -n "B_IK_ankle_aim_space_orientConstraint1" -p "B_IK
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
 	setAttr -s 2 ".tg";
-	setAttr ".lr" -type "double3" -2.0147016543815335e-06 0 0 ;
+	setAttr ".lr" -type "double3" -2.0147016544312298e-06 0 0 ;
 	setAttr -k on ".w0";
 	setAttr -k on ".w1";
 createNode transform -n "B_IK_ankle_IKH_aim_space_01" -p "B_IK_ankle_CTL";
 	rename -uid "ECF82622-46AD-A07D-3BD5-3F97818060F5";
 	setAttr ".t" -type "double3" -8.8817841970012523e-16 0 -3.5527136788005009e-15 ;
 createNode aimConstraint -n "B_IK_ankle_IKH_aim_space_01_aimConstraint1" -p "B_IK_ankle_IKH_aim_space_01";
-	rename -uid "DCA3BA2D-4D55-8B9C-B81C-7FB6F6E611BF";
-	addAttr -dcb 0 -ci true -sn "w0" -ln "IK_thighW0" -dv 1 -at "double";
+	rename -uid "11EE9199-4557-4028-71E1-519B212C2DDC";
+	addAttr -dcb 0 -ci true -sn "w0" -ln "B_IK_ankle_IKH_aim_01W0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
 	setAttr -k off ".tx";
@@ -958,14 +961,15 @@ createNode aimConstraint -n "B_IK_ankle_IKH_aim_space_01_aimConstraint1" -p "B_I
 	setAttr ".a" -type "double3" 0 1 0 ;
 	setAttr ".u" -type "double3" 1 0 0 ;
 	setAttr ".wut" 1;
-	setAttr ".o" -type "double3" -9.4166262325946999 0 0 ;
+	setAttr ".o" -type "double3" 0.25837197793007205 0 0 ;
+	setAttr ".rsrr" -type "double3" -2.0147016544312298e-06 0 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "B_IK_ankle_IKH_aim_space_02" -p "B_IK_ankle_CTL";
 	rename -uid "544B5751-4C26-D6CF-10A0-E2A7A61B53E4";
 	setAttr ".t" -type "double3" -8.8817841970012523e-16 0 -3.5527136788005009e-15 ;
 createNode aimConstraint -n "B_IK_ankle_IKH_aim_space_02_aimConstraint1" -p "B_IK_ankle_IKH_aim_space_02";
-	rename -uid "43BA4E4E-45C6-8734-8468-C398347E1A12";
-	addAttr -dcb 0 -ci true -sn "w0" -ln "IK_thigh_upVec_02_spcGRPW0" -dv 1 -at "double";
+	rename -uid "21E78909-4D91-F8F9-C8C1-26BABABB482A";
+	addAttr -dcb 0 -ci true -sn "w0" -ln "B_IK_ankle_IKH_aim_02W0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
 	setAttr -k off ".tx";
@@ -981,7 +985,7 @@ createNode aimConstraint -n "B_IK_ankle_IKH_aim_space_02_aimConstraint1" -p "B_I
 	setAttr ".a" -type "double3" 0 1 0 ;
 	setAttr ".u" -type "double3" 1 0 0 ;
 	setAttr ".wut" 1;
-	setAttr ".o" -type "double3" 0.25837406562534487 0 0 ;
+	setAttr ".o" -type "double3" 0.2583739926317265 0 0 ;
 	setAttr -k on ".w0";
 createNode transform -n "B_IK_hind_toes_CTL_offGRP" -p "B_IK_ball";
 	rename -uid "E832486B-4F75-3B20-47A3-4FB7387BE34C";
@@ -1051,7 +1055,7 @@ createNode nurbsCurve -n "B_IK_foot_CTLShape" -p "B_IK_foot_CTL";
 		-1.4603183280000001 -2.4238727097881778 8.1749574232986788
 		0 -2.4238727097881778 8.4654313432986772
 		;
-createNode transform -n "IK_thigh_upVec_02_offGRP" -p "B_IK_foot_CTL";
+createNode transform -n "B_IK_ankle_IKH_aim_02" -p "B_IK_foot_CTL";
 	rename -uid "DDB1AE69-4EB4-A76C-5C91-75B783ACD5B2";
 	addAttr -ci true -sn "rebuildTrans" -ln "rebuildTrans" -at "double3" -nc 3;
 	addAttr -ci true -sn "rebuildTransX" -ln "rebuildTransX" -at "double" -p "rebuildTrans";
@@ -1064,21 +1068,70 @@ createNode transform -n "IK_thigh_upVec_02_offGRP" -p "B_IK_foot_CTL";
 	addAttr -r false -s false -ci true -m -im false -sn "reBuildMode" -ln "reBuildMode" 
 		-at "message";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 0 10.443871113715939 -0.047096485413533173 ;
+	setAttr ".t" -type "double3" 8.8817841970012523e-16 10.443871113715939 -0.047096485413533173 ;
 	setAttr ".r" -type "double3" 0 -0.25837398958196733 -90 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000002 1.0000000000000002 ;
-createNode transform -n "IK_thigh_upVec_02_spcGRP" -p "IK_thigh_upVec_02_offGRP";
-	rename -uid "8B248945-4DD3-8FA2-FBBD-44B5CEDF4423";
-createNode transform -n "IK_thigh_upVec_02" -p "IK_thigh_upVec_02_spcGRP";
+createNode transform -n "B_IK_ankle_IKH_upVec_02" -p "B_IK_ankle_IKH_aim_02";
 	rename -uid "50AE5908-4ABB-31D1-0FAE-4C988692D883";
-	setAttr ".t" -type "double3" -3.5686982231440999e-15 5 -7.0893705690289723e-15 ;
-createNode locator -n "IK_thigh_upVec_02Shape" -p "IK_thigh_upVec_02";
+	setAttr ".t" -type "double3" -3.5527136788005009e-15 4.9999999999999991 -3.5527136788005009e-15 ;
+createNode locator -n "B_IK_ankle_IKH_upVec_02Shape" -p "B_IK_ankle_IKH_upVec_02";
 	rename -uid "3778D64F-40DD-A832-CE2A-629639782C38";
 	setAttr -k off ".v";
+createNode transform -n "B_IK_ankle_shoulder_IKH_aim_01" -p "B_IK_foot_CTL";
+	rename -uid "2C0A4659-49DA-1494-4E91-1DBC1A6874DF";
+	addAttr -ci true -sn "rebuildTrans" -ln "rebuildTrans" -at "double3" -nc 3;
+	addAttr -ci true -sn "rebuildTransX" -ln "rebuildTransX" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransY" -ln "rebuildTransY" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransZ" -ln "rebuildTransZ" -at "double" -p "rebuildTrans";
+	addAttr -r false -s false -ci true -m -im false -sn "reBuildMode" -ln "reBuildMode" 
+		-at "message";
+	setAttr ".t" -type "double3" 8.8817841970012523e-16 -8.2450620819685128e-07 2.3279948280219287e-07 ;
+	setAttr ".s" -type "double3" 1 1.0000000000000002 1.0000000000000002 ;
+createNode transform -n "B_IK_ankle_IKH_aim_01" -p "B_IK_ankle_shoulder_IKH_aim_01";
+	rename -uid "B3C33F9E-4B94-9D9B-7F1E-EE8AC0C28670";
+	addAttr -ci true -sn "rebuildTrans" -ln "rebuildTrans" -at "double3" -nc 3;
+	addAttr -ci true -sn "rebuildTransX" -ln "rebuildTransX" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransY" -ln "rebuildTransY" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransZ" -ln "rebuildTransZ" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildRot" -ln "rebuildRot" -at "double3" -nc 3;
+	addAttr -ci true -sn "rebuildRotX" -ln "rebuildRotX" -at "double" -p "rebuildRot";
+	addAttr -ci true -sn "rebuildRotY" -ln "rebuildRotY" -at "double" -p "rebuildRot";
+	addAttr -ci true -sn "rebuildRotZ" -ln "rebuildRotZ" -at "double" -p "rebuildRot";
+	addAttr -r false -s false -ci true -m -im false -sn "reBuildMode" -ln "reBuildMode" 
+		-at "message";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" 0 10.443871938222145 -0.047096718213012423 ;
+	setAttr ".r" -type "double3" 0 -0.25837398958196739 -90 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1.0000000000000002 1.0000000000000002 ;
+createNode transform -n "B_IK_ankle_IKH_upVec_01" -p "B_IK_ankle_IKH_aim_01";
+	rename -uid "8CF41DB8-4F54-A320-2016-B486B861FA04";
+	setAttr ".t" -type "double3" -3.5527136788005009e-15 4.9999999999999991 -3.5527136788005009e-15 ;
+createNode locator -n "B_IK_ankle_IKH_upVec_01Shape" -p "B_IK_ankle_IKH_upVec_01";
+	rename -uid "0A5631C9-4D69-8C85-B65D-F99969E9D05A";
+	setAttr -k off ".v";
+createNode aimConstraint -n "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1" -p "B_IK_ankle_shoulder_IKH_aim_01";
+	rename -uid "80963720-4F25-7C7F-A296-D5BE409B4621";
+	addAttr -dcb 0 -ci true -sn "w0" -ln "IK_thigh_upVec_01_offGRPW0" -dv 1 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".a" -type "double3" 0 1 0 ;
+	setAttr ".u" -type "double3" 1 0 0 ;
+	setAttr ".wut" 1;
+	setAttr ".o" -type "double3" -9.4166242178930446 0 0 ;
+	setAttr -k on ".w0";
 createNode transform -n "IK_thigh_upVec_01_offGRP" -p "B_IK_foot_CTL_spcGRP";
 	rename -uid "03AA9B82-4B90-596E-5F44-DB940E814ED4";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -8.8817841970012523e-16 35.875667492361444 5.9498749290143103 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000002 1.0000000000000002 ;
 createNode transform -n "IK_thigh_upVec_01_spcGRP" -p "IK_thigh_upVec_01_offGRP";
 	rename -uid "0A60F3E6-46CA-C1BB-B0C1-5792F402B289";
@@ -1100,7 +1153,6 @@ createNode transform -n "B_poleVec_space_follow" -p "B_poleVec_offGRP";
 	setAttr ".s" -type "double3" 1.0000000000000004 1 1.0000000000000007 ;
 createNode transform -n "B_poleVec_space" -p "B_poleVec_space_follow";
 	rename -uid "45611DCB-4FD7-3772-C6A0-E18B29C98F89";
-	setAttr ".t" -type "double3" 0 8.8817841970012523e-16 25 ;
 	setAttr ".s" -type "double3" 1 1 0.99999999999999978 ;
 createNode transform -n "B_poleVec_CTL" -p "B_poleVec_space";
 	rename -uid "717928DA-4455-6C5B-4A0D-ACB68B904D2F";
@@ -1140,9 +1192,29 @@ createNode nurbsCurve -n "B_poleVec_CTLShape" -p "B_poleVec_CTL";
 createNode transform -n "B_poleVec_input_space" -p "B_poleVec_offGRP";
 	rename -uid "5583A6BD-424B-19AC-5F24-4A8FBBEDD6F9";
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1 ;
-createNode aimConstraint -n "B_poleVec_input_space_aimConstraint1" -p "B_poleVec_input_space";
-	rename -uid "517EB433-4129-746D-6108-FAB9E60F3DD0";
-	addAttr -dcb 0 -ci true -sn "w0" -ln "input_B_kneeW0" -dv 1 -at "double";
+createNode transform -n "B_poleVec_thigh_space" -p "B_poleVec_offGRP";
+	rename -uid "106DE8CE-4987-C7D7-4A64-E19799394A39";
+	setAttr ".s" -type "double3" 1.0000000000000004 0.99999999915737248 1.0000000008426289 ;
+	setAttr ".sh" -type "double3" 0 0 9.9484409515342496e-09 ;
+createNode transform -n "B_poleVec_aim_space" -p "B_poleVec_thigh_space";
+	rename -uid "384EEB78-49CB-1E22-8416-DDA0CA465591";
+	addAttr -ci true -sn "rebuildTrans" -ln "rebuildTrans" -at "double3" -nc 3;
+	addAttr -ci true -sn "rebuildTransX" -ln "rebuildTransX" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransY" -ln "rebuildTransY" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildTransZ" -ln "rebuildTransZ" -at "double" -p "rebuildTrans";
+	addAttr -ci true -sn "rebuildRot" -ln "rebuildRot" -at "double3" -nc 3;
+	addAttr -ci true -sn "rebuildRotX" -ln "rebuildRotX" -at "double" -p "rebuildRot";
+	addAttr -ci true -sn "rebuildRotY" -ln "rebuildRotY" -at "double" -p "rebuildRot";
+	addAttr -ci true -sn "rebuildRotZ" -ln "rebuildRotZ" -at "double" -p "rebuildRot";
+	addAttr -r false -s false -ci true -m -im false -sn "reBuildMode" -ln "reBuildMode" 
+		-at "message";
+	setAttr ".t" -type "double3" 0 -15.556730035428089 0 ;
+	setAttr ".r" -type "double3" 0 31.269647204474424 -90 ;
+	setAttr ".s" -type "double3" 0.99999999597480826 0.99999999999999967 1.0000000040251906 ;
+	setAttr ".sh" -type "double3" 0 6.0829996905660958e-09 0 ;
+createNode aimConstraint -n "B_poleVec_thigh_space_aimConstraint1" -p "B_poleVec_thigh_space";
+	rename -uid "63E2CB8E-47DF-74BB-D2A9-0797FF869E8C";
+	addAttr -dcb 0 -ci true -sn "w0" -ln "B_IK_foot_CTLW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
 	setAttr -k off ".tx";
@@ -1155,14 +1227,12 @@ createNode aimConstraint -n "B_poleVec_input_space_aimConstraint1" -p "B_poleVec
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
+	setAttr ".a" -type "double3" 0 -1 0 ;
+	setAttr ".u" -type "double3" 1 0 0 ;
 	setAttr ".wut" 1;
+	setAttr ".o" -type "double3" -9.4166273605100645 4.1504707157730311e-06 -4.7393957994334773e-23 ;
+	setAttr ".rsrr" -type "double3" -31.269644174740471 0 90 ;
 	setAttr -k on ".w0";
-createNode transform -n "B_poleVec_aim_space" -p "B_poleVec_offGRP";
-	rename -uid "384EEB78-49CB-1E22-8416-DDA0CA465591";
-	addAttr -ci true -sn "offset" -ln "offset" -at "matrix";
-	setAttr ".s" -type "double3" 1.0000000000000002 1 1 ;
-	setAttr ".offset" -type "matrix" 0 -0.85473395170597644 -0.51906633848738626 0 0.99999999999999956 0 0 0
-		 0 -0.51906634786541628 0.8547339554294312 0 2.0713150501251207 -18.138265332938907 -3.808582736261183 1;
 createNode transform -n "FK_leg_CTL_GRP" -p "leg_CTL_GRP";
 	rename -uid "370333B1-4028-E5CF-6326-90941D192161";
 createNode transform -n "FK_hip_offGRP" -p "FK_leg_CTL_GRP";
@@ -1738,21 +1808,60 @@ createNode multMatrix -n "IK_thigh_upVec_02_offGRP_local_MTMX";
 createNode unitConversion -n "unitConversion18";
 	rename -uid "C2F33576-417B-2403-32A5-B6A3734E5B0A";
 	setAttr ".cf" 57.295779513082323;
+createNode decomposeMatrix -n "B_IK_ankle_shoulder_IKH_aim_01_local_DCMX";
+	rename -uid "AF6B6CAF-4BFF-AB4D-2303-56964195F1D0";
+createNode multMatrix -n "B_IK_ankle_shoulder_IKH_aim_01_local_MTMX";
+	rename -uid "84909AE4-4DE6-AABB-8918-1395F0B89628";
+	setAttr -s 2 ".i";
+createNode decomposeMatrix -n "B_IK_ankle_IKH_aim_01_local_DCMX";
+	rename -uid "3E80A410-4132-C5E5-8A7A-2BA961D05059";
+createNode multMatrix -n "B_IK_ankle_IKH_aim_01_local_MTMX";
+	rename -uid "95C5BF30-4992-8E26-621C-E9B19E1656E8";
+	setAttr -s 2 ".i";
+createNode unitConversion -n "unitConversion20";
+	rename -uid "6D626FAB-4B39-327E-E7F1-DFA3014A92ED";
+	setAttr ".cf" 57.295779513082323;
+createNode decomposeMatrix -n "IK_thigh_upVec_01_offGRP_local_DCMX";
+	rename -uid "64FF06E4-4981-687E-DBD5-9391FA918C1B";
+createNode multMatrix -n "IK_thigh_upVec_01_offGRP_local_MTMX";
+	rename -uid "760FD566-4C02-1EDC-3DD6-70B4525C15B6";
+	setAttr -s 2 ".i";
 createNode pairBlend -n "B_poleVec_follow_PRBL";
 	rename -uid "D8C41EB9-454B-E3B8-6619-5B92D0B0726C";
+createNode decomposeMatrix -n "decomposeMatrix4";
+	rename -uid "8BF3FCD1-48FF-78D8-CED6-18875E2C3994";
+createNode multMatrix -n "multMatrix9";
+	rename -uid "D229ADD4-4D5B-314D-A94C-66AEAF5EC067";
+	setAttr -s 2 ".i";
+createNode decomposeMatrix -n "B_poleVec_aim_space_local_DCMX";
+	rename -uid "C422D767-48CF-1B13-BC2A-13A55C69C8B7";
+createNode multMatrix -n "B_poleVec_aim_space_local_MTMX";
+	rename -uid "F5B769A4-4899-F430-8F98-6FAABE160D91";
+	setAttr -s 2 ".i";
 createNode unitConversion -n "unitConversion14";
 	rename -uid "44DE0BEC-4B4D-4A6B-C14D-7CAD898B5284";
 	setAttr ".cf" 0.1;
+createNode multiplyDivide -n "leg_mirror_trans_MULT";
+	rename -uid "C5F01CCB-4DE4-9EEA-B70D-429D19E66596";
+	setAttr ".i1" -type "float3" 0 0 25 ;
 createNode decomposeMatrix -n "B_poleVec_input_space_local_DCMX";
 	rename -uid "3DECDB56-4CAC-B448-22AB-D88367F86186";
 createNode multMatrix -n "B_poleVec_input_space_local_MTMX";
 	rename -uid "72E9EA68-4643-E6D9-313E-BFAF8C766F07";
 	setAttr -s 2 ".i";
-createNode decomposeMatrix -n "IK_hip_aim_space2B_poleVec_aim_space_DCMX";
-	rename -uid "AD07FC10-4B64-5752-096F-338D6065D06F";
-createNode multMatrix -n "IK_hip_aim_space2B_poleVec_aim_space_MTMX";
-	rename -uid "2489FCD2-4B1A-E02C-2524-2BA43D8085D5";
-	setAttr -s 3 ".i";
+createNode decomposeMatrix -n "B_poleVec_thigh_space_local_DCMX";
+	rename -uid "9204087A-406B-30A4-ECFC-9B976FA6875F";
+createNode multMatrix -n "B_poleVec_thigh_space_local_MTMX";
+	rename -uid "678BFE18-4BE0-E091-8644-839516EBAE34";
+	setAttr -s 2 ".i";
+createNode unitConversion -n "unitConversion21";
+	rename -uid "B6AD4FA3-4F90-0207-59A4-129DEFCA7F10";
+	setAttr ".cf" 57.295779513082323;
+createNode decomposeMatrix -n "B_poleVec_aim_space_local_DCMX1";
+	rename -uid "7DD4B524-4003-88A6-029A-B8AEC889B5F6";
+createNode multMatrix -n "B_poleVec_aim_space_local_MTMX1";
+	rename -uid "011C8A63-47B6-9A76-8EF1-2E911A34CA08";
+	setAttr -s 2 ".i";
 createNode reverse -n "FK_IK_RVS";
 	rename -uid "27056F6F-4A0A-7C97-FC23-20820923EAD7";
 createNode decomposeMatrix -n "FK_hip_space_inverse_DCMX";
@@ -1826,7 +1935,7 @@ select -ne :defaultShaderList1;
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 75 ".u";
+	setAttr -s 80 ".u";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
 	setAttr ".ro" yes;
@@ -1846,8 +1955,12 @@ connectAttr "B_IK_foot_IKH_stretched_space.reBuildMode" "leg_GRP.reBuildMode" -n
 connectAttr "B_IK_ball.reBuildMode" "leg_GRP.reBuildMode" -na;
 connectAttr "B_IK_ankle.reBuildMode" "leg_GRP.reBuildMode" -na;
 connectAttr "B_IK_toe.reBuildMode" "leg_GRP.reBuildMode" -na;
-connectAttr "IK_thigh_upVec_02_offGRP.reBuildMode" "leg_GRP.reBuildMode" -na;
+connectAttr "B_IK_ankle_IKH_aim_02.reBuildMode" "leg_GRP.reBuildMode" -na;
 connectAttr "B_IK_B_knee_space_GRP.reBuildMode" "leg_GRP.reBuildMode" -na;
+connectAttr "B_IK_ankle_IKH_aim_01.reBuildMode" "leg_GRP.reBuildMode" -na;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.reBuildMode" "leg_GRP.reBuildMode" -na
+		;
+connectAttr "B_poleVec_aim_space.reBuildMode" "leg_GRP.reBuildMode" -na;
 connectAttr "B_poleVec_CTL.reBuildAttr" "leg_GRP.reBuildAttr" -na;
 connectAttr "B_IK_foot_CTL.reBuildAttr" "leg_GRP.reBuildAttr" -na;
 connectAttr "input_hip.input" "leg_GRP.input" -na;
@@ -2173,16 +2286,17 @@ connectAttr "B_IK_ankle_IKH_aim_space_01.rpt" "B_IK_ankle_IKH_aim_space_01_aimCo
 		;
 connectAttr "B_IK_ankle_IKH_aim_space_01.ro" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.cro"
 		;
-connectAttr "IK_thigh.t" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].tt";
-connectAttr "IK_thigh.rp" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].trp"
+connectAttr "B_IK_ankle_IKH_aim_01.t" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].tt"
 		;
-connectAttr "IK_thigh.rpt" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].trt"
+connectAttr "B_IK_ankle_IKH_aim_01.rp" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].trp"
 		;
-connectAttr "IK_thigh.pm" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].tpm"
+connectAttr "B_IK_ankle_IKH_aim_01.rpt" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].trt"
+		;
+connectAttr "B_IK_ankle_IKH_aim_01.pm" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].tpm"
 		;
 connectAttr "B_IK_ankle_IKH_aim_space_01_aimConstraint1.w0" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.tg[0].tw"
 		;
-connectAttr "IK_thigh_upVec_01.wm" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.wum"
+connectAttr "B_IK_ankle_IKH_upVec_01.wm" "B_IK_ankle_IKH_aim_space_01_aimConstraint1.wum"
 		;
 connectAttr "B_IK_ankle_IKH_aim_space_02_aimConstraint1.crx" "B_IK_ankle_IKH_aim_space_02.rx"
 		;
@@ -2200,50 +2314,88 @@ connectAttr "B_IK_ankle_IKH_aim_space_02.rpt" "B_IK_ankle_IKH_aim_space_02_aimCo
 		;
 connectAttr "B_IK_ankle_IKH_aim_space_02.ro" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.cro"
 		;
-connectAttr "IK_thigh_upVec_02_spcGRP.t" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].tt"
+connectAttr "B_IK_ankle_IKH_aim_02.t" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].tt"
 		;
-connectAttr "IK_thigh_upVec_02_spcGRP.rp" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].trp"
+connectAttr "B_IK_ankle_IKH_aim_02.rp" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].trp"
 		;
-connectAttr "IK_thigh_upVec_02_spcGRP.rpt" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].trt"
+connectAttr "B_IK_ankle_IKH_aim_02.rpt" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].trt"
 		;
-connectAttr "IK_thigh_upVec_02_spcGRP.pm" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].tpm"
+connectAttr "B_IK_ankle_IKH_aim_02.pm" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].tpm"
 		;
 connectAttr "B_IK_ankle_IKH_aim_space_02_aimConstraint1.w0" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.tg[0].tw"
 		;
-connectAttr "IK_thigh_upVec_02.wm" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.wum"
+connectAttr "B_IK_ankle_IKH_upVec_02.wm" "B_IK_ankle_IKH_aim_space_02_aimConstraint1.wum"
 		;
-connectAttr "IK_thigh_upVec_02_offGRP_local_DCMX.ot" "IK_thigh_upVec_02_offGRP.rebuildTrans"
+connectAttr "IK_thigh_upVec_02_offGRP_local_DCMX.ot" "B_IK_ankle_IKH_aim_02.rebuildTrans"
 		;
-connectAttr "unitConversion18.o" "IK_thigh_upVec_02_offGRP.rebuildRot";
+connectAttr "unitConversion18.o" "B_IK_ankle_IKH_aim_02.rebuildRot";
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_local_DCMX.ot" "B_IK_ankle_shoulder_IKH_aim_01.rebuildTrans"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.crx" "B_IK_ankle_shoulder_IKH_aim_01.rx"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.cry" "B_IK_ankle_shoulder_IKH_aim_01.ry"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.crz" "B_IK_ankle_shoulder_IKH_aim_01.rz"
+		;
+connectAttr "B_IK_ankle_IKH_aim_01_local_DCMX.ot" "B_IK_ankle_IKH_aim_01.rebuildTrans"
+		;
+connectAttr "unitConversion20.o" "B_IK_ankle_IKH_aim_01.rebuildRot";
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.pim" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.cpim"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.t" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.ct"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.rp" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.crp"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.rpt" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.crt"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.ro" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.cro"
+		;
+connectAttr "IK_thigh_upVec_01_offGRP.t" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.tg[0].tt"
+		;
+connectAttr "IK_thigh_upVec_01_offGRP.rp" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.tg[0].trp"
+		;
+connectAttr "IK_thigh_upVec_01_offGRP.rpt" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.tg[0].trt"
+		;
+connectAttr "IK_thigh_upVec_01_offGRP.pm" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.tg[0].tpm"
+		;
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.w0" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.tg[0].tw"
+		;
+connectAttr "IK_thigh_upVec_01.wm" "B_IK_ankle_shoulder_IKH_aim_01_aimConstraint1.wum"
+		;
+connectAttr "IK_thigh_upVec_01_offGRP_local_DCMX.ot" "IK_thigh_upVec_01_offGRP.t"
+		;
 connectAttr "B_poleVec_follow_PRBL.ot" "B_poleVec_space_follow.t";
 connectAttr "B_poleVec_follow_PRBL.or" "B_poleVec_space_follow.r";
-connectAttr "B_poleVec_input_space_aimConstraint1.crx" "B_poleVec_input_space.rx"
-		;
-connectAttr "B_poleVec_input_space_aimConstraint1.cry" "B_poleVec_input_space.ry"
-		;
-connectAttr "B_poleVec_input_space_aimConstraint1.crz" "B_poleVec_input_space.rz"
-		;
+connectAttr "leg_mirror_trans_MULT.o" "B_poleVec_space.t";
+connectAttr "B_poleVec_input_space_local_DCMX.or" "B_poleVec_input_space.r";
 connectAttr "B_poleVec_input_space_local_DCMX.ot" "B_poleVec_input_space.t";
-connectAttr "B_poleVec_input_space.pim" "B_poleVec_input_space_aimConstraint1.cpim"
+connectAttr "B_poleVec_thigh_space_local_DCMX.ot" "B_poleVec_thigh_space.t";
+connectAttr "B_poleVec_thigh_space_aimConstraint1.crx" "B_poleVec_thigh_space.rx"
 		;
-connectAttr "B_poleVec_input_space.t" "B_poleVec_input_space_aimConstraint1.ct";
-connectAttr "B_poleVec_input_space.rp" "B_poleVec_input_space_aimConstraint1.crp"
+connectAttr "B_poleVec_thigh_space_aimConstraint1.cry" "B_poleVec_thigh_space.ry"
 		;
-connectAttr "B_poleVec_input_space.rpt" "B_poleVec_input_space_aimConstraint1.crt"
+connectAttr "B_poleVec_thigh_space_aimConstraint1.crz" "B_poleVec_thigh_space.rz"
 		;
-connectAttr "B_poleVec_input_space.ro" "B_poleVec_input_space_aimConstraint1.cro"
+connectAttr "unitConversion21.o" "B_poleVec_aim_space.rebuildRot";
+connectAttr "B_poleVec_aim_space_local_DCMX1.ot" "B_poleVec_aim_space.rebuildTrans"
 		;
-connectAttr "input_B_knee.t" "B_poleVec_input_space_aimConstraint1.tg[0].tt";
-connectAttr "input_B_knee.rp" "B_poleVec_input_space_aimConstraint1.tg[0].trp";
-connectAttr "input_B_knee.rpt" "B_poleVec_input_space_aimConstraint1.tg[0].trt";
-connectAttr "input_B_knee.pm" "B_poleVec_input_space_aimConstraint1.tg[0].tpm";
-connectAttr "B_poleVec_input_space_aimConstraint1.w0" "B_poleVec_input_space_aimConstraint1.tg[0].tw"
+connectAttr "B_poleVec_thigh_space.pim" "B_poleVec_thigh_space_aimConstraint1.cpim"
 		;
-connectAttr "input_F_knee_upVec.wm" "B_poleVec_input_space_aimConstraint1.wum";
-connectAttr "IK_hip_aim_space2B_poleVec_aim_space_DCMX.ot" "B_poleVec_aim_space.t"
+connectAttr "B_poleVec_thigh_space.t" "B_poleVec_thigh_space_aimConstraint1.ct";
+connectAttr "B_poleVec_thigh_space.rp" "B_poleVec_thigh_space_aimConstraint1.crp"
 		;
-connectAttr "IK_hip_aim_space2B_poleVec_aim_space_DCMX.or" "B_poleVec_aim_space.r"
+connectAttr "B_poleVec_thigh_space.rpt" "B_poleVec_thigh_space_aimConstraint1.crt"
 		;
+connectAttr "B_poleVec_thigh_space.ro" "B_poleVec_thigh_space_aimConstraint1.cro"
+		;
+connectAttr "B_IK_foot_CTL.t" "B_poleVec_thigh_space_aimConstraint1.tg[0].tt";
+connectAttr "B_IK_foot_CTL.rp" "B_poleVec_thigh_space_aimConstraint1.tg[0].trp";
+connectAttr "B_IK_foot_CTL.rpt" "B_poleVec_thigh_space_aimConstraint1.tg[0].trt"
+		;
+connectAttr "B_IK_foot_CTL.pm" "B_poleVec_thigh_space_aimConstraint1.tg[0].tpm";
+connectAttr "B_poleVec_thigh_space_aimConstraint1.w0" "B_poleVec_thigh_space_aimConstraint1.tg[0].tw"
+		;
+connectAttr "B_IK_foot_upVec.wm" "B_poleVec_thigh_space_aimConstraint1.wum";
 connectAttr "FK_IK_RVS.ox" "FK_leg_CTL_GRP.v";
 connectAttr "hip_CTL.t" "FK_hip_space.t";
 connectAttr "hip_CTL.s" "FK_hip_space.s";
@@ -2530,24 +2682,49 @@ connectAttr "IK_thigh_upVec_02_offGRP_local_MTMX.o" "IK_thigh_upVec_02_offGRP_lo
 connectAttr "input_B_knee.wm" "IK_thigh_upVec_02_offGRP_local_MTMX.i[0]";
 connectAttr "B_IK_foot_CTL.wim" "IK_thigh_upVec_02_offGRP_local_MTMX.i[1]";
 connectAttr "IK_thigh_upVec_02_offGRP_local_DCMX.or" "unitConversion18.i";
-connectAttr "B_poleVec_input_space.t" "B_poleVec_follow_PRBL.it1";
-connectAttr "B_poleVec_input_space.r" "B_poleVec_follow_PRBL.ir1";
-connectAttr "B_poleVec_aim_space.t" "B_poleVec_follow_PRBL.it2";
-connectAttr "B_poleVec_aim_space.r" "B_poleVec_follow_PRBL.ir2";
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01_local_MTMX.o" "B_IK_ankle_shoulder_IKH_aim_01_local_DCMX.imat"
+		;
+connectAttr "input_ankle.wm" "B_IK_ankle_shoulder_IKH_aim_01_local_MTMX.i[0]";
+connectAttr "B_IK_foot_CTL.wim" "B_IK_ankle_shoulder_IKH_aim_01_local_MTMX.i[1]"
+		;
+connectAttr "B_IK_ankle_IKH_aim_01_local_MTMX.o" "B_IK_ankle_IKH_aim_01_local_DCMX.imat"
+		;
+connectAttr "input_B_knee.wm" "B_IK_ankle_IKH_aim_01_local_MTMX.i[0]";
+connectAttr "B_IK_ankle_shoulder_IKH_aim_01.wim" "B_IK_ankle_IKH_aim_01_local_MTMX.i[1]"
+		;
+connectAttr "B_IK_ankle_IKH_aim_01_local_DCMX.or" "unitConversion20.i";
+connectAttr "IK_thigh_upVec_01_offGRP_local_MTMX.o" "IK_thigh_upVec_01_offGRP_local_DCMX.imat"
+		;
+connectAttr "IK_thigh_CTL.wm" "IK_thigh_upVec_01_offGRP_local_MTMX.i[0]";
+connectAttr "B_IK_foot_CTL_spcGRP.wim" "IK_thigh_upVec_01_offGRP_local_MTMX.i[1]"
+		;
+connectAttr "decomposeMatrix4.ot" "B_poleVec_follow_PRBL.it1";
+connectAttr "decomposeMatrix4.or" "B_poleVec_follow_PRBL.ir1";
+connectAttr "B_poleVec_aim_space_local_DCMX.ot" "B_poleVec_follow_PRBL.it2";
+connectAttr "B_poleVec_aim_space_local_DCMX.or" "B_poleVec_follow_PRBL.ir2";
 connectAttr "unitConversion14.o" "B_poleVec_follow_PRBL.w";
+connectAttr "multMatrix9.o" "decomposeMatrix4.imat";
+connectAttr "B_poleVec_input_space.wm" "multMatrix9.i[0]";
+connectAttr "B_poleVec_offGRP.wim" "multMatrix9.i[1]";
+connectAttr "B_poleVec_aim_space_local_MTMX.o" "B_poleVec_aim_space_local_DCMX.imat"
+		;
+connectAttr "B_poleVec_aim_space.wm" "B_poleVec_aim_space_local_MTMX.i[0]";
+connectAttr "B_poleVec_offGRP.wim" "B_poleVec_aim_space_local_MTMX.i[1]";
 connectAttr "B_poleVec_CTL.follow" "unitConversion14.i";
+connectAttr "leg_mirror_scale_COND.oc" "leg_mirror_trans_MULT.i2";
 connectAttr "B_poleVec_input_space_local_MTMX.o" "B_poleVec_input_space_local_DCMX.imat"
 		;
 connectAttr "input_F_knee.wm" "B_poleVec_input_space_local_MTMX.i[0]";
 connectAttr "B_poleVec_offGRP.wim" "B_poleVec_input_space_local_MTMX.i[1]";
-connectAttr "IK_hip_aim_space2B_poleVec_aim_space_MTMX.o" "IK_hip_aim_space2B_poleVec_aim_space_DCMX.imat"
+connectAttr "B_poleVec_thigh_space_local_MTMX.o" "B_poleVec_thigh_space_local_DCMX.imat"
 		;
-connectAttr "B_poleVec_aim_space.offset" "IK_hip_aim_space2B_poleVec_aim_space_MTMX.i[0]"
+connectAttr "IK_thigh_CTL.wm" "B_poleVec_thigh_space_local_MTMX.i[0]";
+connectAttr "B_poleVec_offGRP.wim" "B_poleVec_thigh_space_local_MTMX.i[1]";
+connectAttr "B_poleVec_aim_space_local_DCMX1.or" "unitConversion21.i";
+connectAttr "B_poleVec_aim_space_local_MTMX1.o" "B_poleVec_aim_space_local_DCMX1.imat"
 		;
-connectAttr "IK_hip_aim_space.wm" "IK_hip_aim_space2B_poleVec_aim_space_MTMX.i[1]"
-		;
-connectAttr "B_poleVec_offGRP.wim" "IK_hip_aim_space2B_poleVec_aim_space_MTMX.i[2]"
-		;
+connectAttr "input_F_knee.wm" "B_poleVec_aim_space_local_MTMX1.i[0]";
+connectAttr "B_poleVec_thigh_space.wim" "B_poleVec_aim_space_local_MTMX1.i[1]";
 connectAttr "leg_switch_CTL.FK_IK" "FK_IK_RVS.ix";
 connectAttr "FK_hip_space.wim" "FK_hip_space_inverse_DCMX.imat";
 connectAttr "FK_thigh_CTL.wim" "FK_thigh_CTL_inverse_DCMX.imat";
@@ -2694,6 +2871,13 @@ connectAttr "multMatrix8.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "decomposeMatrix3.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "leg_mirror_rotate_COND.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "leg_mirror_scale_COND.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "B_poleVec_aim_space_local_MTMX.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "B_poleVec_aim_space_local_DCMX.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "multMatrix9.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "decomposeMatrix4.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "leg_mirror_trans_MULT.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "ikSCsolver.msg" ":ikSystem.sol" -na;
 connectAttr "ikRPsolver.msg" ":ikSystem.sol" -na;
 // End of Qleg.ma

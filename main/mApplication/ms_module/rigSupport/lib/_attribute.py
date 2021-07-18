@@ -42,3 +42,21 @@ def surface_uvSpans_num(_shape):
     Vspans = _shape.numSpansInV()
     print('U number is ({0}), V number is ({1})'.format(Uspans, Vspans))
     return Uspans, Vspans
+
+
+def message_(object_, attr_):
+    item = object_[0]
+    target = object_[1:]
+    
+    #conncet a some more objects  
+    if not item.hasAttr(attr_):  
+        addAttr(item,ln=attr_,at='message',m=True,im=False)
+        itemAttr = PyNode('{}.{}'.format(item, attr_))
+    else:
+        itemAttr = PyNode('{}.{}'.format(item, attr_))
+    for i, object in enumerate(target):
+        addAttr(object,ln=attr_,at='message',m=True,im=False)
+        objectAttr = PyNode('{}.{}'.format(object, attr_))
+        connectAttr(objectAttr,itemAttr,na=True)
+      
+    print 'Multi Connection',listConnections(itemAttr)

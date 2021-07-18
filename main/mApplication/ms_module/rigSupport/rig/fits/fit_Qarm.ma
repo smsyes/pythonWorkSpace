@@ -1,11 +1,11 @@
 //Maya ASCII 2019 scene
 //Name: fit_Qarm.ma
-//Last modified: Fri, Jul 09, 2021 04:38:32 AM
+//Last modified: Sun, Jul 18, 2021 02:51:26 PM
 //Codeset: 949
 requires maya "2019";
+requires "mtoa" "3.2.2";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
-requires "mtoa" "3.2.2";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2019";
@@ -30,6 +30,7 @@ createNode transform -n "fit_Qarm";
 	addAttr -ci true -sn "offsetMir" -ln "offsetMir" -at "matrix";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
+	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
 	setAttr -s 7 ".fitControls";
 	setAttr -s 7 ".init";
 	setAttr -s 7 ".tempJoints";
@@ -37,7 +38,8 @@ createNode transform -n "fit_Qarm";
 	setAttr ".rightDirect" -type "double3" -1 -1 -1 ;
 	setAttr ".offsetMir" -type "matrix" -1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr -cb on ".mirror";
-	setAttr -l on -k on ".type" -type "string" "Qarm";
+	setAttr -l on -k on ".type" -type "string" "fit";
+	setAttr -l on -k on ".fileName" -type "string" "fit_Qarm";
 createNode transform -n "fit_Qarm_GRP" -p "fit_Qarm";
 	rename -uid "87A9DC30-464B-ADDD-E8E7-1A83FBE779C6";
 createNode transform -n "fit_Qscapula" -p "fit_Qarm_GRP";

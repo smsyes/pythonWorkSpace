@@ -1,11 +1,11 @@
 //Maya ASCII 2019 scene
 //Name: fit_Qleg.ma
-//Last modified: Fri, Jul 09, 2021 04:39:36 AM
+//Last modified: Sun, Jul 18, 2021 02:51:53 PM
 //Codeset: 949
 requires maya "2019";
+requires "mtoa" "3.2.2";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
-requires "mtoa" "3.2.2";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2019";
@@ -30,6 +30,7 @@ createNode transform -n "fit_Qleg";
 	addAttr -ci true -sn "offsetMir" -ln "offsetMir" -at "matrix";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
+	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
 	setAttr -s 7 ".fitControls";
 	setAttr -s 7 ".init";
 	setAttr -s 7 ".tempJoints";
@@ -37,7 +38,8 @@ createNode transform -n "fit_Qleg";
 	setAttr ".rightDirect" -type "double3" -1 -1 -1 ;
 	setAttr ".offsetMir" -type "matrix" -1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr -cb on ".mirror";
-	setAttr -l on -k on ".type" -type "string" "Qleg";
+	setAttr -l on -k on ".type" -type "string" "fit";
+	setAttr -l on -k on ".fileName" -type "string" "fit_Qleg";
 createNode transform -n "fit_Qleg_GRP" -p "fit_Qleg";
 	rename -uid "7EBAB587-4B9C-FD32-E3B9-579FC4BC4B4F";
 createNode transform -n "fit_Qhip" -p "fit_Qleg_GRP";

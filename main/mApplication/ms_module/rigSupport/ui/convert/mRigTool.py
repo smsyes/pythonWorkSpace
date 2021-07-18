@@ -30,12 +30,6 @@ from PySide2.QtWidgets import *
 from PySide2 import __version__
 from shiboken2 import wrapInstance
 
-_path = 'D:\script\main\mApplication\ms_module'
-module_path = os.path.join(_path, 'rigSupport')
-
-if not module_path in sys.path:
-    sys.path.append(module_path)
-
 from ui.convert import mRigToolUI as mRigTool
 from lib import _name
 from lib import rebuild
@@ -49,6 +43,8 @@ from lib import _joint
 from lib import _curve
 from lib import attachSet
 from lib import _shapeChange
+import _path
+
 
 reload(mRigTool)
 reload(_name)
@@ -65,6 +61,7 @@ reload(attachSet)
 reload(_shapeChange)
 
 
+
 class myUIClass(QWidget):
     def __init__(self, *args, **kwargs):
         super(myUIClass, self).__init__(*args, **kwargs)
@@ -73,7 +70,8 @@ class myUIClass(QWidget):
         self.ui.setupUi(self)
 
 
-        self.rigDir = self.joinPath(module_path, "rig")
+        self.path_ = _path.path_()
+        self.rigDir = self.joinPath(self.path_, "rig")
         self.fitDir = self.joinPath(self.rigDir, "fits")
         self.setDir = self.joinPath(self.rigDir, "sets")
         self.etcDir = self.joinPath(self.rigDir, "etc")
@@ -82,7 +80,7 @@ class myUIClass(QWidget):
         self.etc_ = self.search(self.etcDir)
 
 
-        self.ui.import_pushButton.clicked.connect(self.moduleType)
+        self.ui.import_pushButton.clicked.connect(self.importModule_)
         self.ui.mirror_pushButton.clicked.connect(self.mirror_)
         self.ui.build_pushButton.clicked.connect(self.build_)
         self.ui.rebuild_pushButton.clicked.connect(self.rebuild_)
@@ -111,36 +109,61 @@ class myUIClass(QWidget):
         get_ = self.ui.module_comboBox.currentText()
         return get_
 
-
-    def moduleType(self):
-        type_ = self.getCombo()
-        if 'fit_{0}.ma'.format(type_) in self.fit_:
-            type_ = 'fit_{0}.ma'.format(type_)
-            dir_ = self.joinPath(self.fitDir, type_)
-            self.importFile(dir_)
-
-        else:
-            print ("The {0} fit file does not exist in the path.".format(type_))
-            print ("path : {0}".format(self.fitDir))
-
-
+    
     def print_m_prefix(self):
         prefixName = self.ui.M_prefix_lineEdit.text()
         if prefixName == 'Prefix Name..':
             prefixName = ''
         return prefixName
-    
 
-    def importFile(self, dir_):
-        type_ = self.print_m_prefix()
-        if type_:
-            ref = createReference( dir_, reference=True, namespace=type_)
-            refNode = referenceQuery(ref, referenceNode=True, nodes=1)
+
+    def getName_(self):
+        sel = ls(sl=1, r=1, fl=1)
+        namespace_ = sel[0].namespaceList()[0]
+        type_ = sel[0].getAttr('fileName')
+        fileName_ = '{}.ma'.format(type_)
+        return sel[0], namespace_, fileName_
+
+
+    def importModule_(self):
+        prefix_ = self.print_m_prefix()
+        type_ = self.getCombo()
+        fileName_ = 'fit_{0}.ma'.format(type_)
+        self.fitModule(prefix_, fileName_)
+
+
+    def fitModule(self, prefix_, fileName_):
+        if  fileName_ in self.fit_:
+            dir_ = self.joinPath(self.fitDir, fileName_)
+            ref, fNode = self.refImport(prefix_, dir_)
+        else:
+            print ("The {0} file does not exist in the path.".format(fileName_))
+            print ("path : {0}".format(self.fitDir))
+            fNode = None
+        return ref, fNode
+
+    
+    def setModule(self, prefix_, fileName_):
+        if fileName_ in self.set_:
+            path_ = os.path.join(self.setDir, fileName_)
+            ref, fNode = self.refImport(prefix_, path_)
+            ref.importContents()
+        else:
+            print ("The {0} file does not exist in the path.".format(fileName_))
+            print ("path : {0}".format(self.setDir))
+            fNode = None
+        return fNode
+
+
+    def refImport(self, prefix_, dir_):
+        if prefix_:
+            ref = createReference( dir_, reference=True, namespace=prefix_)
+            fNode = ref.nodes()[0]
         else:
             print ("A prefix name is required.")
-            refNode = None
-        return refNode[0]
-        
+            fNode = None
+        return ref, fNode
+
         
     def gatDateDag(self, name_):
         return '{}_GRP'.format(name_)
@@ -159,38 +182,27 @@ class myUIClass(QWidget):
 
 
     def build_(self):
-        sel = ls(sl=1, r=1, fl=1)
-        attr_ = _attribute.update_id()
-        uuid_ = attr_.get()
-        match_ = _check.checkID(uuid_)
-        match_.remove(attr_)
-        if match_:
-            list_ = ls(match_, sel)
+        object_, namespace_, fileName_ = self.getName_()
+        fileName_ = fileName_.split('fit_')[-1]
+        dir_ = referenceQuery(object_, filename=True)
+        refNode = referenceQuery(dir_, referenceNode=True)
+        if _check.checkAttr(object_, 'module'):
+            set_ = _check.msg_check(object_, 'module')
+            print set_
         else:
-            '''
-
-            dir_ = self.joinPath(self.setDir, type_)
-            set_ = self.importFile(dir_)
-            list_ = ls(set_, sel)
-            # rebuild.Rebuild(list_, type=True)
-            '''
-        rebuild.Rebuild(list_, type=False)
-        # sel[0].referenceFile().remove()
-
+            set_ = self.setModule(namespace_, fileName_)
+            rebuild.Rebuild(ls(set_, object_), type_=True)
+        rebuild.Rebuild(ls(set_, object_), type_=False)
+        object_.referenceFile().remove()
+        
 
     def rebuild_(self):
-        rebuild.Rebuild(type=True)
+        object_, namespace_, fileName_ = self.getName_()
+        fileName_ = 'fit_{}'.format(fileName_)
+        ref, fNode = self.fitModule(namespace_, fileName_)
+        _attribute.message_(ls(object_,fNode),'module')
+        rebuild.Rebuild(ls(object_, fNode), type_=True)
 
-
-    def checkID(self, uuid_):
-        alldag_ = ls(dag=1, type='transform')
-        moduleTops_ = [_check.checkAttr(obj,'uuid') for obj in alldag_]
-        match_ = [mod for mod in moduleTops_ if mod.getAttr('uuid')==uuid_]
-        return match_
-
-
-    
-    
     
     def print_base_prefix(self):
         prefixName = self.ui.baseName_lineEdit.text()
@@ -262,15 +274,12 @@ class myUIClass(QWidget):
         type_ = 'cape_switch.ma'
         if objExists(type_)==False:
             dir_ = self.joinPath(self.etcDir, type_)
-            set_ = importFile(dir_)
+            set_ = refImport(dir_)
 
 
     def shape_change(self):
         sel = ls(sl=1, r=1, fl=1)
         _shapeChange.shapeChange(sel)
-
-
-
 
 
 

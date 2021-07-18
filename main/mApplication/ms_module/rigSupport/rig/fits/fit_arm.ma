@@ -1,11 +1,11 @@
 //Maya ASCII 2019 scene
 //Name: fit_arm.ma
-//Last modified: Fri, Jul 09, 2021 04:36:53 AM
+//Last modified: Sun, Jul 18, 2021 02:50:59 PM
 //Codeset: 949
 requires maya "2019";
+requires "mtoa" "3.2.2";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
-requires "mtoa" "3.2.2";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2019";
@@ -30,6 +30,7 @@ createNode transform -n "fit_arm";
 	addAttr -ci true -sn "offsetMir" -ln "offsetMir" -at "matrix";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
+	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
 	setAttr -s 4 ".fitControls";
 	setAttr -s 4 ".init";
 	setAttr -s 4 ".tempJoints";
@@ -37,7 +38,8 @@ createNode transform -n "fit_arm";
 	setAttr ".rightDirect" -type "double3" -1 -1 -1 ;
 	setAttr ".offsetMir" -type "matrix" -1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr -cb on ".mirror";
-	setAttr -l on -k on ".type" -type "string" "arm";
+	setAttr -l on -k on ".type" -type "string" "fit";
+	setAttr -l on -k on ".fileName" -type "string" "fit_arm";
 createNode transform -n "fit_scapula_space" -p "fit_arm";
 	rename -uid "700753E7-4AA5-75C7-967C-DE9A137ADAC0";
 createNode transform -n "fit_scapula" -p "fit_scapula_space";
@@ -344,7 +346,7 @@ select -ne :defaultShaderList1;
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 34 ".u";
+	setAttr -s 33 ".u";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
 	setAttr ".ro" yes;
