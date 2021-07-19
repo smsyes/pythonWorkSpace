@@ -103,7 +103,9 @@ def checkConnection(item_attr, target_attr):
     return connection
 
 
-def msg_check(object_, msg_):
+def msg_check(object_, 
+              msg_, 
+              type_=None):
     """Return objects connected by message attribute
 
     Arguments:
@@ -113,13 +115,19 @@ def msg_check(object_, msg_):
         PyNode(attributes)
     """
     list_ = []
-    msgAttr_ = attributeQuery(msg_, node=object_, msg=1)
-    if msgAttr_ == True:
-        pAttrs_ = object_.listConnections(p=1)
-        for pAttr in pAttrs_:
-            pln = str(pAttr.longName())
-            if pln == msg_:
-                list_.append(pAttr.node())
+    if type_=='output':
+        msgAttr_ = attributeQuery(msg_, node=object_, msg=1)
+        if msgAttr_ == True:
+            pAttrs_ = object_.listConnections(p=1)
+            for pAttr in pAttrs_:
+                pln = str(pAttr.longName())
+                if pln == msg_:
+                    list_.append(pAttr.node())
+    if type_=='input':
+       msgAttr_ = attributeQuery(msg_, node=object_, msg=1)
+       if msgAttr_ == True:
+           attr_ = object_.attr(msg_)
+           list_.append(attr_.listConnections()[0])
     return list_
 
 

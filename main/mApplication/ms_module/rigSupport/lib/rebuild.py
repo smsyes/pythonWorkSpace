@@ -42,10 +42,18 @@ class Rebuild():
         self.resetAttr_ = {0:'resetAttr'}
 
         # List of objects associated with message attributes
-        self.self_ = _check.msg_check(self.object_, self.msg_[0])
-        self.input_ = _check.msg_check(self.object_, self.msg_[1])
-        self.init_ = _check.msg_check(self.fit_, self.msg_[2])
-        self.reset_ = _check.msg_check(self.object_, self.msg_[3])
+        self.self_ = _check.msg_check(self.object_, 
+                                      self.msg_[0], 
+                                      type_='output')
+        self.input_ = _check.msg_check(self.object_, 
+                                       self.msg_[1], 
+                                       type_='output')
+        self.init_ = _check.msg_check(self.fit_, 
+                                      self.msg_[2], 
+                                      type_='output')
+        self.reset_ = _check.msg_check(self.object_, 
+                                       self.msg_[3], 
+                                       type_='output')
         
         self.resetAttr = _check.connectionAttr(self.reset_, self.resetAttr_)
         
@@ -92,13 +100,13 @@ class Rebuild():
                 if type_ == True:
                     if item:
                         connectAttr(item, target)
-                    print ("{}>>{}".format(item, target))
+                        print ("{}>>{}".format(item, target))
                 else:
                     if item:
                         disconnectAttr(item, target)
                         print ("{}!>{}".format(item, target))
 
-                
+
     def reset_attr(self, attr_, type_=None):
         """Return Attributes to be set in rebuild mode
 
