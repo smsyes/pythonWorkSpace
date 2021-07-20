@@ -187,8 +187,8 @@ class myUIClass(QWidget):
         dir_ = referenceQuery(object_, filename=True)
         refNode = referenceQuery(dir_, referenceNode=True)
         if _check.checkAttr(object_, 'module'):
-            set_ = _check.msg_check(object_, 'module')
-            print set_
+            attr_ = object_.attr('module')
+            set_ = attr_.listConnections()[0]
         else:
             set_ = self.setModule(namespace_, fileName_)
             rebuild.Rebuild(ls(set_, object_), type_=True)
@@ -201,6 +201,8 @@ class myUIClass(QWidget):
         fileName_ = 'fit_{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
         _attribute.message_(ls(object_,fNode),'module')
+
+        
         rebuild.Rebuild(ls(object_, fNode), type_=True)
 
     
