@@ -57,3 +57,13 @@ def getInverseTransform(object_):
 
 def getMultMatrix(mat1, mat2):
     return mat1*mat2
+
+def getLocalTrans(object_):
+    items, targets = divide_in_two(object_)
+    for i,item in enumerate(items):
+        wm_ = item.getMatrix(worldSpace=True)
+        targetParent_ = targets[i].getParent()
+        wim_ = targetParent_.getMatrix(worldSpace=True).inverse()
+        multM_ = wm_*wim_
+        getLocalTrans_ = multM_[-1][:-1]
+    return getLocalTrans_.get()

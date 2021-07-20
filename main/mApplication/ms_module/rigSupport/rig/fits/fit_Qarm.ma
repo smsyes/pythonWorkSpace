@@ -1,6 +1,6 @@
 //Maya ASCII 2019 scene
 //Name: fit_Qarm.ma
-//Last modified: Sun, Jul 18, 2021 02:51:26 PM
+//Last modified: Wed, Jul 21, 2021 12:42:53 AM
 //Codeset: 949
 requires maya "2019";
 requires "mtoa" "3.2.2";
@@ -14,8 +14,6 @@ fileInfo "cutIdentifier" "201907021615-48e59968a3";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19042)\n";
 createNode transform -n "fit_Qarm";
 	rename -uid "F1BB6091-406F-EC57-87B8-418728B880D8";
-	addAttr -r false -s false -ci true -m -im false -sn "fitControls" -ln "fitControls" 
-		-at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "init" -ln "init" -at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoints" -ln "tempJoints" 
 		-at "message";
@@ -31,7 +29,8 @@ createNode transform -n "fit_Qarm";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
 	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
-	setAttr -s 7 ".fitControls";
+	addAttr -r false -s false -ci true -m -im false -sn "fitControl" -ln "fitControl" 
+		-at "message";
 	setAttr -s 7 ".init";
 	setAttr -s 7 ".tempJoints";
 	setAttr ".leftDirect" -type "double3" 1 1 1 ;
@@ -40,6 +39,7 @@ createNode transform -n "fit_Qarm";
 	setAttr -cb on ".mirror";
 	setAttr -l on -k on ".type" -type "string" "fit";
 	setAttr -l on -k on ".fileName" -type "string" "fit_Qarm";
+	setAttr -s 7 ".fitControl";
 createNode transform -n "fit_Qarm_GRP" -p "fit_Qarm";
 	rename -uid "87A9DC30-464B-ADDD-E8E7-1A83FBE779C6";
 createNode transform -n "fit_Qscapula" -p "fit_Qarm_GRP";
@@ -601,13 +601,6 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-connectAttr "fit_Qscapula.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_Qshoulder.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_QB_elbow.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_QF_elbow.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_Qwrist.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_Qtoe.fitControl" "fit_Qarm.fitControls" -na;
-connectAttr "fit_Qtiptoe.fitControl" "fit_Qarm.fitControls" -na;
 connectAttr "init_Qscapula.init" "fit_Qarm.init" -na;
 connectAttr "init_Qshoulder.init" "fit_Qarm.init" -na;
 connectAttr "init_QB_elbow.init" "fit_Qarm.init" -na;
@@ -622,6 +615,13 @@ connectAttr "temp_QF_elbow.tempJoint" "fit_Qarm.tempJoints" -na;
 connectAttr "temp_Qwrist.tempJoints" "fit_Qarm.tempJoints" -na;
 connectAttr "temp_Qtoe.tempJoints" "fit_Qarm.tempJoints" -na;
 connectAttr "temp_Qtiptoe.tempJoints" "fit_Qarm.tempJoints" -na;
+connectAttr "fit_Qscapula.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_Qshoulder.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_QB_elbow.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_QF_elbow.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_Qwrist.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_Qtoe.fitControl" "fit_Qarm.fitControl" -na;
+connectAttr "fit_Qtiptoe.fitControl" "fit_Qarm.fitControl" -na;
 connectAttr "arm_mirror_COND.ocr" "fit_Qarm_GRP.sx";
 connectAttr "fit_Qscapula.t" "fit_Qarm_space.t";
 connectAttr "fit_Qscapula.r" "fit_Qarm_space.r";

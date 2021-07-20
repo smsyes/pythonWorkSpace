@@ -19,9 +19,12 @@ from pymel.core import *
 
 from lib import _check
 from lib import _node
+from lib import _transform
 
 reload(_check)
 reload(_node)
+reload(_transform)
+
 
 class Rebuild():
     def __init__(self, object_, type_, *args, **kwargs):
@@ -32,7 +35,13 @@ class Rebuild():
             
 
         # message attributes name dictionary
-        self.msg_ = {0:"reBuildMode", 1:"input", 2:"init", 3:"reBuildAttr"}
+        self.msg_ = {
+                     0:"reBuildMode", 
+                     1:"input", 
+                     2:"init", 
+                     3:"reBuildAttr", 
+                     4:"fitControl"
+                     }
 
         # Attribute names to be associated with rebuild
         self.attrDict_ = {'self':{0:'rebuildTrans', 1:'rebuildRot'}, 
@@ -54,10 +63,17 @@ class Rebuild():
         self.reset_ = _check.msg_check(self.object_, 
                                        self.msg_[3], 
                                        type_='output')
+        self.fitControl = _check.msg_check(self.fit_,
+                                           self.msg_[4], 
+                                           type_='output')
+        print (self.input_, self.fitControl)
         
         self.resetAttr = _check.connectionAttr(self.reset_, self.resetAttr_)
         
         # Run build mode and rebuild mode
+        self.rebuildTrans(self.input_, 
+                          self.fitControl, 
+                          type_=self.type_)
         self.rebuild_(self.self_, self.self_,
                       self.attrDict_['self'], 
                       self.attrDict_['fit'], 
@@ -98,7 +114,7 @@ class Rebuild():
             for i,item in enumerate(itemAttr_[key]):
                 target = targetAttr_[key][i]
                 if type_ == True:
-                    if item:
+                    if item:                            
                         connectAttr(item, target)
                         print ("{}>>{}".format(item, target))
                 else:
@@ -107,6 +123,17 @@ class Rebuild():
                         print ("{}!>{}".format(item, target))
 
 
+    def rebuildTrans(self, item_, 
+                     target_, 
+                     type_=None):
+        for i,item in enumerate(item_):
+            if type_ == True:
+                setList = ls(item, target_[i])
+                localTrans_ = _transform.getLocalTrans(setList)
+                target_[i].setTranslation(localTrans_)
+                print ("{}>Trans Set>{}".format(item, target_[i]))
+
+    
     def reset_attr(self, attr_, type_=None):
         """Return Attributes to be set in rebuild mode
 
