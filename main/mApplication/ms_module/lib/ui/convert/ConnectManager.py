@@ -769,40 +769,34 @@ class myUIClass(QtWidgets.QMainWindow, QtWidgets.QWidget):
     
         return skinCluster_
     
-    def GetSkinJoint(self, skinCluster_):
-        output_ = []
-        #get len of array attribute (matrix)
-        matrixAttrLen =  getAttr(skinCluster_ + ".matrix", s=1) 
-        for i in range(0, matrixAttrLen):
-            jointAttr = ls(connectionInfo(skinCluster_ + ".matrix[" + str(i) + "]", 
-                                            sfd=1), l=1)[0]
-            joint_ = jointAttr.split(".")[0]
-            joint_ = str(joint_)
-            output_.append(joint_)
-        return output_
-        
+    def bindJoint(self, object_):
+        shape_ = object_.getShape()
+        connectionList_ = shape_.listHistory(gl=1,pdo=1)
+        for cnt_ in connectionList_:
+            if cnt_.type() == 'skinCluster':
+                scls_ = cnt_
+                break
+            else:
+                scls_ = None
+        sclsMtx_ = scls_.attr('matrix')
+        return sclsMtx_.listConnections(d=0,s=1,type='joint')
     
-    def CopySkinBind(self, item_, target_):
-        shape_, shapeType_ = self.Shapes(item_)
-        skinCluster_ = self.GetSkinCluster(shape_, shapeType_)
-        skinJoint_ = self.GetSkinJoint(skinCluster_)
-        skinCluster(skinJoint_, target_, bm=1, mi=3, rui=0, dr=4.5)
-        select(item_, r =1)
-        select(target_, add =1)
-        copySkinWeights(nm = 1, sa = 'closestPoint', 
-                        ia = ('closestJoint', 'oneToOne'))
-        select(cl=1)
 
+    def skinCopy(self, item_, target_):
+        bindJoints = self.bindJoint(item_)
+        skinCluster(bindJoints, target_, bm=1, mi=3, rui=0, dr=3)
+        copySkinWeights(item_,target_,nm=1,sa='closestPoint',ia=['label','label','label'],nr=1)
+    
                                      
     def SkinBind(self):
         item_, target_ = self.ConnectionMode()
-        print item_, target_
         if self.ui.OneToNradioButton.isChecked():
             for i, object in enumerate(target_):
-                self.CopySkinBind(item_, object)
+                self.skinCopy(item_, object)
         elif self.ui.NToNradioButton.isChecked():
             for i, item in enumerate(item_):
-                self.CopySkinBind(item, target_[i])
+                self.skinCopy(item, target_[i])
+
                 
                    
 def maya_main_window():
