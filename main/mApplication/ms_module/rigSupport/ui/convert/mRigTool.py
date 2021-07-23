@@ -82,14 +82,6 @@ class myUIClass(QWidget):
         self.set_ = self.search(self.setDir)
         self.etc_ = self.search(self.etcDir)
 
-        # get name
-        self.num_ = self.ui.padding_lineEdit.text()
-        self.name_ = self.ui.name_lineEdit.text()
-        self.prefix_ = self.ui.prefix_lineEdit.text()
-        self.suffix_ = self.ui.suffix_lineEdit.text()
-        self.oldName_ = self.ui.oldname_lineEdit.text()
-        self.newName_ = self.ui.newname_lineEdit.text()
-
 
         self.ui.rename_pushButton.clicked.connect(self.run_rename)
         self.ui.change_pushButton.clicked.connect(self.old_change)
@@ -113,22 +105,29 @@ class myUIClass(QWidget):
 
     
     def run_rename(self):
-        message_ = reName.ReName().run_rename(self.name_, self.num_)
+        name_ = self.ui.name_lineEdit.text()
+        num_ = self.ui.padding_lineEdit.text()
+        message_ = reName.ReName().run_rename(name_, num_)
+        print self.name_, self.num_
         self.set_message(message_)
 
 
     def old_change(self):
-        message_ = reName.ReName().old_change(self.oldName_, self.newName_)
+        oldName_ = self.ui.oldname_lineEdit.text()
+        newName_ = self.ui.newname_lineEdit.text()
+        message_ = reName.ReName().old_change(oldName_, newName_)
         self.set_message(message_)
 
 
     def append_prefix(self):
-        message_ = reName.ReName().append_prefix(self.prefix_)
+        prefix_ = self.ui.prefix_lineEdit.text()
+        message_ = reName.ReName().append_prefix(prefix_)
         self.set_message(message_)
 
 
     def append_suffix(self):
-        message_ = reName.ReName().append_suffix(self.suffix_)
+        suffix_ = self.ui.suffix_lineEdit.text()
+        message_ = reName.ReName().append_suffix(suffix_)
         self.set_message(message_)
 
 
