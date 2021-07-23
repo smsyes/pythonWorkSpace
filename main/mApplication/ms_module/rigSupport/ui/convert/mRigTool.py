@@ -201,8 +201,6 @@ class myUIClass(QWidget):
         fileName_ = 'fit_{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
         _attribute.message_(ls(object_,fNode),'module')
-
-        
         rebuild.Rebuild(ls(object_, fNode), type_=True)
 
     
