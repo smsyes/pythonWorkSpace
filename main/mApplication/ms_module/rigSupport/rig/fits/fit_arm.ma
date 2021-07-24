@@ -1,6 +1,6 @@
 //Maya ASCII 2019 scene
 //Name: fit_arm.ma
-//Last modified: Sun, Jul 18, 2021 02:50:59 PM
+//Last modified: Wed, Jul 21, 2021 09:59:50 PM
 //Codeset: 949
 requires maya "2019";
 requires "mtoa" "3.2.2";
@@ -14,8 +14,6 @@ fileInfo "cutIdentifier" "201907021615-48e59968a3";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19042)\n";
 createNode transform -n "fit_arm";
 	rename -uid "7CEFB5FD-414B-AAED-D988-78A8F0D65538";
-	addAttr -r false -s false -ci true -m -im false -sn "fitControls" -ln "fitControls" 
-		-at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "init" -ln "init" -at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoints" -ln "tempJoints" 
 		-at "message";
@@ -31,7 +29,8 @@ createNode transform -n "fit_arm";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
 	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
-	setAttr -s 4 ".fitControls";
+	addAttr -r false -s false -ci true -m -im false -sn "fitControl" -ln "fitControl" 
+		-at "message";
 	setAttr -s 4 ".init";
 	setAttr -s 4 ".tempJoints";
 	setAttr ".leftDirect" -type "double3" 1 1 1 ;
@@ -40,6 +39,7 @@ createNode transform -n "fit_arm";
 	setAttr -cb on ".mirror";
 	setAttr -l on -k on ".type" -type "string" "fit";
 	setAttr -l on -k on ".fileName" -type "string" "fit_arm";
+	setAttr -s 4 ".fitControl";
 createNode transform -n "fit_scapula_space" -p "fit_arm";
 	rename -uid "700753E7-4AA5-75C7-967C-DE9A137ADAC0";
 createNode transform -n "fit_scapula" -p "fit_scapula_space";
@@ -359,10 +359,6 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-connectAttr "fit_scapula.fitControl" "fit_arm.fitControls" -na;
-connectAttr "fit_shoulder.fitControl" "fit_arm.fitControls" -na;
-connectAttr "fit_elbow.fitControl" "fit_arm.fitControls" -na;
-connectAttr "fit_wrist.fitControl" "fit_arm.fitControls" -na;
 connectAttr "fit_init_scapula.init" "fit_arm.init" -na;
 connectAttr "fit_init_shoulder.init" "fit_arm.init" -na;
 connectAttr "fit_init_elbow.init" "fit_arm.init" -na;
@@ -371,6 +367,10 @@ connectAttr "temp_scapula.tempJoint" "fit_arm.tempJoints" -na;
 connectAttr "temp_shoulder.tempJoint" "fit_arm.tempJoints" -na;
 connectAttr "temp_elbow.tempJoint" "fit_arm.tempJoints" -na;
 connectAttr "temp_wrist.tempJoint" "fit_arm.tempJoints" -na;
+connectAttr "fit_scapula.fitControl" "fit_arm.fitControl" -na;
+connectAttr "fit_shoulder.fitControl" "fit_arm.fitControl" -na;
+connectAttr "fit_elbow.fitControl" "fit_arm.fitControl" -na;
+connectAttr "fit_wrist.fitControl" "fit_arm.fitControl" -na;
 connectAttr "arm_mirror_COND.ocr" "fit_scapula_space.sx";
 connectAttr "fit_scapula.t" "fit_arm_space.t";
 connectAttr "fit_scapula.r" "fit_arm_space.r";
