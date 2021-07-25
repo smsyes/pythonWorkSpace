@@ -62,7 +62,7 @@ def local_matrix(object_, t=None, r=None, s=None):
         if r:
             _connect.connect_attrs(ls(DCMX_, target), 'or', r)
         if s:
-            _connect.connect_attrs(ls(DCMX_, target), 'os', s)
+            _connect.connect_attrs(ls(DCMX_, target), 'os', s)        
 
 
 def matrixConstraint(object_, 

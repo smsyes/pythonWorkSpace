@@ -46,7 +46,7 @@ class MainSet():
 
         _joint.linear_spacing_joint(3, 
                                     e=True, 
-                                    oj='xyz', 
+                                    oj='xzy', 
                                     sao='zup', 
                                     zso=True, 
                                     axis='x'
@@ -66,7 +66,7 @@ class MainSet():
         ordict_['FKCTLs'] = _control.control_(ordict_['FKJNTs'], 'circle')
         ordict_['IKCTLs'] = _control.control_(ordict_['IKJNTs'], 'circle')
         PRBLs, BLCLs = self.IK_FK_Blend(ls(ordict_['IKJNTs'], 
-                                           ordict_['IKJNTs']), 
+                                           ordict_['FKJNTs']), 
                                            ordict_['baseJNTs'])
         ordict_['PRBLs'] = PRBLs
         ordict_['BLCLs'] = BLCLs
@@ -80,12 +80,12 @@ class MainSet():
         # FK Setting
         _connect.chain_structure(ordict_['FKCTLs'])
         FKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['FKCTLs']]
-        self.connect_attrs(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 'r', 'r')
-        _matrix.local_matrix(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), t='t', s='s')
+        # self.connect_attrs(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 'r', 'r')
+        _matrix.local_matrix(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), t='t', r='jointOrient', s='s')
 
         # IK Setting
         IKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['IKCTLs']]
-        _matrix.local_matrix(ls(ordict_['IKCTLs'], ordict_['IKJNTs']), t='t', r='r', s='s')
+        _matrix.local_matrix(ls(ordict_['IKCTLs'], ordict_['IKJNTs']), t='t', r='jointOrient', s='s')
         IKConstList = {0:[ordict_['IKCTLs'][0],
                         ordict_['IKCTLs'][-1],
                         ordict_['IKCTLs'][2].getParent(2)],
@@ -117,15 +117,15 @@ class MainSet():
     def connect_pairBlend(self, items_, target_, PRBL_list, BLCL_list):
         items, targets = _transform.divide_in_two(items_)
         for i,item in enumerate(items):
-            self.connect_attrs([item, PRBL_list[i]], 't', 'it1')
-            self.connect_attrs([item, PRBL_list[i]], 'r', 'ir1')
-            self.connect_attrs([item, BLCL_list[i]], 's', 'c2')
-            self.connect_attrs([targets[i], PRBL_list[i]], 't', 'it2')
-            self.connect_attrs([targets[i], PRBL_list[i]], 'r', 'ir2')
-            self.connect_attrs([targets[i], BLCL_list[i]], 's', 'c1')
-            self.connect_attrs([PRBL_list[i], target_[i]], 'ot', 't')
-            self.connect_attrs([PRBL_list[i], target_[i]], 'or', 'r')
-            self.connect_attrs([BLCL_list[i], target_[i]], 'output', 's')
+            self.connect_attrs(ls(item, PRBL_list[i]), 't', 'it1')
+            self.connect_attrs(ls(item, PRBL_list[i]), 'jointOrient', 'ir1')
+            self.connect_attrs(ls(item, BLCL_list[i]), 's', 'c2')
+            self.connect_attrs(ls(targets[i], PRBL_list[i]), 't', 'it2')
+            self.connect_attrs(ls(targets[i], PRBL_list[i]), 'jointOrient', 'ir2')
+            self.connect_attrs(ls(targets[i], BLCL_list[i]), 's', 'c1')
+            self.connect_attrs(ls(PRBL_list[i], target_[i]), 'ot', 't')
+            self.connect_attrs(ls(PRBL_list[i], target_[i]), 'or', 'jointOrient')
+            self.connect_attrs(ls(BLCL_list[i], target_[i]), 'output', 's')
 
     def IK_FK_Blend(self, items_, target_):
         PRBLs = [_node.pairBlend_() for i in target_]
