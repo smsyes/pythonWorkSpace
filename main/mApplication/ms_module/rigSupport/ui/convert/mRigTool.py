@@ -274,7 +274,7 @@ class myUIClass(QWidget):
         type_ = 'cape_switch.ma'
         if objExists(type_)==False:
             dir_ = self.joinPath(self.etcDir, type_)
-            set_ = refImport(dir_)
+            set_ = self.refImport('cape', dir_)
 
 
     def shape_change(self):
