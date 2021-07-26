@@ -43,6 +43,7 @@ from lib import _joint
 from lib import _curve
 from lib import attachSet
 from lib import _shapeChange
+from lib import reName
 import _path
 
 
@@ -59,6 +60,7 @@ reload(_joint)
 reload(_curve)
 reload(attachSet)
 reload(_shapeChange)
+reload(reName)
 
 
 
@@ -70,6 +72,7 @@ class myUIClass(QWidget):
         self.ui.setupUi(self)
 
 
+        # get dir
         self.path_ = _path.path_()
         self.rigDir = self.joinPath(self.path_, "rig")
         self.fitDir = self.joinPath(self.rigDir, "fits")
@@ -80,6 +83,10 @@ class myUIClass(QWidget):
         self.etc_ = self.search(self.etcDir)
 
 
+        self.ui.rename_pushButton.clicked.connect(self.run_rename)
+        self.ui.change_pushButton.clicked.connect(self.old_change)
+        self.ui.prefix_lineEdit.returnPressed.connect(self.append_prefix)
+        self.ui.suffix_lineEdit.returnPressed.connect(self.append_suffix)
         self.ui.import_pushButton.clicked.connect(self.importModule_)
         self.ui.mirror_pushButton.clicked.connect(self.mirror_)
         self.ui.build_pushButton.clicked.connect(self.build_)
@@ -93,6 +100,38 @@ class myUIClass(QWidget):
         self.ui.attach_pushButton.clicked.connect(self.attach_setting)
         self.ui.switchImport_pushButton.clicked.connect(self.switch_import)
         self.ui.shapeChange_pushButton.clicked.connect(self.shape_change)
+        
+
+
+    
+    def run_rename(self):
+        name_ = self.ui.name_lineEdit.text()
+        num_ = self.ui.padding_lineEdit.text()
+        message_ = reName.ReName().run_rename(name_, num_)
+        self.set_message(message_)
+
+
+    def old_change(self):
+        oldName_ = self.ui.oldname_lineEdit.text()
+        newName_ = self.ui.newname_lineEdit.text()
+        message_ = reName.ReName().old_change(oldName_, newName_)
+        self.set_message(message_)
+
+
+    def append_prefix(self):
+        prefix_ = self.ui.prefix_lineEdit.text()
+        message_ = reName.ReName().append_prefix(prefix_)
+        self.set_message(message_)
+
+
+    def append_suffix(self):
+        suffix_ = self.ui.suffix_lineEdit.text()
+        message_ = reName.ReName().append_suffix(suffix_)
+        self.set_message(message_)
+
+
+    def set_message(self, message_):
+        self.ui.message_label.setText(message_)
 
 
     def search(self, dirName):
@@ -274,7 +313,7 @@ class myUIClass(QWidget):
         type_ = 'cape_switch.ma'
         if objExists(type_)==False:
             dir_ = self.joinPath(self.etcDir, type_)
-            set_ = self.refImport('cape', dir_)
+            set_ = self.refImport(dir_)
 
 
     def shape_change(self):
