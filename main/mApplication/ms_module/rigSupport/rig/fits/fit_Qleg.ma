@@ -1,6 +1,6 @@
 //Maya ASCII 2019 scene
 //Name: fit_Qleg.ma
-//Last modified: Sun, Jul 18, 2021 02:51:53 PM
+//Last modified: Wed, Jul 21, 2021 09:57:26 PM
 //Codeset: 949
 requires maya "2019";
 requires "mtoa" "3.2.2";
@@ -14,8 +14,6 @@ fileInfo "cutIdentifier" "201907021615-48e59968a3";
 fileInfo "osv" "Microsoft Windows 10 Technical Preview  (Build 19042)\n";
 createNode transform -n "fit_Qleg";
 	rename -uid "CA736AA8-46AE-B4A3-45E7-0EA1D3EA68D4";
-	addAttr -r false -s false -ci true -m -im false -sn "fitControls" -ln "fitControls" 
-		-at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "init" -ln "init" -at "message";
 	addAttr -r false -s false -ci true -m -im false -sn "tempJoints" -ln "tempJoints" 
 		-at "message";
@@ -31,7 +29,8 @@ createNode transform -n "fit_Qleg";
 	addAttr -ci true -sn "mirror" -ln "mirror" -min 0 -max 1 -at "long";
 	addAttr -ci true -sn "type" -ln "type" -dt "string";
 	addAttr -ci true -sn "fileName" -ln "fileName" -dt "string";
-	setAttr -s 7 ".fitControls";
+	addAttr -r false -s false -ci true -m -im false -sn "fitControl" -ln "fitControl" 
+		-at "message";
 	setAttr -s 7 ".init";
 	setAttr -s 7 ".tempJoints";
 	setAttr ".leftDirect" -type "double3" 1 1 1 ;
@@ -40,6 +39,7 @@ createNode transform -n "fit_Qleg";
 	setAttr -cb on ".mirror";
 	setAttr -l on -k on ".type" -type "string" "fit";
 	setAttr -l on -k on ".fileName" -type "string" "fit_Qleg";
+	setAttr -s 7 ".fitControl";
 createNode transform -n "fit_Qleg_GRP" -p "fit_Qleg";
 	rename -uid "7EBAB587-4B9C-FD32-E3B9-579FC4BC4B4F";
 createNode transform -n "fit_Qhip" -p "fit_Qleg_GRP";
@@ -601,13 +601,6 @@ select -ne :defaultResolution;
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
-connectAttr "fit_Qhip.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_Qthigh.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_QF_knee.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_QB_knee.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_Qankle.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_Qhind_toe.fitControl" "fit_Qleg.fitControls" -na;
-connectAttr "fit_Qhind_tiptoe.fitControl" "fit_Qleg.fitControls" -na;
 connectAttr "init_Qhip.init" "fit_Qleg.init" -na;
 connectAttr "init_Qthigh.init" "fit_Qleg.init" -na;
 connectAttr "init_QF_knee.init" "fit_Qleg.init" -na;
@@ -622,6 +615,13 @@ connectAttr "temp_QB_knee.tempJoint" "fit_Qleg.tempJoints" -na;
 connectAttr "temp_Qankle.tempJoints" "fit_Qleg.tempJoints" -na;
 connectAttr "temp_Qhind_toe.tempJoints" "fit_Qleg.tempJoints" -na;
 connectAttr "temp_Qhind_tiptoe.tempJoints" "fit_Qleg.tempJoints" -na;
+connectAttr "fit_Qhip.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_Qthigh.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_QF_knee.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_QB_knee.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_Qankle.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_Qhind_toe.fitControl" "fit_Qleg.fitControl" -na;
+connectAttr "fit_Qhind_tiptoe.fitControl" "fit_Qleg.fitControl" -na;
 connectAttr "leg_mirror_COND.ocr" "fit_Qleg_GRP.sx";
 connectAttr "fit_Qhip.t" "fit_Qleg_space.t";
 connectAttr "fit_Qhip.r" "fit_Qleg_space.r";

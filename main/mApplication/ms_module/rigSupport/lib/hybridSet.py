@@ -147,12 +147,11 @@ class HybridSet():
         
         FK_cnt_space = [_node.insert_space(CTL,'cnt') for CTL in ordict_['FKCTLs']]
         FK_spc_space = [CTL.getParent(2) for CTL in ordict_['FKCTLs']]
-        self.connect_attrs(ls(ordict_['FKCTLs'], 
-                            ordict_['FKJNTs']), 
-                            'r', 'r')
+        
+        ordict_['FKJNTs'][0].setAttr('jointOrient', (0,0,0))
         _matrix.local_matrix(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
-                            t='t', s='s'
+                            t='t', r='r', s='s'
                             )
         self.connect_attrs(ls(ordict_['IKJNTs'], 
                             FK_off_space), 
@@ -228,13 +227,19 @@ class HybridSet():
                     IK_LOC_off[0]), 
                     r='r')
         
+        IK_LOC.reverse()
+        upVec_LOC.reverse()
+        IK_LOC_off.reverse()
         for i,spc in enumerate(IK_LOC[:-1]):
             aimItem = spc
             aimTarget = IK_LOC_off[i+1]
-            aimUpVec = upVec_LOC[i+1]
+            aimUpVec = upVec_LOC[i]
             aimConstraint(aimItem, aimTarget, mo=1, 
                         aimVector=(-1,0,0), upVector=up_, 
                         worldUpType='object', worldUpObject=aimUpVec)
+        IK_LOC.reverse()
+        upVec_LOC.reverse()
+        IK_LOC_off.reverse()
 
 
     def hybrid_structure(self, name_):
