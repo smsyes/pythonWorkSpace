@@ -765,7 +765,7 @@ class myUIClass(QtWidgets.QMainWindow, QtWidgets.QWidget):
     def skinCopy(self, item_, target_):
         bindJoints = self.bindJoint(item_)
         skinCluster(bindJoints, target_, bm=1, mi=3, rui=0, dr=3)
-        copySkinWeights(item_,target_,nm=1,sa='closestPoint',ia=['label','label','label'],nr=1)
+        copySkinWeights(item_,target_,nm=1,sa='closestPoint',ia='oneToOne',nr=1)
 
                                      
     def SkinBind(self):
