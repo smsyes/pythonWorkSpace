@@ -21,42 +21,36 @@ message_ = ReName().append_suffix(getRename)
 # when start coding 3 empty lines.
 #
 from pymel.core import *
-
+import string
 
 class ReName():
     def __init__(self, *args, **kwargs):
         self.set_message = ''
 
     
-    def padding(self, num_):
-        pad_ = str(num_).zfill(2)
+    def alpha_padding_(num_):
+        alphabet_ = string.ascii_uppercase[num_]
+        return alphabet_
+    
+    
+    def padding(self, num_, check_):
+        if check_ == True:
+            pad_ = string.ascii_uppercase[num_]
+        if check_ == False:
+            pad_ = str(num_).zfill(2)
         return pad_
 
-    def get_pad(self, num_):
-        # num_ = self.ui.padding_lineEdit.text()
-        if num_:
-            try:
-                toInt = int(num_)
-                self.set_message = "..."
-                return toInt
-            except:
-                self.set_message = "Let's just put in numbers."
-                # self.ui.padding_lineEdit.setText("1")
-                num_=1
-        elif num_ == '':
-            # self.ui.padding_lineEdit.setText("1")
-            num_=1
-        return self.set_message
 
-
-    def make_name(self, name_, num_):
+    def make_name(self, name_, num_, check_):
         sel_ = ls(sl=1,r=1,fl=1)
-        self.get_pad(num_)
         if sel_:
-            for i,sel_ in enumerate(sel_):
-                pad_ = self.padding(i+int(num_))
-                makeName_ = name_ + pad_
-                sel_.rename(makeName_)
+            if len(sel_)==1:
+                sel_[0].rename(name_)
+            else:
+                for i,sel_ in enumerate(sel_):
+                    pad_ = self.padding(i+int(num_), check_)
+                    makeName_ = name_ + pad_
+                    sel_.rename(makeName_)
 
 
     def append_name(self, name_, mode=None):
@@ -77,12 +71,12 @@ class ReName():
                 sel.rename(changeName)
 
 
-    def run_rename(self, getRename, num_):
+    def run_rename(self, getRename, num_, check_):
         # getRename = self.ui.name_lineEdit.text()
         if getRename=="Name..":
             self.set_message = "Please enter your name"
         else:
-            self.make_name(getRename, num_)
+            self.make_name(getRename, num_, check_)
             self.set_message = "..."
         return self.set_message
 

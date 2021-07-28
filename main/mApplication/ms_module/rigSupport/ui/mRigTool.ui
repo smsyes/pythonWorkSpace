@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="rename_tap">
       <attribute name="title">
@@ -46,7 +46,7 @@
          <item>
           <widget class="QLabel" name="label_19">
            <property name="text">
-            <string># ReName = Name + Padding(**)</string>
+            <string># ReName = Name or Name + Padding(**)</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -63,16 +63,12 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="padding_lineEdit">
-             <property name="text">
-              <string>0</string>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="NumspinBox"/>
            </item>
            <item>
-            <widget class="QPushButton" name="rename_pushButton">
+            <widget class="QCheckBox" name="AlphacheckBox">
              <property name="text">
-              <string>ReName</string>
+              <string>Alphabet</string>
              </property>
             </widget>
            </item>
@@ -713,6 +709,20 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string># Execute after selecting the joint to be installed</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bendAdd_pushButton">
+         <property name="text">
+          <string>Bend Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label_25">
          <property name="text">
           <string># Selection List [0] = Base Fit top group / Selection List [1] = Mirror Fit top group</string>
@@ -746,52 +756,6 @@
        </item>
        <item>
         <widget class="Line" name="line_14">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_26">
-         <property name="text">
-          <string>Bend Setting</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_29">
-         <property name="text">
-          <string># Execute after selecting the joint to be installed</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QComboBox" name="bendType_comboBox">
-           <item>
-            <property name="text">
-             <string>L</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>R</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="bendAdd_pushButton">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_12">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>

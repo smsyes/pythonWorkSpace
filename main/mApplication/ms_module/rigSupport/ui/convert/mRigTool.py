@@ -83,7 +83,7 @@ class myUIClass(QWidget):
         self.etc_ = self.search(self.etcDir)
 
 
-        self.ui.rename_pushButton.clicked.connect(self.run_rename)
+        self.ui.name_lineEdit.returnPressed.connect(self.run_rename)
         self.ui.change_pushButton.clicked.connect(self.old_change)
         self.ui.prefix_lineEdit.returnPressed.connect(self.append_prefix)
         self.ui.suffix_lineEdit.returnPressed.connect(self.append_suffix)
@@ -106,8 +106,9 @@ class myUIClass(QWidget):
     
     def run_rename(self):
         name_ = self.ui.name_lineEdit.text()
-        num_ = self.ui.padding_lineEdit.text()
-        message_ = reName.ReName().run_rename(name_, num_)
+        num_ = self.ui.NumspinBox.value()
+        check_ = self.ui.AlphacheckBox.isChecked()
+        message_ = reName.ReName().run_rename(name_, num_, check_)
         self.set_message(message_)
 
 
