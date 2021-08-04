@@ -51,17 +51,26 @@ def space_(_name, type_, parent_):
     return _space
     
 def followSpace(node, type):
-    spaceList = [space_(n, type[i], 1) for i,n in enumerate(node)]
+    item = node[-1]
+    target = node[:-1]
+    spaceList = [space_(item, type[i], item) for i,n in enumerate(target)]
+    [parent(spc, target[i]) for i,spc in enumerate(spaceList)]
     
 
 node = ls(sl=1,fl=1,r=1)
 # followList = ["Clavicle", "Body", "Root", "Fly", "World"]
-# followList = ['Hip', 'Root', 'World', 'Fly']
+# followList = ["Clavicle", "Root", "World", "Body", "Fly"]
+# followList = ["Body", "Fly"]
+# followList = ["Fly"]
+# followList = ['Hip', 'Root', 'Fly', 'World']
+# followList = ['Root', 'Fly', 'World']
+# followList = ['Hip']
 # followList = ['Jaw', 'Head']
 # followList = ['Tongue', 'Fly', 'World']
 # followList = ["Head", "Body", "Root", "Fly", "Hip"]
-FW_ = followSpace(node[-1], followList)
-attr_ = followAttr(FW_, followList)
-setAnim(node, 'orient')
+# followList = ["Clavicle", "Body", "Root", "Fly", "World"]
+# FW_ = followSpace(node, followList)
+# attr_ = followAttr(node[-1], followList)
+# setAnim(node, 'orient')
 
 
