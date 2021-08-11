@@ -23,6 +23,7 @@ import pymel.core.datatypes as dt
 import maya.OpenMaya as om
 import string
 import sys
+import re
 import os
 import math
 import random 
@@ -1159,7 +1160,30 @@ def inverse_scale(object_):
         connect_attrs(ls(ivsDCMX, targets[i]), 'os', 's')
 
 
+def nameSortDict(object_):
+    dict_ = {}
+    for i in object_:
+        crv_ = i.getChildren(type='transform')[0]
+        crvName_ = crv_.name()
+        crvNumber_ = int(re.sub(r'[^0-9]','',crvName_))
+        dict_[crvNumber_]=i
+    
+    parent_ = object_[0].getParent()
+    parent(dict_.values(), w=1)
+    parent(dict_.values(), parent_)
+    return dict_
         
+
+def flattenList(object_):
+    for i in object_:
+        crvName_ = i.name()
+        crvNumber_ = int(re.sub(r'[^0-9]','',crvName_))
+        newName_ = '{}{}'.format('curve', crvNumber_)
+        getObject_ = PyNode(newName_)
+        parent(getObject_, w=1)
+
+
+
 selObject = ls(sl=1, fl=1, r=1) 
 # curve_at_joint(selObject)
 # curve_at_null(selObject)
@@ -1243,7 +1267,8 @@ selObject = ls(sl=1, fl=1, r=1)
 # dir(selObject[0].getShape())
 # param_at_objectPositions(selObject)
 # blendshape_reconnection(selObject)
-
+# nameSortDict(sel)
+# flattenList(sel)
 
 
 
