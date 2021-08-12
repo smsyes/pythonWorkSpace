@@ -1175,13 +1175,48 @@ def nameSortDict(object_):
         
 
 def flattenList(object_):
+    Grp_ = createNode('transform', n='newGrp')
     for i in object_:
         crvName_ = i.name()
         crvNumber_ = int(re.sub(r'[^0-9]','',crvName_))
         newName_ = '{}{}'.format('curve', crvNumber_)
         getObject_ = PyNode(newName_)
-        parent(getObject_, w=1)
+        parent(getObject_, Grp_)
 
+
+def getSkinCluster(object_):
+    shape_ = object_.getShape()
+    connectionList_ = shape_.listHistory(gl=1,pdo=1)
+    for cnt_ in connectionList_:
+        if cnt_.type() == 'skinCluster':
+            scls_ = cnt_
+            break
+        else:
+            scls_ = None
+    return scls_
+    
+
+def getBlndShape(object_):
+    shape_ = object_.getShape()
+    connectionList_ = shape_.listHistory(gl=1,pdo=1)
+    for cnt_ in connectionList_:
+        if cnt_.type() == 'blendShape':
+            BS_ = cnt_
+            break
+        else:
+            BS_ = None
+    return BS_
+            
+
+def reorderDeformers_(object_):
+    if isinstance(object_, list):
+        pass
+    else:
+        ls(object_)
+    for i in object_:
+        scls_ = getSkinCluster(i)
+        BS_ = getBlndShape(i)
+        reorderDeformers(scls_, BS_, i)
 
 
 selObject = ls(sl=1, fl=1, r=1) 
@@ -1269,7 +1304,7 @@ selObject = ls(sl=1, fl=1, r=1)
 # blendshape_reconnection(selObject)
 # nameSortDict(sel)
 # flattenList(sel)
-
+# reorderDeformers_(sel)
 
 
 
