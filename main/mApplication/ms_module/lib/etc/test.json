@@ -1,0 +1,7 @@
+{
+    "test_name":"jsonTest",
+    "test_type":0,
+    "test_other":["other"],
+    "test_otherType":{"name":"chest","type":"end"},
+    "test_bool":true
+}

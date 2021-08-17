@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
@@ -46,4 +47,54 @@ class Ui_Form(object):
         self.fit_treeWidget.headerItem().setText(0, QtWidgets.QApplication.translate("Form", "Reference", None, -1))
         self.fitToolBox.setItemText(self.fitToolBox.indexOf(self.fitSkeleton_page), QtWidgets.QApplication.translate("Form", "Fit Skeleton", None, -1))
         self.part_treeWidget.headerItem().setText(0, QtWidgets.QApplication.translate("Form", "Parts", None, -1))
+=======
+from PySide2 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(200, 600)
+        self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setObjectName("gridLayout")
+        self.fitToolBox = QtWidgets.QToolBox(Form)
+        self.fitToolBox.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.fitToolBox.setLineWidth(1)
+        self.fitToolBox.setObjectName("fitToolBox")
+        self.fitSkeleton_page = QtWidgets.QWidget()
+        self.fitSkeleton_page.setGeometry(QtCore.QRect(0, 0, 208, 210))
+        self.fitSkeleton_page.setObjectName("fitSkeleton_page")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.fitSkeleton_page)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.fit_treeWidget = QtWidgets.QTreeWidget(self.fitSkeleton_page)
+        self.fit_treeWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.fit_treeWidget.setColumnCount(1)
+        self.fit_treeWidget.setObjectName("fit_treeWidget")
+        self.gridLayout_2.addWidget(self.fit_treeWidget, 0, 0, 1, 1)
+        self.fitToolBox.addItem(self.fitSkeleton_page, "")
+        self.partsSkeleton_page = QtWidgets.QWidget()
+        self.partsSkeleton_page.setGeometry(QtCore.QRect(0, 0, 208, 210))
+        self.partsSkeleton_page.setObjectName("partsSkeleton_page")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.partsSkeleton_page)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.part_treeWidget = QtWidgets.QTreeWidget(self.partsSkeleton_page)
+        self.part_treeWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.part_treeWidget.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.part_treeWidget.setColumnCount(1)
+        self.part_treeWidget.setObjectName("part_treeWidget")
+        self.gridLayout_3.addWidget(self.part_treeWidget, 0, 0, 1, 1)
+        self.fitToolBox.addItem(self.partsSkeleton_page, "")
+        self.gridLayout.addWidget(self.fitToolBox, 0, 0, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
+
+        self.retranslateUi(Form)
+        self.fitToolBox.setCurrentIndex(1)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
+        self.fit_treeWidget.headerItem().setText(0, QtWidgets.QApplication.translate("Form", "Reference", None, -1))
+        self.fitToolBox.setItemText(self.fitToolBox.indexOf(self.fitSkeleton_page), QtWidgets.QApplication.translate("Form", "Fit Skeleton", None, -1))
+        self.part_treeWidget.headerItem().setText(0, QtWidgets.QApplication.translate("Form", "Parts", None, -1))
+>>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.fitToolBox.setItemText(self.fitToolBox.indexOf(self.partsSkeleton_page), QtWidgets.QApplication.translate("Form", "Parts Skeleton", None, -1))
