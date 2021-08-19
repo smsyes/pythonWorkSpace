@@ -511,7 +511,7 @@ def surf_param_space(object_, uNum, vNum):
             _POSI.setAttr('parameterU', u)
             _POSI.setAttr('parameterV', v)
             _rotH = rot_helper(name, _POSI)
-            _space = space_(name, 'spc', None)
+            _space = space_(name, None)
             addAttr(_space, ln='paramU', sn='pu', at='float', dv=u, min=0, max=uMax, k=1)
             addAttr(_space, ln='paramV', sn='pv', at='float', dv=v, min=0, max=vMax, k=1)
             connect_attrs([_space, _POSI], 'pu', 'parameterU')
@@ -1206,7 +1206,19 @@ def getBlndShape(object_):
         else:
             BS_ = None
     return BS_
-            
+
+
+def getLattice(object_):
+    shape_ = object_.getShape()
+    connectionList_ = shape_.listHistory(gl=1,pdo=1)
+    for cnt_ in connectionList_:
+        if cnt_.type() == 'ffd':
+            ffd_ = cnt_
+            break
+        else:
+            ffd_ = None
+    return ffd_
+
 
 def reorderDeformers_(object_):
     if isinstance(object_, list):
