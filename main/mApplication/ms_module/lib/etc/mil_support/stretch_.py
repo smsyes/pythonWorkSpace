@@ -147,65 +147,74 @@ def squashInOut(
     in_ = multDoubleLinear_(name_ + 'Squash')
     in_.setAttr('input1', float(0.1))
     connect_attr(in_, 'output', BAAL[0], 'attributesBlender')
-    out_ = ['SqxNctrl', 'TotalScale']
+    out_ = ['FKnEXFK', 'SqxNctrl', 'TotalScale']
     attr_ = ['SquashYValue', 'SquashZValue']
     for i,out in enumerate(out_):
         MD_ = multiply_(name_ + out, op=1)
         MDList.append(MD_)
-        if out == out_[0]:
+        if out == out_[1]:
+            MD_.setAttr('input1X',1)
             connect_attr(target_, attr_[0], MD_, 'input1Y')
             connect_attr(target_, attr_[1], MD_, 'input1Z')
-        elif out == out_[1]:
-            connect_attr(MDList[0], 'output', MD_, 'input2')
+        elif out == out_[2]:
+            connect_attr(MDList[0], 'output', MD_, 'input1')
+            connect_attr(MDList[1], 'output', MD_, 'input2')
+            
     return MDList
     
 
 sel = ls(sl=1, fl=1, r=1)
+# curves_ = ls(sl=1, fl=1, r=1)
 
 startNum = float(0.750)
 seal = float(0.025)
 pad_ = 15
 baseName_ = "Ginsenroot1IK"
 insertName_ = 'Sub'
-tx_ = sel[-1].getAttr('tx')
 
-DBList = CreateParamDistance(
-                             sel[:-1], 
-                             startNum, 
-                             seal, 
-                             baseName_, 
-                             insertName_,
-                             pad_
+for i in sel:
+    tx_ = i.getAttr('tx')
+    DBList = CreateParamDistance(
+                                 curves_, 
+                                 startNum, 
+                                 seal, 
+                                 baseName_, 
+                                 insertName_,
+                                 pad_
+                                 )
+    
+    stretchBADV = stretchValue(
+                               DBList,
+                               pad_,
+                               baseName_,
+                               insertName_
+                               )
+    
+    squashBAAL = squashValue(
+                             i,
+                             stretchBADV,
+                             pad_,
+                             baseName_,
+                             insertName_
                              )
-
-stretchBADV = stretchValue(
-                           DBList,
-                           pad_,
-                           baseName_,
-                           insertName_
-                           )
-
-squashBAAL = squashValue(
-                         sel[-1],
-                         stretchBADV,
-                         pad_,
-                         baseName_,
-                         insertName_
-                         )
-                    
-stretchIO_ =  stretchInOut(
-                           sel[-1],
-                           stretchBADV,
-                           pad_,
-                           baseName_,
-                           insertName_,
-                           tx_
-                           )
-
-squashOut_ = squashInOut(
-                         sel[-1],
-                         squashBAAL,
-                         pad_,
-                         baseName_,
-                         insertName_,
-                         )
+                        
+    stretchIO_ =  stretchInOut(
+                               i,
+                               stretchBADV,
+                               pad_,
+                               baseName_,
+                               insertName_,
+                               tx_
+                               )
+    
+    squashOut_ = squashInOut(
+                             i,
+                             squashBAAL,
+                             pad_,
+                             baseName_,
+                             insertName_,
+                             )
+    pad_ +=1
+    startNum +=float(0.05)
+                             
+                             
