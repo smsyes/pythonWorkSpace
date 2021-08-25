@@ -1108,9 +1108,7 @@ def matrixConstraint(object_, t=None, r=None, s=None):
         mat2_ = getInverseTransform(items[i])
         multmat_ = getMultMatrix(mat1_, mat2_)
         
-        attrExist, newAttr = checkAttrExist(target,'offset','matrix',True)
-        setAttr(newAttr, multmat_)
-        connect_attrs(ls(target, MTMX_), 'offset', 'matrixIn[0]')
+        MTMX_.setAttr('matrixIn[0]', multmat_)
         connect_attrs(ls(items[0], MTMX_), 'wm', 'matrixIn[1]')
         if target.getParent():
             connect_attrs(ls(target.getParent(), MTMX_), 'wim', 'matrixIn[2]')

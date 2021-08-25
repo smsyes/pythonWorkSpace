@@ -43,10 +43,7 @@ from lib import _joint
 from lib import _curve
 from lib import attachSet
 from lib import _shapeChange
-<<<<<<< HEAD
-=======
 from lib import reName
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
 import _path
 
 
@@ -63,10 +60,7 @@ reload(_joint)
 reload(_curve)
 reload(attachSet)
 reload(_shapeChange)
-<<<<<<< HEAD
-=======
 reload(reName)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
 
 
 
@@ -78,10 +72,7 @@ class myUIClass(QWidget):
         self.ui.setupUi(self)
 
 
-<<<<<<< HEAD
-=======
         # get dir
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.path_ = _path.path_()
         self.rigDir = self.joinPath(self.path_, "rig")
         self.fitDir = self.joinPath(self.rigDir, "fits")
@@ -92,13 +83,10 @@ class myUIClass(QWidget):
         self.etc_ = self.search(self.etcDir)
 
 
-<<<<<<< HEAD
-=======
         self.ui.name_lineEdit.returnPressed.connect(self.run_rename)
         self.ui.change_pushButton.clicked.connect(self.old_change)
         self.ui.prefix_lineEdit.returnPressed.connect(self.append_prefix)
         self.ui.suffix_lineEdit.returnPressed.connect(self.append_suffix)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.ui.import_pushButton.clicked.connect(self.importModule_)
         self.ui.mirror_pushButton.clicked.connect(self.mirror_)
         self.ui.build_pushButton.clicked.connect(self.build_)
@@ -112,8 +100,6 @@ class myUIClass(QWidget):
         self.ui.attach_pushButton.clicked.connect(self.attach_setting)
         self.ui.switchImport_pushButton.clicked.connect(self.switch_import)
         self.ui.shapeChange_pushButton.clicked.connect(self.shape_change)
-<<<<<<< HEAD
-=======
         
 
 
@@ -147,7 +133,6 @@ class myUIClass(QWidget):
 
     def set_message(self, message_):
         self.ui.message_label.setText(message_)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
 
 
     def search(self, dirName):
@@ -183,7 +168,7 @@ class myUIClass(QWidget):
     def importModule_(self):
         prefix_ = self.print_m_prefix()
         type_ = self.getCombo()
-        fileName_ = 'fit_{0}.ma'.format(type_)
+        fileName_ = 'Fit{0}.ma'.format(type_)
         self.fitModule(prefix_, fileName_)
 
 
@@ -238,7 +223,7 @@ class myUIClass(QWidget):
 
     def build_(self):
         object_, namespace_, fileName_ = self.getName_()
-        fileName_ = fileName_.split('fit_')[-1]
+        fileName_ = fileName_.split('Fit')[-1]
         dir_ = referenceQuery(object_, filename=True)
         refNode = referenceQuery(dir_, referenceNode=True)
         if _check.checkAttr(object_, 'module'):
@@ -253,7 +238,7 @@ class myUIClass(QWidget):
 
     def rebuild_(self):
         object_, namespace_, fileName_ = self.getName_()
-        fileName_ = 'fit_{}'.format(fileName_)
+        fileName_ = 'Fit{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
         _attribute.message_(ls(object_,fNode),'module')
         rebuild.Rebuild(ls(object_, fNode), type_=True)
@@ -329,11 +314,7 @@ class myUIClass(QWidget):
         type_ = 'cape_switch.ma'
         if objExists(type_)==False:
             dir_ = self.joinPath(self.etcDir, type_)
-<<<<<<< HEAD
-            set_ = self.refImport('cape', dir_)
-=======
             set_ = self.refImport(dir_)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
 
 
     def shape_change(self):

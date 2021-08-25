@@ -32,21 +32,12 @@ class Ui_Form(object):
         self.name_lineEdit = QtWidgets.QLineEdit(self.rename_tap)
         self.name_lineEdit.setObjectName("name_lineEdit")
         self.horizontalLayout_2.addWidget(self.name_lineEdit)
-<<<<<<< HEAD
         self.padding_lineEdit = QtWidgets.QLineEdit(self.rename_tap)
         self.padding_lineEdit.setObjectName("padding_lineEdit")
         self.horizontalLayout_2.addWidget(self.padding_lineEdit)
         self.rename_pushButton = QtWidgets.QPushButton(self.rename_tap)
         self.rename_pushButton.setObjectName("rename_pushButton")
         self.horizontalLayout_2.addWidget(self.rename_pushButton)
-=======
-        self.NumspinBox = QtWidgets.QSpinBox(self.rename_tap)
-        self.NumspinBox.setObjectName("NumspinBox")
-        self.horizontalLayout_2.addWidget(self.NumspinBox)
-        self.AlphacheckBox = QtWidgets.QCheckBox(self.rename_tap)
-        self.AlphacheckBox.setObjectName("AlphacheckBox")
-        self.horizontalLayout_2.addWidget(self.AlphacheckBox)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.line_9 = QtWidgets.QFrame(self.rename_tap)
         self.line_9.setFrameShape(QtWidgets.QFrame.HLine)
@@ -336,15 +327,6 @@ class Ui_Form(object):
         self.import_pushButton = QtWidgets.QPushButton(self.moduleBuilder_tap)
         self.import_pushButton.setObjectName("import_pushButton")
         self.verticalLayout_4.addWidget(self.import_pushButton)
-<<<<<<< HEAD
-=======
-        self.label_29 = QtWidgets.QLabel(self.moduleBuilder_tap)
-        self.label_29.setObjectName("label_29")
-        self.verticalLayout_4.addWidget(self.label_29)
-        self.bendAdd_pushButton = QtWidgets.QPushButton(self.moduleBuilder_tap)
-        self.bendAdd_pushButton.setObjectName("bendAdd_pushButton")
-        self.verticalLayout_4.addWidget(self.bendAdd_pushButton)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.label_25 = QtWidgets.QLabel(self.moduleBuilder_tap)
         self.label_25.setObjectName("label_25")
         self.verticalLayout_4.addWidget(self.label_25)
@@ -365,7 +347,6 @@ class Ui_Form(object):
         self.line_14.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_14.setObjectName("line_14")
         self.verticalLayout_4.addWidget(self.line_14)
-<<<<<<< HEAD
         self.label_26 = QtWidgets.QLabel(self.moduleBuilder_tap)
         self.label_26.setObjectName("label_26")
         self.verticalLayout_4.addWidget(self.label_26)
@@ -388,8 +369,6 @@ class Ui_Form(object):
         self.line_12.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_12.setObjectName("line_12")
         self.verticalLayout_4.addWidget(self.line_12)
-=======
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.label_27 = QtWidgets.QLabel(self.moduleBuilder_tap)
         self.label_27.setObjectName("label_27")
         self.verticalLayout_4.addWidget(self.label_27)
@@ -436,26 +415,16 @@ class Ui_Form(object):
         self.verticalLayout_5.addWidget(self.authour_label)
 
         self.retranslateUi(Form)
-<<<<<<< HEAD
         self.tabWidget.setCurrentIndex(2)
-=======
-        self.tabWidget.setCurrentIndex(0)
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
         self.label_17.setText(QtWidgets.QApplication.translate("Form", "ReNamer", None, -1))
-<<<<<<< HEAD
         self.label_19.setText(QtWidgets.QApplication.translate("Form", "# ReName = Name + Padding(**)", None, -1))
         self.name_lineEdit.setText(QtWidgets.QApplication.translate("Form", "Name..", None, -1))
         self.padding_lineEdit.setText(QtWidgets.QApplication.translate("Form", "0", None, -1))
         self.rename_pushButton.setText(QtWidgets.QApplication.translate("Form", "ReName", None, -1))
-=======
-        self.label_19.setText(QtWidgets.QApplication.translate("Form", "# ReName = Name or Name + Padding(**)", None, -1))
-        self.name_lineEdit.setText(QtWidgets.QApplication.translate("Form", "Name..", None, -1))
-        self.AlphacheckBox.setText(QtWidgets.QApplication.translate("Form", "Alphabet", None, -1))
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.label_20.setText(QtWidgets.QApplication.translate("Form", "# Enter after entering", None, -1))
         self.prefix_lineEdit.setText(QtWidgets.QApplication.translate("Form", "Prefix..", None, -1))
         self.suffix_lineEdit.setText(QtWidgets.QApplication.translate("Form", "Suffix..", None, -1))
@@ -499,11 +468,7 @@ class Ui_Form(object):
         self.crvNull_pushButton.setText(QtWidgets.QApplication.translate("Form", "Curve At Null", None, -1))
         self.attach_pushButton.setText(QtWidgets.QApplication.translate("Form", "Attach Build", None, -1))
         self.label_13.setText(QtWidgets.QApplication.translate("Form", "Switch Setting", None, -1))
-<<<<<<< HEAD
         self.label_15.setText(QtWidgets.QApplication.translate("Form", "#  cape_switch.ma file import", None, -1))
-=======
-        self.label_15.setText(QtWidgets.QApplication.translate("Form", "#  Switch.ma file import", None, -1))
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.switchImport_pushButton.setText(QtWidgets.QApplication.translate("Form", "Import", None, -1))
         self.label_14.setText(QtWidgets.QApplication.translate("Form", "Curve Shape Change", None, -1))
         self.label_16.setText(QtWidgets.QApplication.translate("Form", "# Select[0] : Item / Select[1] : Target", None, -1))
@@ -512,34 +477,26 @@ class Ui_Form(object):
         self.label_30.setText(QtWidgets.QApplication.translate("Form", "Module Builder", None, -1))
         self.label_22.setText(QtWidgets.QApplication.translate("Form", "# If a fit file exists in the prefix name and path, it will be imported.", None, -1))
         self.M_prefix_lineEdit.setText(QtWidgets.QApplication.translate("Form", "Prefix Name..", None, -1))
-        self.module_comboBox.setItemText(0, QtWidgets.QApplication.translate("Form", "spine", None, -1))
-        self.module_comboBox.setItemText(1, QtWidgets.QApplication.translate("Form", "leg", None, -1))
-        self.module_comboBox.setItemText(2, QtWidgets.QApplication.translate("Form", "arm", None, -1))
-        self.module_comboBox.setItemText(3, QtWidgets.QApplication.translate("Form", "neck", None, -1))
-        self.module_comboBox.setItemText(4, QtWidgets.QApplication.translate("Form", "head", None, -1))
-        self.module_comboBox.setItemText(5, QtWidgets.QApplication.translate("Form", "hand", None, -1))
-        self.module_comboBox.setItemText(6, QtWidgets.QApplication.translate("Form", "foot", None, -1))
-        self.module_comboBox.setItemText(7, QtWidgets.QApplication.translate("Form", "Qarm", None, -1))
-        self.module_comboBox.setItemText(8, QtWidgets.QApplication.translate("Form", "Qleg", None, -1))
-        self.module_comboBox.setItemText(9, QtWidgets.QApplication.translate("Form", "tail", None, -1))
+        self.module_comboBox.setItemText(0, QtWidgets.QApplication.translate("Form", "Spine", None, -1))
+        self.module_comboBox.setItemText(1, QtWidgets.QApplication.translate("Form", "Leg", None, -1))
+        self.module_comboBox.setItemText(2, QtWidgets.QApplication.translate("Form", "Arm", None, -1))
+        self.module_comboBox.setItemText(3, QtWidgets.QApplication.translate("Form", "Neck", None, -1))
+        self.module_comboBox.setItemText(4, QtWidgets.QApplication.translate("Form", "Head", None, -1))
+        self.module_comboBox.setItemText(5, QtWidgets.QApplication.translate("Form", "Hand", None, -1))
+        self.module_comboBox.setItemText(6, QtWidgets.QApplication.translate("Form", "Foot", None, -1))
+        self.module_comboBox.setItemText(7, QtWidgets.QApplication.translate("Form", "QArm", None, -1))
+        self.module_comboBox.setItemText(8, QtWidgets.QApplication.translate("Form", "QLeg", None, -1))
+        self.module_comboBox.setItemText(9, QtWidgets.QApplication.translate("Form", "Tail", None, -1))
         self.import_pushButton.setText(QtWidgets.QApplication.translate("Form", "Import", None, -1))
-<<<<<<< HEAD
-=======
-        self.label_29.setText(QtWidgets.QApplication.translate("Form", "# Execute after selecting the joint to be installed", None, -1))
-        self.bendAdd_pushButton.setText(QtWidgets.QApplication.translate("Form", "Bend Add", None, -1))
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.label_25.setText(QtWidgets.QApplication.translate("Form", "# Selection List [0] = Base Fit top group / Selection List [1] = Mirror Fit top group", None, -1))
         self.mirror_pushButton.setText(QtWidgets.QApplication.translate("Form", "Mirror", None, -1))
         self.build_pushButton.setText(QtWidgets.QApplication.translate("Form", "Build", None, -1))
         self.rebuild_pushButton.setText(QtWidgets.QApplication.translate("Form", "ReBuild", None, -1))
-<<<<<<< HEAD
         self.label_26.setText(QtWidgets.QApplication.translate("Form", "Bend Setting", None, -1))
         self.label_29.setText(QtWidgets.QApplication.translate("Form", "# Execute after selecting the joint to be installed", None, -1))
         self.bendType_comboBox.setItemText(0, QtWidgets.QApplication.translate("Form", "L", None, -1))
         self.bendType_comboBox.setItemText(1, QtWidgets.QApplication.translate("Form", "R", None, -1))
         self.bendAdd_pushButton.setText(QtWidgets.QApplication.translate("Form", "Add", None, -1))
-=======
->>>>>>> 7fbe2e4865dac72f9e1d3236bb58bc662cf9bf6b
         self.label_27.setText(QtWidgets.QApplication.translate("Form", "Module Parent", None, -1))
         self.label_23.setText(QtWidgets.QApplication.translate("Form", "# Selection List [0] = Parents Joint / Selection List [1] = Child top Group", None, -1))
         self.parent_pushButton.setText(QtWidgets.QApplication.translate("Form", "Parent", None, -1))
