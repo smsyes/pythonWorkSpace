@@ -1,0 +1,50 @@
+{
+    "Module":{
+        "Arm":{
+            "MConst":{
+                "ScapulaJnt":{
+                    "Target":["ClavicleCtrlGrp"],
+                    "Type":["Local"],
+                    "Attr":["t","r","s"]},
+                "ShoulderJnt":{
+                    "Target":["ShoulderFKCtrlOffGrp", "Arm1IKJnt","ArmIK1Pos"],
+                    "Type":["LocalSet", "Local","Local"],
+                    "Attr":[["t","r"], ["t"],["t","r"]]},
+                "ElbowJnt":{
+                    "Target":["ArmPoleVectorCtrlGrp","ArmPoleVectorCtrlGrp","ElbowFKCtrlOffGrp","ArmIK2Pos"],
+                    "Type":["Local","Parent","LocalSet","Local"],
+                    "Attr":[["t","s"],["r"],["t","r"],["t","r"]]},
+                "WristJnt":{
+                    "Target":["ArmIKCtrlGrp","WristFKCtrlOffGrp","ArmIK3Pos"],
+                    "Type":["Local","LocalSet","Local"],
+                    "Attr":[["t","s"],["t","r"],["t","r"]]},
+                "FitWrist":{
+                    "Target":["ArmIKCtrlGrp"],
+                    "Type":["Parent"],
+                    "Attr":["r"]}
+            },
+            "Connect":{
+                "ShoulderJnt":{
+                    "Target":"Arm2IKJnt",
+                    "Attr":"Length"},
+                "ElbowJnt":{
+                    "Target":"Arm3IKJnt",
+                    "Attr":"Length"}
+            },
+            "reConst":{
+                "ShoulderFKCtrl":{
+                    "Target":["ElbowFKCtrlGrp"],
+                    "Type":["Parent"],
+                    "Attr":["t","r"]},
+                "ElbowFKCtrl":{
+                    "Target":["WristFKCtrlGrp"],
+                    "Type":["Parent"],
+                    "Attr":["t","r"]}
+            },
+        "Leg":{
+
+        }
+                }
+
+    }
+}

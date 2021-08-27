@@ -168,8 +168,8 @@ sel = ls(sl=1, fl=1, r=1)
 
 startNum = float(0.750)
 seal = float(0.025)
-pad_ = 15
-baseName_ = "Ginsenroot1IK"
+pad_ = 8
+baseName_ = "Ginsengroot"
 insertName_ = 'Sub'
 
 for i in sel:
