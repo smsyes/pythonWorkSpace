@@ -44,6 +44,7 @@ from lib import _curve
 from lib import attachSet
 from lib import _shapeChange
 from lib import reName
+from lib import buildCtrl
 import _path
 
 
@@ -61,6 +62,7 @@ reload(_curve)
 reload(attachSet)
 reload(_shapeChange)
 reload(reName)
+reload(buildCtrl)
 
 
 

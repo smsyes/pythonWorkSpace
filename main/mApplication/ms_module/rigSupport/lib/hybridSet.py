@@ -149,10 +149,12 @@ class HybridSet():
         FK_spc_space = [CTL.getParent(2) for CTL in ordict_['FKCTLs']]
         
         ordict_['FKJNTs'][0].setAttr('jointOrient', (0,0,0))
-        _matrix.local_matrix(ls(ordict_['FKCTLs'], 
-                            ordict_['FKJNTs']), 
-                            t='t', r='r', s='s'
-                            )
+        _matrix.matrixConsts(ls(ordict_['FKCTLs'], 
+                            ordict_['FKJNTs']),
+                            'local',
+                            outputTranslate='t',
+                            outputRotate='r',
+                            outputScale='s')
         self.connect_attrs(ls(ordict_['IKJNTs'], 
                             FK_off_space), 
                             't', 't'
@@ -177,12 +179,19 @@ class HybridSet():
                                           upVec_offset))
         self.IK_Axis(ordict_['IKCTLs'], 
                      IK_loc_offset, ordict_['IKLOC'], ordict_['IKupVec'])
-        _matrix.local_matrix(ls(ordict_['IKLOC'], 
-                               ordict_['IKJNTs']), 't', 'r', 's')
+        _matrix.matrixConsts(ls(ordict_['IKLOC'], 
+                               ordict_['IKJNTs']),
+                               'local',
+                               outputTranslate='t',
+                               outputRotate='r',
+                               outputScale='s')
         [JNT.setAttr('jointOrient', (0,0,0)) for JNT in ordict_['IKJNTs']]
-        _matrix.local_matrix(ls(ordict_['IKCTLs'], 
-                               IK_bind_offset), 't', 'r', 's')
-
+        _matrix.matrixConsts(ls(ordict_['IKCTLs'], 
+                               IK_bind_offset),
+                               'local',
+                               outputTranslate='t',
+                               outputRotate='r',
+                               outputScale='s')
 
         JNTs = ls(ordict_['FKJNTs'][0], ordict_['IKJNTs'][0])
         CRVs = ls(ordict_['IKCRV'], ordict_['IKupVecCRV'])
@@ -223,9 +232,10 @@ class HybridSet():
         else:
             up_=(0,0,1)
 
-        _matrix.local_matrix(ls(IK_CTL[0],
-                    IK_LOC_off[0]), 
-                    r='r')
+        _matrix.matrixConsts(ls(IK_CTL[0],
+                             IK_LOC_off[0]),
+                             'local',
+                             outputRotate='r')
         
         IK_LOC.reverse()
         upVec_LOC.reverse()

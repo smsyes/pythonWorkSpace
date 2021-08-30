@@ -152,10 +152,12 @@ class Spine():
         self.connect_attrs(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
                             'r', 'r')
-        _matrix.local_matrix(ls(ordict_['FKCTLs'], 
+        _matrix.matrixConst(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
-                            t='t', s='s'
-                            )
+                            'local',
+                            outputTranslate='t',
+                            outputRotate='r',
+                            outputScale='s')
 
         # IK Setting
         IK_off_space = [_node.offset_(CTL, 
@@ -172,11 +174,19 @@ class Spine():
                                           upVec_offset))
         self.IK_Axis(ordict_['IKCTLs'], 
                      IK_loc_offset, ordict_['IKLOC'], ordict_['IKupVec'])
-        _matrix.local_matrix(ls(ordict_['IKLOC'], 
-                               ordict_['IKJNTs']), 't', 'r', 's')
+        _matrix.matrixConst(ls(ordict_['IKLOC'], 
+                               ordict_['IKJNTs']),
+                               'local',
+                               outputTranslate='t',
+                               outputRotate='jointOrient',
+                               outputScale='s')
         # [JNT.setAttr('jointOrient', (0,0,0)) for JNT in ordict_['IKJNTs']]
-        _matrix.local_matrix(ls(ordict_['IKCTLs'], 
-                               IK_bind_offset), 't', 'r', 's')
+        _matrix.matrixConst(ls(ordict_['IKCTLs'], 
+                               IK_bind_offset),
+                               'local',
+                               outputTranslate='t',
+                               outputRotate='jointOrient',
+                               outputScale='s')
                                
         
 
@@ -240,10 +250,11 @@ class Spine():
         else:
             up_=(0,0,1)
 
-        _matrix.local_matrix(ls(IK_CTL[0],
+        _matrix.matrixConst(ls(IK_CTL[0],
                     IK_LOC_off[0]), 
-                    r='r')
-        
+                    'local',
+                    outputRotate='jointOrient')
+                            
         for i,spc in enumerate(IK_LOC[:-1]):
             aimItem = spc
             aimTarget = IK_LOC_off[i+1]

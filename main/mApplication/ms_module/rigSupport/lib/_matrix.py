@@ -42,54 +42,37 @@ def checkAttrExist(obj,attr,type,replace):
     return (attrExist,newAttr)
 
 
-def local_matrix(object_, t=None, r=None, s=None):
-    items, targets = _transform.divide_in_two(object_)
-    for i,target in enumerate(targets):
-        if target.getParent():
-            parent_ = target.getParent()
-            atts_ = 'wim'
-        else:
-            parent_ = target
-            atts_ = 'pim'
-        _name = '{}_local'.format(target.name())
-        MTMX_ = _node.multMatrix_(_name)
-        DCMX_ = _node.decompose_(_name)  
-        _connect.connect_attrs(ls(items[i], MTMX_), 'wm', 'matrixIn[0]')
-        _connect.connect_attrs(ls(parent_, MTMX_), atts_, 'matrixIn[1]')
-        _connect.connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
-        if t:
-            _connect.connect_attrs(ls(DCMX_, target), 'ot', t)
-        if r:
-            _connect.connect_attrs(ls(DCMX_, target), 'or', r)
-        if s:
-            _connect.connect_attrs(ls(DCMX_, target), 'os', s)        
-
-
-def matrixConstraint(object_, 
-                     t=None, r=None, s=None):
-    object_ = ls(object_)
-    item, target = object_[0],object_[1]
-    _name = '{}2{}'.format(item.name(), target.name())
-
-    MTMX_ = _node.multMatrix_(_name)
-    DCMX_ = _node.decompose_(_name)
+def offsetMatrix(item, target):
     mat1_ = _transform.getTransform(target)
     mat2_ = _transform.getInverseTransform(item)
-    multmat_ = _transform.getMultMatrix(mat1_, mat2_)
+    return _transform.getMultMatrix(mat1_, mat2_)
+
+
+def matrixConst(item, target, type_, **kwargs):
+    _name = '{}2{}'.format(item.name(),target.name())
+
+    MM_ = _node.multMatrix_(_name)
+    DM_ = _node.decompose_(_name)
     
-    attrExist, newAttr = checkAttrExist(target,'offset','matrix',True)
-    setAttr(newAttr, multmat_)
-    _connect.connect_attrs(ls(target, MTMX_), 'offset', 'matrixIn[0]')
-    _connect.connect_attrs(ls(item, MTMX_), 'wm', 'matrixIn[1]')
+    if type_ == 'local':
+        pass
+    elif type_ == 'parent':
+        offset_ = offsetMatrix(item, target)
+        MM_.setAttr('matrixIn[0]', offset_)
+    _connect.connect_attr(item, 'wm', MM_, 'matrixIn[1]')
     if target.getParent():
-        _connect.connect_attrs(ls(target.getParent(), MTMX_), 
-                             'wim', 'matrixIn[2]')
+        _connect.connect_attr(target.getParent(), 'wim', MM_, 'matrixIn[2]')
     else:
-        _connect.connect_attrs(ls(target, MTMX_), 'pim', 'matrixIn[2]')
-    _connect.connect_attrs(ls(MTMX_, DCMX_), 'matrixSum', 'inputMatrix')
-    if t:
-        _connect.connect_attrs(ls(DCMX_, target), 'ot', 't')
-    if r:
-        _connect.connect_attrs(ls(DCMX_, target), 'or', 'r')
-    if s:
-        _connect.connect_attrs(ls(DCMX_, target), 'os', 's')
+        _connect.connect_attr(target, 'pim', MM_, 'matrixIn[2]')
+    _connect.connect_attr(MM_, 'matrixSum', DM_, 'inputMatrix')
+    for key in kwargs.keys():
+        DMAttr_ = DM_.attr(key)
+        tAttr_ = target.attr(kwargs[key])
+        DMAttr_.connectAttr(target, tAttr_)
+
+
+def matrixConsts(object_, type_, **kwargs):
+    items, targets = _transform.divide_in_two(object_)
+    for i,target in enumerate(targets):
+        matrixConst(items[i], target, type_, **kwargs)
+

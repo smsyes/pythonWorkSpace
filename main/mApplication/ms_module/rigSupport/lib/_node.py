@@ -112,3 +112,6 @@ def attributes(object_, attr):
     """
     attr_ = PyNode('{}.{}'.format(object_, attr))
     return attr_
+
+def inputNode(object_, **kwargs):
+    return object_.listHistory(**kwargs)
