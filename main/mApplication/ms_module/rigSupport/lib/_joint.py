@@ -35,60 +35,13 @@ def joint_(_name):
     return joint(n='{}_JNT'.format(_name))
 
 
-def _joint(joint_,
-           e=None,
-           q=None,
-           ex=None,
-           oj=None,
-           o=None,
-           sao=None,
-           zso=None,
-           p=None,
-           co=None):
-    
-    data = {}
-
-    if e is not None:
-        data["e"] = e
-    if q is not None:
-        data["q"] = q
-    if ex is not None:
-        data["exists"] = ex
-    if oj is not None:
-        data["orientJoint"] = oj
-    if o is not None:
-        data["orientation"] = o
-    if sao is not None:
-        data["secondaryAxisOrient"] = sao
-    if zso is not None:
-        data["zeroScaleOrient"] = zso
-    if p is not None:
-        data["position"] = p
-    if co is not None:
-        data["component"] = co
-    joint(joint_, **data)
+def _joint(joint_, **kwargs):
+    joint(joint_, **kwargs)
 
 
-def joint_orient(jointChain,
-                 e=None,
-                 oj=None,
-                 sao=None,
-                 zso=None
-                 ):
-    
-    data = {}
-
-    if e is not None:
-        data["e"] = e
-    if oj is not None:
-        data["oj"] = oj
-    if sao is not None:
-        data["sao"] = sao
-    if zso is not None:
-        data["zso"] = zso
-
+def joint_orient(jointChain, **kwargs):
     for joint_ in jointChain:
-        _joint(jointChain, **data)
+        _joint(jointChain, **kwargs)
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
 
@@ -165,32 +118,8 @@ def duplicate_joint(object_):
     return jointChain
 
 
-def bindSkin_(object_,
-              n=None,
-              tsb=None,
-              bm=None,
-              sm=None,
-              nw=None,
-              mi=None,
-              dr=None,
-              ):
-
-    data={}
-    if n is not None:
-        data["name"] = n
-    if tsb is not None:
-        data["toSelectedBones"] = tsb
-    if bm is not None:
-        data["bindMethod"] = bm
-    if sm is not None:
-        data["skinMethod"] = sm
-    if nw is not None:
-        data["normalizeWeights"] = nw
-    if mi is not None:
-        data["maximumInfluences"] = mi
-    if dr is not None:
-        data["dropoffRate"] = dr
-    scls = skinCluster(object_, **data)[0]
+def bindSkin_(object_, **kwargs):
+    scls = skinCluster(object_, **kwargs)[0]
     return scls
 
 
