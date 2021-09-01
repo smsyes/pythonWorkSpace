@@ -152,12 +152,12 @@ class Spine():
         self.connect_attrs(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
                             'r', 'r')
-        _matrix.matrixConst(ls(ordict_['FKCTLs'], 
+        _matrix.matrixConsts(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
                             'local',
-                            outputTranslate='t',
-                            outputRotate='r',
-                            outputScale='s')
+                            t='t',
+                            r='r',
+                            s='s')
 
         # IK Setting
         IK_off_space = [_node.offset_(CTL, 
@@ -174,19 +174,19 @@ class Spine():
                                           upVec_offset))
         self.IK_Axis(ordict_['IKCTLs'], 
                      IK_loc_offset, ordict_['IKLOC'], ordict_['IKupVec'])
-        _matrix.matrixConst(ls(ordict_['IKLOC'], 
+        _matrix.matrixConsts(ls(ordict_['IKLOC'], 
                                ordict_['IKJNTs']),
                                'local',
-                               outputTranslate='t',
-                               outputRotate='jointOrient',
-                               outputScale='s')
+                               t='t',
+                               r='jointOrient',
+                               s='s')
         # [JNT.setAttr('jointOrient', (0,0,0)) for JNT in ordict_['IKJNTs']]
-        _matrix.matrixConst(ls(ordict_['IKCTLs'], 
+        _matrix.matrixConsts(ls(ordict_['IKCTLs'], 
                                IK_bind_offset),
                                'local',
-                               outputTranslate='t',
-                               outputRotate='jointOrient',
-                               outputScale='s')
+                               t='t',
+                               r='jointOrient',
+                               s='s')
                                
         
 
@@ -250,10 +250,10 @@ class Spine():
         else:
             up_=(0,0,1)
 
-        _matrix.matrixConst(ls(IK_CTL[0],
+        _matrix.matrixConsts(ls(IK_CTL[0],
                     IK_LOC_off[0]), 
                     'local',
-                    outputRotate='jointOrient')
+                    r='jointOrient')
                             
         for i,spc in enumerate(IK_LOC[:-1]):
             aimItem = spc

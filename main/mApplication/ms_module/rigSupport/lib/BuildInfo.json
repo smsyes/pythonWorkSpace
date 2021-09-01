@@ -7,9 +7,9 @@
                     "Type":["Local"],
                     "Attr":[["t","r","s"]]},
                 "ShoulderJnt":{
-                    "Target":["ShoulderFKPoser","Arm1IKJntPoser","ArmIK1Pos"],
-                    "Type":["Local","Local","Local"],
-                    "Attr":[["t","r"],["t","r"],["t","r"]]},
+                    "Target":["ShoulderFKPoser","Arm1IKJntPoser","ArmIK1Pos","ArmPVSysPoser"],
+                    "Type":["Local","Local","Local","Local"],
+                    "Attr":[["t","r"],["t","r"],["t","r"],["t","r"]]},
                 "ElbowJnt":{
                     "Target":["ElbowFKPoser","ArmPoleVectorCtrlPoser","ArmPVPosPoser","ArmIK2Pos"],
                     "Type":["Local","Local","Local","Local"],
@@ -33,7 +33,36 @@
             }
         },
         "Leg":{
-            
+            "MConst":{
+                "LegRootJnt":{
+                    "Target":["LegRootCtrlPoser"],
+                    "Type":["Local"],
+                    "Attr":[["t","r","s"]]},
+                "HipJnt":{
+                    "Target":["ThighFKCtrlPoser","Leg1IKJntPoser","LegIK1Pos","LegPVSysPoser"],
+                    "Type":["Local","Local","Local","Local"],
+                    "Attr":[["t","r"],["t","r"],["t","r"],["t","r"]]},
+                "KneeJnt":{
+                    "Target":["KneeFKCtrlPoser","LegPoleVectorCtrlPoser","LegPVPosPoser","LegIK2Pos"],
+                    "Type":["Local","Local","Local","Local"],
+                    "Attr":[["t","r"],["t","s"],["t","r"],["t","r"]]},
+                "AnkleJnt":{
+                    "Target":["AnkleFKCtrlPoser","LegIKCtrlPoser","LegIK3Pos"],
+                    "Type":["Local","Local","Local"],
+                    "Attr":[["t","r"],["t","s"],["t","r"]]},
+                "FitAnkle":{
+                    "Target":["LegIKCtrlPoser"],
+                    "Type":["Local"],
+                    "Attr":[["r"]]}
+            },
+            "Connect":{
+                "ShoulderJnt":{
+                    "Target":["Leg2IKJnt"],
+                    "Attr":["Length"]},
+                "ElbowJnt":{
+                    "Target":["Leg3IKJnt"],
+                    "Attr":["Length"]}
             }
+        }
         }
     }

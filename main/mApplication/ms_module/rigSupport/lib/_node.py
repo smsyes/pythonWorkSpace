@@ -26,12 +26,12 @@ reload(_transform)
 
 def space_(name_, parent_=None):
     space_ = createNode('transform',
-                        n='{}GRP'.format(name_),
+                        n='{}Grp'.format(name_),
                         p=parent_)
     return space_
 
 def locator_(object_):
-    loc_ = spaceLocator(n = '{}_{}'.format(object_, 'space'))
+    loc_ = spaceLocator(n = '{}{}'.format(object_, 'Space'))
     _transform.set_transform_(ls(object_,loc_))
     return loc_
 
@@ -49,7 +49,7 @@ def insert_space(object_,
 def offset_(object_, num_=None):
     object_ = PyNode(object_)
     _name = object_.name()
-    type_ = ['off', 'spc']
+    type_ = ['Off', 'Spc']
     offsetList = []
     for i in range(num_):
         if i > 0:
@@ -58,7 +58,7 @@ def offset_(object_, num_=None):
         else:
             _type = 0
             _parent = object_
-        join_name = '_'.join([_name, type_[_type]])
+        join_name = ''.join([_name, type_[_type]])
         offset = space_(join_name, _parent)
         if i==0:
             if object_.getParent():
@@ -71,10 +71,10 @@ def offset_(object_, num_=None):
     return offsetList[0]
 
 def decompose_(name_):
-    return createNode('decomposeMatrix', n='{}_DCMX'.format(name_))
+    return createNode('decomposeMatrix', n='{}DM'.format(name_))
 
 def multMatrix_(name_):
-    return createNode('multMatrix', n='{}_MTMX'.format(name_))
+    return createNode('multMatrix', n='{}MM'.format(name_))
 
 def pairBlend_():
     return createNode('pairBlend')
@@ -86,18 +86,18 @@ def reverse_():
     return shadingNode('reverse', au=1)
 
 def po_crv_info(_shape):
-    _node = createNode('pointOnCurveInfo', n='{}_POCI'.format(_shape))
+    _node = createNode('pointOnCurveInfo', n='{}PCI'.format(_shape))
     _connect.connect_attr(_shape, 'ws', _node, 'ic')
     return _node
 
 def rot_helper(name_, object_):
-    _node = createNode('rotateHelper', n='{}_ROHP'.format(name_))
+    _node = createNode('rotateHelper', n='{}RH'.format(name_))
     _connect.connect_attr(object_, 'n', _node, 'up')
     _connect.connect_attr(object_, 'tv', _node, 'f')
     return _node
 
 def po_surf_info(name_, _shape):
-    _node = createNode('pointOnSurfaceInfo', n='{}_POSI'.format(name_))
+    _node = createNode('pointOnSurfaceInfo', n='{}PSI'.format(name_))
     _connect.connect_attr(_shape, 'ws', _node, 'is')
     return _node
 

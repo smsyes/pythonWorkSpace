@@ -47,8 +47,13 @@ def offsetMatrix(item, target):
     mat2_ = _transform.getInverseTransform(item)
     return _transform.getMultMatrix(mat1_, mat2_)
 
+def connectKwargs(item ,target, *args):
+    itemAttr = item.attr(args[0])
+    targetAttr = target.attr(args[1])
+    itemAttr.connect(targetAttr)
 
-def matrixConst(item, target, type_, **kwargs):
+
+def matrixConst(item, target, type_, t=None, r=None, s=None):
     _name = '{}2{}'.format(item.name(),target.name())
 
     MM_ = _node.multMatrix_(_name)
@@ -65,14 +70,19 @@ def matrixConst(item, target, type_, **kwargs):
     else:
         _connect.connect_attr(target, 'pim', MM_, 'matrixIn[2]')
     _connect.connect_attr(MM_, 'matrixSum', DM_, 'inputMatrix')
-    for key in kwargs.keys():
-        DMAttr_ = DM_.attr(key)
-        tAttr_ = target.attr(kwargs[key])
-        DMAttr_.connectAttr(target, tAttr_)
+    
+    data = {}
+    if t is not None:
+        data["outputTranslate"] = t
+    if r is not None:
+        data["outputRotate"] = r
+    if s is not None:
+        data["outputScale"] = s
+    for DItem in data.items():
+        connectKwargs(DM_ ,target, DItem[0], DItem[1])
 
 
 def matrixConsts(object_, type_, **kwargs):
     items, targets = _transform.divide_in_two(object_)
     for i,target in enumerate(targets):
         matrixConst(items[i], target, type_, **kwargs)
-

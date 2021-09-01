@@ -56,15 +56,15 @@ class BuildControl():
                     if Types_[t] == "Local":
                         _matrix.matrixConst(item, target,
                                             'local',
-                                            outputTranslate='t',
-                                            outputRotate='r',
-                                            outputScale='s')
+                                            t='t',
+                                            r='r',
+                                            s='s')
                     if Types_[t] == "Parent":
                         _matrix.matrixConst(item, target,
                                             'parent',
-                                            outputTranslate='t',
-                                            outputRotate='r',
-                                            outputScale='s')
+                                            t='t',
+                                            r='r',
+                                            s='s')
                 elif Mode_ == 'Build':
                     self.delete_Mnode(target)
         

@@ -81,19 +81,19 @@ class MainSet():
         _connect.chain_structure(ordict_['FKCTLs'])
         FKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['FKCTLs']]
         # self.connect_attrs(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 'r', 'r')
-        _matrix.matrixConst(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 
+        _matrix.matrixConsts(ls(ordict_['FKCTLs'], ordict_['FKJNTs']), 
                              'local',
-                             outputTranslate='t',
-                             outputRotate='r',
-                             outputScale='s')
+                             t='t',
+                             r='r',
+                             s='s')
 
         # IK Setting
         IKCTLoffset = [_node.offset_(i, num_=2) for i in ordict_['IKCTLs']]
-        _matrix.matrixConst(ls(ordict_['IKCTLs'], ordict_['IKJNTs']),
+        _matrix.matrixConsts(ls(ordict_['IKCTLs'], ordict_['IKJNTs']),
                              'local',
-                             outputTranslate='t',
-                             outputRotate='r',
-                             outputScale='s')
+                             t='t',
+                             r='r',
+                             s='s')
                              
         IKConstList = {0:[ordict_['IKCTLs'][0],
                         ordict_['IKCTLs'][-1],

@@ -162,7 +162,7 @@ class myUIClass(QWidget):
     def getName_(self):
         sel = ls(sl=1, r=1, fl=1)
         namespace_ = sel[0].namespaceList()[0]
-        type_ = sel[0].getAttr('fileName')
+        type_ = sel[0].getAttr('Module')
         fileName_ = '{}.ma'.format(type_)
         return sel[0], namespace_, fileName_
 
@@ -228,13 +228,13 @@ class myUIClass(QWidget):
         fileName_ = fileName_.split('Fit')[-1]
         dir_ = referenceQuery(object_, filename=True)
         refNode = referenceQuery(dir_, referenceNode=True)
-        if _check.checkAttr(object_, 'module'):
-            attr_ = object_.attr('module')
+        if _check.checkAttr(object_, 'connectModule'):
+            attr_ = object_.attr('connectModule')
             set_ = attr_.listConnections()[0]
         else:
             set_ = self.setModule(namespace_, fileName_)
-            rebuild.Rebuild(ls(set_, object_), type_=True)
-        rebuild.Rebuild(ls(set_, object_), type_=False)
+            # rebuild.Rebuild(ls(set_, object_), type_=True)
+        # rebuild.Rebuild(ls(set_, object_), type_=False)
         object_.referenceFile().remove()
         
 
@@ -242,7 +242,7 @@ class myUIClass(QWidget):
         object_, namespace_, fileName_ = self.getName_()
         fileName_ = 'Fit{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
-        _attribute.message_(ls(object_,fNode),'module')
+        _attribute.message_(ls(object_,fNode),'connectModule')
         rebuild.Rebuild(ls(object_, fNode), type_=True)
 
     

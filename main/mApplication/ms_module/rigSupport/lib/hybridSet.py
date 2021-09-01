@@ -152,9 +152,9 @@ class HybridSet():
         _matrix.matrixConsts(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']),
                             'local',
-                            outputTranslate='t',
-                            outputRotate='r',
-                            outputScale='s')
+                            t='t',
+                            r='r',
+                            s='s')
         self.connect_attrs(ls(ordict_['IKJNTs'], 
                             FK_off_space), 
                             't', 't'
@@ -182,16 +182,16 @@ class HybridSet():
         _matrix.matrixConsts(ls(ordict_['IKLOC'], 
                                ordict_['IKJNTs']),
                                'local',
-                               outputTranslate='t',
-                               outputRotate='r',
-                               outputScale='s')
+                               t='t',
+                               r='r',
+                               s='s')
         [JNT.setAttr('jointOrient', (0,0,0)) for JNT in ordict_['IKJNTs']]
         _matrix.matrixConsts(ls(ordict_['IKCTLs'], 
                                IK_bind_offset),
                                'local',
-                               outputTranslate='t',
-                               outputRotate='r',
-                               outputScale='s')
+                               t='t',
+                               r='r',
+                               s='s')
 
         JNTs = ls(ordict_['FKJNTs'][0], ordict_['IKJNTs'][0])
         CRVs = ls(ordict_['IKCRV'], ordict_['IKupVecCRV'])
@@ -235,7 +235,7 @@ class HybridSet():
         _matrix.matrixConsts(ls(IK_CTL[0],
                              IK_LOC_off[0]),
                              'local',
-                             outputRotate='r')
+                             r='r')
         
         IK_LOC.reverse()
         upVec_LOC.reverse()
