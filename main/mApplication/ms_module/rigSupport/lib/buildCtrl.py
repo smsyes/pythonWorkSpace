@@ -16,7 +16,7 @@ reload(_node)
 class BuildControl():
     def __init__(self, prefix, Mode_, *args, **kwargs):
 
-        self.path_ = _path.path_()
+        self.path_ = _path.path_(dir_="lib")
         fileName = "BuildInfo.json"
         filePath = os.path.abspath(os.path.join(self.path_, fileName))
         
@@ -51,7 +51,7 @@ class BuildControl():
             item = PyNode('{}:{}'.format(prefix, item))
             for t,target in enumerate(Targets_):
                 
-                target = PyNode(target)
+                target = PyNode('{}:{}'.format("Set", target))
                 if Mode_ == 'Rebuild':
                     if Types_[t] == "Local":
                         _matrix.matrixConst(item, target,
@@ -75,7 +75,7 @@ class BuildControl():
             Atts_ = IData_["Attr"]
             item = PyNode('{}:{}'.format(prefix, item))
             for t,target in enumerate(Targets_):
-                target = PyNode(target)
+                target = PyNode('{}:{}'.format("Set", target))
                 itemAttr = item.attr(Atts_[t])
                 targetAttr = target.attr(Atts_[t])
                 if Mode_ == 'Rebuild':
