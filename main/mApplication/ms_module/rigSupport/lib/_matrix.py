@@ -17,6 +17,8 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
+import pymel.core.datatypes as dt
+import math
 from lib import _transform
 from lib import _connect
 from lib import _node
@@ -52,6 +54,9 @@ def connectKwargs(item ,target, *args):
     targetAttr = target.attr(args[1])
     itemAttr.connect(targetAttr)
 
+def setKwargs(target, *args):
+    targetAttr = target.attr(args[0])
+    targetAttr.set(args[1])
 
 def matrixConst(item, target, type_, t=None, r=None, s=None):
     _name = '{}2{}'.format(item.name(),target.name())
@@ -81,6 +86,33 @@ def matrixConst(item, target, type_, t=None, r=None, s=None):
     for DItem in data.items():
         connectKwargs(DM_ ,target, DItem[0], DItem[1])
 
+def MTransform(item, target, attrs):
+    Ipwm = item.getAttr('worldMatrix')
+    if target.getParent():
+        Tpim = target.getParent().getAttr('worldMatrix').inverse()
+    else:
+        Tpim = target.getAttr('parentInverseMatrix')
+    prod = Ipwm * Tpim
+
+    tMat = dt.TransformationMatrix(prod)
+    translate = tMat.getTranslation('transform')
+    quat_rotate = tMat.getRotationQuaternion()
+    quat = dt.Quaternion(quat_rotate)
+    euler = quat.asEulerRotation()
+    rotate = map(math.degrees, euler)
+    scale = tMat.getScale('transform')
+
+    data = {}
+    if 't' in attrs:
+        data["translate"] = translate
+    if 'r' in attrs:
+        data["rotate"] = rotate
+    if 'jo' in attrs:
+        data["jointOrient"] = rotate
+    if 's' in attrs:
+        data["scale"] = scale
+    for DItem in data.items():
+        setKwargs(target, DItem[0], DItem[1])
 
 def matrixConsts(object_, type_, **kwargs):
     items, targets = _transform.divide_in_two(object_)

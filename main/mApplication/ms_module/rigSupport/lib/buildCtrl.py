@@ -1,5 +1,6 @@
 # Module Build Rebuild Connection 
 from pymel.core import *
+from collections import OrderedDict
 import json
 import os
 
@@ -14,71 +15,51 @@ reload(_node)
 
 
 class BuildControl():
-    def __init__(self, prefix, Mode_, *args, **kwargs):
+    def __init__(self, object_, prefix, Mode_, *args, **kwargs):
 
         self.path_ = _path.path_(dir_="lib")
-        fileName = "BuildInfo.json"
-        filePath = os.path.abspath(os.path.join(self.path_, fileName))
-        
-        self.BRControl(filePath, prefix, Mode_)
+        self.fileName = "BuildInfo.json"
+
+        self.object_ = object_
+        self.prefix = prefix
+        self.Mode_ = Mode_
+
+        self.BRControl(self.prefix, self.Mode_)
 
 
-    def importCNTInfo(self, fileName):
-        with open(fileName) as f:
+    def importCNTInfo(self):
+        filePath = os.path.join(self.path_, self.fileName)
+        with open(filePath) as f:
             data_ = json.load(f)
         return data_
-
-    def delete_Mnode(self, object_):
-        inputDM = _node.inputNode(object_, type='decomposeMatrix')
-        inputMM = _node.inputNode(object_, type='multMatrix')
-        delete(ls(inputDM, inputMM))
             
-    def BRControl(self, jsonPath, prefix, Mode_):
-        
-        absPath = os.path.abspath(jsonPath)
-        CNTData = self.importCNTInfo(absPath)
+    def BRControl(self, prefix, Mode_):
+        CNTData = self.importCNTInfo()
+
         Module = CNTData["Module"]
         Modules_ = Module.keys()
-        MData_ = Module[Modules_[0]]
-        MConst_ = MData_["MConst"]
-        MConnect_ = MData_["Connect"]
-        
-        for i,item in enumerate(MConst_.keys()):
-            IData_ = MConst_[item]
-            Targets_ = IData_['Target']
-            Types_ = IData_["Type"]
-            Atts_ = IData_["Attr"]
-            item = PyNode('{}:{}'.format(prefix, item))
-            for t,target in enumerate(Targets_):
-                
-                target = PyNode('{}:{}'.format("Set", target))
-                if Mode_ == 'Rebuild':
-                    if Types_[t] == "Local":
-                        _matrix.matrixConst(item, target,
-                                            'local',
-                                            t='t',
-                                            r='r',
-                                            s='s')
-                    if Types_[t] == "Parent":
-                        _matrix.matrixConst(item, target,
-                                            'parent',
-                                            t='t',
-                                            r='r',
-                                            s='s')
-                elif Mode_ == 'Build':
-                    self.delete_Mnode(target)
-        
-        
-        for i,item in enumerate(MConnect_.keys()):
-            IData_ = MConnect_[item]
-            Targets_ = IData_['Target']
-            Atts_ = IData_["Attr"]
-            item = PyNode('{}:{}'.format(prefix, item))
-            for t,target in enumerate(Targets_):
-                target = PyNode('{}:{}'.format("Set", target))
-                itemAttr = item.attr(Atts_[t])
-                targetAttr = target.attr(Atts_[t])
-                if Mode_ == 'Rebuild':
-                    itemAttr.connectAttr(targetAttr)
-                elif Mode_ == 'Build':
-                    itemAttr.disconnect()
+        for mod in Modules_:
+            MData = Module[mod]
+            if self.object_.getAttr('Module') == str(mod):
+                for item in MData["Item"]:
+                    item_ = PyNode('{}:{}'.format(prefix, str(item)))
+                    for target in MData["Target"][item]:
+                        target_ = PyNode('{}:{}'.format("prefix", str(target)))
+                        type_ = MData["Data"][item][target]["Type"]
+                        attr_ = MData["Data"][item][target]["Attr"]
+                        if Mode_ == 'Build':
+                            if type_ == "Local":
+                                _matrix.MTransform(item_, target_, attr_)
+                                
+                            if type_ == "Connect":
+                                getAttr_ = item_.getAttr(attr_[0])
+                                targetAttr_ = target_.attr(attr_[0])
+                                targetAttr_.set(getAttr_)
+                        if Mode_ == 'ReBuild':
+                            if type_ == "Local":
+                                _matrix.MTransform(item_, target_, attr_)
+                                
+                            if type_ == "Connect":
+                                getAttr_ = item_.getAttr(attr_[0])
+                                targetAttr_ = target_.attr(attr_[0])
+                                targetAttr_.set(getAttr_)

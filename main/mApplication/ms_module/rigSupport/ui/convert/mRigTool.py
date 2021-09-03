@@ -188,7 +188,7 @@ class myUIClass(QWidget):
     def setModule(self, fileName_):
         if fileName_ in self.set_:
             path_ = os.path.join(self.setDir, fileName_)
-            ref, fNode = self.refImport("Set", path_)
+            ref, fNode = self.refImport("prefix", path_)
             ref.importContents()
         else:
             print ("The {0} file does not exist in the path.".format(fileName_))
@@ -233,7 +233,7 @@ class myUIClass(QWidget):
             set_ = attr_.listConnections()[0]
         else:
             set_ = self.setModule(fileName_)
-            buildCtrl.BuildControl(namespace_, "Build")
+            buildCtrl.BuildControl(object_, namespace_, "Build")
         object_.referenceFile().remove()
         
 
@@ -242,7 +242,7 @@ class myUIClass(QWidget):
         fileName_ = 'Fit{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
         _attribute.message_(ls(object_,fNode),'connectModule')
-        buildCtrl.BuildControl(namespace_, "Rebuild")
+        buildCtrl.BuildControl(object_, namespace_, "Rebuild")
 
     
     def print_base_prefix(self):
