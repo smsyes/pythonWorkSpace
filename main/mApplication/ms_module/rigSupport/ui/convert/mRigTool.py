@@ -161,7 +161,10 @@ class myUIClass(QWidget):
 
     def getName_(self):
         sel = ls(sl=1, r=1, fl=1)
-        namespace_ = sel[0].namespaceList()[0]
+        if sel[0].namespace():
+            namespace_ = sel[0].namespaceList()[0]
+        else:
+            namespace_ = sel[0].getAttr('Prefix')
         type_ = sel[0].getAttr('Module')
         fileName_ = '{}.ma'.format(type_)
         return sel[0], namespace_, fileName_
@@ -176,8 +179,8 @@ class myUIClass(QWidget):
 
     def fitModule(self, prefix_, fileName_):
         if  fileName_ in self.fit_:
-            dir_ = self.joinPath(self.fitDir, fileName_)
-            ref, fNode = self.refImport(prefix_, dir_)
+            path_ = self.joinPath(self.fitDir, fileName_)
+            ref, fNode = self.refImport(prefix_=prefix_, dir_=path_)
         else:
             print ("The {0} file does not exist in the path.".format(fileName_))
             print ("path : {0}".format(self.fitDir))
@@ -188,7 +191,7 @@ class myUIClass(QWidget):
     def setModule(self, fileName_):
         if fileName_ in self.set_:
             path_ = os.path.join(self.setDir, fileName_)
-            ref, fNode = self.refImport("prefix", path_)
+            ref, fNode = self.refImport(prefix_="Set", dir_=path_)
             ref.importContents()
         else:
             print ("The {0} file does not exist in the path.".format(fileName_))
@@ -197,7 +200,7 @@ class myUIClass(QWidget):
         return fNode
 
 
-    def refImport(self, prefix_, dir_):
+    def refImport(self, prefix_=None, dir_=None):
         if prefix_:
             ref = createReference( dir_, reference=True, namespace=prefix_)
             fNode = ref.nodes()[0]
@@ -226,22 +229,27 @@ class myUIClass(QWidget):
     def build_(self):
         object_, namespace_, fileName_ = self.getName_()
         fileName_ = fileName_.split('Fit')[-1]
-        dir_ = referenceQuery(object_, filename=True)
-        refNode = referenceQuery(dir_, referenceNode=True)
-        if _check.checkAttr(object_, 'connectModule'):
-            attr_ = object_.attr('connectModule')
-            set_ = attr_.listConnections()[0]
+        # dir_ = referenceQuery(object_, filename=True)
+        # refNode = referenceQuery(dir_, referenceNode=True)
+        set_ = self.setModule(fileName_)
+        buildCtrl.BuildControl(object_, namespace_, "Build")
+        if _check.checkAttr(set_, 'Prefix'):
+            pass
         else:
-            set_ = self.setModule(fileName_)
-            buildCtrl.BuildControl(object_, namespace_, "Build")
+            addAttr(set_, longName="Prefix",dataType="string")
+            prefixAttr = set_.attr("Prefix")
+            prefixAttr.set(namespace_)
+            
         object_.referenceFile().remove()
+        setns_ = set_.namespace()
+        _name.namespaceConvert(set_, namespace_)
+        namespace(rm=setns_)
         
 
     def rebuild_(self):
         object_, namespace_, fileName_ = self.getName_()
         fileName_ = 'Fit{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
-        _attribute.message_(ls(object_,fNode),'connectModule')
         buildCtrl.BuildControl(object_, namespace_, "Rebuild")
 
     

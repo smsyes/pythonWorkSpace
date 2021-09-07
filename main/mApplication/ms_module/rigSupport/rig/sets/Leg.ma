@@ -1,14 +1,14 @@
 //Maya ASCII 2018ff09 scene
 //Name: Leg.ma
-//Last modified: Tue, Aug 31, 2021 12:32:03 PM
+//Last modified: Tue, Sep 07, 2021 03:19:00 PM
 //Codeset: 949
 requires maya "2018ff09";
+requires "mtoa" "3.1.2.1";
 requires -nodeType "decomposeMatrix" -nodeType "composeMatrix" -nodeType "inverseMatrix"
 		 "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
 requires -nodeType "quatToEuler" -nodeType "eulerToQuat" -nodeType "quatInvert" -nodeType "quatProd"
 		 "quatNodes" "1.0";
-requires "mtoa" "3.1.2.1";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2018";
@@ -16,7 +16,7 @@ fileInfo "version" "2018";
 fileInfo "cutIdentifier" "201903222215-65bada0e52";
 fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 createNode transform -n "LegRigGrp";
-	rename -uid "F70F865C-45EB-4AA3-A909-B091296D7F5A";
+	rename -uid "3218D599-415A-3E34-A56D-4A828B3E3188";
 	addAttr -s false -ci true -m -sn "Grp" -ln "Grp" -at "message";
 	addAttr -s false -ci true -m -sn "OrgJnt" -ln "OrgJnt" -at "message";
 	addAttr -s false -ci true -m -sn "DrvJnt" -ln "DrvJnt" -at "message";
@@ -42,20 +42,20 @@ createNode transform -n "LegRigGrp";
 	setAttr -l on -k on ".Module" -type "string" "Leg";
 	setAttr -l on -k on ".Type" -type "string" "Set";
 createNode transform -n "LegCtrlGrp" -p "LegRigGrp";
-	rename -uid "1B602C32-4DCA-A8AD-A724-FD82E8C4BAEE";
+	rename -uid "6C80CF64-4ADA-B6B8-7C47-FD8B3840DB51";
 createNode transform -n "LegRootCtrlGrp" -p "LegCtrlGrp";
-	rename -uid "080A4791-4159-A456-5C82-43956D2B1DD9";
+	rename -uid "80128961-441B-121D-0966-72A6B16731E0";
 	addAttr -ci true -sn "nts" -ln "notes" -dt "string";
 	setAttr ".nts" -type "string" "MConst={0:'parent',1:ls(LegRootJnt),2:['t','r'],3:['t','r']},\nConnect={0:'connect',1:ls(HipJnt,KneeJnt),2:[Length,Length],3:[UpperLength,LowerLength]}\n";
 createNode transform -n "LegRootCtrl" -p "LegRootCtrlGrp";
-	rename -uid "1927A504-4CBC-75AE-0412-DAAC129DED26";
+	rename -uid "F6BD21CD-4D4B-AA58-7901-7296681AC3FB";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
 createNode nurbsCurve -n "LegRootCtrlShape" -p "LegRootCtrl";
-	rename -uid "E4589940-44B4-D35C-4C97-DAB2F3541A48";
+	rename -uid "61BC7AF7-4F01-A17B-2D6B-A1A8161FED16";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -63,38 +63,38 @@ createNode nurbsCurve -n "LegRootCtrlShape" -p "LegRootCtrl";
 		1 18 0 no 3
 		19 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
 		19
-		0.75051449999999997 1.666476956430074e-16 0
-		-1.666476956430074e-16 0.75051449999999997 0
-		-0.75051449999999997 -1.666476956430074e-16 0
-		1.666476956430074e-16 -0.75051449999999997 0
-		0.75051449999999997 1.666476956430074e-16 0
-		18.86157 4.1881098589158229e-15 0
-		18.86157 1.813080000000004 0
-		22.487729999999999 1.8130800000000047 0
-		22.487729999999999 5.4392400000000052 0
-		26.113889999999998 5.4392400000000061 0
-		26.113889999999998 1.8130800000000056 0
-		29.74005 1.8130800000000065 0
-		29.74005 -1.8130799999999931 0
-		26.113889999999998 -1.813079999999994 0
-		26.113889999999998 -5.4392399999999936 0
-		22.487729999999999 -5.4392399999999945 0
-		22.487729999999999 -1.8130799999999949 0
-		18.86157 -1.8130799999999956 0
-		18.86157 4.1881098589158229e-15 0
+		0.11557923299999993 2.5663745129023126e-17 0
+		-2.5663745129023126e-17 0.11557923299999993 0
+		-0.11557923299999993 -2.5663745129023126e-17 0
+		2.5663745129023126e-17 -0.11557923299999993 0
+		0.11557923299999993 2.5663745129023126e-17 0
+		2.9046817799999998 6.4496891827303666e-16 0
+		2.9046817799999998 0.27921432000000046 0
+		3.4631104199999982 0.27921432000000068 0
+		3.4631104199999982 0.83764296000000038 0
+		4.0215390599999985 0.83764296000000038 0
+		4.0215390599999985 0.27921432000000079 0
+		4.5799677000000001 0.27921432000000085 0
+		4.5799677000000001 -0.27921431999999879 0
+		4.0215390599999985 -0.27921431999999907 0
+		4.0215390599999985 -0.8376429599999986 0
+		3.4631104199999982 -0.83764295999999905 0
+		3.4631104199999982 -0.27921431999999907 0
+		2.9046817799999998 -0.27921431999999924 0
+		2.9046817799999998 6.4496891827303666e-16 0
 		;
 createNode transform -n "LegIKCtrlGrp" -p "LegRootCtrl";
-	rename -uid "E3B07B6F-43C6-3DDD-FBB7-72B8EE76A8C7";
+	rename -uid "A3860DFA-43D9-A6B4-ABA0-4B90B15D277D";
 	addAttr -ci true -sn "nts" -ln "notes" -dt "string";
 	setAttr ".nts" -type "string" "MConst={0:'parent',1:ls(AnkleJnt,LeftLegIKCtrlGrp),2:['t','r'],3:['t','r']}";
 createNode transform -n "LegIKConstCtrl" -p "LegIKCtrlGrp";
-	rename -uid "E0CA9A54-49F1-7EDB-AE2D-129229CB32AA";
+	rename -uid "F0B0B765-40D9-66CA-63D8-06BF92EB6C32";
 	addAttr -ci true -sn "UpVolume" -ln "UpVolume" -at "double";
 	addAttr -ci true -sn "DnVolume" -ln "DnVolume" -at "double";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "LegIKConstCtrlShape" -p "LegIKConstCtrl";
-	rename -uid "1BD76108-4D7A-7114-9677-E5B00C387B2F";
+	rename -uid "512C5DF0-448D-001F-2A60-F1A88D998363";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 4;
@@ -115,7 +115,7 @@ createNode nurbsCurve -n "LegIKConstCtrlShape" -p "LegIKConstCtrl";
 		-10.588770857537174 -10.533209024836136 -11.488161835426384
 		;
 createNode transform -n "LegIKCtrl" -p "LegIKConstCtrl";
-	rename -uid "081539F3-40B3-9DA1-2EB6-7EAE350E7F11";
+	rename -uid "D692AC31-48B9-EEC9-7557-568F7FF71A6E";
 	addAttr -ci true -sn "Twist" -ln "Twist" -at "double";
 	addAttr -ci true -sn "Stretch" -ln "Stretch" -min 0 -max 10 -at "double";
 	addAttr -ci true -sn "Squash" -ln "Squash" -min 0 -max 10 -at "double";
@@ -156,7 +156,7 @@ createNode transform -n "LegIKCtrl" -p "LegIKConstCtrl";
 	setAttr -k on ".ToePivot";
 	setAttr -cb on ".ConstCtrlVis";
 createNode nurbsCurve -n "LegIKCtrlShape" -p "LegIKCtrl";
-	rename -uid "21B51E62-4D06-DEE7-9AD0-55AC559D09C0";
+	rename -uid "7D6BD5E3-4830-6B3F-341A-2BB66BFF3540";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -164,90 +164,96 @@ createNode nurbsCurve -n "LegIKCtrlShape" -p "LegIKCtrl";
 		3 8 2 no 3
 		13 -2 -1 0 1 2 3 4 5 6 7 8 9 10
 		11
-		9.0240506905044615 -9.8666114249000998 -8.7361215781527388
-		3.660010698659603e-15 -2.1778110135156821 -15.310337189920306
-		-9.0240506905044615 -9.8666114249000998 -8.7361215781527353
-		-10.776622053093755 -9.8666114249000998 7.1354389137414733
-		-9.7252774985800041 -9.8666114249000998 23.006999405635689
-		1.4401349483614679e-15 -2.1778110135156856 29.581215017403252
-		9.7252774985800041 -9.8666114249000998 23.006999405635689
-		10.776622053093755 -9.8666114249000998 7.135438913741476
-		9.0240506905044615 -9.8666114249000998 -8.7361215781527388
-		3.660010698659603e-15 -2.1778110135156821 -15.310337189920306
-		-9.0240506905044615 -9.8666114249000998 -8.7361215781527353
+		1.3897038063376863 -1.5194581594346157 -1.3453627230355218
+		5.6364164759357855e-16 -0.33538289608141492 -2.3577919272477259
+		-1.3897038063376863 -1.5194581594346157 -1.345362723035521
+		-1.6595997961764382 -1.5194581594346157 1.0988575927161868
+		-1.4976927347813207 -1.5194581594346157 3.5430779084678949
+		2.2178078204766596e-16 -0.33538289608141553 4.5555071126800994
+		1.4976927347813207 -1.5194581594346157 3.5430779084678949
+		1.6595997961764382 -1.5194581594346157 1.0988575927161868
+		1.3897038063376863 -1.5194581594346157 -1.3453627230355218
+		5.6364164759357855e-16 -0.33538289608141492 -2.3577919272477259
+		-1.3897038063376863 -1.5194581594346157 -1.345362723035521
 		;
 createNode transform -n "LegIKCtrlPosGrp" -p "LegIKCtrl";
-	rename -uid "EAB7ABE9-4C42-1B99-9EB2-AF86893F7674";
+	rename -uid "031D0D05-40F4-E38B-49F4-95977C7D5B9E";
 	setAttr ".r" -type "double3" 7.9277460625420548e-15 -7.927755823049035e-15 -89.999929458447951 ;
 createNode transform -n "LegIKCtrlPos" -p "LegIKCtrlPosGrp";
-	rename -uid "ABE95AE9-4935-BE4B-BC6C-DE8CCB4107B2";
+	rename -uid "B4469CDE-4274-7AD5-58F8-258463FD2793";
 createNode transform -n "FootSystemGrp" -p "LegIKCtrl";
-	rename -uid "FD62623D-4819-0727-3C66-0F964104289F";
+	rename -uid "8053D888-4FA4-01D7-AB46-D9B914D4BD2A";
 	setAttr ".t" -type "double3" 0 1.4210854715202004e-14 3.8857805861880479e-16 ;
 	setAttr ".r" -type "double3" -90 -90 0 ;
 createNode transform -n "FootInRotPos" -p "FootSystemGrp";
-	rename -uid "A76358C3-4859-261D-6240-BDB508618A2E";
+	rename -uid "F1603DC7-4E28-DB65-E47E-82B573732964";
 createNode transform -n "FootOutRotPos" -p "FootInRotPos";
-	rename -uid "929A2E6A-4B2F-5A99-7873-71B4B7EEC724";
+	rename -uid "8971B1D7-47B0-DD15-258A-5BB4B7333870";
 createNode transform -n "HeelRollPivPos" -p "FootOutRotPos";
-	rename -uid "AD4E64F9-4C70-D798-205D-BCA5C1D2C5A0";
+	rename -uid "315F7B6E-4900-5566-4628-A48D3BD364F7";
 createNode transform -n "ToeRollPivPos" -p "HeelRollPivPos";
-	rename -uid "D1EBE1EE-4461-79D4-DE98-66BAEEE75D0C";
+	rename -uid "107CC9E6-4A28-4041-7A66-0D82A3234161";
 createNode transform -n "BallPivPos" -p "ToeRollPivPos";
-	rename -uid "7C5E5F69-4FC0-C1E3-746A-20835B7C6BA0";
+	rename -uid "88333DAD-4FDB-5579-7E13-21B9E8008C44";
 createNode transform -n "FootRollPos" -p "BallPivPos";
-	rename -uid "E8376D1F-44D7-910A-B7AC-BF921F2BB1A9";
+	rename -uid "58277603-4B73-B9C9-B22B-E190F7A09BB8";
 createNode transform -n "IKFootRollPos" -p "FootRollPos";
-	rename -uid "62DDD615-4FDE-310B-D219-5E8ED40A05D2";
+	rename -uid "A168989D-4496-E45E-DBA3-56AE7FBD302B";
 createNode ikHandle -n "BallRaiseIKh" -p "FootRollPos";
-	rename -uid "EAF80288-45C2-9B2F-DB82-B4BC84365D92";
+	rename -uid "D316CB28-465D-4D1A-3D47-F4BC1A5A6C35";
 	setAttr -l on ".v" no;
-	setAttr ".t" -type "double3" 13.45170782841091 8.2935383618476521e-06 -6.7362397118227824 ;
-	setAttr ".r" -type "double3" 7.889222474642735e-05 26.600429797236792 3.5325239739373418e-05 ;
-	setAttr ".s" -type "double3" 0.99999999999999978 0.99999999999999978 0.99999999999999989 ;
+	setAttr ".t" -type "double3" 2.0000000038943608 -6.6613377245955357e-16 -0.99999961100354884 ;
+	setAttr ".r" -type "double3" 0 2.2263882770244617e-14 0 ;
 	setAttr ".pv" -type "double3" 1 -2.2204460492503131e-16 4.9303806576313238e-32 ;
 	setAttr ".roc" yes;
 createNode transform -n "BallRollPos" -p "BallPivPos";
-	rename -uid "84939508-433A-75DB-D6FD-40A8EE4340E0";
+	rename -uid "D0FD1202-49CC-779B-BAA7-9DA40897A826";
 createNode ikHandle -n "ToeRaiseIKh" -p "BallRollPos";
-	rename -uid "29FFE04F-4DFE-412B-8870-A98DBED426D3";
+	rename -uid "896DEF1A-46D2-5555-962C-2080B756A665";
 	setAttr -l on ".v" no;
-	setAttr ".t" -type "double3" 21.527483895339291 8.2935383609594737e-06 -6.7362397118228898 ;
-	setAttr ".r" -type "double3" 7.0541552024744547e-05 0 0 ;
+	setAttr ".t" -type "double3" 3.0000000239476043 -9.4661980175882418e-16 -1.0000000119738159 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999978 ;
 	setAttr ".pv" -type "double3" 1 -2.2204460492503131e-16 4.9303806576313238e-32 ;
 	setAttr ".roc" yes;
 createNode transform -n "FootMvPivGrp" -p "FootSystemGrp";
-	rename -uid "192DF075-4AC2-F241-9DE8-5CB23647184E";
+	rename -uid "91BEFAEA-423F-0C6C-6B82-EEBE22FC3D79";
 createNode transform -n "HeelMvPivPos" -p "FootMvPivGrp";
-	rename -uid "990B8538-4EF8-1FDD-862D-4BBB5647A49C";
-	setAttr ".t" -type "double3" -6.6961746667861801 0 -9.5458072461853618 ;
+	rename -uid "76DEEF6B-4CE1-71AE-1BC1-ECB272FF283B";
+	setAttr ".t" -type "double3" -0.99999999610563917 4.2315540351057578e-23 -0.99999961100354895 ;
+	setAttr ".r" -type "double3" 89.999999999999986 0 89.999999999999986 ;
+	setAttr ".s" -type "double3" 1 1.0000000000000009 1 ;
 createNode transform -n "ToeMvPivPos" -p "FootMvPivGrp";
-	rename -uid "81DCA2FB-4988-8B77-C3E3-6EB094116800";
-	setAttr ".t" -type "double3" 21.52748389533928 -0.00012345554714876528 -6.7362397119850979 ;
+	rename -uid "B50B3425-47C8-D58D-42E6-BAB4327E33C7";
+	setAttr ".t" -type "double3" 3.0000000239476043 -9.4661980175882418e-16 -1.0000000119738159 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999978 ;
 createNode transform -n "BallMvPivPos" -p "FootMvPivGrp";
-	rename -uid "15B8EF3A-45E1-DF4B-EECD-D8B39F02C758";
-	setAttr ".t" -type "double3" 13.451707828410902 -0.00012345554708659279 -6.7362397119849904 ;
+	rename -uid "FC18E527-4882-0E08-AB60-1AA8F23CA1E2";
+	setAttr ".t" -type "double3" 2.000000023947603 -6.6613381138441839e-16 -1.0000000119738157 ;
+	setAttr ".r" -type "double3" 0 3.1805546814635168e-15 0 ;
+	setAttr ".s" -type "double3" 1 1 0.99999999999999978 ;
 createNode transform -n "FootInPivPos" -p "FootMvPivGrp";
-	rename -uid "28177B76-42C7-A9BA-4275-C7ACD408BAB4";
-	setAttr ".t" -type "double3" 15.323806240654005 -5.4146108174550607 -9.7791837119231797 ;
+	rename -uid "0F9B1A0A-479C-882C-08BA-1E89DAD155C7";
+	setAttr ".t" -type "double3" 2.0000000038943608 -1.0000000000000007 -0.99999961100354895 ;
+	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000007 0.99999999999999978 ;
 createNode transform -n "FootOutPivPos" -p "FootMvPivGrp";
-	rename -uid "F09723C1-4326-0CCE-23A3-04825A8775FD";
-	setAttr ".t" -type "double3" 15.528343632316606 5.3952060198557303 -9.7783740275273932 ;
+	rename -uid "98F1D27F-4739-42FE-C3B6-C4A7EF00A932";
+	setAttr ".t" -type "double3" 2.0000000038943617 0.99999999999999933 -0.99999961100354939 ;
+	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000007 0.99999999999999978 ;
 createNode transform -n "LegPoleVectorCtrlGrp" -p "LegRootCtrl";
-	rename -uid "A0857315-476E-A3D4-F3F3-DAB2064855A5";
+	rename -uid "53018BE8-4252-0B68-6AA7-6580B2DFE55F";
 	addAttr -ci true -sn "nts" -ln "notes" -dt "string";
 	setAttr ".nts" -type "string" "MConst={0:'parent',1:ls(KneeJnt,LeftLegPoleVectorCtrlGrp),2:['t','r'],3:['t','r']}";
 createNode transform -n "LegPVOff" -p "LegPoleVectorCtrlGrp";
-	rename -uid "F8E9FA5B-4F8C-88EE-70F9-349EFADC9366";
+	rename -uid "B8A12B4E-4251-CCC6-728D-1E8E8EB3642E";
 createNode transform -n "LegPoleVectorCtrl" -p "LegPVOff";
-	rename -uid "2D2F44F2-4DE7-8A76-F04E-BAA864B29A6D";
+	rename -uid "895EE3EF-410A-4239-5C3C-BBB000EBC3AE";
 	addAttr -ci true -sn "Follow" -ln "Follow" -min 0 -max 4 -en "Auto:Hip:Root:Fly:World" 
 		-at "enum";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 	setAttr -k on ".Follow";
 createNode nurbsCurve -n "LegPoleVectorCtrlShape" -p "LegPoleVectorCtrl";
-	rename -uid "D01473DA-4455-E9A6-6CB6-AC97B5EFB916";
+	rename -uid "20B698D7-4045-C991-E5E9-4D86880E6741";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -255,18 +261,18 @@ createNode nurbsCurve -n "LegPoleVectorCtrlShape" -p "LegPoleVectorCtrl";
 		1 6 0 no 3
 		7 0 1 2 3 4 5 6
 		7
-		0 0 0
-		1.8750760467543718e-15 -18.82986 18.82986
-		-1.3684547543620923e-15 -9.41493 28.244790000000002
-		-2.3059927777392782e-15 0 18.82986
-		-5.5495235788557427e-15 9.41493 28.244790000000002
-		-6.4870616022329282e-15 18.82986 18.82986
-		0 0 0
+		0 8.2600593032111641e-16 -6.453171330633722e-18
+		1.3125532327280607e-16 -1.3180901999999999 1.3180902000000003
+		-9.5791832805346451e-17 -0.6590450999999995 1.9771353000000009
+		-1.614194944417496e-16 8.2600593032111641e-16 1.3180902000000003
+		-3.8846665051990207e-16 0.65904510000000094 1.9771353000000009
+		-4.540943121563051e-16 1.318090200000001 1.3180902000000003
+		0 8.2600593032111641e-16 -6.453171330633722e-18
 		;
 createNode transform -n "LegIKFKCtrlGrp" -p "LegRootCtrl";
-	rename -uid "F50BF4DE-40F3-ED9F-F4E9-1894F5E912A2";
+	rename -uid "CB59AD38-40EE-1CE7-43DE-DEB2DE902D97";
 createNode transform -n "LegIKFKCtrl" -p "LegIKFKCtrlGrp";
-	rename -uid "172DDB63-42A9-4DF6-E205-77A34DFFBB32";
+	rename -uid "5F4A7CC7-4028-C16A-5942-299C12F1672B";
 	addAttr -ci true -sn "IKFK" -ln "IKFK" -min 0 -max 1 -at "double";
 	addAttr -ci true -sn "Arc" -ln "Arc" -min 0 -max 10 -at "double";
 	addAttr -ci true -sn "UpTwistFix" -ln "UpTwistFix" -at "double";
@@ -294,7 +300,7 @@ createNode transform -n "LegIKFKCtrl" -p "LegIKFKCtrlGrp";
 	setAttr -cb on ".ArcCtrlVis";
 	setAttr -k on ".PantsSubCtrlVis" 1;
 createNode nurbsCurve -n "LegIKFKCtrlShape" -p "LegIKFKCtrl";
-	rename -uid "2251F121-4063-6961-8F45-A5B0F2C252D9";
+	rename -uid "C775E7FA-4E30-87CB-6A63-AAB11EC2F99E";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -302,42 +308,42 @@ createNode nurbsCurve -n "LegIKFKCtrlShape" -p "LegIKFKCtrl";
 		1 6 0 no 3
 		7 0 1 2 3 4 5 6
 		7
-		19.425747742224249 2.3611547512018167 -4.945575254215967e-16
-		21.495239106091567 2.3611547512018136 -9.5407691770727939e-16
-		15.630007173210346 8.6232309951438744 3.482661896230109e-16
-		15.630007173210336 -2.3611547512018776 3.482661896230109e-16
-		13.56051580934302 -2.3611547512018722 8.0778558190869231e-16
-		19.425747742224228 -8.6232309951439206 -4.945575254215967e-16
-		19.425747742224249 2.3611547512018167 -4.945575254215967e-16
+		2.9915651523025337 0.36361783168507977 -7.6161858914925855e-17
+		3.3102668223380989 0.36361783168507933 -1.4692784532692104e-16
+		2.4070211046743917 1.3279775732521566 5.3632993201943649e-17
+		2.4070211046743912 -0.36361783168508904 5.3632993201943649e-17
+		2.0883194346388239 -0.36361783168508832 1.2439897961393852e-16
+		2.9915651523025302 -1.3279775732521633 -7.6161858914925855e-17
+		2.9915651523025337 0.36361783168507977 -7.6161858914925855e-17
 		;
 createNode transform -n "LegUpArcCtrlGrp" -p "LegRootCtrl";
-	rename -uid "53A40EDC-4F10-8637-54D2-70BD4B8F4084";
+	rename -uid "B14CCCAA-4987-8948-113A-7585F89021C1";
 	setAttr ".s" -type "double3" 1 1 0.99999999999999989 ;
 createNode transform -n "LegUpArcCtrl" -p "LegUpArcCtrlGrp";
-	rename -uid "3A99E6CC-4679-8A33-B0CC-CBB0FC688E15";
+	rename -uid "A60D6AFF-4980-5BE5-B353-84A33C29D8F6";
 	setAttr -l on ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 20;
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "LegUpArcCtrlShape" -p "LegUpArcCtrl";
-	rename -uid "79AB3E21-404E-839D-7E73-DFBE8BD110C1";
+	rename -uid "33E4CF25-462D-BB4F-B498-B0A8D496CCDE";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 8 0 no 3
 		9 0 1 2 3 4 5 6 7 8
 		9
-		0 0 -10
-		-1.5700920563688214e-15 -7.0710660000000001 -7.0710660000000001
-		-2.2204460492503131e-15 -10 0
-		-1.5700920563688214e-15 -7.0710660000000001 7.0710660000000001
-		0 0 10
-		1.5700920563688214e-15 7.0710660000000001 7.0710660000000001
-		2.2204460492503131e-15 10 0
-		1.5700920563688214e-15 7.0710660000000001 -7.0710660000000001
-		0 0 -10
+		0 4.4998625322884698e-23 -1.4999999999999998
+		-2.3551380845532319e-16 -1.0606598999999999 -1.0606598999999999
+		-3.3306690738754691e-16 -1.4999999999999998 2.8799120206646207e-21
+		-2.3551380845532319e-16 -1.0606598999999999 1.0606598999999999
+		0 4.4998625322884698e-23 1.4999999999999998
+		2.3551380845532319e-16 1.0606598999999999 1.0606598999999999
+		3.3306690738754691e-16 1.4999999999999998 2.8799120206646207e-21
+		2.3551380845532319e-16 1.0606598999999999 -1.0606598999999999
+		0 4.4998625322884698e-23 -1.4999999999999998
 		;
 createNode tangentConstraint -n "LegUpArcCtrlGrp_tangentConstraint1" -p "LegUpArcCtrlGrp";
-	rename -uid "7AB96837-4672-993B-13DE-57B59BFDF756";
+	rename -uid "A9E6D2DA-4C18-67FB-43C6-17B5EF65B684";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLegUpIKCrvW0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -355,49 +361,49 @@ createNode tangentConstraint -n "LegUpArcCtrlGrp_tangentConstraint1" -p "LegUpAr
 	setAttr ".rsrr" -type "double3" 1.5565478165143802e-13 0.51904363413127375 -90.200633862653177 ;
 	setAttr -k on ".w0";
 createNode transform -n "Leg1CsHandleGrp" -p "LegUpArcCtrlGrp";
-	rename -uid "3ED2FA8F-4A8F-4A47-9B33-A6B736815419";
+	rename -uid "4BFAC78D-499F-353F-13FB-4BA65A1691D1";
 	setAttr ".v" no;
 	setAttr ".s" -type "double3" 0.99999999999999989 1 1 ;
 createNode transform -n "Leg1CsHandleZeroMtx" -p "Leg1CsHandleGrp";
-	rename -uid "E2E07A9C-4847-B233-58B8-F3993D54CFFC";
+	rename -uid "D8881C3E-4396-7D7C-ACDD-ECA3F8E1C8EA";
 createNode transform -n "Leg1CsHandle" -p "Leg1CsHandleGrp";
-	rename -uid "A110D67D-4AC5-1AB0-42CB-EB9BE83E6B63";
+	rename -uid "82245965-4A66-9C1D-BF99-00BD76F01ACD";
 createNode clusterHandle -n "Leg1CsHandleShape" -p "Leg1CsHandle";
-	rename -uid "E1A70793-4CF9-8894-8111-9ABFD2F3DA00";
+	rename -uid "10B48C4F-4204-2CA7-4329-D28623F3D39C";
 	setAttr ".ihi" 0;
 	setAttr -k off ".v";
 createNode transform -n "LegMidArcCtrlGrp" -p "LegRootCtrl";
-	rename -uid "9344837B-4D48-323C-7A77-D88F2749F43B";
+	rename -uid "A01CEAE8-4EA1-863C-E736-6DB4C67FE7A8";
 	setAttr ".s" -type "double3" 1 1 0.99999999999999989 ;
 createNode transform -n "LegMidArcCtrlPBGrp" -p "LegMidArcCtrlGrp";
-	rename -uid "DDCF9EFB-43B5-8AB2-9555-90BEACA41E9C";
+	rename -uid "C9F0A6F0-40FA-7AEC-CEEF-8A9DEC44A2C5";
 	addAttr -ci true -k true -sn "pbw" -ln "pbw" -min 0 -max 1 -at "double";
 	setAttr -k on ".pbw" 0.5;
 createNode transform -n "LegMidArcCtrl" -p "LegMidArcCtrlPBGrp";
-	rename -uid "A53D0F67-42BA-1CCA-8346-438A50CD13F2";
+	rename -uid "79D1DDA2-4EA4-2BCB-BEA5-C587DBAE6D1B";
 	setAttr -l on ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 20;
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "LegMidArcCtrlShape" -p "LegMidArcCtrl";
-	rename -uid "B9FF2581-4481-576E-9E28-5AA592544EA5";
+	rename -uid "1B8C9F2E-4C0A-106A-2955-CE88B0C616B4";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 8 0 no 3
 		9 0 1 2 3 4 5 6 7 8
 		9
-		0 0 -10
-		-1.5700920563688214e-15 -7.0710660000000001 -7.0710660000000001
-		-2.2204460492503131e-15 -10 0
-		-1.5700920563688214e-15 -7.0710660000000001 7.0710660000000001
-		0 0 10
-		1.5700920563688214e-15 7.0710660000000001 7.0710660000000001
-		2.2204460492503131e-15 10 0
-		1.5700920563688214e-15 7.0710660000000001 -7.0710660000000001
-		0 0 -10
+		7.5495165674510633e-16 -4.4998625322884698e-23 -1.4999999999999998
+		5.1943784828978309e-16 -1.0606598999999999 -1.0606598999999999
+		4.2188474935755922e-16 -1.4999999999999998 1.1796119636642286e-17
+		5.1943784828978309e-16 -1.0606598999999999 1.0606598999999999
+		7.5495165674510633e-16 -4.4998625322884698e-23 1.4999999999999998
+		9.9046546520042878e-16 1.0606598999999999 1.0606598999999999
+		1.0880185641326527e-15 1.4999999999999998 1.1796119636642286e-17
+		9.9046546520042878e-16 1.0606598999999999 -1.0606598999999999
+		7.5495165674510633e-16 -4.4998625322884698e-23 -1.4999999999999998
 		;
 createNode orientConstraint -n "LegMidArcCtrlPBGrp_orientConstraint1" -p "LegMidArcCtrlPBGrp";
-	rename -uid "D8DE56FE-4733-93BB-AFAA-D292C002F4D3";
+	rename -uid "D0CF634E-47A3-577F-7ACB-BD98945BE86D";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLeg1DrvJntW0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -411,11 +417,11 @@ createNode orientConstraint -n "LegMidArcCtrlPBGrp_orientConstraint1" -p "LegMid
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 5.3202923092330709e-16 -1.5000984710114849 -2.5453582912832202e-14 ;
+	setAttr ".lr" -type "double3" -1.9612993809168488e-19 -0.00027046072284555152 1.1130338558924594e-14 ;
 	setAttr ".rsrr" -type "double3" 1.0787334089884731e-15 -1.4998121103940505 -2.5458406896467076e-14 ;
 	setAttr -k on ".w0";
 createNode pointConstraint -n "LegMidArcCtrlPBGrp_pointConstraint1" -p "LegMidArcCtrlPBGrp";
-	rename -uid "AFBFF589-4202-3879-272E-038F3958D521";
+	rename -uid "2FFBB217-47EF-79B5-D35C-8F89F78EE4CD";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLegArcPointPosW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -433,31 +439,31 @@ createNode pointConstraint -n "LegMidArcCtrlPBGrp_pointConstraint1" -p "LegMidAr
 	setAttr ".rst" -type "double3" 0.0015049548978396388 8.8817841970012523e-16 -0.13189847095592477 ;
 	setAttr -k on ".w0";
 createNode transform -n "Leg2UpCsHandleGrp" -p "LegMidArcCtrlPBGrp";
-	rename -uid "52C2B160-4157-84F2-AFA2-57A9677784A3";
+	rename -uid "F24D7D22-464F-6242-3389-8E800DA66BF8";
 	setAttr ".v" no;
 	setAttr ".s" -type "double3" 0.99999999999999989 1 1 ;
 createNode transform -n "Leg2UpCsHandleZeroMtx" -p "Leg2UpCsHandleGrp";
-	rename -uid "AEED7AF3-4D99-2E1F-C933-2589997D8936";
+	rename -uid "8AFC4B9F-4916-2DD0-A7B4-9999802A1099";
 createNode transform -n "Leg2UpCsHandle" -p "Leg2UpCsHandleGrp";
-	rename -uid "AA597B1D-496B-9DE6-ADD3-419F4907724C";
+	rename -uid "4FC739C1-4BC3-3E48-5E6C-A18C27877DA4";
 createNode clusterHandle -n "Leg2UpCsHandleShape" -p "Leg2UpCsHandle";
-	rename -uid "FC9D1964-4432-1780-F150-51B6793D599B";
+	rename -uid "C34CF6B3-464C-8B2C-B629-D7B365A6FF13";
 	setAttr ".ihi" 0;
 	setAttr -k off ".v";
 createNode transform -n "Leg2DnCsHandleGrp" -p "LegMidArcCtrlPBGrp";
-	rename -uid "53C8464A-4C79-0182-B44F-33AFFDFD5B06";
+	rename -uid "8AC05380-48F3-4DA5-998B-9CBE5731B24A";
 	setAttr ".v" no;
 	setAttr ".s" -type "double3" 0.99999999999999989 1 1 ;
 createNode transform -n "Leg2DnCsHandleZeroMtx" -p "Leg2DnCsHandleGrp";
-	rename -uid "43198AB2-40C9-3B9A-B90C-2C9C2FD7A42C";
+	rename -uid "18326713-4954-B2E7-F7B5-23AF4C202F57";
 createNode transform -n "Leg2DnCsHandle" -p "Leg2DnCsHandleGrp";
-	rename -uid "11773298-4AF5-C138-7C3D-0EB52A46BA1A";
+	rename -uid "0EC636E1-43F5-8DE6-3A5D-32A4CBF862C3";
 createNode clusterHandle -n "Leg2DnCsHandleShape" -p "Leg2DnCsHandle";
-	rename -uid "D4244390-4A39-E666-6A3A-C18202146212";
+	rename -uid "4976FF1C-46FE-253B-7E61-E3A226765B47";
 	setAttr ".ihi" 0;
 	setAttr -k off ".v";
 createNode parentConstraint -n "LegMidArcCtrlGrp_parentConstraint1" -p "LegMidArcCtrlGrp";
-	rename -uid "FF37B865-4502-12C3-940E-7E9C59C45550";
+	rename -uid "46A4BE89-4DFF-6598-33E5-2BB806094DED";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLeg2DrvJntW0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -471,38 +477,38 @@ createNode parentConstraint -n "LegMidArcCtrlGrp_parentConstraint1" -p "LegMidAr
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 0 2.0189972703009702 -90.200633862653177 ;
+	setAttr ".lr" -type "double3" 0.0001372789627274974 0.00013560601892526617 -90.000001374015071 ;
 	setAttr ".rst" -type "double3" 8.1046356547272165 53.212292331310373 1.6857660442348701 ;
 	setAttr ".rsrr" -type "double3" 3.978162646487195e-16 2.0188557445253257 -90.200633862653163 ;
 	setAttr -k on ".w0";
 createNode transform -n "LegDnArcCtrlGrp" -p "LegRootCtrl";
-	rename -uid "0638C3D9-4E6D-02C9-09A1-B2B5474EC9B3";
+	rename -uid "CFA63251-4790-9AC8-C527-85942E0EDB05";
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 createNode transform -n "LegDnArcCtrl" -p "LegDnArcCtrlGrp";
-	rename -uid "6FEFD0C1-49DB-D4E4-2A85-D995593318AA";
+	rename -uid "553618FA-4041-2E99-A91A-0581D8176540";
 	setAttr -l on ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 20;
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "LegDnArcCtrlShape" -p "LegDnArcCtrl";
-	rename -uid "C76762FF-4858-E41D-4212-55819C7456C6";
+	rename -uid "5E6186F3-4CB8-850F-5DFA-CCAB723703F4";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 8 0 no 3
 		9 0 1 2 3 4 5 6 7 8
 		9
-		0 0 -10
-		-1.5700920563688214e-15 -7.0710660000000001 -7.0710660000000001
-		-2.2204460492503131e-15 -10 0
-		-1.5700920563688214e-15 -7.0710660000000001 7.0710660000000001
-		0 0 10
-		1.5700920563688214e-15 7.0710660000000001 7.0710660000000001
-		2.2204460492503131e-15 10 0
-		1.5700920563688214e-15 7.0710660000000001 -7.0710660000000001
-		0 0 -10
+		3.7747582837255316e-16 0 -1.4999999999999998
+		1.4196201991722983e-16 -1.0606598999999999 -1.0606598999999999
+		4.4408920985006011e-17 -1.4999999999999998 1.7999450129153886e-21
+		1.4196201991722983e-16 -1.0606598999999999 1.0606598999999999
+		3.7747582837255316e-16 0 1.4999999999999998
+		6.129896368278765e-16 1.0606598999999999 1.0606598999999999
+		7.1054273576010023e-16 1.4999999999999998 1.7999450129153886e-21
+		6.129896368278765e-16 1.0606598999999999 -1.0606598999999999
+		3.7747582837255316e-16 0 -1.4999999999999998
 		;
 createNode tangentConstraint -n "LegDnArcCtrlGrp_tangentConstraint1" -p "LegDnArcCtrlGrp";
-	rename -uid "AB1E64DA-4E0E-4A16-38D7-09BEC45F70F1";
+	rename -uid "581F6248-49FC-0F8A-32E8-5C96232B2B71";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLegDnIKCrvW0" -dv 1 -min 0 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -520,27 +526,27 @@ createNode tangentConstraint -n "LegDnArcCtrlGrp_tangentConstraint1" -p "LegDnAr
 	setAttr ".rsrr" -type "double3" -0.0070705217408713432 2.018855744525295 -90.200633862653177 ;
 	setAttr -k on ".w0";
 createNode transform -n "Leg3CsHandleGrp" -p "LegDnArcCtrlGrp";
-	rename -uid "6584A84F-48A9-1EA0-EF73-36BBE7AA77EA";
+	rename -uid "95FC057C-4912-4FCF-9CBB-C487C55FA159";
 	setAttr ".v" no;
 	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999978 ;
 createNode transform -n "Leg3CsHandleZeroMtx" -p "Leg3CsHandleGrp";
-	rename -uid "B1E3EA24-42FF-5E89-7AB3-0CB5E747A48D";
+	rename -uid "42233EC7-4B43-6903-85B8-619A246ECFB0";
 createNode transform -n "Leg3CsHandle" -p "Leg3CsHandleGrp";
-	rename -uid "06D53FDA-405B-A677-B4E3-C5BD8B0BE0F8";
+	rename -uid "DC0978E9-464C-04DE-1BF4-218FCC53D5C6";
 createNode clusterHandle -n "Leg3CsHandleShape" -p "Leg3CsHandle";
-	rename -uid "B03F82C0-446B-3426-7B55-4FA4B39E165F";
+	rename -uid "067D1A43-4191-2197-93E3-D09C9AF2BB34";
 	setAttr ".ihi" 0;
 	setAttr -k off ".v";
 createNode transform -n "ThighFKCtrlGrp" -p "LegRootCtrl";
-	rename -uid "17461562-4E98-3658-D4E2-C3B3A9931E08";
+	rename -uid "D46837C8-4B2E-049B-3CF8-1BB26E751B77";
 createNode transform -n "ThighFKCtrl" -p "ThighFKCtrlGrp";
-	rename -uid "9522804D-4258-0D25-C56D-889BAE3197C1";
+	rename -uid "6A12DCDD-4152-D175-0157-F4B191C59DD2";
 	addAttr -ci true -sn "Follow" -ln "Follow" -min 0 -max 2 -en "Hip:Root:World" -at "enum";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 	setAttr -k on ".Follow";
 createNode nurbsCurve -n "ThighFKCtrlShape" -p "ThighFKCtrl";
-	rename -uid "92254C2F-440A-DE40-27B8-2EA5C2AC9BAF";
+	rename -uid "6288441D-4424-A183-D44D-5389D6236FC8";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -548,20 +554,20 @@ createNode nurbsCurve -n "ThighFKCtrlShape" -p "ThighFKCtrl";
 		1 4 0 no 3
 		5 0 1 2 3 4
 		5
-		0 0 -14.849247
-		-3.2971951835492064e-15 -14.849247 0
-		0 0 14.849247
-		3.2971951835492064e-15 14.849247 0
-		0 0 -14.849247
+		0 0 -2.9698493999999993
+		-6.5943903670984112e-16 -2.9698493999999993 -1.1102230246251564e-17
+		0 0 2.9698493999999993
+		6.5943903670984112e-16 2.9698493999999993 -1.1102230246251564e-17
+		0 0 -2.9698493999999993
 		;
 createNode transform -n "KneeFKCtrlGrp" -p "ThighFKCtrl";
-	rename -uid "521B0F03-43B1-9BE0-2B44-84A171E524A8";
+	rename -uid "DD5731B5-4ADD-7906-3BA8-F1B0699D983B";
 createNode transform -n "KneeFKCtrl" -p "KneeFKCtrlGrp";
-	rename -uid "BFC7FEFA-48E7-6583-1348-F1A7B6530C84";
+	rename -uid "F127BF71-4D28-2085-16AC-2BA3354DE832";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "KneeFKCtrlShape" -p "KneeFKCtrl";
-	rename -uid "B8C82758-4CB8-2182-8698-D3A7B99719B9";
+	rename -uid "5EF4DE0C-40F6-52AA-BFC8-E9A230915551";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -569,20 +575,20 @@ createNode nurbsCurve -n "KneeFKCtrlShape" -p "KneeFKCtrl";
 		1 4 0 no 3
 		5 0 1 2 3 4
 		5
-		0 0 -14.849247
-		-3.2971951835492064e-15 -14.849247 0
-		0 0 14.849247
-		3.2971951835492064e-15 14.849247 0
-		0 0 -14.849247
+		0 3.155443620884047e-31 -2.9698493999999993
+		-6.5943903670984112e-16 -2.9698493999999993 0
+		0 3.155443620884047e-31 2.9698493999999993
+		6.5943903670984112e-16 2.9698493999999993 0
+		0 3.155443620884047e-31 -2.9698493999999993
 		;
 createNode transform -n "AnkleFKCtrlGrp" -p "KneeFKCtrl";
-	rename -uid "70A2D439-4B4E-8928-4952-4D8FAE1AD4E3";
+	rename -uid "D6626C93-41E9-A5BB-47A1-C6A95B5E5A36";
 createNode transform -n "AnkleFKCtrl" -p "AnkleFKCtrlGrp";
-	rename -uid "8635F8D9-4570-94E1-6A29-3B9B89043E6F";
+	rename -uid "A038D970-4A83-52C6-0814-F2831C830AAF";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 createNode nurbsCurve -n "AnkleFKCtrlShape" -p "AnkleFKCtrl";
-	rename -uid "BE23D492-4BDA-A21E-0D73-45BE1920598C";
+	rename -uid "3F064D33-48D1-815B-FD40-6B97716B095B";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -590,65 +596,64 @@ createNode nurbsCurve -n "AnkleFKCtrlShape" -p "AnkleFKCtrl";
 		1 4 0 no 3
 		5 0 1 2 3 4
 		5
-		0 0 -14.849247
-		-3.2971951835492064e-15 -14.849247 0
-		0 0 14.849247
-		3.2971951835492064e-15 14.849247 0
-		0 0 -14.849247
+		-1.2037062152420223e-36 -8.8817841970012516e-17 -2.9698493999999993
+		-6.5943903670984112e-16 -2.9698493999999993 0
+		-1.2037062152420223e-36 -8.8817841970012516e-17 2.9698493999999993
+		6.5943903670984112e-16 2.9698493999999993 0
+		-1.2037062152420223e-36 -8.8817841970012516e-17 -2.9698493999999993
 		;
 createNode transform -n "AnkleFKCtrlPosGrp" -p "AnkleFKCtrl";
-	rename -uid "17E4ECA0-4A81-72CC-6E53-A2A0216B8701";
+	rename -uid "F4F3397D-476D-5FBB-3B0F-B4B679B437C1";
 	setAttr ".t" -type "double3" 1.7763568394002505e-15 0 2.7755575615628914e-17 ;
 	setAttr ".r" -type "double3" 7.6765047805049608e-15 -7.5672855938828483e-15 -8.4872705658523944e-15 ;
 createNode transform -n "AnkleFKCtrlPos" -p "AnkleFKCtrlPosGrp";
-	rename -uid "ABD2A03E-43B5-F02D-C648-5F8878A52FF8";
+	rename -uid "E347F87F-4E10-9EDA-887E-A6A38D362802";
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
 createNode transform -n "LegIKCtrlPoser" -p "LegRootCtrl";
-	rename -uid "C4FC1E39-47B2-103F-D23B-4B90D5F1A7D1";
-	setAttr ".t" -type "double3" -0.30363421199440754 -86.709697779201463 -1.9208049322128444 ;
+	rename -uid "0B746B21-4635-C70A-C760-7496C150FBE6";
+	setAttr ".t" -type "double3" 4.3194301126936547e-23 -10.000000388996465 -3.8943611738173622e-09 ;
+	setAttr ".r" -type "double3" 9.9392333795734899e-17 9.9392333795734899e-17 5.8237695583438427e-19 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
 createNode transform -n "LegPoleVectorCtrlPoser" -p "LegRootCtrl";
-	rename -uid "388A6A8F-4F11-69D8-578F-688137FF043F";
-	setAttr ".t" -type "double3" -0.1518494020123935 -43.364106237694259 -0.38284900076094641 ;
-	setAttr ".r" -type "double3" 0.51904363413175947 0 -0.2006338626532386 ;
-	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999989 ;
+	rename -uid "5BED4AE0-4A2A-C0CB-9124-1AA692799EF0";
+	setAttr ".t" -type "double3" 1.1102230246251569e-15 -5.0000000000000018 0.05005651085840699 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
 createNode transform -n "ThighFKCtrlPoser" -p "LegRootCtrl";
-	rename -uid "BC0C9864-4B45-087E-C051-BAA728C6024C";
-	setAttr ".t" -type "double3" 2.3986741481962781e-07 -4.7885365006550273e-07 6.167024002579069e-08 ;
-	setAttr ".r" -type "double3" 0 0.5190436341312753 -90.200633862653191 ;
-	setAttr ".s" -type "double3" 0.99999999999999944 0.99999999999999944 0.99999999999999944 ;
+	rename -uid "3DE07782-4402-06A0-43B3-28984A632436";
+	setAttr ".r" -type "double3" 0 -0.57358618010048612 -90 ;
 createNode transform -n "KneeFKCtrlPoser" -p "ThighFKCtrlPoser";
-	rename -uid "77CAC929-44F3-0B42-C6A7-47B533D4BEAB";
-	setAttr ".t" -type "double3" 43.366060461866503 -5.3290705182007514e-15 1.3322676295501878e-15 ;
-	setAttr ".r" -type "double3" 0 1.4998121103940503 0 ;
-	setAttr ".s" -type "double3" 1.0000000000000007 1.0000000000000004 1 ;
+	rename -uid "97BC2DCA-4F54-C905-1E45-E3A34BA751D5";
+	setAttr ".t" -type "double3" 5.0002505591499453 5.5508369466180041e-16 1.7014562536665778e-09 ;
+	setAttr ".r" -type "double3" 0 1.1471723602009725 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1.0000000000000002 1 ;
 createNode transform -n "AnkleFKCtrlPoser" -p "KneeFKCtrlPoser";
-	rename -uid "2A6CEFEB-4A54-3ACC-9721-128A0B7F7D95";
-	setAttr ".t" -type "double3" 43.372869960552315 -5.2402526762307389e-14 2.350897254643769e-14 ;
-	setAttr ".r" -type "double3" -0.0070748698197840854 -2.0188433530455536 0.20082906026165248 ;
-	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000002 1.0000000000000004 ;
+	rename -uid "6CAF5AC2-416B-D3D2-E241-C7A587D3A52F";
+	setAttr ".t" -type "double3" 5.0002509481659008 -1.6654247464718414e-15 -1.7014563872402855e-09 ;
+	setAttr ".r" -type "double3" -9.0150123831686545e-17 -64.008535003022502 1.4424644780256738e-16 ;
+	setAttr ".s" -type "double3" 0.99999999999999967 1.0000000000000004 0.99999999999999989 ;
 createNode transform -n "LegRootCtrlPoser" -p "LegCtrlGrp";
-	rename -uid "B4CEA859-4208-88CC-A0C1-12AFD8E0E31C";
-	setAttr ".t" -type "double3" 8.2564849853515607 96.576309204101548 2.0786147117614742 ;
+	rename -uid "F0F36F65-4640-CE92-DE11-04A7442C59EA";
+	setAttr ".t" -type "double3" 0 11 0 ;
 createNode transform -n "LegSysGrp" -p "LegRigGrp";
-	rename -uid "3FAA0A4C-4BF5-0EA4-4967-08B329D2C32F";
-	setAttr ".v" no;
+	rename -uid "86A419EF-484A-DCFD-6323-4C9BFAF70967";
 createNode transform -n "UpLegSysConsGrp" -p "LegSysGrp";
-	rename -uid "CC5A8989-4913-EC8B-E307-E484302DA52B";
+	rename -uid "B01E8DE7-4F08-0EA0-30A0-6D9EE5ADCA64";
 createNode transform -n "LegJntGrp" -p "UpLegSysConsGrp";
-	rename -uid "39F31705-4A90-2356-2890-309C31D2B7F7";
+	rename -uid "534C6B03-442F-8F7B-CD44-47B9F5BFE167";
 	setAttr ".t" -type "double3" -8.2564849853515607 -96.576309204101563 -2.0786147117614742 ;
 createNode joint -n "Leg1DrvJnt" -p "LegJntGrp";
-	rename -uid "7C388194-4238-8E82-2BA9-74B8BC77ACD3";
+	rename -uid "69049227-4D2A-7EE0-38F2-C1A29FD4289A";
 	addAttr -ci true -sn "fksy" -ln "FKScaleY" -at "double";
 	addAttr -ci true -sn "fksz" -ln "FKScaleZ" -at "double";
 	addAttr -ci true -sn "IKSquash" -ln "IKSquash" -at "double";
+	setAttr ".v" no;
 	setAttr ".dla" yes;
 	setAttr ".jo" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 	setAttr -k on ".fksy";
 	setAttr -k on ".fksz";
 	setAttr -k on ".IKSquash";
 createNode joint -n "Leg2DrvJnt" -p "Leg1DrvJnt";
-	rename -uid "2ABF8D30-40E3-3E1E-CFBE-FB9067B263EE";
+	rename -uid "95288779-443E-C543-5C57-88815D83CEE7";
 	addAttr -ci true -sn "fksy" -ln "FKScaleY" -at "double";
 	addAttr -ci true -sn "fksz" -ln "FKScaleZ" -at "double";
 	addAttr -ci true -sn "IKSquash" -ln "IKSquash" -at "double";
@@ -658,11 +663,11 @@ createNode joint -n "Leg2DrvJnt" -p "Leg1DrvJnt";
 	setAttr -k on ".fksz";
 	setAttr -k on ".IKSquash";
 createNode joint -n "Leg3DrvJnt" -p "Leg2DrvJnt";
-	rename -uid "8C0895CE-4F08-8ABF-7304-7C970F9C3B03";
+	rename -uid "42907E83-4108-8DFA-4A7C-CAA06B837709";
 	setAttr ".dla" yes;
 	setAttr ".jo" -type "double3" -0.0070748698197787216 -2.0188433530455607 0.2008290602617302 ;
 createNode orientConstraint -n "Leg3DrvJntORCons" -p "Leg3DrvJnt";
-	rename -uid "8970B1F1-47B6-AAB5-5A4A-B8A29FBDFA46";
+	rename -uid "BF43112F-48AB-98ED-430D-E9BEC2DBA45C";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLegIKCtrlPosW0" -dv 1 -min 0 
 		-at "double";
 	addAttr -dcb 0 -ci true -k true -sn "w1" -ln "LeftAnkleFKCtrlPosW1" -dv 1 -min 0 
@@ -680,26 +685,26 @@ createNode orientConstraint -n "Leg3DrvJntORCons" -p "Leg3DrvJnt";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
 	setAttr -s 2 ".tg";
-	setAttr ".lr" -type "double3" -4.9575708833947573e-07 -0.00014152490732759828 6.2404596289655752e-13 ;
+	setAttr ".lr" -type "double3" -0.0001347440785845727 2.018720138677125 -0.20063244365240568 ;
 	setAttr ".rsrr" -type "double3" -7.3814337895488739e-15 7.169198337526948e-15 8.4571932226542013e-15 ;
 	setAttr -k on ".w0";
 	setAttr -k on ".w1";
 createNode transform -n "Leg3AssiAPos" -p "Leg3DrvJnt";
-	rename -uid "18478440-4688-B823-70E1-6281AC01618C";
+	rename -uid "241522D5-48AF-F352-E9D7-02ABDB523697";
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1.0000000000000002 ;
 createNode transform -n "Leg2AssiAPos" -p "Leg2DrvJnt";
-	rename -uid "A9DC6BB9-4AB7-514C-1F6E-65A4FB22C4E6";
+	rename -uid "58703B21-4482-1757-AAEE-CCBE161645B0";
 	setAttr ".t" -type "double3" 0.99965741081207682 -8.8817841970012523e-16 0.026173670139210847 ;
 	setAttr ".r" -type "double3" 0 -1.4998121103940505 0 ;
 createNode transform -n "Leg3TwistFixGrp" -p "Leg2DrvJnt";
-	rename -uid "8CD70D1D-4CD3-9230-F031-73B3ACF2C97D";
+	rename -uid "B277928F-414C-77FC-4172-06AB806A7DD9";
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1.0000000000000002 ;
 createNode transform -n "Leg3AimGrp" -p "Leg3TwistFixGrp";
-	rename -uid "6C515351-44EA-5AFC-3DA4-178886E85FD2";
+	rename -uid "077B8231-42AC-CE36-7006-CAADFCC0336A";
 createNode transform -n "Leg3TwistFixPos" -p "Leg3AimGrp";
-	rename -uid "33046346-4944-58DC-D7FC-D8A452C78EC4";
+	rename -uid "2FD739B4-4459-0C56-D31D-A9A8585689B3";
 createNode orientConstraint -n "Leg3TwistFixPosORCons" -p "Leg3TwistFixPos";
-	rename -uid "ECFDFD9E-4CAC-4D13-23FB-1F9B11AC30E4";
+	rename -uid "73D50B04-4BAD-A1F8-EA12-B3A66CFBC152";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLeg3AimGrpW0" -dv 1 -min 0 -at "double";
 	addAttr -dcb 0 -ci true -k true -sn "w1" -ln "LeftLeg3TwistFixSubPosW1" -dv 1 -min 
 		0 -at "double";
@@ -716,10 +721,11 @@ createNode orientConstraint -n "Leg3TwistFixPosORCons" -p "Leg3TwistFixPos";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
 	setAttr -s 2 ".tg";
+	setAttr ".lr" -type "double3" 0.0023071661051877169 1.6369169345645105e-13 1.6180614595438828e-12 ;
 	setAttr -k on ".w0" 0.5;
 	setAttr -k on ".w1";
 createNode aimConstraint -n "Leg3AimGrpAMCons" -p "Leg3AimGrp";
-	rename -uid "A6DEEA9B-447E-C47B-98E1-7EA4357AD6C6";
+	rename -uid "E06DF426-4591-B948-4890-EFA5D37BCC12";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "LeftLeg3TwsitFixTgPosW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -736,9 +742,9 @@ createNode aimConstraint -n "Leg3AimGrpAMCons" -p "Leg3AimGrp";
 	setAttr ".wut" 2;
 	setAttr -k on ".w0";
 createNode transform -n "Leg3TwistFixSubPos" -p "Leg3AimGrp";
-	rename -uid "7258A906-4685-A070-8EF5-23B67C6DB35A";
+	rename -uid "F6C90C85-48C6-7FFB-5CAA-1D818614DD47";
 createNode aimConstraint -n "Leg3TwistFixSubPosAMCons" -p "Leg3TwistFixSubPos";
-	rename -uid "0774E482-497F-E217-882D-22A6F27B54DF";
+	rename -uid "735D978A-4577-2F51-89FD-BFA113B00B0A";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "LeftLeg3TwsitFixTgPosW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -755,18 +761,18 @@ createNode aimConstraint -n "Leg3TwistFixSubPosAMCons" -p "Leg3TwistFixSubPos";
 	setAttr ".wut" 2;
 	setAttr -k on ".w0";
 createNode transform -n "Leg3AssiBPos" -p "Leg3TwistFixGrp";
-	rename -uid "63C8680E-41C5-D8E2-C852-A093B6083C29";
+	rename -uid "C718CBA8-4EB9-4C2B-BD00-8096C0A308D5";
 	setAttr ".t" -type "double3" 1 0 0 ;
 createNode transform -n "Leg3TwsitFixTgPos" -p "Leg3TwistFixGrp";
-	rename -uid "D489AD47-4C6F-9453-E288-AFB3EACFAADB";
+	rename -uid "43562D80-4C99-E4AE-306D-6F9A3D4ED1E6";
 createNode transform -n "Leg2TwistFixGrp" -p "Leg1DrvJnt";
-	rename -uid "A98214FA-4AF9-1982-AEA6-B292894C8AF6";
+	rename -uid "4E61FAF3-4A73-D4B0-A2F4-A4958F638AEA";
 createNode transform -n "Leg2AimGrp" -p "Leg2TwistFixGrp";
-	rename -uid "8C0446EE-439F-3CF5-ED05-A6B81027621F";
+	rename -uid "FB6D2B33-4AA6-609E-78B2-2F9C3095D09E";
 createNode transform -n "Leg2TwistFixPos" -p "Leg2AimGrp";
-	rename -uid "F5F10343-4EC0-692A-FC59-4AA2F0933F60";
+	rename -uid "15840F6B-46BB-3944-7808-528C7CAE66CC";
 createNode aimConstraint -n "Leg2AimGrpAMCons" -p "Leg2AimGrp";
-	rename -uid "EBCEF6A3-4B38-7DE4-E90E-B49A1AC61F2B";
+	rename -uid "2BF284DD-488B-3609-2A22-88A478464371";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "LeftLeg2TwsitFixTgPosW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -783,97 +789,100 @@ createNode aimConstraint -n "Leg2AimGrpAMCons" -p "Leg2AimGrp";
 	setAttr ".wut" 2;
 	setAttr -k on ".w0";
 createNode transform -n "Leg2AssiBPos" -p "Leg2TwistFixGrp";
-	rename -uid "5324CBE3-4E26-F7E8-5FD1-8E9CA9878CF8";
+	rename -uid "8EAC11BE-40E4-604B-2AB9-FFAB36D27F4E";
 	setAttr ".t" -type "double3" 1 0 0 ;
 createNode transform -n "Leg2TwsitFixTgPos" -p "Leg2TwistFixGrp";
-	rename -uid "31AF34D6-447E-E8C2-F09F-18B1DBBD4411";
+	rename -uid "54AE697F-45CF-26D3-7CDB-AB941E5996D7";
 createNode joint -n "Leg1IKJnt" -p "LegJntGrp";
-	rename -uid "CA84D425-4DE6-94CB-31E2-14937EABB10F";
-	setAttr ".r" -type "double3" 3.8390287547259754e-17 -0.00014483484179065545 2.9314681533103706e-15 ;
+	rename -uid "88F7DA3B-4C67-98C1-5587-94BC74F41A00";
+	setAttr ".v" no;
+	setAttr ".r" -type "double3" -0.0016803008787215179 -0.51917530652454835 0.20064072502032157 ;
 	setAttr ".jo" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 createNode joint -n "Leg2IKJnt" -p "Leg1IKJnt";
-	rename -uid "BE3760E5-4D49-F873-F5A9-AA8FD17DAB7B";
+	rename -uid "F99F6BB7-4766-AE06-857F-ED9C6BBB3D9C";
 	addAttr -ci true -sn "Length" -ln "Length" -at "double";
-	setAttr ".t" -type "double3" 43.366 -3.5527136788005009e-15 1.3322676295501878e-15 ;
-	setAttr ".r" -type "double3" -7.623201458367003e-20 0.00028636061743382292 3.8078606656827291e-18 ;
+	setAttr ".t" -type "double3" 5 -3.5527136788005009e-15 1.3322676295501878e-15 ;
+	setAttr ".r" -type "double3" 3.4628373849675362e-15 -1.4995416496712051 -1.729700065639367e-13 ;
 	setAttr ".jo" -type "double3" 0 1.4998121103940505 0 ;
-	setAttr -k on ".Length" 43.366;
+	setAttr -k on ".Length" 5;
 createNode joint -n "Leg3IKJnt" -p "Leg2IKJnt";
-	rename -uid "8B389CE6-4307-2AC0-9667-CB8C71ACA21A";
+	rename -uid "86CF6B56-4E58-1D9A-0A5A-2B9B6CC934F6";
 	addAttr -ci true -sn "Length" -ln "Length" -at "double";
-	setAttr ".t" -type "double3" 43.373 1.1546319456101628e-14 2.4924506902834764e-14 ;
+	setAttr ".t" -type "double3" 5 1.1546319456101628e-14 2.4924506902834764e-14 ;
 	setAttr ".jo" -type "double3" -0.0070748698197865565 -2.0188433530455527 0.20082906026172356 ;
-	setAttr -k on ".Length" 43.373;
+	setAttr -k on ".Length" 5;
 createNode ikEffector -n "effector22" -p "Leg2IKJnt";
-	rename -uid "F2DD0ED3-4118-88E2-C6B2-71AEFBCA7E63";
+	rename -uid "2E450600-4052-ED33-703E-7F9050AB78B1";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode joint -n "Leg1FKJnt" -p "LegJntGrp";
-	rename -uid "616B3EDE-4E98-4F4A-92C6-61870102E6CD";
+	rename -uid "1AEC9FDE-4845-703B-9674-7C9580976E0F";
+	setAttr ".v" no;
 	setAttr ".jo" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 createNode joint -n "Leg2FKJnt" -p "Leg1FKJnt";
-	rename -uid "1C90B6D8-4570-CFBC-8A61-85AD16B4DCE9";
+	rename -uid "8D8D8077-465D-474B-8645-8CB70792F968";
 	setAttr ".jo" -type "double3" 0 1.4998121103940505 0 ;
 createNode joint -n "Leg3FKJnt" -p "Leg2FKJnt";
-	rename -uid "C50F521C-4994-D31D-CDF9-589330F1E364";
+	rename -uid "DA5800E0-4D95-2B0B-0CE1-6EAC6EE609B9";
 	setAttr ".jo" -type "double3" -0.0070748698197865504 -2.0188433530455527 0.20082906026172254 ;
 createNode joint -n "LegUp1ArcJnt" -p "LegJntGrp";
-	rename -uid "B661F7F1-4C8B-1088-85F7-0DB9AA8E773F";
-	setAttr ".t" -type "double3" 8.2564849853515589 96.576309204101548 2.0786147117614746 ;
-	setAttr ".r" -type "double3" -2.0949920648434232e-20 -0.00014483484179065548 1.6575321508982513e-14 ;
+	rename -uid "34280C1E-4DA5-5916-E0C0-2C8D7FB2F6E0";
+	setAttr ".t" -type "double3" 8.2564849853515625 96.576309204101577 2.0786147117614742 ;
+	setAttr ".r" -type "double3" 0.0010475755825991055 -0.51917530652434896 0.20064072502018968 ;
 	setAttr ".jo" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 createNode joint -n "LegUp2ArcJnt" -p "LegUp1ArcJnt";
-	rename -uid "EC205741-42AB-C5D8-D2BF-BEA8850179FE";
-	setAttr ".t" -type "double3" 10.84149960655486 8.8817841970012523e-16 6.6613381477509392e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159377e-07 -2.7977802164965507e-22 2.0845086995486544e-30 ;
+	rename -uid "18D34107-4841-90E9-6754-F1B1151D49F8";
+	setAttr ".t" -type "double3" 1.2499999529938255 8.8817841970012523e-16 6.6613381477509392e-16 ;
+	setAttr ".r" -type "double3" -0.00090929137962150795 -2.5843603532818787e-18 1.6154557390195369e-19 ;
 createNode joint -n "LegUp3ArcJnt" -p "LegUp2ArcJnt";
-	rename -uid "13D716C3-4D07-C4CE-B774-C19F3FE7C4D4";
-	setAttr ".t" -type "double3" 10.841499606554818 3.5527136788005009e-15 -2.2204460492503131e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159387e-07 5.5955604355987088e-22 3.4972248537189303e-23 ;
+	rename -uid "2227FBB5-416F-BC74-F8F6-F683E898D90F";
+	setAttr ".t" -type "double3" 1.2499999529938206 3.5527136788005009e-15 -2.2204460492503131e-16 ;
+	setAttr ".r" -type "double3" -0.00090929258208912204 3.876550142309661e-18 3.2301487088187769e-19 ;
 createNode joint -n "LegUp4ArcJnt" -p "LegUp3ArcJnt";
-	rename -uid "9AFB286A-44EE-2C9D-5B46-3D96FDAC87D0";
-	setAttr ".t" -type "double3" 10.841499606554846 -5.3290705182007514e-15 -4.4408920985006262e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159387e-07 1.3988901069454531e-22 -1.7486127395357736e-23 ;
+	rename -uid "05A412BA-4028-073A-6899-C992ECB01047";
+	setAttr ".t" -type "double3" 1.2499999529938239 -5.3290705182007514e-15 -4.4408920985006262e-16 ;
+	setAttr ".r" -type "double3" -0.00090929258208912204 1.2921825263061466e-18 -1.0253564886325882e-23 ;
 createNode joint -n "LegUp5ArcJnt" -p "LegUp4ArcJnt";
-	rename -uid "FBFDFCB5-4184-C531-DD17-79B148CF70AE";
-	setAttr ".t" -type "double3" 10.841499606554832 -1.7763568394002505e-15 0 ;
+	rename -uid "9B8C3FC0-482B-C2EF-8420-56A5E762D889";
+	setAttr ".t" -type "double3" 1.2499999529938222 -1.7763568394002505e-15 0 ;
 createNode joint -n "LegDn1ArcJnt" -p "LegUp5ArcJnt";
-	rename -uid "27C3BC31-4519-F8CB-B141-0FB783FED3EA";
-	setAttr ".t" -type "double3" 2.7029309777049093e-06 0 0 ;
-	setAttr ".r" -type "double3" 1.207418269726245e-06 0.00028636056834548563 9.2102829706273589e-14 ;
+	rename -uid "C9727114-4550-64AE-F5AD-F6B83D88261F";
+	setAttr ".t" -type "double3" 1.8802474599510788e-07 7.5495824772022727e-15 1.9760058931998781e-14 ;
+	setAttr ".r" -type "double3" -2.0406881271628247e-14 -1.4995416496718947 6.6371419324068677e-13 ;
 	setAttr ".jo" -type "double3" 0 1.4998121103940505 0 ;
 createNode joint -n "LegDn2ArcJnt" -p "LegDn1ArcJnt";
-	rename -uid "E2E71093-485B-5233-7E47-9FAEC52B25FE";
-	setAttr ".t" -type "double3" 10.843249805444431 -9.7699626167013776e-15 4.9960036108132044e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159387e-07 7.6926537337475353e-22 3.9337428119293391e-23 ;
+	rename -uid "30021611-4B88-7DF1-D883-2B98B2354E2B";
+	setAttr ".t" -type "double3" 1.2499999978969338 -9.7699626167013776e-15 4.9960036108132044e-16 ;
+	setAttr ".r" -type "double3" 0.00019027280007537106 -1.8927572595949507e-18 -7.6051559575505657e-20 ;
 createNode joint -n "LegDn3ArcJnt" -p "LegDn2ArcJnt";
-	rename -uid "495AB66E-4926-2359-8E7A-EDBFC50DCFE7";
-	setAttr ".t" -type "double3" 10.843249805444403 -1.2434497875801753e-14 -4.9960036108132044e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159387e-07 1.0489982362484089e-21 3.0595774068283958e-23 ;
+	rename -uid "242E683B-4F0E-1FC7-11CD-70854C9A18D4";
+	setAttr ".t" -type "double3" 1.2499999978969305 -1.2434497875801753e-14 -4.9960036108132044e-16 ;
+	setAttr ".r" -type "double3" 0.00019027280007537106 -1.8927572315337651e-18 -9.2951372492990493e-20 ;
 createNode joint -n "LegDn4ArcJnt" -p "LegDn3ArcJnt";
-	rename -uid "556FAA7C-42E8-546A-CEB5-84B021ED6047";
-	setAttr ".t" -type "double3" 10.843249805444421 -1.2434497875801753e-14 -6.106226635438361e-16 ;
-	setAttr ".r" -type "double3" -8.5377364625159377e-07 6.9933200657013245e-23 -2.0236924308438322e-21 ;
+	rename -uid "FC6D4C47-48D9-9DDD-DE70-69A4C67C653D";
+	setAttr ".t" -type "double3" 1.2499999978969325 -1.2434497875801753e-14 -6.106226635438361e-16 ;
+	setAttr ".r" -type "double3" 0.00019027663100706875 -4.0560552385823261e-19 3.908115023735054e-18 ;
 createNode joint -n "LegDn5ArcJnt" -p "LegDn4ArcJnt";
-	rename -uid "BBEB154E-44A2-F187-BB31-CAA2279FCF47";
-	setAttr ".t" -type "double3" 10.843249805444428 -2.6645352591003757e-15 2.5673907444456745e-14 ;
+	rename -uid "4D1B3466-4AF2-8307-58C7-AFBEC793CA70";
+	setAttr ".t" -type "double3" 1.2499999978969334 -2.6645352591003757e-15 2.5673907444456745e-14 ;
 createNode ikEffector -n "effector24" -p "LegDn4ArcJnt";
-	rename -uid "DFE24975-42F7-7B4E-C07C-8D984AF41ED6";
+	rename -uid "53AE6233-4E1C-FDCE-0262-8093E6A27B40";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode ikEffector -n "effector23" -p "LegUp4ArcJnt";
-	rename -uid "0462F74C-419C-8D92-57EC-7198A0829520";
+	rename -uid "468D979D-4ACA-4F96-259A-9CA4E81521C0";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode transform -n "Leg1TwistFixGrp" -p "LegJntGrp";
-	rename -uid "69EDEB51-4EC7-A7C7-2B41-EE8FC26DC16C";
+	rename -uid "4D7FFE51-4A7E-0153-B725-5C97EFA8A119";
+	setAttr ".v" no;
 	setAttr ".r" -type "double3" 1.5530689420841118e-13 0.51904363413127408 -90.200633862653177 ;
 createNode transform -n "Leg1AimGrp" -p "Leg1TwistFixGrp";
-	rename -uid "F73AB499-450F-EFB9-51AE-2D9C06F97AF8";
+	rename -uid "A3AB8201-40E6-4F68-39AD-37A999822361";
 createNode transform -n "Leg1TwistFixPos" -p "Leg1AimGrp";
-	rename -uid "5A5E6646-49D1-D9C9-5200-71990C55EBFE";
+	rename -uid "5E3888E4-4A50-6E5B-2CF5-98A39035AE91";
 createNode aimConstraint -n "Leg1AimGrpAMCons" -p "Leg1AimGrp";
-	rename -uid "7BF21875-47B0-546F-A701-31AAD3E9BDEE";
+	rename -uid "768020BF-47C4-DC9C-4FEB-99A2B667ADA3";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "LeftLeg1TwsitFixTgPosW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -890,20 +899,22 @@ createNode aimConstraint -n "Leg1AimGrpAMCons" -p "Leg1AimGrp";
 	setAttr ".wut" 2;
 	setAttr -k on ".w0";
 createNode transform -n "Leg1TwistFixUpvec" -p "Leg1TwistFixGrp";
-	rename -uid "6E8444F2-4D9B-D031-0FBC-39AE36F75CF8";
+	rename -uid "2FBC2207-4700-0ED6-8634-40B202277B7D";
 createNode transform -n "Leg1TwsitFixTgPos" -p "Leg1TwistFixGrp";
-	rename -uid "6653A2A2-4FAD-4BA1-CCE9-618B61218C15";
+	rename -uid "82B8AF7A-4A2A-15C6-2EC7-278C9E614030";
 	setAttr ".r" -type "double3" 0 1.4998121103940505 0 ;
 createNode transform -n "Leg1IKJntPoser" -p "LegJntGrp";
-	rename -uid "096FA52D-4F1E-7C15-3F0A-84B01961F299";
+	rename -uid "152B38BD-4113-AF18-681D-36B940C8C87A";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" 8.2564852252189773 96.576308725247912 2.0786147734317151 ;
 	setAttr ".r" -type "double3" 0 0.51889879928948501 -90.200633862653191 ;
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1 ;
 createNode ikHandle -n "LegIKh" -p "UpLegSysConsGrp";
-	rename -uid "C1334D99-445B-38D2-DE79-47B65B1E4728";
+	rename -uid "40C82CD1-4947-EADB-9E19-B5902E9783C1";
+	setAttr ".v" no;
 	setAttr ".roc" yes;
 createNode poleVectorConstraint -n "LegIKhPVCons" -p "LegIKh";
-	rename -uid "767F3B56-40D5-2526-FD9B-8285BE2C14BC";
+	rename -uid "AFC6ABC6-4E8D-7461-44D9-FA93DFC644AC";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLegPoleVectorCtrlW0" -dv 1 -min 
 		0 -at "double";
 	setAttr -k on ".nds";
@@ -921,13 +932,13 @@ createNode poleVectorConstraint -n "LegIKhPVCons" -p "LegIKh";
 	setAttr ".rst" -type "double3" -0.15184964187980654 -43.364105758840623 -0.38284906243082006 ;
 	setAttr -k on ".w0";
 createNode transform -n "LegPVSysGrp" -p "UpLegSysConsGrp";
-	rename -uid "398027E6-4B82-7AF3-749E-92A01FA6E5F8";
+	rename -uid "9C4440D5-4814-F5D9-119C-FF8F07B4DC39";
 	setAttr -l on ".v";
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 createNode transform -n "LegPVAmGrp" -p "LegPVSysGrp";
-	rename -uid "52270FE0-4C37-D6D5-FD9F-9D9B8EAB44ED";
+	rename -uid "CE55387B-41C1-70B5-2C42-7FA8676BB9F6";
 createNode aimConstraint -n "LegPVAmGrpAMCons" -p "LegPVAmGrp";
-	rename -uid "E0E0F4BA-4982-619E-BB6F-E8B9F9D4CEA1";
+	rename -uid "37DC7270-40AC-02CB-F685-A5A66F3C0E26";
 	addAttr -dcb 0 -ci true -sn "w0" -ln "LeftLegPVTgPosW0" -dv 1 -at "double";
 	setAttr -k on ".nds";
 	setAttr -k off ".v";
@@ -945,61 +956,63 @@ createNode aimConstraint -n "LegPVAmGrpAMCons" -p "LegPVAmGrp";
 	setAttr ".rsrr" -type "double3" 3.8404111276485572e-17 0.74996493044285639 5.8679065815851578e-15 ;
 	setAttr -k on ".w0";
 createNode transform -n "LegPVPosGrp" -p "LegPVAmGrp";
-	rename -uid "590D7820-4D33-3068-F765-1FA54D407719";
+	rename -uid "2DF22DD3-4A90-72A4-E805-059466331D64";
 createNode transform -n "LegPVPos" -p "LegPVPosGrp";
-	rename -uid "17D29894-4491-3233-19FA-0F87C9419D9C";
+	rename -uid "099F2355-452F-F3BE-3343-D2B8E3B76616";
 	addAttr -s false -ci true -m -sn "ag" -ln "AimGrp" -at "message";
 createNode transform -n "LegPVPosFWGrp" -p "LegPVPos";
-	rename -uid "8100EB80-40F2-738E-3180-B5A8F5FDF0FE";
+	rename -uid "D352ADBF-48D8-661E-FAC4-60A8C106A5E3";
 createNode transform -n "LegPoleVectorToLegPVPosFW" -p "LegPVPosFWGrp";
-	rename -uid "605042F4-49DE-60B1-3396-28BC5F2BD83A";
+	rename -uid "80C9BD20-4268-7CA2-35DA-B6A229F49AA9";
 	setAttr ".t" -type "double3" -1.7763568394002505e-15 7.1054273576010019e-15 0.010000000000000231 ;
 createNode transform -n "LegPVPosPoser" -p "LegPVAmGrp";
-	rename -uid "D9769A3F-4F5A-598E-5A80-0CA0BB26972F";
-	setAttr ".t" -type "double3" 43.36234553369605 -4.4408920985006262e-15 0.56761765177693846 ;
-	setAttr ".r" -type "double3" -0.74996493044285772 4.9696166897867462e-17 90 ;
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
+	rename -uid "92332E5F-4C6B-5994-D498-FDB35C6F0079";
+	setAttr ".t" -type "double3" 4.9999995211463562 -1.1993371778572947e-07 0.05005644918816652 ;
+	setAttr ".r" -type "double3" 0 0.57358618010048634 1.3743390575492736e-06 ;
+	setAttr ".s" -type "double3" 1 1.0000000000000002 0.99999999999999989 ;
 createNode transform -n "LegPVUpvec" -p "LegPVSysGrp";
-	rename -uid "9B2830AB-482C-809E-852A-E8A3D14A0B99";
+	rename -uid "292842C7-4895-3D28-A07C-FCB8591ED8B3";
 createNode transform -n "LegPVTgPos" -p "LegPVSysGrp";
-	rename -uid "DBE512F6-4569-F9FD-A672-A3B0A6828AF2";
+	rename -uid "1679C0CA-4C04-E682-0D2A-48816CAE0C3C";
 	setAttr ".r" -type "double3" -0.0018182313069729623 -0.51904044953890727 0.20071263990825647 ;
 createNode transform -n "LegPosGrp" -p "UpLegSysConsGrp";
-	rename -uid "91A0AAF3-4F90-20AB-4F94-6F9206BF0164";
+	rename -uid "7C7FF266-48CB-4DFA-C6FA-439E763049EC";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" -8.2564849853515607 -96.576309204101563 -2.0786147117614742 ;
 createNode transform -n "LegIK1Pos" -p "LegPosGrp";
-	rename -uid "DFC639AF-4714-D66B-5A2B-0EB78472131A";
+	rename -uid "AE3E6607-4FA5-69BF-0BB1-1084F2369CCE";
 	setAttr ".t" -type "double3" 8.2564852252189773 96.576308725247912 2.0786147734317151 ;
 	setAttr ".r" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 createNode transform -n "LegIK2Pos" -p "LegPosGrp";
-	rename -uid "31785541-4DEA-09E5-915D-9FB6FCD4E05D";
+	rename -uid "4F84C778-4730-F6DF-7FC9-848AB9257CD7";
 	setAttr ".t" -type "double3" 8.1046359005558468 53.212293554816604 1.6857661213273389 ;
 	setAttr ".r" -type "double3" 3.978162646487195e-16 2.0188557445253257 -90.200633862653163 ;
 createNode transform -n "LegIK3Pos" -p "LegPosGrp";
-	rename -uid "20E38602-44BA-7186-BD5F-3394D3CC304D";
+	rename -uid "F95A722C-48E8-35D1-1BC1-DEBC71EFD869";
 	setAttr ".t" -type "double3" 7.952850773357155 9.8666114249000998 0.15780977954863018 ;
 	setAttr ".r" -type "double3" 7.9277460625420548e-15 -7.927755823049035e-15 -89.999929458447951 ;
 createNode transform -n "LegIKMovePos" -p "LegPosGrp";
-	rename -uid "2BB9C43E-4AB5-C020-F0D8-35BD6C55946E";
+	rename -uid "167D47B7-4B65-FFCD-5190-5CA04552FD1A";
 createNode transform -n "LegPVStretchPos" -p "LegPosGrp";
-	rename -uid "2FB11FFA-4123-3420-7838-E48EF1F1A3A8";
+	rename -uid "3463634A-4F54-0AAA-8651-909405603434";
 	setAttr ".r" -type "double3" 0.51904363413127463 0 -0.20063386265318042 ;
 createNode transform -n "LegArcPosGrp" -p "UpLegSysConsGrp";
-	rename -uid "4E203384-47C9-C49C-7793-63A32E0D5B88";
+	rename -uid "06F0D1C3-49EB-418B-800F-56BC4E62F869";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" -8.2564849853515607 -96.576309204101563 -2.0786147117614742 ;
 createNode transform -n "Leg1ArcPos" -p "LegArcPosGrp";
-	rename -uid "D248B7D8-4128-888C-3DC8-D28F1DCDF3E6";
+	rename -uid "DF92A9CC-4B4A-5ACA-6519-C6978EA712B9";
 	setAttr ".r" -type "double3" 4.9698206146691579e-17 0.51904363413127586 -90.200633862653191 ;
 createNode transform -n "Leg2ArcPos" -p "LegArcPosGrp";
-	rename -uid "DC11A585-4221-F46D-AB47-DBA200D03964";
+	rename -uid "5E1AD97A-4D6D-7E22-910E-59A593D61F80";
 	setAttr ".r" -type "double3" 3.978162646487195e-16 2.0188557445253257 -90.200633862653163 ;
 createNode transform -n "Leg3ArcPos" -p "LegArcPosGrp";
-	rename -uid "2DFB1C4B-4734-FF7F-A27B-908D21907AB0";
+	rename -uid "20DC1262-4B0E-CFE2-C597-4BA0189477CB";
 	setAttr ".r" -type "double3" 7.9277460625420548e-15 -7.927755823049035e-15 -89.999929458447951 ;
 createNode transform -n "LegArcPointPos" -p "LegArcPosGrp";
-	rename -uid "2E8334A0-4142-13C3-121D-098E8E4E947F";
+	rename -uid "0609FA39-4B4D-ADB6-8E5F-48B03E2ED038";
 createNode pointConstraint -n "LegArcPointPosPTCons" -p "LegArcPointPos";
-	rename -uid "F79AEF95-470B-56FD-EA52-73AEFA295FEA";
+	rename -uid "228846FD-4279-BB3C-CFF5-0AA953D58F49";
 	addAttr -dcb 0 -ci true -k true -sn "w0" -ln "LeftLeg1ArcPosW0" -dv 1 -min 0 -at "double";
 	addAttr -dcb 0 -ci true -k true -sn "w1" -ln "LeftLeg2ArcPosW1" -dv 1 -min 0 -at "double";
 	addAttr -dcb 0 -ci true -k true -sn "w2" -ln "LeftLeg3ArcPosW2" -dv 1 -min 0 -at "double";
@@ -1022,38 +1035,40 @@ createNode pointConstraint -n "LegArcPointPosPTCons" -p "LegArcPointPos";
 	setAttr -k on ".w1";
 	setAttr -k on ".w2";
 createNode transform -n "LegArcCrvGrp" -p "UpLegSysConsGrp";
-	rename -uid "E0C69731-44E3-0899-A87E-3AAB681BDFAB";
+	rename -uid "571B0B13-48C5-D419-226A-97903159F288";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" -8.2564849853515607 -96.576309204101563 -2.0786147117614742 ;
 createNode transform -n "LegUpArcCrv" -p "LegArcCrvGrp";
-	rename -uid "02E100EF-4629-4962-C0D8-25B8898C6EFB";
+	rename -uid "535D8D16-4BEF-9C5A-77AB-DF873C6AE9BD";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegUpArcCrvShape" -p "LegUpArcCrv";
-	rename -uid "223A129D-4633-006C-E3D7-FF93C1411D5F";
+	rename -uid "AC589C78-4777-7F63-0027-9E99DCEE6678";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".tw" yes;
 createNode transform -n "LegDnArcCrv" -p "LegArcCrvGrp";
-	rename -uid "C23C0914-4B7F-943E-D4F2-B095178B1FF1";
+	rename -uid "1BBCFECA-44AF-2C39-5047-63A15F15B6F0";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegDnArcCrvShape" -p "LegDnArcCrv";
-	rename -uid "F3D3A69E-4FDF-BB6C-69BC-9C91CC2B76E5";
+	rename -uid "32FE6A76-48FC-3432-15D7-D3BDD1E097E9";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".tw" yes;
 createNode transform -n "LegIKCrvGrp" -p "UpLegSysConsGrp";
-	rename -uid "9716586E-4A70-FFF8-54A9-7CABE9552333";
+	rename -uid "79BF5BD5-421D-F6C8-83AF-038CC12E85CB";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" -8.2564849853515607 -96.576309204101563 -2.0786147117614742 ;
 createNode transform -n "LegUpIKCrv" -p "LegIKCrvGrp";
-	rename -uid "B55F771E-42E5-0613-A3EF-D086714FA19C";
+	rename -uid "074AFA30-4FAE-5582-89F8-F8A91FFDDD04";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegUpIKCrvShape" -p "LegUpIKCrv";
-	rename -uid "23BAA11D-408F-F857-3DC7-0B94D413E52C";
+	rename -uid "DF66EE3B-4EF3-FDCF-791B-83969D0E2339";
 	setAttr -k off ".v";
 	setAttr -s 6 ".iog[0].og";
 	setAttr ".ove" yes;
 	setAttr ".tw" yes;
 createNode nurbsCurve -n "LegUpIKCrvShapeOrig" -p "LegUpIKCrv";
-	rename -uid "E9AB7BE8-4EEC-7512-AAE2-7395A6B9B828";
+	rename -uid "D6EFC22C-413D-9116-BD81-6E83AE2D010A";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr -s 2 ".cp";
@@ -1061,20 +1076,20 @@ createNode nurbsCurve -n "LegUpIKCrvShapeOrig" -p "LegUpIKCrv";
 		1 1 0 no 3
 		2 0 1
 		2
-		8.2564849853515625 96.576309204101563 2.0786147117614746
-		8.1046358649692021 53.212352370673543 1.6858762151722744
+		8.2564849853515625 96.576309204101563 2.0786147117614742
+		8.2564848653895755 91.576309204115418 2.0786264800544516
 		;
 createNode transform -n "LegDnIKCrv" -p "LegIKCrvGrp";
-	rename -uid "814CB13F-4277-7563-58FC-6BBDB4C93AE0";
+	rename -uid "74BE46E2-4BDC-CF7B-E521-F6868AFE1A69";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegDnIKCrvShape" -p "LegDnIKCrv";
-	rename -uid "884A1A82-41C8-66A7-3421-24BB63874A8A";
+	rename -uid "80207F5E-4AE2-1D46-A18B-80B8602CC619";
 	setAttr -k off ".v";
 	setAttr -s 6 ".iog[0].og";
 	setAttr ".ove" yes;
 	setAttr ".tw" yes;
 createNode nurbsCurve -n "LegDnIKCrvShapeOrig" -p "LegDnIKCrv";
-	rename -uid "566989C7-4ED7-CE54-D0DF-49B6819123E3";
+	rename -uid "5A822081-451A-A541-2361-C4BEBB2CEB14";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr -s 2 ".cp";
@@ -1082,14 +1097,14 @@ createNode nurbsCurve -n "LegDnIKCrvShapeOrig" -p "LegDnIKCrv";
 		1 1 0 no 3
 		2 0 1
 		2
-		8.1046358649692021 53.212352370673543 1.6858762151722744
-		7.9528502920640873 9.8665429591904523 0.15780818486575796
+		8.2564848653895755 91.576309204115418 2.0786264800544516
+		8.2564847454841512 86.576309204129416 2.0786146461968982
 		;
 createNode transform -n "LegUpIKChkCrv" -p "LegIKCrvGrp";
-	rename -uid "DCE2EFBB-43D9-C4E2-6196-00B3F3590392";
+	rename -uid "B117CA57-495E-C0E9-0174-35A6AE226818";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegUpIKChkCrvShape" -p "LegUpIKChkCrv";
-	rename -uid "D1F5572B-4B18-944D-AB57-9F9614CCD105";
+	rename -uid "B6FDACEF-4E1E-E219-4873-0E9A184C33E9";
 	setAttr -k off ".v";
 	setAttr ".iog[0].og[2].gcl" -type "componentList" 1 "cv[*]";
 	setAttr ".ove" yes;
@@ -1104,10 +1119,10 @@ createNode nurbsCurve -n "LegUpIKChkCrvShape" -p "LegUpIKChkCrv";
 		8.1046356547272147 53.212292331310373 1.6857660442348696
 		;
 createNode transform -n "LegDnIKChkCrv" -p "LegIKCrvGrp";
-	rename -uid "D7F6D0D0-4983-D995-6C59-9E979E728C22";
+	rename -uid "B338D197-49E5-5FA7-FD05-A28705FAF023";
 	setAttr -l on ".v";
 createNode nurbsCurve -n "LegDnIKChkCrvShape" -p "LegDnIKChkCrv";
-	rename -uid "4AA06E08-4438-69B6-686E-A5B95995FBA8";
+	rename -uid "31290FA0-46BB-834B-E05C-C184263B5A4B";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".cc" -type "nurbsCurve" 
@@ -1121,27 +1136,30 @@ createNode nurbsCurve -n "LegDnIKChkCrvShape" -p "LegDnIKChkCrv";
 		7.9528505224948773 9.8666087639220503 0.15780965178458192
 		;
 createNode ikHandle -n "LegUpArcIKh" -p "UpLegSysConsGrp";
-	rename -uid "D3871213-46C9-1A52-71AE-41BDA1C58AAC";
-	setAttr ".t" -type "double3" -0.15184911091785658 -43.363954130624435 -0.39273847211046076 ;
-	setAttr ".r" -type "double3" -4.9698205008740383e-17 0.51889879928948512 -90.200633862653191 ;
+	rename -uid "311FEB1C-49B4-3134-784E-D8B9D33F5B5F";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" -1.1996199004906758e-07 -4.9999998119614268 1.1768292516025237e-05 ;
+	setAttr ".r" -type "double3" 0.00013727888024724208 -0.00013485470372005481 -90.000001374663185 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 	setAttr ".roc" yes;
 	setAttr ".dwut" 4;
 	setAttr ".dtce" yes;
 createNode ikHandle -n "LegDnArcIKh" -p "UpLegSysConsGrp";
-	rename -uid "D6EF5A85-44BA-D0F0-838E-0F9335B3E4A3";
-	setAttr ".t" -type "double3" -0.30363468671939575 -86.709764369233923 -1.9208064607353643 ;
-	setAttr ".r" -type "double3" 1.2074182696765184e-06 2.0189972702518819 -90.200633862653191 ;
+	rename -uid "980C777C-4720-30F7-D9A7-5B83BC3B4F12";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" -2.3986746777677105e-07 -9.999999991559898 -6.5564512733564276e-08 ;
+	setAttr ".r" -type "double3" 0.0007081011114050571 0.00013560601843493766 -90.000001374015184 ;
 	setAttr ".s" -type "double3" 1 1 0.99999999999999989 ;
 	setAttr ".roc" yes;
 	setAttr ".dwut" 4;
 	setAttr ".dtce" yes;
 createNode transform -n "LegPVSysPoser" -p "UpLegSysConsGrp";
-	rename -uid "2F42B7F8-423D-BF8E-5A40-CEA39D5C2B4B";
+	rename -uid "B67A8A24-4BA4-A498-CD72-2C870169DF4C";
+	setAttr ".v" no;
 	setAttr ".t" -type "double3" 2.3986741659598465e-07 -4.7885365006550273e-07 6.167024091396911e-08 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 0.99999999999999989 ;
 createNode transform -n "ToeRigGrp" -p "LegRigGrp";
-	rename -uid "76E1D7C1-4718-9833-07A3-D49671E4AF28";
+	rename -uid "3B7B9EC4-4F38-0227-5858-0CA2DF8AEC56";
 	addAttr -s false -ci true -m -sn "Grp" -ln "Grp" -at "message";
 	addAttr -s false -ci true -m -sn "Ctrl" -ln "Ctrl" -at "message";
 	addAttr -s false -ci true -m -sn "Part" -ln "Part" -at "message";
@@ -1151,54 +1169,57 @@ createNode transform -n "ToeRigGrp" -p "LegRigGrp";
 	setAttr -s 2 ".Grp";
 	setAttr -s 2 ".IKh";
 createNode transform -n "AnkleConsGrp" -p "ToeRigGrp";
-	rename -uid "F0401823-410B-A5F7-8A99-2D8641DB857A";
+	rename -uid "DE10E6D3-4F5C-2C13-29E9-A7B50D5509E6";
 createNode transform -n "AnkleIKScaleGrp" -p "AnkleConsGrp";
-	rename -uid "864AFD9B-4C79-F44B-9EA8-F99AE707AB7B";
+	rename -uid "D953798C-49A2-EA86-D527-DCB7CBF0EDC3";
 	setAttr ".t" -type "double3" -2.6609777385999678e-06 2.5086555499598262e-07 1.2776404828551691e-07 ;
 	setAttr ".r" -type "double3" 0 0 89.999929458447951 ;
 createNode transform -n "ToeSysGrp" -p "AnkleIKScaleGrp";
-	rename -uid "C67970B3-46A2-078C-7355-17BC56CD6CB5";
+	rename -uid "2F535DAF-4CF7-BB5E-176C-369FCA92AFD8";
 	setAttr -l on ".v";
 	setAttr ".t" -type "double3" 0 1.5987211554602254e-14 3.3306690738754696e-16 ;
 	setAttr ".r" -type "double3" 0 0 -89.999929458447966 ;
 createNode transform -n "AnkleIKJntGrp" -p "ToeSysGrp";
-	rename -uid "F19C1886-4D48-62E2-D1A4-9694DDC8F329";
+	rename -uid "98B9BDE4-4CC9-3156-8242-5DB4070576EF";
 createNode joint -n "AnkleIKJnt" -p "AnkleIKJntGrp";
-	rename -uid "AFBA4322-46BD-6B50-F527-F88E3BE18950";
+	rename -uid "E53CC685-4B04-1230-779E-4489C239D97D";
 	setAttr -l on ".v" no;
 	setAttr ".t" -type "double3" -4.2632564145606011e-14 8.8817841970012523e-16 7.7715611723760958e-16 ;
-	setAttr ".r" -type "double3" -1.2246836904861712e-12 -0.00022973161480108672 8.9009255410414138e-07 ;
+	setAttr ".r" -type "double3" -6.3074801799191385e-05 -0.035398598470335267 -3.1547121397472385e-05 ;
 	setAttr ".jo" -type "double3" 0 -63.399570202741486 0 ;
 createNode joint -n "BallIKJnt" -p "AnkleIKJnt";
-	rename -uid "3885DBC8-4D50-2617-DF2A-7589D36D7894";
-	setAttr ".t" -type "double3" 15.044114096753535 -1.0231815394945443e-12 2.0392576516314875e-12 ;
-	setAttr ".r" -type "double3" 5.9559729995293672e-12 0.00013905042103637554 1.6581609518754835e-06 ;
+	rename -uid "B5B77B37-4733-4C5C-BED6-CC988CC48D69";
+	setAttr ".t" -type "double3" 2.2360679641010965 -1.5168979613957728e-13 -3.496707985384262e-07 ;
+	setAttr ".r" -type "double3" -2.5171794458907598e-12 0.035416517994119628 -3.8753010051700435e-25 ;
+	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999978 ;
 	setAttr ".jo" -type "double3" 0 -26.600429797258538 0 ;
 createNode joint -n "ToeIKJnt" -p "BallIKJnt";
-	rename -uid "2FF1CCBE-4449-DD78-E3B9-E18EA144E6D7";
-	setAttr ".t" -type "double3" 8.0757760669283805 8.8817841970012523e-16 -1.0969003483296547e-13 ;
+	rename -uid "A9759DDC-4B2D-D9F7-34DD-C3A61A02B8F8";
+	setAttr ".t" -type "double3" 0.9999998436227 -5.1384540008054795e-14 1.5398547637880835e-13 ;
+	setAttr ".r" -type "double3" 0 -1.7919541118214946e-05 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1.0000000000000002 0.99999999999999967 ;
 createNode ikEffector -n "effector25" -p "BallIKJnt";
-	rename -uid "6EE844E3-4D97-29DA-A40E-0AA7FD71E15C";
+	rename -uid "705B8E2B-4888-C7A1-347D-8C9BC71B2FB4";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode ikEffector -n "effector26" -p "AnkleIKJnt";
-	rename -uid "8880C64C-4362-85BF-4C33-4782B9CF3761";
+	rename -uid "57075429-49DF-7447-E43E-94B015B94C81";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode transform -n "BallIKCtrlPrtGrp" -p "AnkleIKJntGrp";
-	rename -uid "3FA6297E-4CE4-66BA-3FBF-CB9AEDC25592";
+	rename -uid "049C3534-46AE-39B0-7918-E8B540E9E520";
 createNode transform -n "BallIKCtrlGrp" -p "BallIKCtrlPrtGrp";
-	rename -uid "5B54EC0D-435E-0649-D10C-4EB7E2EA53BC";
+	rename -uid "AD2997AD-4A0F-0304-DC60-D98AC90BBF84";
 	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999978 ;
 createNode transform -n "BallIKCtrl" -p "BallIKCtrlGrp";
-	rename -uid "D4380531-484D-A6BE-60C0-92A2F61EB4E4";
+	rename -uid "7723D515-4328-23CB-597B-DEBA256149FE";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
 createNode nurbsCurve -n "BallIKCtrlShape" -p "BallIKCtrl";
-	rename -uid "6A44B433-4AAD-D038-3E01-EEA806D3D04C";
+	rename -uid "D5C28E8E-42C6-21A5-FD95-629A2D53A2DB";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -1206,41 +1227,41 @@ createNode nurbsCurve -n "BallIKCtrlShape" -p "BallIKCtrl";
 		1 4 0 no 3
 		5 0 1 2 3 4
 		5
-		6.1088911706974591e-16 1.2949641359227825e-16 -6.9589935405000007
-		-9.3431785430642142e-16 -6.9589935405000007 0
-		6.1088911706974591e-16 1.2949641359227825e-16 6.9589935405000007
-		2.1560960884459144e-15 6.9589935405000007 0
-		6.1088911706974591e-16 1.2949641359227825e-16 -6.9589935405000007
+		9.4076924028740849e-17 1.9942447693210929e-17 -1.0716850052369999
+		-1.4388494956318891e-16 -1.0716850052369999 0
+		9.4076924028740849e-17 1.9942447693210929e-17 1.0716850052369999
+		3.3203879762067086e-16 1.0716850052369999 0
+		9.4076924028740849e-17 1.9942447693210929e-17 -1.0716850052369999
 		;
 createNode joint -n "AnkleFKJnt" -p "ToeSysGrp";
-	rename -uid "F205A053-4C94-9C74-AB7D-4EB3A91C4698";
+	rename -uid "F28AF098-4987-FD41-73E4-00846BC09958";
 	setAttr -l on ".v" no;
 	setAttr ".t" -type "double3" 0 0 1.3877787807814457e-16 ;
 	setAttr ".jo" -type "double3" 0 -63.399570202741486 0 ;
 createNode joint -n "BallFKJnt" -p "AnkleFKJnt";
-	rename -uid "EF9E73D0-4AAF-8BC5-B0B9-AF8B76ED3993";
+	rename -uid "80A53219-4602-5DAC-B882-F1BFD6DB1561";
 	setAttr ".jo" -type "double3" 0 -26.600429797258538 0 ;
 createNode joint -n "AnkleDrvJnt" -p "ToeSysGrp";
-	rename -uid "0D575A91-4231-CD66-1399-9AAD39E49EC1";
+	rename -uid "7D7946C4-47F1-3D8C-13AF-2E8AC355E49D";
 	setAttr -l on ".v" no;
 	setAttr ".jo" -type "double3" 0 -63.399570202741486 0 ;
 createNode joint -n "BallDrvJnt" -p "AnkleDrvJnt";
-	rename -uid "08739FC9-4F11-A0C2-119F-B8BAB60717DA";
+	rename -uid "1A38297B-4D98-93E9-BECD-0E9E644667FD";
 	setAttr ".jo" -type "double3" 0 -26.600429797258538 0 ;
 createNode transform -n "BallFKCtrlGrp" -p "AnkleIKScaleGrp";
-	rename -uid "621A4DBB-47E7-10A0-9C37-AFAD76E9DE2B";
-	setAttr ".t" -type "double3" 8.2935383654003658e-06 -6.7362397118227655 13.45170782841091 ;
-	setAttr ".r" -type "double3" -89.999929458456677 -89.999999999999233 0 ;
-	setAttr ".s" -type "double3" 1 0.99999999999999978 0.99999999999999978 ;
+	rename -uid "F3E063A6-4E32-A99A-35BA-07AFC2593591";
+	setAttr ".t" -type "double3" 2.5021453627170402e-06 -2.2360708232076618 -4.4171281710081445e-07 ;
+	setAttr ".r" -type "double3" 0 -26.56505117707799 -89.999929458447966 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999978 ;
 createNode transform -n "BallFKCtrl" -p "BallFKCtrlGrp";
-	rename -uid "97F2FE55-4AA7-0164-6A4C-D0BCD47A5F12";
+	rename -uid "13169E94-4EF2-50F2-4D38-12A0F11957D5";
 	setAttr -l on ".v";
 	setAttr -cb on ".ro";
 	setAttr -l on -k off ".sx";
 	setAttr -l on -k off ".sy";
 	setAttr -l on -k off ".sz";
 createNode nurbsCurve -n "BallFKCtrlShape" -p "BallFKCtrl";
-	rename -uid "4CCD0AF9-4F25-29E5-84AE-79B1C0A57FFA";
+	rename -uid "812708E5-4EE2-0011-DAB6-63A44362FB71";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 13;
@@ -1248,112 +1269,112 @@ createNode nurbsCurve -n "BallFKCtrlShape" -p "BallFKCtrl";
 		1 4 0 no 3
 		5 0 1 2 3 4
 		5
-		0 0 -10.606605
-		-2.3551394168208617e-15 -10.606605 0
-		0 0 10.606605
-		2.3551394168208617e-15 10.606605 0
-		0 0 -10.606605
+		0 0 -2.121320999999996
+		-4.7102788336417175e-16 -2.1213209999999973 7.1054273576010013e-16
+		0 0 2.1213209999999978
+		4.7102788336417175e-16 2.1213209999999973 7.1054273576010013e-16
+		0 0 -2.121320999999996
 		;
 createNode animCurveUU -n "LegIKUU";
-	rename -uid "D4E22B3F-415C-A9DF-71BC-22A598D22415";
+	rename -uid "0C7A7D14-43F4-44E2-C414-7EB1323654D2";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  0 1 1 0;
 createNode animCurveUU -n "LegFKUU";
-	rename -uid "66E206DE-4E24-0E5C-B914-B58D74DCD98A";
+	rename -uid "5DE57F07-4A5A-F44C-92C4-93A706228CDC";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  0 0 1 1;
 createNode blendColors -n "LegIKScaleBC";
-	rename -uid "1644DB53-4ED1-915E-B5DA-2E869E28BDF1";
+	rename -uid "658E90ED-4CE8-7F04-82E3-BA914A8B0083";
 	setAttr ".c1" -type "float3" 1 1 1 ;
 createNode blendColors -n "LegFKScaleBC";
-	rename -uid "1C3914E3-4889-B4BC-96A5-5E83AE0F4A8D";
+	rename -uid "68E831D1-434E-B447-3402-DC93F4DCCF15";
 	setAttr ".c2" -type "float3" 1 1 1 ;
 createNode condition -n "LegAutoHideCD";
-	rename -uid "2E530014-43B9-0887-A3B6-3F87FE08ADF6";
+	rename -uid "F88538E9-4C09-C3EB-C784-ED8322010C60";
 	setAttr ".st" 1;
 createNode reverse -n "LegAutoHideRV";
-	rename -uid "D3572A42-4955-575D-E63D-3AB2BBDA057B";
+	rename -uid "FA3818EB-4B97-F71B-0541-9685546BDB53";
 createNode decomposeMatrix -n "LegIKCtrlPosDM";
-	rename -uid "E732E5BE-4735-5CD7-F222-D6A9CAE7EF16";
+	rename -uid "DC1E8632-4C66-BCFC-5F51-43B911DD0727";
 createNode multMatrix -n "LegIKCtrlPosMM";
-	rename -uid "E52424EF-412F-F6CD-90DF-A18F08ED9712";
+	rename -uid "9CE3E266-483A-AEE0-621B-ECA6FABB02F5";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823427424429e-06 -0.99999999999924216 0 0 0.99999999999924216 1.2311823427424429e-06 0 0
 		 0 0 1 0 7.952850773357155 9.8666114249000998 0.15780977954863018 1;
 	setAttr ".i[1]" -type "matrix" 2.2460339755979075e-16 1 -2.738534794738432e-16 0
 		 0 2.2204460492503131e-16 1 0 1 -2.2204460492503131e-16 6.0807687657114685e-32 0 -0.15780977954863235 -7.9528507733571576 -9.8666114249001122 1;
 createNode animCurveUA -n "FootInRotPos_rotateX";
-	rename -uid "8149DC09-4988-B96E-F61F-78A2377B3677";
+	rename -uid "B1ECAAF2-4A23-DBB5-D9FF-D4B1F4647217";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  -10 90 0 0;
 createNode animCurveUA -n "FootOutRotPos_rotateX";
-	rename -uid "CED2B355-4098-A193-A2D3-3498812B22C2";
+	rename -uid "80FE2EC6-479E-3197-A401-01BB76AEF498";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  0 0 10 -90;
 createNode animCurveUA -n "HeelRollPivPos_rotateY";
-	rename -uid "9F79D0E5-4F03-CE3D-D341-08B69B2B9DD4";
+	rename -uid "EACC4F61-42F0-D442-082D-CF96C72F81AA";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  -10 -90 0 0;
 createNode animCurveUA -n "HeelRollPivPos_rotateZ";
-	rename -uid "BD927854-4B82-7241-6BF3-DBA19A0E17CE";
+	rename -uid "E61056D0-4CAB-0830-757F-EF85C945FEA3";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -10 90 0 0 10 -90;
 createNode animCurveUA -n "ToeRollPivPos_rotateY";
-	rename -uid "E4DE8FA0-4DE1-541C-1CB7-CA8781CF6872";
+	rename -uid "582351F3-41FD-5804-6B21-4496B0E1BB7E";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -10 -90 0 0 10 90;
 createNode animCurveUA -n "ToeRollPivPos_rotateZ";
-	rename -uid "9A94CF16-44B5-6DFC-13CA-06836F323749";
+	rename -uid "0A1014DF-4921-40C6-4B6E-80BBAA343D6C";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -10 90 0 0 10 -90;
 createNode animCurveUA -n "BallPivPos_rotateZ";
-	rename -uid "824EDB6F-4DEE-A520-FBAC-E5BDE5AE73E5";
+	rename -uid "1A56F92A-4035-C888-95B4-729063968F4C";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -10 90 0 0 10 -90;
 createNode animCurveUA -n "FootRollPos_rotateY";
-	rename -uid "72B5B892-4136-45EA-FC1F-C880FDFE1B8D";
+	rename -uid "3CD7A9FC-47DB-C4E6-C5A7-D2AFF775E3FD";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  0 0 10 90;
 createNode ikSCsolver -n "ikSCsolver";
-	rename -uid "422ABAAF-40E7-D613-95A2-939982EBCF14";
+	rename -uid "B0AC1DFE-47BE-EE05-2DA4-599E4362B2A4";
 createNode animCurveUA -n "BallRollPos_rotateY";
-	rename -uid "1A45B48A-44A5-1CDF-7460-E7A87BBAA1D4";
+	rename -uid "3AB04387-4F38-8500-23D5-E082CF1C6BFD";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -10 90 0 0 10 -90;
 createNode decomposeMatrix -n "LegIKFKCtrlGrpDM";
-	rename -uid "4CB9E575-489F-5A7B-D464-E59512304D57";
+	rename -uid "25D69FF9-4E98-D8AB-FFF0-058C239886E9";
 createNode multMatrix -n "LegIKFKCtrlGrpMM";
-	rename -uid "FE62C6AF-4FF8-4307-C1EB-A88E8399CC8E";
+	rename -uid "773ED83B-4852-F85A-36A7-ECB74EF30D33";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 7.952850773357155 9.8666114249000998 0.15780977954863018 1;
 	setAttr ".i[1]" -type "matrix" 1.2311823427161918e-06 0.99999999999924227 -1.3051842010479848e-16 0
 		 -0.99999999999924205 1.2311823426314206e-06 1.214306433183765e-16 0 1.2490024788271661e-16 1.2801701774134322e-16 1.0000000000000002 0
 		 9.8666016334831657 -7.9528629209488972 -0.15780977954862993 1;
 createNode decomposeMatrix -n "LegUpArcDM";
-	rename -uid "223E0C8D-4405-CFE5-6EBD-B6BEDFBA3951";
+	rename -uid "9002207F-451B-B92A-D5F0-DCA0C34AB39D";
 createNode multMatrix -n "LegUpArcMM";
-	rename -uid "DB2E2C8E-42E4-3F5F-D09B-CDB110B8026C";
+	rename -uid "DF737B1D-4709-8FCF-1F9D-F0AA3AB95BDD";
 	setAttr -s 2 ".i";
 createNode composeMatrix -n "LegUpArcCM";
-	rename -uid "2BF8499C-411B-2C41-6582-62BF5F053113";
-	setAttr ".omat" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 8.1805604251603814 74.894330787387517 1.8822454634668739 1;
+	rename -uid "09EE8657-45D3-9630-6376-37A5A676DBFE";
+	setAttr ".omat" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 -5.9980995725794628e-08 8.5000000000070131 5.8841464879444416e-06 1;
 createNode pointOnCurveInfo -n "LegUpArcPC";
-	rename -uid "E4DA16DA-4509-D52A-4393-799C24D07507";
+	rename -uid "C5187D51-43A7-787F-0D53-5093B65FA378";
 	setAttr ".pr" 0.5;
 	setAttr ".top" yes;
 createNode blendShape -n "LegArcBlendShape";
-	rename -uid "965241B6-4EC6-F5C9-F67C-20B06B4C2B3C";
+	rename -uid "1AE3C89E-4532-0C50-0A3A-D0A66DACD749";
 	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr -s 2 ".ip";
 	setAttr -s 2 ".og";
@@ -1367,189 +1388,189 @@ createNode blendShape -n "LegArcBlendShape";
 	setAttr ".dfo" 1;
 	setAttr ".aal" -type "attributeAlias" {"LeftLegArcCrvGrp","weight[0]"} ;
 createNode objectSet -n "LeftLegArcBlendShapeSet";
-	rename -uid "89F839F5-4759-8EA5-E375-C0BEAA03465A";
+	rename -uid "EA98B5A7-4E28-2D33-42F3-D49E270D6D2A";
 	setAttr ".ihi" 0;
 	setAttr -s 2 ".dsm";
 	setAttr ".vo" yes;
 	setAttr -s 2 ".gn";
 createNode groupId -n "LeftLegArcBlendShapeGroupId";
-	rename -uid "061BE540-48CB-9681-FAC3-5C9C94FCEE1A";
+	rename -uid "50FE2A0C-420C-5F73-A2A8-759B541469DE";
 	setAttr ".ihi" 0;
 createNode groupId -n "LeftLegArcBlendShapeGroupId1";
-	rename -uid "0ECB0D72-449C-A4F2-4673-0788F1ACC1BD";
+	rename -uid "5B174186-4B21-9BED-FA51-F0ABF1FE4F69";
 	setAttr ".ihi" 0;
 createNode groupParts -n "LeftLegArcBlendShapeGroupParts";
-	rename -uid "EC80D336-4635-7C81-B942-D5B90523F543";
+	rename -uid "34164301-4B33-147B-8B7A-CF80AF505BBF";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[*]";
 createNode rebuildCurve -n "rebuildCurve5";
-	rename -uid "82E34B65-4007-F194-0CCD-2EAA67D62445";
+	rename -uid "6584BC9A-4CCE-892A-F495-D890F9567DED";
 	setAttr ".s" 2;
 	setAttr ".end" 1;
 	setAttr ".kr" 0;
 	setAttr ".kt" no;
 createNode groupParts -n "LeftLegArcBlendShapeGroupParts1";
-	rename -uid "7E929415-4DE4-6381-942B-17A1F0E2118D";
+	rename -uid "03B270BE-434A-B87B-7DAC-50832A1975FC";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[*]";
 createNode rebuildCurve -n "rebuildCurve6";
-	rename -uid "AF186A70-4015-D725-F39C-1C85627CA78A";
+	rename -uid "111B2100-4F6B-AD62-1E6A-AC915997EF60";
 	setAttr ".s" 2;
 	setAttr ".end" 1;
 	setAttr ".kr" 0;
 	setAttr ".kt" no;
 createNode animCurveUU -n "LegArcBlendShape_LegArcCrvGrp";
-	rename -uid "1200D434-4F8A-3491-5FF6-EDB65B2EFFFF";
+	rename -uid "C423055F-4F3B-564A-3538-3FBC3C4BEFD2";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr -s 2 ".ktv[0:1]"  0 0 10 1;
 createNode cluster -n "Leg1CsHandleCluster";
-	rename -uid "F6E9DED5-46F0-2300-DC64-30AD68442C83";
+	rename -uid "96C696EF-42C1-14DA-4007-B3A5F4B49A44";
 	setAttr -s 2 ".wl[0].w";
 	setAttr ".wl[0].w[1]" 0.5;
 	setAttr ".wl[0].w[3]" 0.5;
 createNode objectSet -n "LeftLeg1CsSet";
-	rename -uid "AA19AAEE-4AE3-97D8-0675-66964056DBE6";
+	rename -uid "09973138-4AA4-767E-6EBE-9DAB5AE79AF2";
 	setAttr ".ihi" 0;
 	setAttr ".vo" yes;
 createNode groupId -n "LeftLeg1CsGroupId";
-	rename -uid "22E6D736-428A-3CCF-D5D6-91BC80C22BA1";
+	rename -uid "4219A8B8-4C9B-B745-3BD9-37A948BCF52B";
 	setAttr ".ihi" 0;
 createNode groupParts -n "LeftLeg1CsGroupParts";
-	rename -uid "51133700-4234-AB71-7BBE-9982966CFAFB";
+	rename -uid "E36B91FC-44DF-31C6-BF53-4984287BCCA1";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[1:3]";
 createNode pairBlend -n "LegMidArcCtrlPBGrpPB";
-	rename -uid "FDDC2FA4-444F-03DA-7E89-CB9198A2A5CC";
+	rename -uid "737FF6B9-4D10-DFC9-C138-0AA9463C818A";
 	setAttr ".it1" -type "double3" 0.0015049548978396388 8.8817841970012523e-16 -0.13189847095592477 ;
 	setAttr ".ir1" -type "double3" 1.0787334089884731e-15 -1.4998121103940505 -2.5458406896467076e-14 ;
 	setAttr ".ri" 1;
 createNode cluster -n "Leg2UpCsHandleCluster";
-	rename -uid "227A2198-4E7C-3F8F-6058-D99591C2ADC1";
+	rename -uid "0F509945-46A2-0DFD-D22E-B8A1CBE0B866";
 	setAttr ".wl[0].w[3]"  0.5;
 createNode objectSet -n "LeftLeg2UpCsSet";
-	rename -uid "463182B6-49BB-388C-4D62-3B9BC4D5F36C";
+	rename -uid "D7D71FD2-42BD-7A08-4ECA-F2BD469D9A2F";
 	setAttr ".ihi" 0;
 	setAttr ".vo" yes;
 createNode groupId -n "LeftLeg2UpCsGroupId";
-	rename -uid "D94C49E6-4BEF-8934-7364-91A67D9438CC";
+	rename -uid "A54CD226-4DAB-80E8-2301-19B564A568E7";
 	setAttr ".ihi" 0;
 createNode groupParts -n "LeftLeg2UpCsGroupParts";
-	rename -uid "CE4170A4-4F16-F6C1-3599-DF985C23AC11";
+	rename -uid "8221AC96-44B1-1777-BB0F-8EA8365EBA20";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[3:4]";
 createNode cluster -n "Leg2DnCsHandleCluster";
-	rename -uid "1697F7B9-4269-D377-B196-BA876EF98DCB";
+	rename -uid "9BC8E3AA-4542-B7F6-5598-45BC7C990959";
 	setAttr ".wl[0].w[1]"  0.5;
 createNode objectSet -n "LeftLeg2DnCsSet";
-	rename -uid "0E25C395-4025-183C-CB18-0881EB44D40C";
+	rename -uid "1DB04166-4674-DF30-A9CF-718CCFBDD02E";
 	setAttr ".ihi" 0;
 	setAttr ".vo" yes;
 createNode groupId -n "LeftLeg2DnCsGroupId";
-	rename -uid "010AB872-4C9A-E32E-22E1-968EE173D7E0";
+	rename -uid "BFC7BCA9-4E3F-01EE-5C0D-8DA6F62F2295";
 	setAttr ".ihi" 0;
 createNode groupParts -n "LeftLeg2DnCsGroupParts";
-	rename -uid "942B7334-4941-F4A5-6D5F-269DE986A5F5";
+	rename -uid "56D344A9-4E92-6D8C-4126-D7A04A0E530A";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[0:1]";
 createNode decomposeMatrix -n "LegDnArcDM";
-	rename -uid "BBD45D98-4841-C9C6-C2C0-D598117AC947";
+	rename -uid "2DB6BFC9-4E24-25A9-B303-89A2CB3EE1B3";
 createNode multMatrix -n "LegDnArcMM";
-	rename -uid "CA5F34C1-412E-9C63-A26C-E8924DE5EE9F";
+	rename -uid "C1251708-43A4-B62E-193A-3D920DECD99B";
 	setAttr -s 2 ".i";
 createNode composeMatrix -n "LegDnArcCM";
-	rename -uid "D56220BA-4492-80B6-412F-A2A151E89A70";
-	setAttr ".omat" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 8.0287430785166443 31.539447664931991 0.92184220001901584 1;
+	rename -uid "FC6BF86B-4940-74BD-BE42-0CA06ABFBBA6";
+	setAttr ".omat" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 -1.7991470091516248e-07 3.5000000000207336 5.8513642000601607e-06 1;
 createNode pointOnCurveInfo -n "LegDnArcPC";
-	rename -uid "B62EBABD-479F-DC9E-D4F6-18B486580972";
+	rename -uid "6082CADB-47A9-0753-F78D-39A42941D0D7";
 	setAttr ".pr" 0.5;
 	setAttr ".top" yes;
 createNode cluster -n "Leg3CsHandleCluster";
-	rename -uid "05FA2D10-4F56-E02A-5D88-28997551F7B9";
+	rename -uid "A48D49F6-4992-8DCB-F039-EFABDA49E0FD";
 	setAttr -s 2 ".wl[0].w";
 	setAttr ".wl[0].w[1]" 0.5;
 	setAttr ".wl[0].w[3]" 0.5;
 createNode objectSet -n "LeftLeg3CsSet";
-	rename -uid "C9EF7BA4-45B5-5BA4-D582-15A413A0867F";
+	rename -uid "582ADA1C-4994-D17C-2ECB-D49BE5E11DF0";
 	setAttr ".ihi" 0;
 	setAttr ".vo" yes;
 createNode groupId -n "LeftLeg3CsGroupId";
-	rename -uid "A2A10FAC-4C1E-7901-22C8-5A8A79B0F9AB";
+	rename -uid "11C30312-475A-7CD1-5448-5EAD19FC6436";
 	setAttr ".ihi" 0;
 createNode groupParts -n "LeftLeg3CsGroupParts";
-	rename -uid "51668848-4935-F6E2-4999-0EA96A8BF338";
+	rename -uid "7B9347CC-478A-6FBC-0A5E-97B151704D5C";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "cv[1:3]";
 createNode decomposeMatrix -n "UpLegSysConsGrpDM";
-	rename -uid "D615605F-4A42-F162-7257-61895551F6CB";
+	rename -uid "BEB499EE-4160-BAF0-42D6-44B6D5B2CDE9";
 createNode multMatrix -n "UpLegSysConsGrpMM";
-	rename -uid "6F26B5E3-4327-5200-B39F-4B994EEE2645";
+	rename -uid "CECC4051-402F-5247-D337-8283328FE556";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 8.2564849853515625 96.576309204101563 2.0786147117614746 1;
 	setAttr ".i[1]" -type "matrix" 0.99999999999999989 -1.3402655263963996e-15 -2.8846573904027154e-17 0
 		 0 1 0 0 0 0 1 0 -8.2564849853515625 -96.576309204101548 -2.0786147117614746 1;
 createNode blendTwoAttr -n "LegSquashBA";
-	rename -uid "7555901B-4D01-866B-A0A6-BCBA928019F0";
+	rename -uid "86936883-4859-B112-E00D-4EA34AF6ED67";
 	setAttr -s 2 ".i[0:1]"  1 1;
 createNode setRange -n "LegStretchSR";
-	rename -uid "78E21596-4337-E1C2-66D9-10B30472C85A";
+	rename -uid "29FFB01A-4903-A0D8-0D77-49B4B3FDF613";
 	setAttr ".m" -type "float3" 1 1 1 ;
 	setAttr ".om" -type "float3" 10 10 10 ;
 createNode multiplyDivide -n "LegSquashPowMD";
-	rename -uid "D0640F42-4513-375A-EC25-4EBC563A7D74";
+	rename -uid "6CE98D87-4150-B164-A882-13A53C84ABAA";
 	setAttr ".op" 3;
 	setAttr ".i2" -type "float3" -1 1 1 ;
 createNode multDoubleLinear -n "LegUpSlideML";
-	rename -uid "FD8C10A3-41D0-258E-3B61-C7A121303C94";
+	rename -uid "F0755BE7-4CBA-9298-A17D-AFAC39256CEB";
 createNode blendTwoAttr -n "LegPVStretch1BA";
-	rename -uid "B8D0609A-4239-F8E9-C7AA-76B3C8AEF7C8";
+	rename -uid "D3276A94-46FB-97AB-4D58-E9B5992A71E5";
 	setAttr -s 2 ".i";
 	setAttr -s 2 ".i";
 createNode multiplyDivide -n "LegStretchDvMD";
-	rename -uid "2FDC8917-40DA-1237-D828-0FBE4B9E5738";
+	rename -uid "1CCA3C12-404F-9777-92E7-619312E190CD";
 	setAttr ".op" 2;
 createNode condition -n "LegCD";
-	rename -uid "6692A892-411B-10AD-68D1-BB97EA3A3D6A";
+	rename -uid "4DE68181-4DDB-28B9-4443-7195E1F1A52A";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegAllDB";
-	rename -uid "D66811EF-4830-0E7D-E731-408060005C55";
+	rename -uid "DD55391E-47BD-2FAD-865C-C6A4D582BA83";
 createNode addDoubleLinear -n "LegSumDistAL";
-	rename -uid "6C39EE95-4547-8073-ED16-9AAA0738130F";
+	rename -uid "5104B9E5-4497-49E9-02C9-5F8233D073EF";
 createNode distanceBetween -n "Leg1DB";
-	rename -uid "7AD32397-43AA-764E-641C-F19D33A2FECF";
+	rename -uid "DF29EF5E-42DC-1EE7-78EC-05AFF2D92083";
 createNode distanceBetween -n "Leg2DB";
-	rename -uid "7946E246-4FA0-9562-F007-58894A2E6628";
+	rename -uid "D51383CC-4B8B-0523-0B39-F688718A0436";
 createNode blendTwoAttr -n "LegStretchBA";
-	rename -uid "E09E35C7-4AEC-EBFB-2670-59B384162C48";
+	rename -uid "00D2171F-4005-C71B-9BA6-CC974B226A90";
 	setAttr -s 2 ".i";
 	setAttr -s 2 ".i";
 createNode multiplyDivide -n "LegPvStretch1DvMD";
-	rename -uid "6357EFBC-4241-3205-9754-B997D8ACF7FE";
+	rename -uid "EEA2FCBA-4E07-7C7E-09ED-13AAF9BE1F62";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegPVStretch1DB";
-	rename -uid "35C35D4A-4816-C600-3F69-DCAEE2D1FBC5";
+	rename -uid "2E085C1C-4FF2-857D-7CC0-4686DD844CA7";
 createNode addDoubleLinear -n "LegUpSlideAL";
-	rename -uid "7F10C3DF-4C84-D80E-7AF7-E09A812D8883";
+	rename -uid "71A53C9B-4AF8-2123-559F-45A1CD8305C2";
 	setAttr ".i2" 1;
 createNode multDoubleLinear -n "LegUpSlideFilterML";
-	rename -uid "0E023901-477A-9604-9053-3D9D9273ABBC";
+	rename -uid "E76276F8-45A3-9E31-50D2-0098DDAD2BA4";
 	setAttr ".i2" 0.1;
 createNode pairBlend -n "Leg1DrvJntRotPB";
-	rename -uid "BD766973-47DA-D8A5-519E-1F8937F8A9D5";
+	rename -uid "6D61584B-4316-BCA7-3D10-41861943E7F6";
 	setAttr ".ri" 1;
 createNode blendColors -n "Leg1DrvJntTrsBC";
-	rename -uid "E1AA4462-433D-D885-2932-6D97C15F6EFF";
+	rename -uid "D5168BED-4C29-2EEC-D070-5D884F06674A";
 createNode blendColors -n "Leg2DrvJntTrsBC";
-	rename -uid "3C9D16D9-40BF-36CB-46DD-6BAC42EFB862";
+	rename -uid "0E257377-49A5-78EC-6270-FBAF93974C75";
 createNode pairBlend -n "Leg2DrvJntRotPB";
-	rename -uid "74CB5263-4642-D000-B925-6E9E2C79A0C2";
+	rename -uid "36208577-4167-81B9-4AA3-BD932B23EDFD";
 	setAttr ".ri" 1;
 createNode blendColors -n "Leg3DrvJntTrsBC";
-	rename -uid "61EE964D-4DA8-D54C-FA55-7A85213051F7";
+	rename -uid "EBEF0A49-44F1-9A79-2467-94984D6279CB";
 createNode decomposeMatrix -n "Leg3AssiAPosDM";
-	rename -uid "DCD5DA74-44C3-7AA6-5D7A-36B989975252";
+	rename -uid "9F2C6FBC-4617-D94D-B839-05B470B7E45F";
 createNode multMatrix -n "Leg3AssiAPosMM";
-	rename -uid "386A9F9B-4086-8B4E-50A4-D78925F8A2F3";
+	rename -uid "8716E047-4581-E9E5-74E1-058C4435F886";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0034995407806020715 -0.9993731604419871 -0.035228389155903463 0
 		 0.999993868979553 -0.0035017143379136922 1.353086426457635e-16 0 -0.0001233597554089707 -0.035228173169929246 0.9993792876568337 0
@@ -1558,9 +1579,9 @@ createNode multMatrix -n "Leg3AssiAPosMM";
 		 -0.44776579521410698 1.2311823425203983e-06 0.89415087800368598 0 0.89415087800436366 5.5511151231257827e-17 0.44776579521444643 0
 		 4.2768209735396914 -7.9528629209488928 -8.8928923349305311 1;
 createNode decomposeMatrix -n "Leg3TwistFixGrpDM";
-	rename -uid "1B95A6F0-40B8-4BDD-74D9-65A9006E6BFD";
+	rename -uid "8DD38E30-42AB-CB45-8D2D-6B8B75CA7686";
 createNode multMatrix -n "Leg3TwistFixGrpMM";
-	rename -uid "D8398D48-4B79-32CC-C0AC-BA91BAA79131";
+	rename -uid "C8FA2FFA-49A2-BC26-39BE-7289D9DB70A1";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823425941189e-06 -0.99999999999924238 1.3183898417423734e-16 0
 		 0.99999999999924194 1.2311823427636187e-06 1.3482054014857248e-16 0 -1.338989683019598e-16 1.3183898417423734e-16 1.0000000000000002 0
@@ -1570,12 +1591,12 @@ createNode multMatrix -n "Leg3TwistFixGrpMM";
 		 1.3877804296545615e-16 1.3392590249529741e-16 1.0000000000000002 -3.0814879110195774e-33
 		 9.8665989725054359 -7.9528626700833422 -0.1578096517845822 0.99999999999999989;
 createNode pairBlend -n "Leg3TwsitFixTgPosPB";
-	rename -uid "6A4A452F-4E59-2F11-4C32-31B62035505C";
+	rename -uid "A114567B-4763-21DC-55AC-DFB438D7F7C3";
 	setAttr ".w" 0.5;
 createNode decomposeMatrix -n "Leg3TwsitFixTgPosDM";
-	rename -uid "71397D62-4EF0-94E2-C9E9-829ED0A341A9";
+	rename -uid "808D9FF7-4E75-5C0A-90C8-D38CF6D7CAD0";
 createNode multMatrix -n "Leg3TwsitFixTgPosMM";
-	rename -uid "668A8F14-46B1-7221-4CA6-6281832EDA05";
+	rename -uid "A10A579D-4378-4518-0C95-4884C92909D7";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.003499540780602071 -0.9993731604419871 -0.035228389155903483 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -0.0001233597554088362 -0.03522817316992926 0.99937928765683381 0
@@ -1584,9 +1605,9 @@ createNode multMatrix -n "Leg3TwsitFixTgPosMM";
 		 -0.99937316044198654 -0.0035017143379137972 -0.035228173169929239 0 -0.03522838915590347 0 0.99937928765683337 0
 		 8.8938146877964961 -7.9182517180305005 0.19085196644479679 1;
 createNode decomposeMatrix -n "Leg3TwsitFixTgPosDM1";
-	rename -uid "AB90EB65-43F0-9626-716F-BAA0D93C2712";
+	rename -uid "FED90A38-40DB-5F5F-6716-D585DF9468E3";
 createNode multMatrix -n "Leg3TwsitFixTgPosMM1";
-	rename -uid "8E76BE8E-41EF-F1F2-FF3F-DE9DBA00D6B0";
+	rename -uid "582B3B82-4946-7A75-20F1-0C8621084B23";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.003499540780602071 -0.9993731604419871 -0.035228389155903483 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -0.0001233597554088362 -0.03522817316992926 0.99937928765683381 0
@@ -1595,9 +1616,9 @@ createNode multMatrix -n "Leg3TwsitFixTgPosMM1";
 		 -0.99937316044198654 -0.0035017143379137972 -0.035228173169929239 0 -0.03522838915590347 0 0.99937928765683337 0
 		 8.8938146877964961 -7.9182517180305005 0.19085196644479679 1;
 createNode decomposeMatrix -n "Leg2TwistFixGrpDM";
-	rename -uid "4862BEDD-4BFD-6AA7-4376-C890B4250AF4";
+	rename -uid "45DC4F8A-4296-2055-6C58-FAA1302909E9";
 createNode multMatrix -n "Leg2TwistFixGrpMM";
-	rename -uid "AA728936-4357-98D7-CD37-0DAB5851C782";
+	rename -uid "9113B9A9-4460-58E9-D154-7DAC743F3717";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0034995407806020702 -0.99937316044198687 -0.035228389155903476 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -0.00012335975540883617 -0.035228173169929253 0.99937928765683359 0
@@ -1606,15 +1627,15 @@ createNode multMatrix -n "Leg2TwistFixGrpMM";
 		 -0.99937316044198699 -0.0035017143379138527 -0.035228173169929253 0 -0.035228389155903483 0 0.99937928765683359 0
 		 53.266686086722309 -7.9182517180304908 0.19085196644482255 1;
 createNode unitConversion -n "unitConversion85";
-	rename -uid "A40F61F6-4EF6-3DC7-4C02-978ECAC13B8D";
+	rename -uid "207CE675-44F8-52E7-E08A-8F85DFF18592";
 	setAttr ".cf" 0.017453292519943295;
 createNode pairBlend -n "Leg2TwsitFixTgPosPB";
-	rename -uid "F206C68D-42D6-0E4E-D52F-309156074C3F";
+	rename -uid "FA8AEA71-4870-201B-92E6-46804F01549E";
 	setAttr ".w" 0.5;
 createNode decomposeMatrix -n "Leg2TwsitFixTgPosDM";
-	rename -uid "BF9CF5D2-4663-261D-C0DE-DB9599E0343F";
+	rename -uid "A806728D-4213-603A-86A2-19A23D411B8C";
 createNode multMatrix -n "Leg2TwsitFixTgPosMM";
-	rename -uid "955D876B-4912-4896-33FC-D392B1999C84";
+	rename -uid "E9A9F9ED-46E9-52F6-B7C5-40B29F6E4C77";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0035015706533143565 -0.99995283658664469 -0.0090588964715811425 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -3.1721667660212886e-05 -0.0090588409313016489 0.99995896735551959 0
@@ -1624,9 +1645,9 @@ createNode multMatrix -n "Leg2TwsitFixTgPosMM";
 		 -0.0090588964715811408 -2.1684043449710089e-19 0.9999589673555197 2.7105054312137611e-20
 		 52.253432792405974 -7.9182517180304899 -1.2033980884180904 0.99999999999999989;
 createNode decomposeMatrix -n "Leg2TwsitFixTgPosDM1";
-	rename -uid "7BD5AFD8-43B8-509C-8085-2B8D8ACC6AEC";
+	rename -uid "461FF924-419F-7840-632C-79A6D21A52A9";
 createNode multMatrix -n "Leg2TwsitFixTgPosMM1";
-	rename -uid "05C897E0-41AB-BFC7-9E0A-E482183504E2";
+	rename -uid "AC948A08-4C83-8949-AFE3-3AB3358AF481";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0035015706533143565 -0.99995283658664469 -0.0090588964715811425 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -3.1721667660212886e-05 -0.0090588409313016489 0.99995896735551959 0
@@ -1636,36 +1657,35 @@ createNode multMatrix -n "Leg2TwsitFixTgPosMM1";
 		 -0.0090588964715811408 -2.1684043449710089e-19 0.9999589673555197 2.7105054312137611e-20
 		 52.253432792405974 -7.9182517180304899 -1.2033980884180904 0.99999999999999989;
 createNode multDoubleLinear -n "LegUpTxML";
-	rename -uid "6B183A00-49E9-112C-E748-6E8B1A6F9970";
+	rename -uid "7A0F5864-4741-041B-CDAB-7297AB983B3C";
 createNode multDoubleLinear -n "LegDnTxML";
-	rename -uid "48A1C702-4B41-BFDE-9B5C-FDBF20BCE2F8";
+	rename -uid "B676F568-4AF8-8964-77E4-1B9A6526E9F2";
 createNode multDoubleLinear -n "LegDnSlideML";
-	rename -uid "174DF439-499F-A9E3-8D30-14B3626FE77A";
+	rename -uid "0A750285-4E4F-7E3E-63F1-6C9A0B41C46B";
 createNode blendTwoAttr -n "LegPVStretch2BA";
-	rename -uid "4A60FF70-4A74-35A2-FE77-558658435EBE";
+	rename -uid "69E3D0D8-44DE-F20C-90D4-58A3E958AF07";
 	setAttr -s 2 ".i";
 	setAttr -s 2 ".i";
 createNode multiplyDivide -n "LegsPvStretch2DvMD";
-	rename -uid "6C9F1ED2-4BEE-6961-2074-7C9F91F042B8";
+	rename -uid "034B939E-4F42-FEB6-0B3B-6E8008A9C11C";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegPVStretch2DB";
-	rename -uid "5C4EB762-43B5-AADA-C23B-CFAFCABD3832";
+	rename -uid "CCDF3337-46E2-6209-C95F-A29ADBAACAFC";
 createNode addDoubleLinear -n "LegDnSlideAL";
-	rename -uid "CADE20DC-47ED-80E9-1CC5-7088390C5BB0";
+	rename -uid "9673ACD6-4B0F-6856-4D1B-FBADC726AB69";
 	setAttr ".i2" 1;
 createNode multDoubleLinear -n "LegDnSlideFilterML";
-	rename -uid "80A76471-49F2-115B-772C-08A12890907A";
+	rename -uid "0A6385D1-47A7-0305-D424-9BB0234CB7AD";
 	setAttr ".i2" 0.1;
 createNode quatToEuler -n "Leg3IKJntQE";
-	rename -uid "2623A8D5-4B96-44EA-B4DD-B4A102F94C03";
-	setAttr ".ort" -type "double3" -4.9575708092774887e-07 -0.00014152490733516511 
-		6.1623442247123942e-13 ;
+	rename -uid "EBEF85C1-4F5A-D423-F9A1-C598C1977EC7";
+	setAttr ".ort" -type "double3" -0.00013474407857723801 2.0187201386771179 -0.20063244365241323 ;
 createNode quatProd -n "Leg3IKJntQP";
-	rename -uid "43689C66-4AF5-1E17-0D85-CAB4E70634D8";
+	rename -uid "92D43E77-41DD-C0A0-D4AB-9D941F3D2A2C";
 createNode decomposeMatrix -n "Leg3IKJntDM";
-	rename -uid "3BF25AF1-444C-A989-CCB8-069538F296FD";
+	rename -uid "3DA40641-46F4-9CED-16CE-548B0647EA76";
 createNode multMatrix -n "Leg3IKJntMM";
-	rename -uid "7E63AA67-4F89-2A31-CB91-40A30AA22215";
+	rename -uid "B8101789-4F61-D3CD-1D6A-E09B3F28815E";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823424900525e-06 -0.99999999999924216 -1.3877787807814457e-17 0
 		 0.99999999999924194 1.2311823426600232e-06 -5.8275866771095863e-18 0 6.7220534694101275e-18 -6.9388939039072284e-18 0.99999999999999989 0
@@ -1673,13 +1693,13 @@ createNode multMatrix -n "Leg3IKJntMM";
 	setAttr ".i[1]" -type "matrix" 1.2311823427161931e-06 0.99999999999924205 1.3205309822143547e-18 0
 		 -0.99999999999924216 1.2311823427424429e-06 0 0 0 0 1 0 9.8666016334831763 -7.9528629209488964 -0.15780977954863018 1;
 createNode quatInvert -n "Leg3IKJntQI";
-	rename -uid "F8D4196E-4074-9DB7-5220-6A8F6110AED7";
+	rename -uid "987E57DC-4AE8-CCF4-F7B8-6B83FBD21047";
 createNode eulerToQuat -n "Leg3IKJntEQ";
-	rename -uid "1D50083A-4197-3020-9199-91AF0E957C96";
+	rename -uid "A9F744A2-4B63-FCF5-2988-508F827E4CA3";
 createNode decomposeMatrix -n "Leg1FKJntDM";
-	rename -uid "9512FDA4-49B0-C238-7D0C-F6AD7C1DEDDC";
+	rename -uid "EDF54BBD-483E-819C-0B5E-1B99F8284FA4";
 createNode multMatrix -n "Leg1FKJntMM";
-	rename -uid "D10A2E05-4111-367B-07C3-FA9C61925034";
+	rename -uid "E0AA79DA-4A85-636F-9264-9EA86F01238A";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0035015706533143565 -0.99995283658664469 -0.0090588964715811425 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -3.1721667660212886e-05 -0.0090588409313016489 0.99995896735551959 0
@@ -1688,18 +1708,18 @@ createNode multMatrix -n "Leg1FKJntMM";
 		 -0.99995283658664502 -0.0035017143379138527 -0.0090588409313016472 0 -0.009058896471581146 1.0842021724855044e-19 0.9999589673555197 0
 		 96.619494479280164 -7.9182519595732481 -1.2033981544160492 1;
 createNode quatToEuler -n "Leg1FKJntQE";
-	rename -uid "19357C41-4402-7E1A-AB61-04AD662BB6B1";
-	setAttr ".ort" -type "double3" 0 -5.466578358765419e-16 0 ;
+	rename -uid "DF10824D-45B8-6126-8508-ED8DF4AD77A6";
+	setAttr ".ort" -type "double3" -0.0018178482077784684 -1.092626631588925 0.20066029432355154 ;
 createNode quatProd -n "Leg1FKJntQP";
-	rename -uid "8EB5ECA4-40FC-2F20-3010-7C80A3AA7DC4";
+	rename -uid "1DFDFCCF-4AF7-C9BD-E927-F789FDD28750";
 createNode quatInvert -n "Leg1FKJntQI";
-	rename -uid "268F5B3F-47DD-CF6E-D6DB-F883A3C5D283";
+	rename -uid "5BAAA464-4220-6931-5668-D4BF2EC1847E";
 createNode eulerToQuat -n "Leg1FKJntEQ";
-	rename -uid "D73D0A41-45DC-A713-B1B1-938E8BFC374F";
+	rename -uid "6B6F0D09-4E0C-326E-C6AF-8BBE96A70B5D";
 createNode decomposeMatrix -n "Leg2FKJntDM";
-	rename -uid "CBCB269D-46AF-5580-0B8E-0D92E51348C7";
+	rename -uid "23E67A85-4F04-7364-0B27-8A84D3958640";
 createNode multMatrix -n "Leg2FKJntMM";
-	rename -uid "43ADECBC-4A3C-D48A-7238-D2822989C5CC";
+	rename -uid "62C1EA3B-4007-6B25-021B-EAA9B19B0B63";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0034995407806020702 -0.99937316044198687 -0.035228389155903483 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -0.0001233597554088362 -0.03522817316992926 0.99937928765683359 0
@@ -1708,18 +1728,18 @@ createNode multMatrix -n "Leg2FKJntMM";
 		 -0.99937316044198687 -0.0035017143379133253 -0.035228173169929253 0 -0.035228389155903483 5.2041704279304213e-18 0.99937928765683381 0
 		 53.266687313037714 -7.9182519595732721 0.19085193253242025 1;
 createNode quatToEuler -n "Leg2FKJntQE";
-	rename -uid "F24A5C72-4300-4EA1-EE5D-D188918D28AE";
-	setAttr ".ort" -type "double3" 0 -7.9513867036587919e-16 0 ;
+	rename -uid "9FB413DD-4CA3-0398-BD58-2EBEF1141697";
+	setAttr ".ort" -type "double3" 0 -0.35263975019307742 0 ;
 createNode quatProd -n "Leg2FKJntQP";
-	rename -uid "484F03FA-4F4A-C736-B361-579DCC0FA449";
+	rename -uid "A3B6B8FF-4FCC-6214-BE2B-649C896E835D";
 createNode quatInvert -n "Leg2FKJntQI";
-	rename -uid "84183090-4967-92A8-D410-2B8BEE150CAD";
+	rename -uid "09133777-44DD-C559-E9D4-3886A674107C";
 createNode eulerToQuat -n "Leg2FKJntEQ";
-	rename -uid "D4A2CF07-400F-7ABE-1622-80A06C7234ED";
+	rename -uid "D6C20F2D-4149-8574-3FA7-5EB9564EB91F";
 createNode decomposeMatrix -n "Leg3FKJntDM";
-	rename -uid "8A8943C2-459B-41FF-AC35-12B52C96A20B";
+	rename -uid "20C931A7-4383-2FB2-C057-DAA8221A7429";
 createNode multMatrix -n "Leg3FKJntMM";
-	rename -uid "427FDFCA-458B-10F7-2468-AB881D8E8C94";
+	rename -uid "1C12D132-4A61-0489-4252-8CAEBB7DCDFB";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823424900525e-06 -0.99999999999924216 -1.3877787807814457e-17 0
 		 0.99999999999924194 1.2311823426600232e-06 -5.8275866771095863e-18 0 6.7220534694101275e-18 -6.9388939039072284e-18 0.99999999999999989 0
@@ -1727,154 +1747,154 @@ createNode multMatrix -n "Leg3FKJntMM";
 	setAttr ".i[1]" -type "matrix" 1.2311823427161931e-06 0.99999999999924205 1.3205309822143547e-18 0
 		 -0.99999999999924216 1.2311823427424429e-06 0 0 0 0 1 0 9.8666016334831763 -7.9528629209488964 -0.15780977954863018 1;
 createNode quatToEuler -n "Leg3FKJntQE";
-	rename -uid "D81D5E10-409E-CE72-1A88-52AD76F6B644";
-	setAttr ".ort" -type "double3" -7.066173730790531e-16 3.9880916112407085e-16 -8.4497230249103e-14 ;
+	rename -uid "F1EEA4DF-4C7B-F54F-5FF5-EB8E1B6B33B9";
+	setAttr ".ort" -type "double3" 9.5237725312840937e-16 -61.989679258497191 -0.20070440420521779 ;
 createNode quatProd -n "Leg3FKJntQP";
-	rename -uid "539FE3BA-4C6B-D1BC-9E44-AF84BC6A315D";
+	rename -uid "8DFFAF06-45C8-AF47-A07E-F5A9A0205F5D";
 createNode quatInvert -n "Leg3FKJntQI";
-	rename -uid "CCEFCC64-471E-46A3-E95A-999EF949D66E";
+	rename -uid "0165EC00-4414-D5FA-FA41-95B254D3C329";
 createNode eulerToQuat -n "Leg3FKJntEQ";
-	rename -uid "0EE01DD3-496B-92A3-1A70-C6865B6D9125";
+	rename -uid "A8EF143B-4D41-088F-7CD9-5D97B7D8D89F";
 createNode multDoubleLinear -n "LegUpIK1CrvPointMD";
-	rename -uid "553BA7AE-4ECA-83B8-D246-4AAC27AE0AB4";
+	rename -uid "1AA9742F-4534-2579-AAE7-949F37437617";
 	setAttr ".i2" 10.841515115466635;
 createNode multiplyDivide -n "LegUpIK1DvdMD";
-	rename -uid "E0411FEA-4ACA-4205-EAFE-E59313AEA00A";
+	rename -uid "1C4FA874-4041-F502-0601-2C976A681660";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegUpIK1DB";
-	rename -uid "9A95EF82-4947-3987-EC9F-ABB03CBDD334";
+	rename -uid "0E0676F8-43E6-14AA-22A2-FF8CB5FEC0F0";
 createNode pointOnCurveInfo -n "LegUpIK1PC";
-	rename -uid "4AD1ED16-45EA-6C34-7F95-F789AA79B869";
+	rename -uid "6F51BFE1-4325-2282-5C7F-38B9A1FDD6D6";
 createNode pointOnCurveInfo -n "LegUpIK2PC";
-	rename -uid "CCD1D6D4-40E5-ACE4-8F42-E8BDEF4D9209";
+	rename -uid "0A88F2CD-4E51-5CF5-A2AE-ADBE61E1A04F";
 	setAttr ".pr" 0.2500000000000005;
 createNode distanceBetween -n "LegUpIK1ChkDB";
-	rename -uid "34C902C2-4757-1B83-AA95-66903DE20543";
+	rename -uid "ABE557F8-4368-572E-C1A1-82BA118EFCED";
 createNode pointOnCurveInfo -n "LegUpIK1ChkPC";
-	rename -uid "49A41EFA-43C9-D3E3-C7D5-199B98FC709C";
+	rename -uid "B7D87199-4CBF-AE16-A4C2-19B96334C2B6";
 createNode pointOnCurveInfo -n "LegUpIK2ChkPC";
-	rename -uid "E1F96889-43C2-69AF-3FCF-C893BBE1703C";
+	rename -uid "257DAB49-40D7-75CC-77FE-559CC7ED741D";
 	setAttr ".pr" 0.2500000000000005;
 createNode multDoubleLinear -n "LegUpIK2CrvPointMD";
-	rename -uid "F1126693-43E3-409E-3903-BC98CB1DFA30";
+	rename -uid "59840727-4164-7C17-DC8C-FE86A7BA7844";
 	setAttr ".i2" 10.841515115466592;
 createNode multiplyDivide -n "LegUpIK2DvdMD";
-	rename -uid "3C1BC70E-43AF-66CF-4130-CA8D5CE863B1";
+	rename -uid "CAD09601-4044-2688-A6AD-0B87FDEDCB70";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegUpIK2DB";
-	rename -uid "3CBF8FA9-4670-DBC5-BA33-B2A77ED6E5A0";
+	rename -uid "079AA41A-4B54-C539-5ED7-B6BC14A2D08D";
 createNode pointOnCurveInfo -n "LegUpIK3PC";
-	rename -uid "09D33088-40A3-9E03-D739-3EAF8DE43322";
+	rename -uid "42B6A17F-4CE8-FF7B-3912-90B76268381C";
 	setAttr ".pr" 0.5;
 createNode distanceBetween -n "LegUpIK2ChkDB";
-	rename -uid "165C202A-47EB-317A-E3C4-23B19732E76E";
+	rename -uid "07F79B9D-4B55-2045-E767-9AB4FE7D67BA";
 createNode pointOnCurveInfo -n "LegUpIK3ChkPC";
-	rename -uid "89F76615-4769-908A-D9F7-FBB7171D0173";
+	rename -uid "CF55D44B-41A8-23DC-F5CB-FCBD46633355";
 	setAttr ".pr" 0.5;
 createNode multDoubleLinear -n "LegUpIK3CrvPointMD";
-	rename -uid "4463D467-4340-BE0E-D137-629F0BB294BB";
+	rename -uid "3889A00A-4587-A213-FF85-C48BABDD3AB6";
 	setAttr ".i2" 10.841515115466621;
 createNode multiplyDivide -n "LegUpIK3DvdMD";
-	rename -uid "E957FF34-4276-EFDA-9788-708551A3073F";
+	rename -uid "EF231D51-49D6-FDCA-A0E5-D28A6A38F0E0";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegUpIK3DB";
-	rename -uid "B1500B4B-4ADE-A157-A638-408BDDCEAA2E";
+	rename -uid "C0B9BCD6-4B03-9C62-1C30-708A36481538";
 createNode pointOnCurveInfo -n "LegUpIK4PC";
-	rename -uid "09E18DA7-4583-C6C0-9D0A-64B26DB216E3";
+	rename -uid "18FDCF1F-42A3-8A4C-49C6-99A7CBE1C0D0";
 	setAttr ".pr" 0.75000000000000011;
 createNode distanceBetween -n "LegUpIK3ChkDB";
-	rename -uid "2CF4141A-43A6-C7D4-96FB-C38980E1725D";
+	rename -uid "3978939B-42F7-C6FB-3B8C-E2BB39F5B831";
 createNode pointOnCurveInfo -n "LegUpIK4ChkPC";
-	rename -uid "674DFA35-48D6-EA88-E1E0-A0AA2AC5A211";
+	rename -uid "F50945FA-4C13-6C14-D944-B686B8BF5AE1";
 	setAttr ".pr" 0.75000000000000011;
 createNode multDoubleLinear -n "LegUpIK4CrvPointMD";
-	rename -uid "F8C5C34E-488D-8BB3-16A7-BC97FE46DB3F";
+	rename -uid "3D0C9051-4A83-3132-FB3B-7B860161FE3D";
 	setAttr ".i2" 10.841515115466606;
 createNode multiplyDivide -n "LegUpIK4DvdMD";
-	rename -uid "24E5B764-4370-0CEB-C89F-4D95460249AC";
+	rename -uid "D87E646E-4AB2-F377-1778-5E9507AEEEAF";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegUpIK4DB";
-	rename -uid "BD30646F-4E69-244C-E8E1-52B330D463B9";
+	rename -uid "4BD7A9DF-4AF9-0032-A1DC-FABB62C27CD2";
 createNode pointOnCurveInfo -n "LegUpIK5PC";
-	rename -uid "11BC109C-49EF-2709-61D7-F09F65EC6601";
+	rename -uid "1CE05547-456C-0C91-FFC7-0086E2F46AAD";
 	setAttr ".pr" 1;
 createNode distanceBetween -n "LegUpIK4ChkDB";
-	rename -uid "3FD9755B-40BC-25C2-6F65-5AA2760C482B";
+	rename -uid "7900DEA5-4251-3774-D5FD-D785013B5AE1";
 createNode pointOnCurveInfo -n "LegUpIK5ChkPC";
-	rename -uid "DE645BFA-4B48-F831-1091-159D83F0557D";
+	rename -uid "2C335B74-4E03-8DEF-22D5-CB8AF797E9E6";
 	setAttr ".pr" 1;
 createNode multDoubleLinear -n "LegDnIK1CrvPointMD";
-	rename -uid "4FB0B957-4D47-F308-1A48-36BEE5216A6E";
+	rename -uid "AD1C5944-48D6-DC5A-0CB9-7F822FA423CA";
 	setAttr ".i2" 10.843217490138095;
 createNode multiplyDivide -n "LegDnIK1DvdMD";
-	rename -uid "66E19E70-428C-1088-752D-9088FCAE4767";
+	rename -uid "C010556C-4188-8AB4-C859-D5ADA638AF8E";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegDnIK1DB";
-	rename -uid "A25CDD24-4E67-BD1E-4A0A-648A189EF41A";
+	rename -uid "73BD4260-47C7-F258-CE24-52B45CC48405";
 createNode pointOnCurveInfo -n "LegDnIK1PC";
-	rename -uid "E1184E01-4315-0C95-12AE-56A718BD8D22";
+	rename -uid "81118F91-45E5-C9EA-DB4E-37BD2D40CF69";
 createNode pointOnCurveInfo -n "LegDnIK2PC";
-	rename -uid "D1828DDC-47A5-749D-FC9F-FE954602DE2B";
+	rename -uid "E8BF71BE-4C8F-5726-5F23-BBB1CF5CC3A7";
 	setAttr ".pr" 0.25000000000000022;
 createNode distanceBetween -n "LegDnIK1ChkDB";
-	rename -uid "B7A9BC3D-4DFA-E6AB-51B6-D2B839D73DD1";
+	rename -uid "52CEFA83-4D14-2F6C-A1F2-AF837DF3D306";
 createNode pointOnCurveInfo -n "LegDnIK1ChkPC";
-	rename -uid "E8D4446F-4AB7-19B8-8C29-828D3E7921BE";
+	rename -uid "49DA836D-4B6D-7005-99EB-518D5174498A";
 createNode pointOnCurveInfo -n "LegDnIK2ChkPC";
-	rename -uid "721DACF1-40DB-9EAE-EEAF-939EC652172F";
+	rename -uid "C59A9F00-4CC2-199D-D30F-4C8D5CA3BA4A";
 	setAttr ".pr" 0.25000000000000022;
 createNode multDoubleLinear -n "LegDnIK2CrvPointMD";
-	rename -uid "5A4DB2CB-4E4F-A435-666E-C5A0C50C251F";
+	rename -uid "6D7FF563-42B0-8E35-23AE-6DB999922E49";
 	setAttr ".i2" 10.843217490138066;
 createNode multiplyDivide -n "LegDnIK2DvdMD";
-	rename -uid "EDCC44D1-4071-4C19-C0A6-758A6496B7E8";
+	rename -uid "3940C7C8-4B84-69FB-4FFE-85942E470E6A";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegDnIK2DB";
-	rename -uid "7BDF4F50-4662-A471-7245-D480C511F434";
+	rename -uid "D172A96D-4ECF-B08D-50DC-5A97C3572D9E";
 createNode pointOnCurveInfo -n "LegDnIK3PC";
-	rename -uid "D45E2753-4754-E1E9-5BFC-5B867E235C09";
+	rename -uid "8BE4103C-4CD0-0F57-3A67-49A214BFAF8D";
 	setAttr ".pr" 0.49999999999999983;
 createNode distanceBetween -n "LegDnIK2ChkDB";
-	rename -uid "BC678BED-4E27-8448-DEE8-859C4AAA6DE5";
+	rename -uid "1D81990E-4519-EF9D-FF65-1E915503CBD5";
 createNode pointOnCurveInfo -n "LegDnIK3ChkPC";
-	rename -uid "07965DAF-4F77-B63B-1296-DEB43A1F8BE8";
+	rename -uid "71E4D594-4E05-8996-FB1F-A48FEACBFD81";
 	setAttr ".pr" 0.49999999999999983;
 createNode multDoubleLinear -n "LegDnIK3CrvPointMD";
-	rename -uid "85985B00-401B-6187-BB31-F5B728C8A6C8";
+	rename -uid "4031AD2F-4EB6-BA7C-7B4D-ECBBFAA2142A";
 	setAttr ".i2" 10.843217490138084;
 createNode multiplyDivide -n "LegDnIK3DvdMD";
-	rename -uid "DA2236CB-4D81-6A17-0C73-1983143C8B0E";
+	rename -uid "E76FD938-4815-0C94-6504-00A31CC00101";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegDnIK3DB";
-	rename -uid "1ADE8AD3-4FE7-6166-DA63-158BCB29C770";
+	rename -uid "3B829EDF-4D4E-ECA7-AC7E-6DA9D55F8546";
 createNode pointOnCurveInfo -n "LegDnIK4PC";
-	rename -uid "57BBD0F3-4732-917D-390B-69A5872FC071";
+	rename -uid "917792A1-4486-7D34-39D8-C1A0B3F9E30E";
 	setAttr ".pr" 0.74999999999999989;
 createNode distanceBetween -n "LegDnIK3ChkDB";
-	rename -uid "98CF43D7-4371-3628-4758-AC8A8615BE96";
+	rename -uid "9F33D9C9-43FE-F90A-FFE0-90A2F8BEBF8E";
 createNode pointOnCurveInfo -n "LegDnIK4ChkPC";
-	rename -uid "969F5B85-456B-994D-ADAF-80B0F1D0DAF5";
+	rename -uid "3724903F-46A8-D54D-1F25-ACAAC6955D23";
 	setAttr ".pr" 0.74999999999999989;
 createNode multDoubleLinear -n "LegDnIK4CrvPointMD";
-	rename -uid "E87795E1-42FF-E91F-5C07-3CA39CA0DC75";
+	rename -uid "81011DC2-4253-AF26-C41B-5F87A371A826";
 	setAttr ".i2" 10.843217490138091;
 createNode multiplyDivide -n "LegDnIK4DvdMD";
-	rename -uid "D6CF62C3-4D17-CB4C-56EE-37ACF30BFA00";
+	rename -uid "C2F0A1E5-48A6-10AE-8F04-3BB1F91FA105";
 	setAttr ".op" 2;
 createNode distanceBetween -n "LegDnIK4DB";
-	rename -uid "688C91BD-42E8-E5DC-B670-288EC67C887E";
+	rename -uid "34A7A1C6-4AB9-AE53-0EE9-EB822DCDF4CD";
 createNode pointOnCurveInfo -n "LegDnIK5PC";
-	rename -uid "B3F15F98-475A-6DB5-382D-0C9175C05CB2";
+	rename -uid "EA702D7F-45D3-71FC-4DBD-5C83659C82B0";
 	setAttr ".pr" 1;
 createNode distanceBetween -n "LegDnIK4ChkDB";
-	rename -uid "21F113F3-47F2-718E-BFD0-CEA9A0E8E835";
+	rename -uid "C7F6785D-43E6-36C7-B7BE-E8BC6FCE6541";
 createNode pointOnCurveInfo -n "LegDnIK5ChkPC";
-	rename -uid "ADAD27BA-4B3F-D561-7859-FEB328C940F9";
+	rename -uid "0D58BDAE-46DC-4EE4-DE06-E0A5E151825A";
 	setAttr ".pr" 1;
 createNode decomposeMatrix -n "Leg1TwistFixGrpDM";
-	rename -uid "F597CFB2-4A77-B2C2-6C33-BA9E096B5C23";
+	rename -uid "A8B114A1-4FAC-33D8-E229-528E08D4E8C7";
 createNode multMatrix -n "Leg1TwistFixGrpMM";
-	rename -uid "7EBEB55C-4D56-4BFB-37AE-0989EB3035C9";
+	rename -uid "67F47F5B-423E-C8BF-5420-50A0D257E5E2";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0035015706533143565 -0.99995283658664469 -0.0090588964715811425 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -3.1721667660212886e-05 -0.0090588409313016489 0.99995896735551959 0
@@ -1883,21 +1903,21 @@ createNode multMatrix -n "Leg1TwistFixGrpMM";
 		 -0.99995283658664502 -0.0035017143379138388 -0.0090588409313016455 0 -0.0090588964715811425 1.0842021724855044e-19 0.9999589673555197 0
 		 96.619494956712643 -7.9182517180304961 -1.2033980884180897 1;
 createNode unitConversion -n "unitConversion84";
-	rename -uid "AD916E04-4C21-E3B4-7897-E18E51EAB754";
+	rename -uid "DAC669FC-4D73-3F17-B2AD-56A9A3F187B1";
 	setAttr ".cf" 0.017453292519943295;
 createNode animCurveUA -n "Leg1TwistFixUpvec_rotateZ";
-	rename -uid "DAEA5FB6-40F4-CA91-6AAD-369FAA79EC65";
+	rename -uid "EE2BD597-4882-084B-09CD-82BEAF308C26";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -1 -90 0 0 1 90;
 createNode vectorProduct -n "LegtwistFixVectorProduct";
-	rename -uid "22A3A165-41C6-5839-B90B-22B6687D31BF";
+	rename -uid "342B1D55-46FC-D1A4-2746-DBABD703C333";
 	setAttr ".i2" -type "float3" 0 1 0 ;
 	setAttr ".no" yes;
 createNode decomposeMatrix -n "Leg1TwsitFixTgPosDM";
-	rename -uid "60A4B0E6-4AAC-0694-FA5E-A59672930F00";
+	rename -uid "BEB3488A-4E5E-1E5F-9E12-E78AE9470C4B";
 createNode multMatrix -n "Leg1TwsitFixTgPosMM";
-	rename -uid "46E6A957-4DAE-BEF5-7282-DABADE0DF2BE";
+	rename -uid "AFA34F74-4A66-5BDB-45B6-BAAEE73B0BC4";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0034995407806020702 -0.99937316044198687 -0.035228389155903476 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -0.00012335975540883617 -0.035228173169929253 0.99937928765683359 0
@@ -1906,19 +1926,19 @@ createNode multMatrix -n "Leg1TwsitFixTgPosMM";
 		 -0.99937316044198699 -0.0035017143379138527 -0.035228173169929253 0 -0.035228389155903483 0 0.99937928765683359 0
 		 53.266686086722309 -7.9182517180304908 0.19085196644482255 1;
 createNode ikRPsolver -n "ikRPsolver";
-	rename -uid "FD22467F-42BB-B32B-0403-659869133005";
+	rename -uid "8D3A1ACE-425A-AB6B-5AC8-17A593945C6D";
 createNode decomposeMatrix -n "LegIKhDM";
-	rename -uid "95F5A6DD-4A27-4FC9-8C4B-44A88E34C6F5";
+	rename -uid "4149F1C5-4A83-E349-2B43-8698C17CEFD5";
 createNode multMatrix -n "LegIKhMM";
-	rename -uid "760ED076-4D64-008E-F106-5986F187717F";
+	rename -uid "79488414-4563-8CCA-3553-D882ED618181";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 7.952850773357155 9.8666114249000714 0.15780977954862974 1;
 	setAttr ".i[1]" -type "matrix" 1.2311823427161931e-06 0.99999999999924205 1.3205309822143547e-18 0
 		 -0.99999999999924216 1.2311823427424429e-06 0 0 0 0 1 0 9.8666016334831763 -7.9528629209488964 -0.15780977954863018 1;
 createNode decomposeMatrix -n "LegPVSysGrpDM";
-	rename -uid "CD373CC4-40AA-3E60-6CA5-F786CED27346";
+	rename -uid "3D9F7CA0-4F7C-3246-2956-25B3FACDCA43";
 createNode multMatrix -n "LegPVSysGrpMM";
-	rename -uid "106DCF55-41FB-3812-23D6-88943853B20D";
+	rename -uid "8D35F69B-4333-4EFA-3E88-7CAEAEC22C46";
 	setAttr -s 3 ".i";
 	setAttr ".i[0]" -type "matrix" -0.003501570653314356 -0.99995283658664458 -0.009058896471581139 0
 		 0.99999386897955289 -0.0035017143379136857 0 0 -3.1721667660213747e-05 -0.0090588409313016455 0.99995896735551948 0
@@ -1927,24 +1947,24 @@ createNode multMatrix -n "LegPVSysGrpMM";
 		 -0.99995283658664502 -0.0035017143379138527 -0.0090588409313016455 0 -0.0090588964715811425 9.7578195523695399e-19 0.9999589673555197 0
 		 96.619494479280164 -7.9182519595732481 -1.2033981544160495 1;
 createNode unitConversion -n "unitConversion80";
-	rename -uid "09B665B8-4E28-0A6F-2541-838E6F802ED9";
+	rename -uid "F70074AA-4111-22AE-A46F-04A374A65EE2";
 	setAttr ".cf" 0.017453292519943295;
 createNode multDoubleLinear -n "LegTwistRvsML";
-	rename -uid "7F95E7D0-4088-AC9D-A1D2-60B859C82FC6";
+	rename -uid "89EF9516-4EE0-EC0C-9300-38BEAD5737C8";
 	setAttr ".i2" -1;
 createNode animCurveUA -n "LegPVUpvec_rotateZ";
-	rename -uid "33673339-4C87-95CB-D522-9391482DF26E";
+	rename -uid "A8307F1F-4736-0DF6-1281-D1AB06F3C504";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr -s 3 ".ktv[0:2]"  -1 -90 0 0 1 90;
 createNode vectorProduct -n "LegPVVP";
-	rename -uid "39BEA9EB-4FFB-A98D-AD22-C9BEAF628D91";
+	rename -uid "8602B69F-4F11-5CD4-024F-DF8EAE1A8160";
 	setAttr ".i2" -type "float3" 0 1 0 ;
 	setAttr ".no" yes;
 createNode decomposeMatrix -n "LegPVTgPosDM";
-	rename -uid "69581AF5-49A0-F4EB-DC93-82B6128C3173";
+	rename -uid "FF3E280E-4B9F-1B0B-ADC6-F481B5389722";
 createNode multMatrix -n "LegPVTgPosMM";
-	rename -uid "EA4F75E1-478C-B3FC-6444-0FB0060EBF56";
+	rename -uid "84C3F328-4167-20C0-3638-7CBBA7E8C976";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823427425593e-06 -0.99999999999924205 -3.4694469519536142e-18 0
 		 0.99999999999924194 1.2311823429128094e-06 1.5382118322138094e-18 0 -6.2341624917916505e-19 -1.7347234759768071e-18 0.99999999999999989 0
@@ -1952,18 +1972,18 @@ createNode multMatrix -n "LegPVTgPosMM";
 	setAttr ".i[1]" -type "matrix" 1.2311823427161931e-06 0.99999999999924205 1.3205309822143547e-18 0
 		 -0.99999999999924216 1.2311823427424429e-06 0 0 0 0 1 0 9.8666016334831763 -7.9528629209488964 -0.15780977954863018 1;
 createNode decomposeMatrix -n "LegIKMovePosDM";
-	rename -uid "0CF4C28B-46B2-81D1-3EC6-41BB9B91F384";
+	rename -uid "FC61F31B-48BD-6988-42E1-BEB97123B61B";
 createNode multMatrix -n "LegIKMovePosMM";
-	rename -uid "06A6DF29-4F54-A32A-6327-7CA482CF35DD";
+	rename -uid "887F283A-46B3-5844-C1E2-DAA59AF21166";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823427424429e-06 -0.99999999999924216 0 0 0.99999999999924216 1.2311823427424429e-06 0 0
 		 0 0 1 0 7.952850773357155 9.8666114249000998 0.15780977954863018 1;
 	setAttr ".i[1]" -type "matrix" 1.2311823427161931e-06 0.99999999999924205 1.3205309822143547e-18 0
 		 -0.99999999999924216 1.2311823427424429e-06 0 0 0 0 1 0 9.8666016334831763 -7.9528629209488964 -0.15780977954863018 1;
 createNode decomposeMatrix -n "LegPVStretchPosDM";
-	rename -uid "DCF53C0D-4758-000A-75EB-58AF7978AC32";
+	rename -uid "32348078-4915-EFD5-BAF2-7980B83197F8";
 createNode multMatrix -n "LegPVStretchPosMM";
-	rename -uid "BFB74CE8-44EF-812F-3FEB-48B5A8CD74F4";
+	rename -uid "CF6BCEB3-4EEA-847C-1C51-E895BA789E1B";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 0.99999386897955311 -0.0035017143379137993 -3.3881317890172014e-21 0
 		 0.0035015706533142997 0.99995283658664469 0.0090588964715811199 0 -3.1721667660212331e-05 -0.0090588409313016264 0.99995896735551959 0
@@ -1972,9 +1992,9 @@ createNode multMatrix -n "LegPVStretchPosMM";
 		 -0.0035017143379137416 0.99995283658664502 -0.0090588409313016247 0 4.3368086899420177e-19 0.0090588964715811269 0.99995896735551981 0
 		 -7.918251959573249 -53.253434017413703 -1.2133981544160517 1;
 createNode decomposeMatrix -n "Leg1ArcPosDM";
-	rename -uid "B7027DA5-4135-52DC-B084-D9B676E1E6C0";
+	rename -uid "BD8332F8-4700-BF05-BD01-E4933AF28A3B";
 createNode multMatrix -n "Leg1ArcPosMM";
-	rename -uid "2FCE82A6-4F91-D97E-A14B-1D965725FA3D";
+	rename -uid "4CD92DEE-48CA-986C-B145-F3B3D164CA70";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.0035015706533143565 -0.99995283658664469 -0.0090588964715811425 0
 		 0.999993868979553 -0.0035017143379136861 8.6736173798840355e-19 0 -3.1721667660212886e-05 -0.0090588409313016489 0.99995896735551959 0
@@ -1983,9 +2003,9 @@ createNode multMatrix -n "Leg1ArcPosMM";
 		 -0.99995283658664502 -0.0035017143379138388 -0.0090588409313016455 0 -0.0090588964715811425 1.0842021724855044e-19 0.9999589673555197 0
 		 96.619494956712643 -7.9182517180304961 -1.2033980884180897 1;
 createNode decomposeMatrix -n "Leg2ArcPosDM";
-	rename -uid "E0EAB7FC-40FE-B94F-C5A9-96A44408C6D2";
+	rename -uid "12391AAC-4DBF-7EFB-71A0-B98B22836C16";
 createNode multMatrix -n "Leg2ArcPosMM";
-	rename -uid "D479E74D-4BC8-6E0B-B019-D28777F09314";
+	rename -uid "64A01E6E-4813-0728-67B6-B096C1ECD267";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -0.003499540780601551 -0.99937316044198687 -0.035228389155903476 0
 		 0.99999386897955311 -0.0035017143379134641 -3.4694469519536142e-18 0 -0.00012335975540882227 -0.035228173169929253 0.99937928765683359 0
@@ -1994,9 +2014,9 @@ createNode multMatrix -n "Leg2ArcPosMM";
 		 -0.99937316044198699 -0.0035017143379138527 -0.035228173169929253 0 -0.035228389155903483 0 0.99937928765683359 0
 		 53.266686086722309 -7.9182517180304908 0.19085196644482255 1;
 createNode decomposeMatrix -n "Leg3ArcPosDM";
-	rename -uid "96CC7570-4EA0-6586-FCF9-D6A5494FA50E";
+	rename -uid "7AF49C4F-4BDE-867A-761A-99B23BB68CD7";
 createNode multMatrix -n "Leg3ArcPosMM";
-	rename -uid "75D5FD63-41B0-B141-1FF1-9EA2DB10DD30";
+	rename -uid "85E8D4F8-48B4-1EC7-B41F-A9BBA0E45774";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823427424429e-06 -0.99999999999924216 0 0 0.99999999999924216 1.2311823427424429e-06 0 0
 		 0 0 1 0 7.9528505224948782 9.8666087639220521 0.15780965178458195 1;
@@ -2005,84 +2025,84 @@ createNode multMatrix -n "Leg3ArcPosMM";
 		 1.3877804296545615e-16 1.3392590249529741e-16 1.0000000000000002 -3.0814879110195774e-33
 		 9.8665989725054359 -7.9528626700833422 -0.1578096517845822 0.99999999999999989;
 createNode distanceBetween -n "LegDnArcDB";
-	rename -uid "3B4541BF-4418-BD08-EA36-B781590F55C5";
+	rename -uid "5DDDC67F-462B-680E-84F1-869D06995478";
 createNode multDoubleLinear -n "LegArcDistMultML";
-	rename -uid "6E80C3C4-44BC-F347-9550-CFAE0848A3A4";
+	rename -uid "94B0C707-47A2-3A41-E321-298B3A6D4C4C";
 	setAttr ".i2" 3;
 createNode addDoubleLinear -n "LegArcDistSumALAL";
-	rename -uid "E3344A77-42CE-CC95-635F-02BD6F536F4A";
+	rename -uid "F664B851-4239-9D15-A961-EF9963ED8CDA";
 createNode distanceBetween -n "LegUpArcDB";
-	rename -uid "251E64A9-4D65-A3A5-6338-1290C951B41E";
+	rename -uid "F1DB9E1C-408F-4573-C380-F288F79A332A";
 createNode rebuildCurve -n "LegUpArcCrvRC";
-	rename -uid "FA4D2813-4DDD-D05B-28D8-878CF503202B";
+	rename -uid "FB8AE7F2-44E2-CE1D-4F21-3B94FC40476D";
 	setAttr ".s" 2;
 	setAttr ".kr" 0;
 createNode detachCurve -n "LeftLegArcDC";
-	rename -uid "05F89675-43DB-ED83-557B-9CA964106AF1";
+	rename -uid "91C203D6-4C34-38CD-485B-5FB1B8228CE6";
 	setAttr -s 2 ".oc";
 createNode makeThreePointCircularArc -n "LegTPC";
-	rename -uid "E1DA897D-4AF4-C743-F9B6-4CBCBE76F158";
+	rename -uid "39131A3A-49BB-157C-EDDC-6BB53FBDAA09";
 	setAttr ".s" 10;
 createNode setRange -n "LegAngleSR";
-	rename -uid "F865DA98-490F-78E7-28FA-1AB66482BF6B";
+	rename -uid "CD3802C5-41E5-8CB6-6FC7-93BF297F3C37";
 createNode addDoubleLinear -n "LegAngleAL";
-	rename -uid "46F03F3F-44BB-9285-5B13-59BDA7C9FDCD";
+	rename -uid "72E1BE64-4EC2-0AE1-50D0-FAA0CB1D5055";
 createNode unitConversion -n "unitConversion81";
-	rename -uid "4414BA95-451A-F703-C4E9-EF80C0FC4234";
+	rename -uid "89ED5718-4E4E-C8CA-D10C-87A4B6C8BEB5";
 	setAttr ".cf" 57.295779513082323;
 createNode angleBetween -n "LegOutAG";
-	rename -uid "881CC999-4357-DB48-217F-C7836A190732";
+	rename -uid "125FAF13-442F-9598-DB31-DD8374BB5F9D";
 createNode plusMinusAverage -n "LegVec3ToArcPA";
-	rename -uid "DA2CA1E6-4144-5281-2D55-93A15595B424";
+	rename -uid "55E7343A-44E7-3C3E-96E6-B5B9B4CCE69E";
 	setAttr ".op" 2;
 	setAttr -s 2 ".i3";
 	setAttr -s 2 ".i3";
 createNode plusMinusAverage -n "LegVec3To1PA";
-	rename -uid "D35CFDFB-4EAC-7C96-1A95-C0903D07297E";
+	rename -uid "74570CC3-4D2D-5927-F8E4-FD957235ED8B";
 	setAttr ".op" 2;
 	setAttr -s 2 ".i3";
 	setAttr -s 2 ".i3";
 createNode unitConversion -n "unitConversion82";
-	rename -uid "2CB9EA51-4691-D534-0D48-A1990FE09276";
+	rename -uid "A161D286-4105-7034-861E-2CA51368278C";
 	setAttr ".cf" 57.295779513082323;
 createNode angleBetween -n "LegInAG";
-	rename -uid "20AB3598-4EDD-FCDA-48A1-F4820D571E8F";
+	rename -uid "344884FE-4033-64CA-C846-CDA7CBA214B4";
 createNode plusMinusAverage -n "LegVecArcTo1PA";
-	rename -uid "FFB4BB8F-4523-B9C4-BA01-F895CA8D2105";
+	rename -uid "EBF5DCAA-45FF-2EA8-5AB5-7ABF4C728194";
 	setAttr ".op" 2;
 	setAttr -s 2 ".i3";
 	setAttr -s 2 ".i3";
 createNode unitConversion -n "unitConversion83";
-	rename -uid "C45CCE9F-40CA-B48D-F4C7-FD90A99E9772";
+	rename -uid "EAF6AD3C-48B1-9A33-524F-9E96AAA08753";
 	setAttr ".cf" 57.295779513082323;
 createNode rebuildCurve -n "LegDnArcCrvRC";
-	rename -uid "D3984D5E-44F8-CBCD-564B-18A1CE1512CB";
+	rename -uid "230598D7-4A86-CCDD-A3C9-C9A5FE2DCD1A";
 	setAttr ".s" 2;
 	setAttr ".kr" 0;
 createNode decomposeMatrix -n "LegUpIKChkCrvDM";
-	rename -uid "ADF2847F-4922-23B2-E8A6-8AA7E93D0F38";
+	rename -uid "E66D1237-4446-4F82-A16D-C6BB8EF47E27";
 createNode multMatrix -n "LegUpIKChkCrvMM";
-	rename -uid "90D3309E-470A-DCAD-8EE1-3582B48AE5E4";
+	rename -uid "0F244829-4D74-7990-AA78-9493F983E905";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr ".i[1]" -type "matrix" -0.0035015706533121529 0.99999386897955322 -3.1721667660179662e-05 0
 		 -0.99995283658664502 -0.0035017143379138388 -0.0090588409313016455 0 -0.0090588964715811425 1.0842021724855044e-19 0.9999589673555197 0
 		 96.619494956712643 -7.9182517180304961 -1.2033980884180897 1;
 createNode decomposeMatrix -n "LegDnIKChkCrvDM";
-	rename -uid "C8830AAD-44D7-E236-FBD7-C39F50F0B7C2";
+	rename -uid "8672D341-4047-83D4-C5B7-AC8B238DCD1A";
 createNode multMatrix -n "LegDnIKChkCrvMM";
-	rename -uid "0B2D417D-4DF0-F0D0-CD6B-3B871ABCFB8B";
+	rename -uid "650E68FE-49C7-B8DE-5EA8-CC8DD7662074";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
 	setAttr ".i[1]" -type "matrix" -0.003499540780602624 0.99999386897955334 -0.00012335975540888033 0
 		 -0.99937316044198699 -0.0035017143379138527 -0.035228173169929253 0 -0.035228389155903483 0 0.99937928765683359 0
 		 53.266686086722309 -7.9182517180304908 0.19085196644482255 1;
 createNode ikSplineSolver -n "ikSplineSolver";
-	rename -uid "F9ACC87A-455F-560B-9F84-F09039F86646";
+	rename -uid "C482FE65-4FB0-3189-D756-7996035D1C69";
 createNode decomposeMatrix -n "AnkleConsGrpDM";
-	rename -uid "E4114E92-4038-7CD8-5DED-3EA30AB43B00";
+	rename -uid "6F3F8CD8-48A1-10A1-4F5B-B0B52C0D9213";
 createNode multMatrix -n "AnkleConsGrpMM";
-	rename -uid "33FCA13B-4E36-F819-0FD3-F3966F43B869";
+	rename -uid "FFB72E27-475E-101A-5994-909D62DEEFB3";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823427424429e-06 -0.99999999999924216 0 0 0.99999999999924216 1.2311823427424429e-06 0 0
 		 0 0 1 0 7.9528505224948782 9.8666087639220521 0.15780965178458195 1;
@@ -2091,15 +2111,15 @@ createNode multMatrix -n "AnkleConsGrpMM";
 		 1.3877804296545615e-16 1.3392590249529741e-16 1.0000000000000002 -3.0814879110195774e-33
 		 9.8665989725054359 -7.9528626700833422 -0.1578096517845822 0.99999999999999989;
 createNode blendColors -n "AnkleFKScaleBC";
-	rename -uid "DB984900-42B1-8DB1-9857-DCB358E7E3A2";
+	rename -uid "30DE2B0D-45B2-0895-3A79-99B0E4A08F3D";
 	setAttr ".c2" -type "float3" 1 1 1 ;
 createNode blendColors -n "AnkleIKScaleBC";
-	rename -uid "89E71396-47D3-10E3-D040-C08DD7047A09";
+	rename -uid "84273DCE-43A0-2E41-E2E7-B1990CEBF393";
 	setAttr ".c1" -type "float3" 1 1 1 ;
 createNode decomposeMatrix -n "AnkleIKJntGrpDM";
-	rename -uid "C6593258-4227-295E-C0E8-F2BAA5D8C1DC";
+	rename -uid "AD8BE8AC-4B77-5750-E329-A2A01965E3E0";
 createNode multMatrix -n "AnkleIKJntGrpMM";
-	rename -uid "2D6C37F9-48AD-2DB6-D500-47A7CBC72469";
+	rename -uid "3009A34D-48AB-9EC5-E23D-D2897A7A7609";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.2311823425203985e-06 -0.99999999999924238 0 0 0.99999999999924238 1.2311823425203985e-06 0 0
 		 0 0 1 0 7.952850773357155 9.8666114249000714 0.15780977954862979 1;
@@ -2107,9 +2127,9 @@ createNode multMatrix -n "AnkleIKJntGrpMM";
 		 -0.99999999999924205 1.2311823425203983e-06 -1.7347234759768071e-17 0 -6.9389021799755108e-18 -6.7220449263613834e-18 1.0000000000000002 0
 		 9.8666016334831461 -7.9528629209488964 -0.15780977954862968 1;
 createNode decomposeMatrix -n "BallIKCtrlPrtGrpDM";
-	rename -uid "160F9DD7-4F9F-5BC9-87A5-E6A5980363D2";
+	rename -uid "355F0377-40B3-6029-0A14-339536404F61";
 createNode multMatrix -n "BallIKCtrlPrtGrpMM";
-	rename -uid "AC497FCE-4E43-05CF-D67E-1E89326A6AA1";
+	rename -uid "60445739-41F3-B1F7-D414-29AAEFF72483";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 5.5128134065263114e-07 -0.44776579521410714 0.89415087800436366 0
 		 0.99999999999924238 1.2311823425203985e-06 0 0 -1.1008627725480834e-06 0.8941508780036862 0.44776579521444637 0
@@ -2118,9 +2138,9 @@ createNode multMatrix -n "BallIKCtrlPrtGrpMM";
 		 -0.44776579521410692 1.231182342409376e-06 0.89415087800368587 0 0.89415087800436377 -5.5511151231257827e-17 0.44776579521444643 0
 		 4.2768209735396727 -7.9528629209488919 -8.892892334930492 1;
 createNode decomposeMatrix -n "BallIKCtrlGrpDM";
-	rename -uid "ED314D64-4A91-2A37-FCEC-18A073EAAE8B";
+	rename -uid "6BD7D35F-45BF-C49F-71CA-488DF0450C8E";
 createNode multMatrix -n "BallIKCtrlGrpMM";
-	rename -uid "8F529E00-4460-4160-0F27-59AF3CA15909";
+	rename -uid "071BC64B-41B7-978F-9C73-79B987BA5F2F";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1.0587911840678754e-22 -2.2204460492503131e-16 1 0
 		 0.99999999999924227 1.2311823425203983e-06 0 0 -1.2311823425203981e-06 0.99999999999924205 2.2204460492503131e-16 0
@@ -2129,9 +2149,9 @@ createNode multMatrix -n "BallIKCtrlGrpMM";
 		 2.7755555102713874e-16 1.2311823425203976e-06 0.99999999999924183 0 1 0 -2.7755575615628914e-16 0
 		 -13.609517607959541 -7.9528629209478687 -3.1303619216552994 1;
 createNode decomposeMatrix -n "BallFKJntDM";
-	rename -uid "59F17088-42B1-4F8D-E072-86893D7E9446";
+	rename -uid "5278233E-4F2A-91C2-1C61-0F99C5D91E0E";
 createNode multMatrix -n "BallFKJntMM";
-	rename -uid "46136042-403A-F86B-DC6D-DCA22C120CCA";
+	rename -uid "DD5C4D66-44B2-D2F4-2FD0-77A788AE16A0";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" -3.1763735522036263e-22 2.7755575615628914e-16 1 0
 		 0.99999999999924238 1.2311823425203985e-06 0 0 -1.2311823425203985e-06 0.99999999999924238 -2.7755575615628914e-16 0
@@ -2140,39 +2160,39 @@ createNode multMatrix -n "BallFKJntMM";
 		 1.6210841920564715e-20 1.2311821905863771e-06 0.99999999999924194 0 0.99999999999999978 -1.3433698597964394e-14 -2.7755575615628914e-17 0
 		 -13.609517607959644 -7.9528629209472133 -3.1303619216565117 1;
 createNode quatToEuler -n "BallFKJntQE";
-	rename -uid "4ED6151A-41D0-B936-3FCA-9A92049FD622";
+	rename -uid "176B7636-4D5C-FFA4-D12D-0F85CABB4309";
 createNode quatProd -n "BallFKJntQP";
-	rename -uid "0A4155A0-4C6B-65CC-02EE-22AA1E972342";
+	rename -uid "81367C0D-4067-BB8C-C953-B4A704A13884";
 createNode quatInvert -n "BallFKJntQI";
-	rename -uid "49F601CE-4721-C9B8-7A6E-2FA372C2C596";
+	rename -uid "24A00535-44BD-AFE2-A310-8781838290C6";
 createNode eulerToQuat -n "BallFKJntEQ";
-	rename -uid "477A85C7-476D-47FA-7953-08A483DEA4BA";
+	rename -uid "16E8EE82-4B72-EF71-DB59-9A93893F5DCA";
 createNode blendColors -n "AnkleDrvJntTrsBC";
-	rename -uid "D7AC77F8-49F1-FD56-D81E-F48F7F86A659";
+	rename -uid "75531A3C-4719-BA18-CE44-AB8CAC96A717";
 createNode pairBlend -n "AnkleDrvJntRotPB";
-	rename -uid "28CF2BF4-4B63-7951-EB00-4FAEE705337A";
+	rename -uid "F79E74C7-4DB5-699A-BD82-63AE3152CC20";
 	setAttr ".ri" 1;
 createNode blendColors -n "BallDrvJntTrsBC";
-	rename -uid "26CB27F5-4F8A-48B6-58C1-7AA7947CFC02";
+	rename -uid "766A8225-4769-11D1-A526-9998B62D43F6";
 createNode decomposeMatrix -n "BallTrsDM";
-	rename -uid "80314611-4EB5-0ED7-33A0-73A56588479E";
+	rename -uid "FD0FB1C2-497E-F9CD-10C2-9B9E66E7D2D7";
 createNode multMatrix -n "BallTrsMM";
-	rename -uid "70B0DE56-4186-B07B-0161-E98D58EA6CB3";
+	rename -uid "9B66D1C3-43FE-910A-89C1-3583218B2142";
 	setAttr -s 2 ".i";
 createNode pairBlend -n "BallDrvJntRotPB";
-	rename -uid "90FF3DE1-4698-65BC-443F-1AA10F516249";
+	rename -uid "9EE8AD86-4AD2-9CC1-344D-AE8D12E9E4EC";
 	setAttr ".ri" 1;
 createNode decomposeMatrix -n "BallRotDM";
-	rename -uid "7693E498-4F4A-8D21-DE27-AF939B3A3175";
+	rename -uid "AE00A2FA-479C-45AA-1573-45B819054B00";
 createNode multMatrix -n "BallRotMM";
-	rename -uid "91AC2461-4F42-7045-6592-A9AF0E5FB4FD";
+	rename -uid "73CF049C-4B38-DACD-FB57-ACA49A84C23B";
 	setAttr -s 3 ".i";
 createNode inverseMatrix -n "BallIKJntOrIM";
-	rename -uid "604246E1-4BB1-AD04-0FA7-E2A5464663D5";
+	rename -uid "26F2530E-425F-3C75-50A0-CAA97A951AE8";
 	setAttr ".omat" -type "matrix" 0.89415087800436344 0 -0.4477657952144467 0 0 1 0 0
 		 0.4477657952144467 0 0.89415087800436366 0 0 0 0 1;
 createNode composeMatrix -n "BallIKJntOrCM";
-	rename -uid "D08D6415-4C23-95E3-F38C-C18539C4FF99";
+	rename -uid "9802BDCA-43F2-58EF-7EA8-E89A5C707BCA";
 	setAttr ".omat" -type "matrix" 0.89415087800436355 0 0.44776579521444665 0 0 1 0 0
 		 -0.44776579521444665 0 0.89415087800436355 0 0 0 0 1;
 select -ne :time1;
@@ -2248,7 +2268,6 @@ select -ne :defaultRenderUtilityList1;
 	setAttr -cb on ".ihi";
 	setAttr -av -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr -s 2 ".u";
 select -ne :defaultRenderingList1;
 	setAttr -k on ".ihi";
 select -ne :initialShadingGroup;
@@ -2282,6 +2301,104 @@ select -ne :initialParticleSE;
 	setAttr -k on ".fo";
 	setAttr -k on ".epo";
 	setAttr ".ro" yes;
+select -ne :defaultRenderGlobals;
+	setAttr -av -k on ".cch";
+	setAttr -cb on ".ihi";
+	setAttr -av -k on ".nds";
+	setAttr -cb on ".bnm";
+	setAttr -av -k on ".macc";
+	setAttr -av -k on ".macd";
+	setAttr -av -k on ".macq";
+	setAttr -av -k on ".mcfr";
+	setAttr -cb on ".ifg";
+	setAttr -av -k on ".clip";
+	setAttr -av -k on ".edm";
+	setAttr -av -k on ".edl";
+	setAttr -av ".ren" -type "string" "arnold";
+	setAttr -av -k on ".esr";
+	setAttr -av -k on ".ors";
+	setAttr -cb on ".sdf";
+	setAttr -av ".outf";
+	setAttr -av ".imfkey";
+	setAttr -av -k on ".gama";
+	setAttr -av -k on ".exrc";
+	setAttr -av -k on ".expt";
+	setAttr -av -k on ".an";
+	setAttr -cb on ".ar";
+	setAttr -av -k on ".fs";
+	setAttr -av -k on ".ef";
+	setAttr -av -k on ".bfs";
+	setAttr -av -cb on ".me";
+	setAttr -cb on ".se";
+	setAttr -av -k on ".be";
+	setAttr -av -cb on ".ep";
+	setAttr -av -k on ".fec";
+	setAttr -av -k on ".ofc";
+	setAttr -cb on ".ofe";
+	setAttr -cb on ".efe";
+	setAttr -cb on ".oft";
+	setAttr -cb on ".umfn";
+	setAttr -cb on ".ufe";
+	setAttr -av ".pff";
+	setAttr -av -k on ".peie";
+	setAttr -av -k on ".ifp";
+	setAttr -k on ".rv";
+	setAttr -av -k on ".comp";
+	setAttr -av -k on ".cth";
+	setAttr -av -k on ".soll";
+	setAttr -av -cb on ".sosl";
+	setAttr -av -k on ".rd";
+	setAttr -av -k on ".lp";
+	setAttr -av -k on ".sp";
+	setAttr -av -k on ".shs";
+	setAttr -av -k on ".lpr";
+	setAttr -cb on ".gv";
+	setAttr -cb on ".sv";
+	setAttr -av -k on ".mm";
+	setAttr -av -k on ".npu";
+	setAttr -av -k on ".itf";
+	setAttr -av -k on ".shp";
+	setAttr -cb on ".isp";
+	setAttr -av -k on ".uf";
+	setAttr -av -k on ".oi";
+	setAttr -av -k on ".rut";
+	setAttr -av -k on ".mot";
+	setAttr -av -k on ".mb";
+	setAttr -av -k on ".mbf";
+	setAttr -av -k on ".mbso";
+	setAttr -av -k on ".mbsc";
+	setAttr -av -k on ".afp";
+	setAttr -av -k on ".pfb";
+	setAttr -av ".pram";
+	setAttr -av ".poam";
+	setAttr -av ".prlm";
+	setAttr -av ".polm";
+	setAttr -av ".prm";
+	setAttr -av ".pom";
+	setAttr -av -k on ".bll";
+	setAttr -av -k on ".bls";
+	setAttr -av -k on ".smv";
+	setAttr -av -k on ".ubc";
+	setAttr -av -k on ".mbc";
+	setAttr -cb on ".mbt";
+	setAttr -av -k on ".udbx";
+	setAttr -av -k on ".smc";
+	setAttr -av -k on ".kmv";
+	setAttr -cb on ".isl";
+	setAttr -cb on ".ism";
+	setAttr -cb on ".imb";
+	setAttr -av -k on ".rlen";
+	setAttr -av -k on ".frts";
+	setAttr -av -k on ".tlwd";
+	setAttr -av -k on ".tlht";
+	setAttr -av -k on ".jfc";
+	setAttr -cb on ".rsb";
+	setAttr -av -k on ".ope";
+	setAttr -av -k on ".oppf";
+	setAttr -av -k on ".rcp";
+	setAttr -av -k on ".icp";
+	setAttr -av -k on ".ocp";
+	setAttr -cb on ".hbl";
 select -ne :defaultResolution;
 	setAttr -av -k on ".cch";
 	setAttr -av -k on ".ihi";
@@ -2306,19 +2423,19 @@ select -ne :hardwareRenderGlobals;
 	setAttr -cb on ".bnm";
 	setAttr -av ".ctrs" 256;
 	setAttr -av ".btrs" 512;
-	setAttr -av -k off ".fbfm";
+	setAttr -av -k off -cb on ".fbfm";
 	setAttr -av -k off -cb on ".ehql";
 	setAttr -av -k off -cb on ".eams";
-	setAttr -av -k off ".eeaa";
-	setAttr -av -k off ".engm";
-	setAttr -av -k off ".mes";
-	setAttr -av -k off ".emb";
-	setAttr -av -k off ".mbbf";
-	setAttr -av -k off ".mbs";
-	setAttr -av -k off ".trm";
+	setAttr -av -k off -cb on ".eeaa";
+	setAttr -av -k off -cb on ".engm";
+	setAttr -av -k off -cb on ".mes";
+	setAttr -av -k off -cb on ".emb";
+	setAttr -av -k off -cb on ".mbbf";
+	setAttr -av -k off -cb on ".mbs";
+	setAttr -av -k off -cb on ".trm";
 	setAttr -av -k off -cb on ".tshc";
-	setAttr -av -k off ".enpt";
-	setAttr -av -k off ".clmt";
+	setAttr -av -k off -cb on ".enpt";
+	setAttr -av -k off -cb on ".clmt";
 	setAttr -av -k off -cb on ".tcov";
 	setAttr -av -k off -cb on ".lith";
 	setAttr -av -k off -cb on ".sobc";
@@ -2326,8 +2443,8 @@ select -ne :hardwareRenderGlobals;
 	setAttr -av -k off -cb on ".hgcd";
 	setAttr -av -k off -cb on ".hgci";
 	setAttr -av -k off -cb on ".mgcs";
-	setAttr -av -k off ".twa";
-	setAttr -av -k off ".twz";
+	setAttr -av -k off -cb on ".twa";
+	setAttr -av -k off -cb on ".twz";
 	setAttr -k on ".hwcc";
 	setAttr -k on ".hwdp";
 	setAttr -k on ".hwql";
@@ -2338,12 +2455,6 @@ select -ne :hardwareRenderGlobals;
 	setAttr -k on ".shml";
 	setAttr -k on ".hwel";
 select -ne :ikSystem;
-	setAttr -k on ".cch";
-	setAttr -k on ".ihi";
-	setAttr -k on ".nds";
-	setAttr -k on ".bnm";
-	setAttr -av -k on ".gsn";
-	setAttr -k on ".gsv";
 	setAttr -s 3 ".sol";
 connectAttr "LegCtrlGrp.msg" "LegRigGrp.Grp[0]";
 connectAttr "LegSysGrp.msg" "LegRigGrp.Grp[1]";
@@ -3296,10 +3407,10 @@ connectAttr "BallIKJnt.jo" "BallIKJntOrCM.ir";
 connectAttr "ikSCsolver.msg" ":ikSystem.sol" -na;
 connectAttr "ikRPsolver.msg" ":ikSystem.sol" -na;
 connectAttr "ikSplineSolver.msg" ":ikSystem.sol" -na;
+dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
 dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
 dataStructure -fmt "raw" -as "name=faceConnectOutputStructure:bool=faceConnectOutput:string[200]=faceConnectOutputAttributes:string[200]=faceConnectOutputGroups";
-dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
-dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
-dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
 dataStructure -fmt "raw" -as "name=FBXFastExportSetting_MB:string=19424";
+dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
+dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
 // End of Leg.ma

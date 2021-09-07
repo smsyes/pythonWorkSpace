@@ -54,3 +54,11 @@ def change_name(oldName_, newName_):
         for sel in sel_:
             changeName = sel.replace(oldName_, newName_)
             sel.rename(changeName)
+
+def namespaceConvert(object_, prefix):
+    object_ = PyNode(object_)
+    selns = object_.namespace()
+    nls_ = namespaceInfo(selns,ls=1, lod=1)
+    for i in nls_:
+        new_ = i.name().replace(selns, prefix)
+        rename(i, new_)

@@ -36,30 +36,30 @@ class BuildControl():
     def BRControl(self, prefix, Mode_):
         CNTData = self.importCNTInfo()
 
-        Module = CNTData["Module"]
+        BuildType = CNTData["BuildType"]
+        buildMode = BuildType[Mode_]
+        Module = buildMode["Module"]
+
         Modules_ = Module.keys()
         for mod in Modules_:
             MData = Module[mod]
             if self.object_.getAttr('Module') == str(mod):
                 for item in MData["Item"]:
-                    item_ = PyNode('{}:{}'.format(prefix, str(item)))
                     for target in MData["Target"][item]:
-                        target_ = PyNode('{}:{}'.format("prefix", str(target)))
+                        if Mode_ == "Build":
+                            item_ = PyNode('{}:{}'.format(prefix, str(item)))
+                            target_ = PyNode('{}:{}'.format("Set", str(target)))
+                        elif Mode_ == "Rebuild":
+                            item_ = PyNode('{}{}'.format(prefix, str(item)))
+                            target_ = PyNode('{}:{}'.format(prefix, str(target)))
                         type_ = MData["Data"][item][target]["Type"]
                         attr_ = MData["Data"][item][target]["Attr"]
-                        if Mode_ == 'Build':
-                            if type_ == "Local":
-                                _matrix.MTransform(item_, target_, attr_)
+                        
+                        if type_ == "Local":
+                            _matrix.MTransform(item_, target_, attr_)
+                            
+                        if type_ == "Connect":
+                            getAttr_ = item_.getAttr(attr_[0])
+                            targetAttr_ = target_.attr(attr_[0])
+                            targetAttr_.set(getAttr_)
                                 
-                            if type_ == "Connect":
-                                getAttr_ = item_.getAttr(attr_[0])
-                                targetAttr_ = target_.attr(attr_[0])
-                                targetAttr_.set(getAttr_)
-                        if Mode_ == 'ReBuild':
-                            if type_ == "Local":
-                                _matrix.MTransform(item_, target_, attr_)
-                                
-                            if type_ == "Connect":
-                                getAttr_ = item_.getAttr(attr_[0])
-                                targetAttr_ = target_.attr(attr_[0])
-                                targetAttr_.set(getAttr_)
