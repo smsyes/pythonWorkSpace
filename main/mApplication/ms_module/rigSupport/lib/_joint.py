@@ -32,7 +32,7 @@ def hierarchy_(object_, type_=None):
     return hier_
 
 def joint_(_name):
-    return joint(n='{}_JNT'.format(_name))
+    return joint(n='{}Jnt'.format(_name))
 
 
 def _joint(joint_, **kwargs):

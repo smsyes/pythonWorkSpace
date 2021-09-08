@@ -40,16 +40,16 @@ def make_name(object_, name_):
     if object_:
         for i,obj in enumerate(object_):
             pad_ = padding(i+1)
-            makeName_ = '{}_{}'.format(name_,pad_)
+            makeName_ = '{}{}'.format(name_,pad_)
             obj.rename(makeName_)
 
 def append_name(object_, name_, mode=None):
     if object_:
         for obj in object_:
             if mode ==0:
-                obj.rename('{}_{}'.format(name_,obj))
+                obj.rename('{}{}'.format(name_,obj))
             if mode ==1:
-                obj.rename('{}_{}'.format(obj,name_))
+                obj.rename('{}{}'.format(obj,name_))
 
 def change_name(oldName_, newName_):
     sel_ = ls(sl=1,r=1,fl=1)
@@ -72,3 +72,6 @@ def namespaceConvert(object_, prefix):
         addAttr(object_, longName="Prefix",dataType="string")
         prefixAttr = object_.attr("Prefix")
         prefixAttr.set(prefix)
+
+def sumN(*args):
+    return ''.join(args)
