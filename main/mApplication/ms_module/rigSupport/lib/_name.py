@@ -17,6 +17,9 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
+from lib import _check
+
+reload(_check)
 
 def padding(num_):
     pad_ = str(num_).zfill(2)
@@ -57,8 +60,15 @@ def change_name(oldName_, newName_):
 
 def namespaceConvert(object_, prefix):
     object_ = PyNode(object_)
-    selns = object_.namespace()
-    nls_ = namespaceInfo(selns,ls=1, lod=1)
-    for i in nls_:
-        new_ = i.name().replace(selns, prefix)
-        rename(i, new_)
+    if _check.checkAttr(object_, 'Prefix'):
+        pass
+    else:
+        selns = object_.namespace()
+        nls_ = namespaceInfo(selns,ls=1, lod=1)
+        for i in nls_:
+            new_ = i.name().replace(selns, prefix)
+            rename(i, new_)
+        namespace(rm=selns)
+        addAttr(object_, longName="Prefix",dataType="string")
+        prefixAttr = object_.attr("Prefix")
+        prefixAttr.set(prefix)

@@ -48,7 +48,7 @@ class BuildControl():
                     for target in MData["Target"][item]:
                         if Mode_ == "Build":
                             item_ = PyNode('{}:{}'.format(prefix, str(item)))
-                            target_ = PyNode('{}:{}'.format("Set", str(target)))
+                            target_ = PyNode('{}{}'.format(prefix, str(target)))
                         elif Mode_ == "Rebuild":
                             item_ = PyNode('{}{}'.format(prefix, str(item)))
                             target_ = PyNode('{}:{}'.format(prefix, str(target)))

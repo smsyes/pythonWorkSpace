@@ -1,6 +1,6 @@
 //Maya ASCII 2018ff09 scene
 //Name: FitLeg.ma
-//Last modified: Tue, Sep 07, 2021 03:43:45 PM
+//Last modified: Tue, Sep 07, 2021 06:45:55 PM
 //Codeset: 949
 requires maya "2018ff09";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
@@ -89,7 +89,7 @@ createNode joint -n "FitAnkle" -p "FitKnee";
 	setAttr ".radi" 1.5;
 createNode transform -n "HeelPos" -p "FitAnkle";
 	rename -uid "105CFCD9-4736-C9AF-7B08-AAB7B0F49DF1";
-	setAttr ".t" -type "double3" 0 -1 -1 ;
+	setAttr ".t" -type "double3" 1 -2.2204460492503131e-16 0 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000009 1 ;
 createNode locator -n "HeelPosShape" -p "HeelPos";
 	rename -uid "8031A9D9-4624-E93D-6030-F190959FDA6F";

@@ -223,84 +223,36 @@
         "Rebuild":{
             "Module":{
                 "Arm":{
-                    "Item":["LegRootCtrlGrp","Leg1DrvJnt","Leg2DrvJnt","Leg3DrvJnt","AnkleDrvJnt",
-                        "BallDrvJnt","ToeMvPivPos","HeelMvPivPos","FootInPivPos","FootOutPivPos"],
+                    "Item":["ClavicleCtrlPoser","Arm1DrvJnt","Arm2DrvJnt","Arm3DrvJnt"],
                     "Target":{
-                        "ScapulaJnt":["ClavicleCtrlPoser"],
-                        "ShoulderJnt":["ShoulderFKPoser","Arm1IKJntPoser","ArmIK1Pos","ArmPVSysPoser","Arm2IKJnt"],
-                        "ElbowJnt":["ElbowFKPoser","ArmPoleVectorCtrlPoser","ArmPVPosPoser","ArmIK2Pos","Arm3IKJnt"],
-                        "WristJnt":["WristFKPoser","ArmIKCtrlPoser","ArmIK3Pos"],
-                        "FitWrist":["ArmIKCtrlPoser"]
+                        "ClavicleCtrlPoser":["FitScapula"],
+                        "Arm1DrvJnt":["FitShoulder"],
+                        "Arm2DrvJnt":["FitElbow"],
+                        "Arm3DrvJnt":["FitWrist"]
                     },
                     "Data":{
-                        "ScapulaJnt":{
-                            "ClavicleCtrlPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r","s"]
-                            }
-                        },
-                        "ShoulderJnt":{
-                            "ShoulderFKPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "Arm1IKJntPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "ArmIK1Pos":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "ArmPVSysPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "Arm2IKJnt":{
-                                "Type":"Connect",
-                                "Attr":["Length"]
-                            }
-                        },
-                        "ElbowJnt":{
-                            "ElbowFKPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "ArmPoleVectorCtrlPoser":{
-                                "Type":"Local",
-                                "Attr":["t"]
-                            },
-                            "ArmPVPosPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "ArmIK2Pos":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "Arm3IKJnt":{
-                                "Type":"Connect",
-                                "Attr":["Length"]
-                            }
-                        },
-                        "WristJnt":{
-                            "WristFKPoser":{
-                                "Type":"Local",
-                                "Attr":["t","r"]
-                            },
-                            "ArmIKCtrlPoser":{
-                                "Type":"Local",
-                                "Attr":["t"]
-                            },
-                            "ArmIK3Pos":{
+                        "ClavicleCtrlPoser":{
+                            "FitScapula":{
                                 "Type":"Local",
                                 "Attr":["t","r"]
                             }
                         },
-                        "FitWrist":{
-                            "ArmIKCtrlPoser":{
+                        "Arm1DrvJnt":{
+                            "FitShoulder":{
                                 "Type":"Local",
-                                "Attr":["r"]
+                                "Attr":["t","r"]
+                            }
+                        },
+                        "Arm2DrvJnt":{
+                            "FitElbow":{
+                                "Type":"Local",
+                                "Attr":["t","r"]
+                            }
+                        },
+                        "Arm3DrvJnt":{
+                            "FitWrist":{
+                                "Type":"Local",
+                                "Attr":["t","r"]
                             }
                         }
                     }
@@ -324,7 +276,7 @@
                         "LegRootCtrlGrp":{
                             "FitLegRoot":{
                                 "Type":"Local",
-                                "Attr":["t","s"]
+                                "Attr":["t","r"]
                             }
                         },
                         "Leg1DrvJnt":{

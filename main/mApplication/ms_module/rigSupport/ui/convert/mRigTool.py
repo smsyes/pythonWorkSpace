@@ -188,11 +188,12 @@ class myUIClass(QWidget):
         return ref, fNode
 
     
-    def setModule(self, fileName_):
+    def setModule(self, prefix, fileName_):
         if fileName_ in self.set_:
             path_ = os.path.join(self.setDir, fileName_)
             ref, fNode = self.refImport(prefix_="Set", dir_=path_)
             ref.importContents()
+            _name.namespaceConvert(fNode, prefix)
         else:
             print ("The {0} file does not exist in the path.".format(fileName_))
             print ("path : {0}".format(self.setDir))
@@ -229,28 +230,24 @@ class myUIClass(QWidget):
     def build_(self):
         object_, namespace_, fileName_ = self.getName_()
         fileName_ = fileName_.split('Fit')[-1]
-        # dir_ = referenceQuery(object_, filename=True)
-        # refNode = referenceQuery(dir_, referenceNode=True)
-        set_ = self.setModule(fileName_)
-        buildCtrl.BuildControl(object_, namespace_, "Build")
-        if _check.checkAttr(set_, 'Prefix'):
-            pass
+        if _check.checkAttr(object_, 'RebuildMode'):
+            attr_ = object_.attr("RebuildMode")
+            set_ = PyNode(attr_.listConnections()[0])
+            set_.setAttr('v',1)
         else:
-            addAttr(set_, longName="Prefix",dataType="string")
-            prefixAttr = set_.attr("Prefix")
-            prefixAttr.set(namespace_)
-            
+            set_ = self.setModule(namespace_, fileName_)
+        buildCtrl.BuildControl(object_, namespace_, "Build")
         object_.referenceFile().remove()
-        setns_ = set_.namespace()
         _name.namespaceConvert(set_, namespace_)
-        namespace(rm=setns_)
         
 
     def rebuild_(self):
         object_, namespace_, fileName_ = self.getName_()
+        object_.setAttr('v', 0)
         fileName_ = 'Fit{}'.format(fileName_)
         ref, fNode = self.fitModule(namespace_, fileName_)
         buildCtrl.BuildControl(object_, namespace_, "Rebuild")
+        _attribute.message_(ls(object_, fNode),"RebuildMode")
 
     
     def print_base_prefix(self):
