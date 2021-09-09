@@ -23,6 +23,27 @@ from lib import _transform
 reload(_connect)
 reload(_transform)
 
+def objectSpace_(object_,**kwargs):
+    result = []
+    for i,obj in enumerate(object_):
+        spcs = []
+        if 1 == len(object_):
+            num = ''
+        else:
+            num = i+1
+        for i,t in enumerate(kwargs['typ']):
+            name_ = '{}{}{}'.format(kwargs['n'],num,t)
+            spc = createNode('transform', n=name_, p=obj)
+            parent(spc,w=1)
+            if i>0:
+                parent(spc, spcs[i-1])
+            spcs.append(spc)
+        if kwargs['p'] is not None:
+            if obj.getParent():
+                parent(spcs[0], obj.getParent())
+            parent(obj, spcs[-1])
+        result.append(spcs[0])
+    return result
 
 def space_(name_, parent_=None):
     space_ = createNode('transform',
@@ -35,13 +56,12 @@ def locator_(object_):
     _transform.set_transform_(ls(object_,loc_))
     return loc_
 
-def insert_space(object_, 
-                 type_):
+def insert_space(object_, type_):
     if object_.getParent():
         parent_ = object_.getParent()
     else:
         parent_ = None
-    name_ = '{}_{}'.format(object_, type_)
+    name_ = '{}{}'.format(object_, type_)
     NULL_ = space_(name_, parent_)
     parent(object_, NULL_)
     return NULL_
@@ -115,3 +135,14 @@ def attributes(object_, attr):
 
 def inputNode(object_, **kwargs):
     return object_.listHistory(**kwargs)
+    
+def chain_structure(object_):
+    childList = object_[1:]
+    parentList = object_[:-1]
+    
+    for i,child in enumerate(childList):
+        if parentList[i].listRelatives(ad=1):
+            parent_ = parentList[i].listRelatives(ad=1)[0]
+        else:
+            parent_ = parentList[i]
+        parent(child, parent_)

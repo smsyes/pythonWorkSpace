@@ -22,7 +22,7 @@ from lib import _check
 reload(_check)
 
 def padding(num_):
-    pad_ = str(num_).zfill(2)
+    pad_ = str(num_).zfill(1)
     return pad_
 
 def renamer(object_,
@@ -75,3 +75,22 @@ def namespaceConvert(object_, prefix):
 
 def sumN(*args):
     return ''.join(args)
+
+def renamer_(**kwargs):
+    result = []
+    n_ = sf_ = pf_ = pad_ = ''
+    if kwargs['n']:
+        n_ = kwargs['n']
+    if kwargs['sf']:
+        sf_ = kwargs['sf']
+    if kwargs['pf']:
+        pf_ = kwargs['pf']
+    for num,obj in enumerate(kwargs['i']):
+        if 1<len(kwargs['i']):
+            pad_ = padding(num+1)
+        else:
+            pad_ = ''
+        newName_ = sumN(pf_, n_, pad_, sf_)
+        rnobj_ = rename(obj, newName_)
+        result.append(rnobj_)
+    return result

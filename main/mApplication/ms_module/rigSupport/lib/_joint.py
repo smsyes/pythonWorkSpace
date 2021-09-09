@@ -132,3 +132,12 @@ def object_at_joint(object_):
         parent(JNT, w=1)
         JNTList.append(JNT)
     return JNTList
+
+def reAngle(joint_):
+    for jnt in joint_:
+        if jnt.getAngleX()<0:
+            jnt.setAngleX(jnt.getAngleX()*-1)
+        if jnt.getAngleY()<0:
+            jnt.setAngleY(jnt.getAngleY()*-1)
+        if jnt.getAngleZ()<0:
+            jnt.setAngleZ(jnt.getAngleZ()*-1)
