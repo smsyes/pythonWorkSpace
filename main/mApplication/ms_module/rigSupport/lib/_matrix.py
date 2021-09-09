@@ -118,3 +118,43 @@ def matrixConsts(object_, type_, **kwargs):
     items, targets = _transform.divide_in_two(object_)
     for i,target in enumerate(targets):
         matrixConst(items[i], target, type_, **kwargs)
+
+def connectQuat(
+                item_,
+                target_,
+                MM,
+                DM,
+                EQ,
+                QI,
+                QP,
+                QE
+                ):
+    item_.wm >> MM.matrixIn[0]
+    target_.pim >> MM.matrixIn[1]
+    MM.matrixSum >> DM.inputMatrix
+    target_.jo >> EQ.inputRotate
+    EQ.outputQuat >> QI.inputQuat
+    DM.outputQuat >> QP.input1Quat
+    QI.outputQuat >> QP.input2Quat
+    QP.outputQuat >> QE.inputQuat
+    DM.ot >> target_.t
+    QE.outputRotate >> target_.r
+    
+def createQM(object_, name_):
+    localMMNode = _node.multMatrix_(name_)
+    localDMNode = _node.decompose_(name_)
+    jointOrietnEQNode = _node.eularToQuat_(name_)
+    QINode = _node.quatInvert_(name_)
+    Quat2Mult = _node.quatProd_(name_)
+    QENode = _node.quatToEuler_(name_)
+    connectQuat(
+                object_[0],
+                object_[1],
+                localMMNode,
+                localDMNode,
+                jointOrietnEQNode,
+                QINode,
+                Quat2Mult,
+                QENode
+                )
+

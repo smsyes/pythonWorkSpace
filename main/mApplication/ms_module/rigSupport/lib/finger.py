@@ -1,9 +1,9 @@
 from collections import OrderedDict
 from pymel.core import *
-from rigSupport.lib import _joint
-from rigSupport.lib import _name
-from rigSupport.lib import _node
-from rigSupport.lib import _matrix
+from lib import _joint
+from lib import _name
+from lib import _node
+from lib import _matrix
 
 reload(_joint)
 reload(_name)
@@ -65,6 +65,17 @@ for i,IK in enumerate(IKJnt_[:-1]):
 for i,ctrl in enumerate(CtrlPos_[1:]):
     MTPos_[i][0].t >> ctrl.t
     MTPos_[i][0].r >> ctrl.r
+
+# joint matrix constraint
+for i,item in enumerate(Ctrl_):
+    item = item[-1]
+    Jnts_ = ls(RootJnt_, Jnt_)
+    _matrix.createQM(ls(item, Jnts_[i]), base)
+    item.s >> Jnts_[i].s
+
+
+
+
 
 
 

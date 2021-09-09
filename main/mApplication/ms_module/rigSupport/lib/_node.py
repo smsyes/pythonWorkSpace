@@ -146,3 +146,15 @@ def chain_structure(object_):
         else:
             parent_ = parentList[i]
         parent(child, parent_)
+
+def eularToQuat_(name_):
+    return shadingNode('eulerToQuat', au=1, n='{}EQ'.format(name_))
+
+def quatInvert_(name_):
+    return shadingNode('quatInvert', au=1, n='{}QI'.format(name_))
+
+def quatProd_(name_):
+    return shadingNode('quatProd', au=1, n='{}QP'.format(name_))
+    
+def quatToEuler_(name_):
+    return shadingNode('quatToEuler', au=1, n='{}QE'.format(name_))
