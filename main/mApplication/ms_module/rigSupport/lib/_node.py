@@ -42,7 +42,7 @@ def objectSpace_(object_,**kwargs):
             if obj.getParent():
                 parent(spcs[0], obj.getParent())
             parent(obj, spcs[-1])
-        result.append(spcs[0])
+        result.append(spcs)
     return result
 
 def space_(name_, parent_=None):
