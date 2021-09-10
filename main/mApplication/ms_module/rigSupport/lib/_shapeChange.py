@@ -26,6 +26,7 @@ def shapeChange(object_):
         dup_item = duplicate(item, rr=1)
         itemShape = dup_item[0].getShape()
         shape_ = target.getShape()
-        delete(shape_)
+        if shape_:
+            delete(shape_)
         parent(itemShape, target, r=1, s=1)
         delete(dup_item)

@@ -7,11 +7,13 @@ import os
 from lib import _transform
 from lib import _matrix
 from lib import _node
+from lib import _joint
 import _path
 
 reload(_transform)
 reload(_matrix)
 reload(_node)
+reload(_joint)
 
 
 class BuildControl():
@@ -54,6 +56,10 @@ class BuildControl():
                             target_ = PyNode('{}:{}'.format(prefix, str(target)))
                         type_ = MData["Data"][item][target]["Type"]
                         attr_ = MData["Data"][item][target]["Attr"]
+                        ik_ = MData["Data"][item][target]["IK"]
+                        PV_ = MData["Data"][item][target]["PV"]
+                        parent_ = MData["Data"][item][target]["Parent"]
+                        delete_ = MData["Data"][item][target]["Delete"]
                         
                         if type_ == "Local":
                             _matrix.MTransform(item_, target_, attr_)
@@ -62,4 +68,10 @@ class BuildControl():
                             getAttr_ = item_.getAttr(attr_[0])
                             targetAttr_ = target_.attr(attr_[0])
                             targetAttr_.set(getAttr_)
-                                
+                        
+                        if ik_ == "RP":
+                            IKJnt_ = _joint.hierarchy_(target_, type_='joint')
+                            _joint.RPIKHandle(target_.name(), IKJnt_, PV_, parent_)
+                        
+                        if delete_:
+                            delete('{}{}'.format(item_.name(), delete_))

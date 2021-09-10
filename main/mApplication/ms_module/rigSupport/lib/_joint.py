@@ -141,3 +141,15 @@ def reAngle(joint_):
             jnt.setAngleY(jnt.getAngleY()*-1)
         if jnt.getAngleZ()<0:
             jnt.setAngleZ(jnt.getAngleZ()*-1)
+
+def RPIKHandle(name_, IKJnt_, PV, parent_):
+    jry=0.1
+    [jnt.setAttr('ry', jnt.getAttr('ry')+jry) for jnt in IKJnt_]
+    [joint(jnt, e=1, spa=1) for jnt in IKJnt_]
+    jry=0.1
+    [jnt.setAttr('ry', jnt.getAttr('ry')-jry) for jnt in IKJnt_]
+    IKH_ = ikHandle( n='{}IKH'.format(name_), 
+                            sj=IKJnt_[0], ee=IKJnt_[-1], 
+                            sol='ikRPsolver',p=1)
+    parent(IKH_[0], parent_)
+    poleVectorConstraint(PV, IKH_[0])
