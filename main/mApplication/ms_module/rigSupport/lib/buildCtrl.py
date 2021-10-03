@@ -54,12 +54,22 @@ class BuildControl():
                         elif Mode_ == "Rebuild":
                             item_ = PyNode('{}{}'.format(prefix, str(item)))
                             target_ = PyNode('{}:{}'.format(prefix, str(target)))
-                        type_ = MData["Data"][item][target]["Type"]
-                        attr_ = MData["Data"][item][target]["Attr"]
-                        ik_ = MData["Data"][item][target]["IK"]
-                        PV_ = MData["Data"][item][target]["PV"]
-                        parent_ = MData["Data"][item][target]["Parent"]
-                        delete_ = MData["Data"][item][target]["Delete"]
+                        Data_ = MData["Data"][item][target].values()
+                        DataV_ = Data_.values()
+                        if "Type" in DataV_:
+                            type_ = Data_["Type"]
+                            print type_
+                        '''
+                        if Data_["Attr"]:
+                            attr_ = Data_["Attr"]
+                        if Data_["IK"]:
+                            ik_ = Data_["IK"]
+                        if Data_["PV"]:
+                            PV_ = Data_["PV"]
+                        if Data_["Parent"]:
+                            parent_ = Data_["Parent"]
+                        if Data_["Delete"]:
+                            delete_ = Data_["Delete"]
                         
                         if type_ == "Local":
                             _matrix.MTransform(item_, target_, attr_)
@@ -75,3 +85,4 @@ class BuildControl():
                         
                         if delete_:
                             delete('{}{}'.format(item_.name(), delete_))
+                        '''
