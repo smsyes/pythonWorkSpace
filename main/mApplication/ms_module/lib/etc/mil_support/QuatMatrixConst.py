@@ -45,7 +45,7 @@ def connectQuat(
     DM.ot >> target_.t
     QE.outputRotate >> target_.r
     
-def createQM(object_, name_, pad_):
+def createQM(object_, name_):
     items, targets = object_[0], object_[1]
     for i,item_ in enumerate(items):
         target_ = targets[i]
@@ -65,9 +65,9 @@ def createQM(object_, name_, pad_):
                     Quat2Mult,
                     QENode
                     )
-        pad_ +=1
 
+                    
 sel = ls(sl=1, fl=1, r=1)
-createQM(sel, name_, pad_)
+createQM(sel, name_)
 
 

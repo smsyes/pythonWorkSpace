@@ -1,6 +1,6 @@
 //Maya ASCII 2018ff09 scene
 //Name: FitArm.ma
-//Last modified: Tue, Sep 07, 2021 10:40:45 AM
+//Last modified: Mon, Sep 27, 2021 02:13:56 PM
 //Codeset: 949
 requires maya "2018ff09";
 requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
@@ -487,7 +487,6 @@ connectAttr "Wrist2ElbowDB.d" "ElbowJnt.Length";
 connectAttr "ElbowLocalDM.ot" "ElbowJnt.t";
 connectAttr "FitInitElbow.r" "ElbowJnt.jo";
 connectAttr "FitInitWrist.t" "WristJnt.t";
-connectAttr "FitInitWrist.r" "WristJnt.jo";
 connectAttr "FitArmSpaceMM.o" "FitArmSpaceDM.imat";
 connectAttr "FitScapula.wm" "FitArmSpaceMM.i[0]";
 connectAttr "FitArm.wim" "FitArmSpaceMM.i[1]";
@@ -583,9 +582,9 @@ connectAttr "Elbow2ShoulderDB.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "Wrist2ElbowDB.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "MirrorCD.msg" ":defaultRenderUtilityList1.u" -na;
 dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
-dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
-dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
 dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
 dataStructure -fmt "raw" -as "name=faceConnectOutputStructure:bool=faceConnectOutput:string[200]=faceConnectOutputAttributes:string[200]=faceConnectOutputGroups";
+dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
+dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
 dataStructure -fmt "raw" -as "name=FBXFastExportSetting_MB:string=19424";
 // End of FitArm.ma

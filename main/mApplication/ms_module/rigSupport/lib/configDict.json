@@ -1,0 +1,65 @@
+{
+    "sideName":{
+        "left":"Left",
+        "right":"Right",
+        "center":"middle",
+        "upper":"Up",
+        "down":"Dn"
+    },
+    "extensionsName":{
+        "controls":"Ctrl",
+        "joints":"Jnt"
+    },
+    "jointLabel":{
+        "arm":[
+            "Scapula", "Shoulder", "Elbow", "Wrist"
+        ],
+        "leg":[
+            "LegRoot", "Hip", "Knee", "Ankle", "Ball", "Toe"
+        ],
+        "spine":[
+            "Root", "Spine1", "Spine2", "Spine3", "Chest"
+        ],
+        "neck":[
+            "Neck1", "Neck2", "Neck3", "Neck4"
+        ],
+        "head":[
+            "Head", "HeadEnd"
+        ],
+        "hand":{
+            "index":[
+                "IndexRoot", "Index1", "Index2", "Index3", "Index4"
+            ],
+            "middle":[
+                "MiddleRoot", "Middle1", "Middle2", "Middle3", "Middle4"
+            ],
+            "ring":[
+                "RingRoot", "Ring1", "Ring2", "Ring3", "Ring4"
+            ],
+            "pinky":[
+                "PinkyRoot", "Pinky1", "Pinky2", "Pinky3", "Pinky4"
+            ],
+            "thumb":[
+                "ThumbRoot", "Thumb1", "Thumb2", "Thumb3", "Thumb4"
+            ]
+        },
+        "Finger":[
+            "RootFinger", "Finger1", "Finger2", "Finger3", "Finger4"
+        ],
+        "Toe":[
+            "Toe"
+        ],
+        "Qarm":[
+            "QScapula", "QShoulder", "QBackElbow", "QFrontElbow", "QWrist", "QToe", "QTiptoe"
+        ],
+        "Qleg":[
+            "QHip", "QThigh", "QFrotKnee", "QBackKnee", "QAnkle", "QHindToe", "QHindTiptoe"
+        ],
+        "tail":[
+            "tail"
+        ],
+        "Single":[
+            "Single"
+        ]
+    }
+}

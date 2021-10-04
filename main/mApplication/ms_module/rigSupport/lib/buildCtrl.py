@@ -54,35 +54,35 @@ class BuildControl():
                         elif Mode_ == "Rebuild":
                             item_ = PyNode('{}{}'.format(prefix, str(item)))
                             target_ = PyNode('{}:{}'.format(prefix, str(target)))
-                        Data_ = MData["Data"][item][target].values()
-                        DataV_ = Data_.values()
-                        if "Type" in DataV_:
-                            type_ = Data_["Type"]
-                            print type_
-                        '''
-                        if Data_["Attr"]:
-                            attr_ = Data_["Attr"]
-                        if Data_["IK"]:
-                            ik_ = Data_["IK"]
-                        if Data_["PV"]:
-                            PV_ = Data_["PV"]
-                        if Data_["Parent"]:
-                            parent_ = Data_["Parent"]
-                        if Data_["Delete"]:
-                            delete_ = Data_["Delete"]
+                        data_ = MData["Data"][item][target]
+                        if "Attr" in data_.keys():
+                            attr_ = data_["Attr"]
+                        if "Type" in data_.keys():
+                            type_ = data_["Type"]
+                            if type_ == "Local":
+                                _matrix.MTransform(item_, target_, attr_)
+                            if type_ == "Connect":
+                                getAttr_ = item_.getAttr(attr_[0])
+                                targetAttr_ = target_.attr(attr_[0])
+                                targetAttr_.set(getAttr_)
+                        if "IK" in data_.keys():
+                            ik_ = data_["IK"]
+                            if ik_ == "RP":
+                                IKJnt_ = _joint.hierarchy_(target_, type_='joint')
+                                _joint.RPIKHandle(target_.name(), IKJnt_, PV_, parent_)
+                        if "PV" in data_.keys():
+                            PV_ = data_["PV"]
+                        if "Parent" in data_.keys():
+                            parent_ = data_["Parent"]
+                        if "Delete" in data_.keys():
+                            delete_ = data_["Delete"]
+                            if delete_:
+                                delete('{}{}'.format(item_.name(), delete_))
                         
-                        if type_ == "Local":
-                            _matrix.MTransform(item_, target_, attr_)
+                        
                             
-                        if type_ == "Connect":
-                            getAttr_ = item_.getAttr(attr_[0])
-                            targetAttr_ = target_.attr(attr_[0])
-                            targetAttr_.set(getAttr_)
                         
-                        if ik_ == "RP":
-                            IKJnt_ = _joint.hierarchy_(target_, type_='joint')
-                            _joint.RPIKHandle(target_.name(), IKJnt_, PV_, parent_)
                         
-                        if delete_:
-                            delete('{}{}'.format(item_.name(), delete_))
-                        '''
+
+                        
+                        
