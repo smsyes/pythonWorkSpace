@@ -1,21 +1,22 @@
 {
-    "sideName":{
-        "left":"Left",
-        "right":"Right",
-        "center":"middle",
-        "upper":"Up",
-        "down":"Dn"
-    },
-    "extensionsName":{
-        "controls":"Ctrl",
-        "joints":"Jnt"
-    },
+    "sideName":[
+        "middle",
+        "Left",
+        "Right",
+        "None",
+        "Up",
+        "Dn"
+    ],
+    "extensionsName":[
+        "Ctrl",
+        "Jnt"
+    ],
     "jointLabel":{
         "arm":[
-            "Scapula", "Shoulder", "Elbow", "Wrist"
+            "Clavicle", "Shoulder", "Elbow", "Wrist"
         ],
         "leg":[
-            "LegRoot", "Hip", "Knee", "Ankle", "Ball", "Toe"
+            "Hip", "Knee", "Ankle", "Ball", "Toe"
         ],
         "spine":[
             "Root", "Spine1", "Spine2", "Spine3", "Chest"
