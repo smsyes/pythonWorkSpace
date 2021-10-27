@@ -1,6 +1,7 @@
 from pymel.core import *
 from rigSupport.lib import config
 
+
 def getChildren_(object_, type_=None):
     object_ = PyNode(object_)
     if not type_:
@@ -10,35 +11,34 @@ def getChildren_(object_, type_=None):
     child_.reverse()
     return child_
 
+
 def loadConfig_(jsonName):
     return config.jsonImport(jsonName)
 
-def jointlabeling_(object_, json=None, part=None, sideIndex=None):    
-    label = loadConfig_(json)
-    parts_ = label["jointLabel"][part]
-    sideName_ = label["sideName"][sideIndex]
-    type_ = label["extensionsName"]
-    joints = getChildren_(object_, type_='joint')
+def jointlabeling_(part, side):
+    config_ = loadConfig_("configDict.json")
     
-    for i,jnt in enumerate(joints[:len(parts_)]):
-        if sideIndex == 0:
+    sel = ls(sl=1)
+    
+    joints = getChildren_(sel[0], type_='joint')
+    parts_ = config_["jointLabel"][part]
+    side_ = config_["sideName"]
+    sideName_ = side_[side]
+    type_ = config_["extensionsName"]
+    
+    for i,jnt in enumerate(joints):
+        if side == 0:
             name_ = parts_[i] 
         else:
             name_ = '{0}{1}'.format(sideName_,parts_[i])
         rename(jnt, '{0}{1}'.format(name_, type_[1]))
-        jnt.attr('otherType').set(parts_[i])
-        if sideIndex > 3:
+        jnt.attr('otherType').set(name_)
+        if side > 3:
             jnt.attr('side').set(3)
         else:
-            jnt.attr('side').set(sideIndex)
+            jnt.attr('side').set(side)
         jnt.attr('type').set(18)
-        
+    
     return joints
-
-"""
-sel = ls(sl=1)
-joints_ = jointlabeling_(sel[0], 
-                         json="configDict.json", 
-                         part="arm", 
-                         sideIndex=1)
-"""
+        
+joints_ = jointlabeling_("arm", 1)

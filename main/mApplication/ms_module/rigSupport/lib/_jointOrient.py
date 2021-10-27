@@ -19,50 +19,16 @@ def joint_orient(object_, **kwargs):
 
 def freezeTransform_(object_):
     makeIdentity(object_,apply=1,t=1,r=1,s=1,n=0,pn=1)
-
+'''
 def loadConfig_(jsonName):
     return config.jsonImport(jsonName)
-
-
+'''
 def hierarchy_(object_):
     for i,obj in enumerate(object_):
         if i>0:
             parent(obj, object_[i-1])
 
 
-
-# def set_matrix_axis(self, matrix_, axis_):
-flip_=om.MMatrix()
-matrix_value=None
-
-if axis_ == self.axis_x:
-    matrix_value=[-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-
-elif axis_ == self.axis_y:
-    matrix_value=[1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-
-elif axis_ == self.axis_z:
-    matrix_value=[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1]
-
-if matrix_value:
-    om.MScriptUtil.createMatrixFromList(matrix_value, flip_)
-
-matrix_=matrix_ * flip_
-
-return matrix_
-
-
-
-
-
-
-type="millionvolt"
-part="arm"
-label_ = loadConfig_("configDict.json")
-jo_ = loadConfig_("jointOrientDict.json")
-type_ = label_["extensionsName"]
-oj_ = jo_[type][part]["oj"]
-sao_ = jo_[type][part]["sao"]
-
-sel = ls(sl=1)
-# mirror(sel[0], oj_=oj_)
+sel=ls(sl=1,r=1)
+joints_ = getChildren_(sel[0], type_='joint')
+joint_orient(joints_, e=True, oj='xzy', sao='zup', zso=True)
