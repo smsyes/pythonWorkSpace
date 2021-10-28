@@ -1,82 +1,6 @@
-# -*- coding: utf-8 -*-
-"""============================================================================
-Module descriptions.
-
-
-__AUTHOR__ = 'minsung'
-__UPDATE__ = 20210707
-
-:Example:
-from lib.m_lib import NurbsCurveNode
-reload(NurbsCurveNode)
-
-blah blah blah blah blah blah
-blah blah blah blah blah blah
-============================================================================"""
-#
-# when start coding 3 empty lines.
-#
 from pymel.core import *
 import maya.OpenMaya as om
 import pymel.core.datatypes as dt
-
-def hierarchy_(object_):
-    for i,obj in enumerate(object_):
-        if i>0:
-            parent(obj, object_[i-1])
-
-def getChildren_(object_, type_=None):
-    """Get the childrens from top object
-
-    Arguments:
-        object_ (node): transform node
-        type_ (type): node type
-
-    Returns:
-        list : childrens list
-
-    """
-    object_ = PyNode(object_)
-    if not type_:
-        type_ = 'transform'
-    child_ = object_.listRelatives(ad=1, c=1, typ=type_)
-    child_ = child_ + [object_]
-    child_.reverse()
-    return child_
-
-def divide_in_two(object_):
-    divideNum = len(object_)/2
-    items = object_[:divideNum]
-    targets = object_[divideNum:]
-    return items, targets
-
-def get_transform(object_):
-    _name = object_.name()
-    trans = xform(_name, q=1, ws=1, rp=1 )
-    rot = xform(_name, q=1, ws=1, ro=1 )
-    return trans, rot
-
-def getTransform(object_):
-    return object_.getMatrix(worldSpace=True)
-
-def set_trans_xform(object_, trans):
-    xform(object_, r = 1, t = trans)
-
-def set_rot_xform(object_, rot):
-    xform(object_, r = 1, ro = rot)
-
-def get_trans(object_):
-    return object_.getMatrix(worldSpace=True)[-1][:-1]
-    
-def get_rot(object_):
-    return xform(object_, q=1, ws=1, ro=1 )
-
-def set_transform_(object_):
-    items, targets = divide_in_two(object_)
-    for i,item in enumerate(items):
-        pos, rot = get_transform(item)
-        set_trans_xform(targets[i], pos)
-        set_rot_xform(targets[i], rot)
 
 def getInverseTransform(object_):
     """Get the object_ from inverse matrix
@@ -103,22 +27,24 @@ def getMultMatrix(mat1, mat2):
     """
     return mat1*mat2
 
-def matrixList_(matrix_):
-    """Get the list from matrix
+def getChildren_(object_, type_=None):
+    """Get the childrens from top object
 
     Arguments:
-        matrix_ (matrix): The input Matrix.
+        object_ (node): transform node
+        type_ (type): node type
 
     Returns:
-        list : matrix array list
+        list : childrens list
 
     """
-    list_=[]
-    array_ = matrix_.get()
-    for i,a in enumerate(array_):
-        for j in a:
-            list_.append(j)
-    return list_
+    object_ = PyNode(object_)
+    if not type_:
+        type_ = 'transform'
+    child_ = object_.listRelatives(ad=1, c=1, typ=type_)
+    child_ = child_ + [object_]
+    child_.reverse()
+    return child_
 
 def setMatrixAxis_(matrix_, axis_):
     """Get the FlipAxis from matrix
@@ -205,7 +131,24 @@ def setMatrixRot_(matrix_, axis_):
 
     return matrix_
 
-def mirrorMatrix_(matrix_, axis_=None, type_=None):
+def matrixList_(matrix_):
+    """Get the list from matrix
+
+    Arguments:
+        matrix_ (matrix): The input Matrix.
+
+    Returns:
+        list : matrix array list
+
+    """
+    list_=[]
+    array_ = matrix_.get()
+    for i,a in enumerate(array_):
+        for j in a:
+            list_.append(j)
+    return list_
+
+def mirror_(matrix_, axis_=None, type_=None):
     """Get the mirror matrix from matrix
 
     Arguments:
@@ -226,7 +169,7 @@ def mirrorMatrix_(matrix_, axis_=None, type_=None):
     return getMatrix_
 
 
-def mirror_(axis='xy'):
+def topSelectMirror_(axis='xy'):
     """Mirror the transform by selecting the top item and top target
 
     Arguments:
@@ -273,7 +216,7 @@ def mirror_(axis='xy'):
     for i,item in enumerate(iObjects_):    
         matrix_ = item.getMatrix(worldSpace=True)
         
-        matrix_ = mirrorMatrix_(matrix_, axis_=pAxis_, type_='flip')
+        matrix_ = mirror_(matrix_, axis_=pAxis_, type_='flip')
         if i>0:
             PInvMatrix_ = getInverseTransform(tObjects_[i].getParent())
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
@@ -281,22 +224,17 @@ def mirror_(axis='xy'):
         
         localmatrix_ = tObjects_[i].getMatrix(worldSpace=True)
         
-        matrix_ = mirrorMatrix_(localmatrix_, axis_=rAxis_, type_='rot')
+        matrix_ = mirror_(localmatrix_, axis_=rAxis_, type_='rot')
         if i>0:
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
         tObjects_[i].setMatrix(matrix_)
         
-        matrix_ = mirrorMatrix_(localmatrix_, axis_=r2Axis_, type_='rot')
+        matrix_ = mirror_(localmatrix_, axis_=r2Axis_, type_='rot')
         if i>0:
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
         tObjects_[i].setMatrix(matrix_)
+    
 
-def getLocalTrans(object_):
-    items, targets = divide_in_two(object_)
-    for i,item in enumerate(items):
-        wm_ = item.getMatrix(worldSpace=True)
-        targetParent_ = targets[i].getParent()
-        wim_ = targetParent_.getMatrix(worldSpace=True).inverse()
-        multM_ = wm_*wim_
-        getLocalTrans_ = multM_[-1][:-1]
-    return getLocalTrans_.get()
+   
+topSelectMirror_(axis='xy')
+

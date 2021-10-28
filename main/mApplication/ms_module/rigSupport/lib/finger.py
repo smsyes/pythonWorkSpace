@@ -6,6 +6,7 @@ from lib import _node
 from lib import _matrix
 from lib import _control
 from lib import _shapeChange
+from lib import _transform
 
 reload(_joint)
 reload(_name)
@@ -13,6 +14,7 @@ reload(_node)
 reload(_matrix)
 reload(_control)
 reload(_shapeChange)
+reload(_transform)
 
 
 class Finger():
@@ -26,7 +28,7 @@ class Finger():
         self.fingerSetting()
 
     def fingerJnt(self):
-        self.JntC_ = _joint.hierarchy_(self.object)
+        self.JntC_ = _transform.getChildren_(self.object)
 
         # duplicate joint
         D01Jnt_ = _joint.duplicate_joint(self.JntC_[1])
