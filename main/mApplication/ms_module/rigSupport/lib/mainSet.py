@@ -44,11 +44,10 @@ class MainSet():
         self.base_name = name_
         self.sel = ls(sl=1, r=1, fl=1)
 
-        _joint.linear_spacing_joint(3, 
+
+        _joint.linear_spacing_joint(self.sel[0],
+                                    3, 
                                     e=True, 
-                                    oj='xzy', 
-                                    sao='zup', 
-                                    zso=True, 
                                     axis='x'
                                     )
 

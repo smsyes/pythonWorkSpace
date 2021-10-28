@@ -27,6 +27,7 @@ from lib import _connect
 from lib import _control
 from lib import _matrix
 from lib import _curve
+from lib import _transform
 
 reload(_joint)
 reload(_node)

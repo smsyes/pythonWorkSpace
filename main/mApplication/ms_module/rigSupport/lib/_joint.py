@@ -18,18 +18,33 @@ blah blah blah blah blah blah
 #
 from pymel.core import *
 from lib import _transform
+from lib import _name
 
 reload(_transform)
+reload(_name)
 
 
-def hierarchy_(object_, type_=None):
-    object_ = PyNode(object_)
-    if not type_:
-        type_ = 'transform'
-    hier_ = object_.listRelatives(ad=1, c=1, typ=type_)
-    hier_ = hier_ + [object_]
-    hier_.reverse()
-    return hier_
+def jointlabeling_(part, side):    
+    sel = ls(sl=1)
+    
+    parts_, side_, type_ = _name.configName(part)
+    sideName_ = side_[side]
+    joints = _transform.getChildren_(sel[0], type_='joint')
+    
+    for i,jnt in enumerate(joints):
+        if side == 0:
+            name_ = parts_[i] 
+        else:
+            name_ = '{0}{1}'.format(sideName_,parts_[i])
+        rename(jnt, '{0}{1}'.format(name_, type_[1]))
+        jnt.attr('otherType').set(name_)
+        if side > 3:
+            jnt.attr('side').set(3)
+        else:
+            jnt.attr('side').set(side)
+        jnt.attr('type').set(18)
+    
+    return joints
 
 def joint_(_name):
     return joint(n='{}Jnt'.format(_name))
@@ -46,11 +61,11 @@ def joint_orient(jointChain, **kwargs):
             joint_.attr('jo').set(0,0,0) 
 
 
-def joint_insert(joint_, pos_):
+def joint_insert(joint_, name_, pos_):
     if joint_.type() == 'joint':
         JNT = joint_.insert()
-        _joint(JNT, e=True, co=True, p=pos_)
-        return PyNode(JNT)
+        _joint(JNT, n=name_, e=True, co=True, p=pos_)
+        return PyNode(name_)
 
 
 def length(v0, v1):
@@ -65,9 +80,10 @@ def space_(name_, parent_=None):
     return space_
 
     
-def add_joint(jointChain, num, axis=None):
-    stJoint = jointChain[0]
-    enJoint = jointChain[-1]
+def linear_spacing_joint(joint_, num, axis='x'):
+    joints = [joint_, joint_.getChildren()[0]]
+    stJoint = joints[0]
+    enJoint = joints[-1]
     stTrans_= _transform.get_trans(stJoint)
     enTrans_= _transform.get_trans(enJoint)
     length_ = length(stTrans_, enTrans_)
@@ -80,6 +96,12 @@ def add_joint(jointChain, num, axis=None):
             value = (0,divValue,0)
         if axis=='z':
             value = (0,0,divValue)
+        if axis=='-x':
+            value = (-1*divValue,0,0)
+        if axis=='-y':
+            value = (0,-1*divValue,0)
+        if axis=='-z':
+            value = (0,0,-1*divValue)
     else:
         value = (divValue,0,0)
     
@@ -87,34 +109,16 @@ def add_joint(jointChain, num, axis=None):
     for i in range(num):
         localspace = space_(stJoint.name(), parent_=insertList[i])
         localspace.setAttr('t',value)
+        name_ = '{0}{1}'.format(insertList[0], i+1)
         pos_ = _transform.get_trans(localspace)
-        JNT = joint_insert(insertList[i], pos_)
+        JNT = joint_insert(insertList[i], name_, pos_)
         delete(localspace)
         insertList.append(JNT)
 
 
-def linear_spacing_joint(num, 
-                         e=True, 
-                         oj='xzy', 
-                         sao='zup', 
-                         zso=True, 
-                         axis='x'
-                         ):
-    sel = ls(sl=1, fl=1, r=1)
-    for i in sel:
-        jointChain = hierarchy_(i, type_='joint')
-        joint_orient(jointChain,
-                     e=e,
-                     oj=oj,
-                     sao=sao,
-                     zso=zso
-                     )
-        add_joint(jointChain, num, axis)
-
-
 def duplicate_joint(object_):
     dupJNT_ = duplicate(object_, rc=1)
-    jointChain = hierarchy_(dupJNT_[0], type_='joint')
+    jointChain = _transform.getChildren_(dupJNT_[0], type_='joint')
     return jointChain
 
 
@@ -125,7 +129,7 @@ def bindSkin_(object_, **kwargs):
 
 def object_at_joint(object_):
     JNTList = []
-    for i,object in enumerate(object_):
+    for object in enumerate(object_):
         select(cl=1)
         _name = object.name()
         JNT = joint(_name)

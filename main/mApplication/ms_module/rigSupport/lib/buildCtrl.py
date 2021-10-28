@@ -68,7 +68,7 @@ class BuildControl():
                         if "IK" in data_.keys():
                             ik_ = data_["IK"]
                             if ik_ == "RP":
-                                IKJnt_ = _joint.hierarchy_(target_, type_='joint')
+                                IKJnt_ = _transform.getChildren_(target_, type_='joint')
                                 _joint.RPIKHandle(target_.name(), IKJnt_, PV_, parent_)
                         if "PV" in data_.keys():
                             PV_ = data_["PV"]
