@@ -82,10 +82,11 @@ class myUIClass(QWidget):
     def linearSpacingJoint(self):
         num_ = self.getLinearNum()
         axis_ = self.getLinearAxis()
-        _joint.linear_spacing_joint(self.sel_()[0],
-                                    num_, 
-                                    axis=axis_
-                                    )
+        for i in self.sel_():
+            _joint.linear_spacing_joint(i,
+                                        num_, 
+                                        axis=axis_
+                                        )
     
     def getOrient(self):
         return self.ui.ojCB.currentText()
@@ -105,8 +106,7 @@ class myUIClass(QWidget):
     def mirror(self):
         objects_ = self.sel_()
         if len(objects_) == 1:
-            dup_ = duplicate(objects_)
-            objects_.append(dup_[0])
+            objects_.append(duplicate(objects_)[0])
         items = _transform.getChildren_(objects_[0], type_=None)
         targets = _transform.getChildren_(objects_[1], type_=None)
         axis_ = self.getMirrorAxis()
