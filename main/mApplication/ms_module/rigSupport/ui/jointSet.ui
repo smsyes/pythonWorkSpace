@@ -80,113 +80,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>245</width>
-       <height>18</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_9">
-     <property name="text">
-      <string>### Linear Spacing Joint ###</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Number :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="numSP">
-       <property name="value">
-        <number>3</number>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>Axis :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="LSJAxisCB">
-       <item>
-        <property name="text">
-         <string>x</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>y</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>z</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>-x</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>-y</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>-z</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QPushButton" name="LSJBT">
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_13">
-     <property name="text">
-      <string># Execute after selecting the top joint</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -412,6 +305,113 @@
     <widget class="QLabel" name="label_14">
      <property name="text">
       <string># Select an item and target and execute</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>245</width>
+       <height>18</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>### Linear Spacing Joint ###</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Number :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="numSP">
+       <property name="value">
+        <number>3</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Axis :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="LSJAxisCB">
+       <item>
+        <property name="text">
+         <string>x</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>y</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>-x</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>-y</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>-z</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="LSJBT">
+     <property name="text">
+      <string>LinearSpacingJoint</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_13">
+     <property name="text">
+      <string># Execute after selecting the top joint</string>
      </property>
     </widget>
    </item>

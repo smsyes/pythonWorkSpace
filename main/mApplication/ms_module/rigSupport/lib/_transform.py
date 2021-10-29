@@ -226,7 +226,7 @@ def mirrorMatrix_(matrix_, axis_=None, type_=None):
     return getMatrix_
 
 
-def mirror_(axis='xy'):
+def mirror_(items, targets, axis='xy'):
     """Mirror the transform by selecting the top item and top target
 
     Arguments:
@@ -265,31 +265,27 @@ def mirror_(axis='xy'):
         rAxis_ = 'z'
         r2Axis_ = 'y'
     
-    sel = ls(sl=1,r=1)
-    
-    iObjects_ = getChildren_(sel[0], type_=None)
-    tObjects_ = getChildren_(sel[1], type_=None)
-    
-    for i,item in enumerate(iObjects_):    
+    for i,item in enumerate(items):    
         matrix_ = item.getMatrix(worldSpace=True)
         
         matrix_ = mirrorMatrix_(matrix_, axis_=pAxis_, type_='flip')
         if i>0:
-            PInvMatrix_ = getInverseTransform(tObjects_[i].getParent())
+            PInvMatrix_ = getInverseTransform(targets[i].getParent())
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
-        tObjects_[i].setMatrix(matrix_)
+        targets[i].setMatrix(matrix_)
         
-        localmatrix_ = tObjects_[i].getMatrix(worldSpace=True)
+        localmatrix_ = targets[i].getMatrix(worldSpace=True)
         
         matrix_ = mirrorMatrix_(localmatrix_, axis_=rAxis_, type_='rot')
         if i>0:
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
-        tObjects_[i].setMatrix(matrix_)
+        targets[i].setMatrix(matrix_)
         
         matrix_ = mirrorMatrix_(localmatrix_, axis_=r2Axis_, type_='rot')
         if i>0:
             matrix_ = getMultMatrix(matrix_, PInvMatrix_)
-        tObjects_[i].setMatrix(matrix_)
+        targets[i].setMatrix(matrix_)
+        makeIdentity(targets[i], apply=1, t=0, r=1, s=1, n=0, pn=1)
 
 def getLocalTrans(object_):
     items, targets = divide_in_two(object_)

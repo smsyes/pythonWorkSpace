@@ -24,14 +24,8 @@ reload(_check)
 reload(_config)
 
 def loadConfig_(jsonName):
+    # jsonName = "configDict.json"
     return _config.jsonImport(jsonName)
-
-def configName(part):
-    config_ = loadConfig_("configDict.json")
-    parts_ = config_["jointLabel"][part]
-    side_ = config_["sideName"]
-    type_ = config_["extensionsName"]
-    return parts_, side_, type_
 
 def padding(num_):
     pad_ = str(num_).zfill(1)

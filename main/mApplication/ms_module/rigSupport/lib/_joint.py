@@ -27,15 +27,19 @@ reload(_name)
 def jointlabeling_(part, side):    
     sel = ls(sl=1)
     
-    parts_, side_, type_ = _name.configName(part)
+    config_ = _name.loadConfig_("configDict.json")
+    partDict_ = config_["jointLabelDict"]
+    side_ = config_["sideName"]
+    type_ = config_["extensionsName"]
+    part_ = partDict_[part]
     sideName_ = side_[side]
     joints = _transform.getChildren_(sel[0], type_='joint')
     
     for i,jnt in enumerate(joints):
-        if side == 0:
-            name_ = parts_[i] 
+        if side == 0 or side == 3:
+            name_ = part_[i] 
         else:
-            name_ = '{0}{1}'.format(sideName_,parts_[i])
+            name_ = '{0}{1}'.format(sideName_,part_[i])
         rename(jnt, '{0}{1}'.format(name_, type_[1]))
         jnt.attr('otherType').set(name_)
         if side > 3:
@@ -49,14 +53,10 @@ def jointlabeling_(part, side):
 def joint_(_name):
     return joint(n='{}Jnt'.format(_name))
 
-
-def _joint(joint_, **kwargs):
-    joint(joint_, **kwargs)
-
-
 def joint_orient(jointChain, **kwargs):
     for joint_ in jointChain:
-        _joint(jointChain, **kwargs)
+        makeIdentity(joint_, apply=1, t=0, r=1, s=0, n=0, pn=1)
+        joint(joint_, **kwargs)
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
 
@@ -64,7 +64,7 @@ def joint_orient(jointChain, **kwargs):
 def joint_insert(joint_, name_, pos_):
     if joint_.type() == 'joint':
         JNT = joint_.insert()
-        _joint(JNT, n=name_, e=True, co=True, p=pos_)
+        joint(JNT, n=name_, e=True, co=True, p=pos_)
         return PyNode(name_)
 
 
@@ -83,6 +83,8 @@ def space_(name_, parent_=None):
 def linear_spacing_joint(joint_, num, axis='x'):
     joints = [joint_, joint_.getChildren()[0]]
     stJoint = joints[0]
+    stOtherType = stJoint.getAttr('otherType')
+    stSide = stJoint.getAttr('side')
     enJoint = joints[-1]
     stTrans_= _transform.get_trans(stJoint)
     enTrans_= _transform.get_trans(enJoint)
@@ -109,9 +111,12 @@ def linear_spacing_joint(joint_, num, axis='x'):
     for i in range(num):
         localspace = space_(stJoint.name(), parent_=insertList[i])
         localspace.setAttr('t',value)
-        name_ = '{0}{1}'.format(insertList[0], i+1)
+        name_ = '{0}{1}{2}'.format(stOtherType, i+1, 'Jnt')
         pos_ = _transform.get_trans(localspace)
         JNT = joint_insert(insertList[i], name_, pos_)
+        JNT.attr('type').set(18)
+        JNT.attr('otherType').set('{0}{1}'.format(stOtherType, i+1))
+        JNT.attr('side').set(stSide)
         delete(localspace)
         insertList.append(JNT)
 

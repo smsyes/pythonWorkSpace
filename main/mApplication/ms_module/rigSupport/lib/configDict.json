@@ -1,17 +1,41 @@
 {
     "sideName":[
-        "middle",
+        "Middle",
         "Left",
         "Right",
         "None",
         "Up",
-        "Dn"
+        "Dn",
+        "Front",
+        "Back"
     ],
     "extensionsName":[
         "Ctrl",
         "Jnt"
     ],
-    "jointLabel":{
+    "mirrorSide":{
+        "Left":"Right",
+        "Right":"Left"
+    },
+    "jointLabel":[
+        "arm",
+        "leg",
+        "spine",
+        "neck",
+        "head",
+        "index",
+        "Middle",
+        "ring",
+        "pinky",
+        "thumb",
+        "Finger",
+        "Toe",
+        "Qarm",
+        "Qleg",
+        "tail",
+        "Single"
+    ],
+    "jointLabelDict":{
         "arm":[
             "Clavicle", "Shoulder", "Elbow", "Wrist"
         ],
