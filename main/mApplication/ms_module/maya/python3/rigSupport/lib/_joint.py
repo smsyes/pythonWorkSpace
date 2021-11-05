@@ -164,7 +164,7 @@ def RPIKHandle(name_, IKJnt_, PV, parent_):
     parent(IKH_[0], parent_)
     poleVectorConstraint(PV, IKH_[0])
 
-def IKFKBlend(object_)
+def IKFKBlend(object_):
     FKChain = _transform.getChildren_(object_[0], type_='joint')
     IKChain = _transform.getChildren_(object_[1])
     DrvChain = _transform.getChildren_(object_[2], type_='joint')
