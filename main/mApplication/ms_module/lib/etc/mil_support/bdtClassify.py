@@ -10,6 +10,9 @@ def getDag(object_):
             d_.append(d)
     return d_  
 
+def getShortName(object_):
+    return [i.name().split('|')[-1] for i in object_]
+    
 def getShape(object_):
     s_ = object_.listRelatives(ad=1,s=1)
     sh_ = []
@@ -22,10 +25,12 @@ def getShape(object_):
 
 def getTarget(list_,inputMesh_):
     getT_ = []
-    for l in list_:
-        l_ = l.split('_')[-1]
-        if l_ in inputMesh_:
-            getT_.append(l)
+    listN_ = getShortName(list_)
+    inputN_ = getShortName(inputMesh_)
+    for l,dag in enumerate(list_):
+        l_ = listN_[l]
+        if l_ in inputN_:
+            getT_.append(dag)
     return getT_
 
 def getExpressionName(list_):
@@ -53,7 +58,7 @@ def classify(list_, division, type=None):
 '''
 sel = ls(sl=1,r=1)
 
-inputMesh_ = sel
+inputMesh_ = getDag(sel[0])
 
 # get inputMesh match TargetMesh
 dag_ = getDag(sel[0])
@@ -66,4 +71,5 @@ getEx_ = getExpressionName(getT_)
 eDict_ = classify(getT_, getEx_, type='ex')
 pDict_ = classify(getT_, inputMesh_, type='pt')
 '''
+
 
