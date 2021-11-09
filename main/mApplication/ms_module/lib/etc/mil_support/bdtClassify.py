@@ -50,13 +50,20 @@ def classify(list_, division, type=None):
                 dict_[d].append(i)
     return dict_
 
+'''
 sel = ls(sl=1,r=1)
-# inputMesh_ = sel
-# dag_ = getDag(sel[0])
-# allDag_ = sel[0].listRelatives(ad=1,d=1)
-# getT_ = getTarget(allDag_, inputMesh_)
-# getEx_ = getExpressionName(getT_)
-# eDict_ = classify(getT_, getEx_, type='ex')
-# pDict_ = classify(getT_, inputMesh_, type='pt')
 
+inputMesh_ = sel
+
+# get inputMesh match TargetMesh
+dag_ = getDag(sel[0])
+getT_ = getTarget(dag_, inputMesh_)
+
+# get expression name
+getEx_ = getExpressionName(getT_)
+
+# get expression dictionary and target dictionary
+eDict_ = classify(getT_, getEx_, type='ex')
+pDict_ = classify(getT_, inputMesh_, type='pt')
+'''
 
