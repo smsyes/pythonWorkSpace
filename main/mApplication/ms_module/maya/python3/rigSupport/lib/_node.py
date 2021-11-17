@@ -120,8 +120,9 @@ def blendColors_():
 def reverse_():
     return shadingNode('reverse', au=1)
 
-def po_crv_info(_shape):
-    _node = createNode('pointOnCurveInfo', n='{}PC'.format(_shape))
+def pointOnCurveInfo_(curve_):
+    _shape = curve_.getShape()
+    _node = createNode('pointOnCurveInfo', n='{}PC'.format(curve_.name()))
     _shape.ws >> _node.ic
     return _node
 

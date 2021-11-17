@@ -45,7 +45,7 @@ def getChildren_(object_, type_=None):
     return child_
 
 def divide_in_two(object_):
-    divideNum = len(object_)/2
+    divideNum = int(len(object_)/2)
     items = object_[:divideNum]
     targets = object_[divideNum:]
     return items, targets
@@ -200,6 +200,27 @@ def setMatrixRot_(matrix_, axis_):
         data_[8] *= -1.0
         data_[9] *= -1.0
         data_[10] *= -1.0
+
+    om.MScriptUtil.createMatrixFromList(data_, matrix_)
+
+    return matrix_
+
+def setMatrixFromList(list_):
+
+    matrix_ = dt.Matrix()
+    data_ = matrixList_(matrix_)
+    data_[0] = list_[0]
+    data_[1] = list_[1]
+    data_[2] = list_[2]
+    data_[4] = list_[3]
+    data_[5] = list_[4]
+    data_[6] = list_[5]
+    data_[8] = list_[6]
+    data_[9] = list_[7]
+    data_[10] = list_[8]
+    data_[12] = list_[9]
+    data_[13] = list_[10]
+    data_[14] = list_[11]
 
     om.MScriptUtil.createMatrixFromList(data_, matrix_)
 
