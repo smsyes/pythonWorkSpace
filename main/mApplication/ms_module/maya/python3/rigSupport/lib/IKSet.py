@@ -33,16 +33,12 @@ reload(_transform)
 reload(_control)
 
 
-def createIKCurves(joints_, type_, num_):
-    if num_>2:
-        s_ = num_
-    else:
-        s_ = 2
+def createIKCurves(joints_, type_):
     curves_ = []
     for i in type_:
         crv_ = _curve.object_cv_curve(joints_, dgree_=None)
         crv_.rename('{}Crv'.format(i))
-        rebuildCurve(crv_,ch=0,rpo=1,kr=0,kt=1,s=s_,d=3)
+        rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=2,kcp=0,kt=1,s=0,d=3)
         curves_.append(crv_)
     return curves_
 
@@ -67,17 +63,14 @@ def getCurveParamTransform(param, curve_):
     return matrix_
 
 def paramAtJoint(num_, curve_):
-    div = 0
     name_ = 'IKBind'
     jnts_ = []
     for i in range(num_+1):
-        getMatrix_ = getCurveParamTransform(div, curve_)
+        getMatrix_ = getCurveParamTransform(i, curve_)
         jnt_ = joint(n='{0}{1}Jnt'.format(name_, i+1))
         jnt_.setMatrix(getMatrix_)
-        div = float(1)/float(num_)
-        div += div*i
         jnts_.append(jnt_)
-        select(cl=1)   
+        select(cl=1)
     return jnts_
 
 def createIKCtrl(names_, object_):
@@ -121,12 +114,12 @@ def IKSetting(num, baseName, stJnt, enJnt):
     joints_ = searchJoint(stJnt, enJnt)
     names_ = splName(joints_[:-1], 'Jnt', 0)
     crvType_ = ['IK','IKChk']
-    IKSets = sets(n='IKSets')
+    IKSets = sets(n='{0}IKSets'.format(baseName))
 
     # IK Nodes Configuration
     IKSysGrp = _node.space_('{0}IKSys'.format(baseName))
     IKCtrlGrp = _node.space_('{0}IKCtrl'.format(baseName))
-    IKCurves = createIKCurves(joints_, crvType_, num)
+    IKCurves = createIKCurves(joints_, crvType_)
     IKJnts_ = paramAtJoint(num, IKCurves[0])
     IKJntsName_ = splName(IKJnts_, 'Jnt', 0)
     CtrlGrps, Ctrl = createIKCtrl(IKJntsName_, IKJnts_)
@@ -146,15 +139,17 @@ def IKSetting(num, baseName, stJnt, enJnt):
     dbs_ = []
     pocis_ = []
     for c,crv in enumerate(IKCurves):
+        shape_ = crv.getShape()
         db_ = []
         poci_ = []
         dbs_.append(db_)
         pocis_.append(poci_)
         for j,jnt in enumerate(joints_):
             pos_ = _transform.get_trans(jnt)
-            parma_ = _curve.get_param_at_point(crv, pos_)
+            cpos = shape_.closestPoint(pos_)
+            param_ = shape_.getParamAtPoint(cpos, space='preTransform')            
             pc_ = _node.pointOnCurveInfo_(crv)
-            pc_.attr('parameter').set(parma_)
+            pc_.attr('parameter').set(param_)
             poci_.append(pc_)
             if j<int(len(joints_)-1):
                 name2_ = '{0}{1}'.format(crvType_[c], names_[j])
@@ -223,8 +218,8 @@ def IKSetting(num, baseName, stJnt, enJnt):
 
 
 sel = ls(sl=1,r=1,fl=1)
-num = 2
-baseName = "Spine"
+num = 4
+baseName = "Neck"
 IKSetting(num, baseName, sel[0], sel[-1])
 
 
