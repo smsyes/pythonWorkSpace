@@ -17,7 +17,8 @@ blah blah blah blah blah blah
 # when start coding 3 empty lines.
 #
 from pymel.core import *
-from rigSupport.lib import _transform, _name
+from rigSupport.lib import _transform
+from rigSupport.lib import _name
 try:
     from imp import *
 except:

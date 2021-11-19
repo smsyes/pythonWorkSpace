@@ -37,41 +37,33 @@ def get_cvs(_shape):
     return _shape.getCVs(space='world')
 
 
-def get_param_at_point(_shape, point):
+def get_param_at_point(curve_, point):
+    _shape = curve_.getShape()
     return _shape.getParamAtPoint(point)
 
+def getClosetPointParam(object_, crv):
+    t_,r_ = _transform.get_transform(object_)
+    cPoint = crv.closestPoint(t_, param=None, tolerance=0.001, space='preTransform')
+    return crv.getParamAtPoint(cPoint, space='preTransform')
 
 # get current object Position at parameter
-def pos_at_param(_shape, *args): 
+def pos_at_param(_curve, *args): 
     args = ls(args)
     param_list = []
     for i in args:
         trans, rot = _transform.get_transform(i)
-        param = get_param_at_point(_shape, trans)
+        param = get_param_at_point(_curve, trans)
         param_list.append(param)
     return param_list
 
 # current object Position >> curve Parameter >> object Position
 def param_at_objectPositions(object_): 
-    _shape = object_[0].getShape()
+    _curve = object_[0]
     _object = object_[1:]
-    params_ = pos_at_param(_shape, _object)
+    params_ = pos_at_param(_curve, _object)
     
     for i,object in enumerate(_object):
-        POCI = _node.po_crv_info(_shape)
-        setAttr('{}.parameter'.format(POCI), params_[i])
-        _connect.connect_attr(POCI, 'p', object, 't')
-
-
-# current object Position >> curve Parameter >> object Position
-def param_at_objectPositions(object_):
-    object_ = ls(object_)
-    _shape = object_[0].getShape()
-    _object = object_[1:]
-    params_ = pos_at_param(_shape, _object)
-    
-    for i,object in enumerate(_object):
-        POCI = _node.po_crv_info(_shape)
+        POCI = _node.pointOnCurveInfo_(_curve)
         setAttr('{}.parameter'.format(POCI), params_[i])
         _connect.connect_attr(POCI, 'p', object, 't')
 

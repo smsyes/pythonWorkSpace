@@ -1,0 +1,24 @@
+{
+	//Save script editor tabs to temp folder
+	syncExecuterBackupFiles();
+
+	//Save all preferences
+	SavePreferences;
+
+	//Save all shelves
+    global string $gShelfTopLevel;
+	saveAllShelves $gShelfTopLevel;
+
+	//Save MTK shelf
+	dRSaveShelves;
+
+	//Save tool settings
+	saveToolSettings;
+	saveViewportSettings;
+	
+	//Save scene if changed
+	saveChanges("");
+	
+	//Close Maya
+	system("taskkill /IM maya.exe /f /t");
+}

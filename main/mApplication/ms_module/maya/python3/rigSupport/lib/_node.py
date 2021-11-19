@@ -102,15 +102,28 @@ def multMatrix_(name_):
 def pairBlend_():
     return createNode('pairBlend')
 
+def distancBetween_(name_):
+    return shadingNode('distanceBetween', au=1, n='{}DB'.format(name_))
+
+def blendTwoAttr_(name_):
+    return shadingNode('blendTwoAttr', au=1, n='{}BA'.format(name_))
+
+def multiplyDivide_(name_):
+    return shadingNode('multiplyDivide', au=1, n='{}MD'.format(name_))
+
+def multDoubleLinear_(name_):
+    return shadingNode('multDoubleLinear', au=1, n='{}MDL'.format(name_))
+
 def blendColors_():
     return createNode('blendColors')
 
 def reverse_():
     return shadingNode('reverse', au=1)
 
-def po_crv_info(_shape):
-    _node = createNode('pointOnCurveInfo', n='{}PCI'.format(_shape))
-    _connect.connect_attr(_shape, 'ws', _node, 'ic')
+def pointOnCurveInfo_(curve_):
+    _shape = curve_.getShape()
+    _node = createNode('pointOnCurveInfo', n='{}PC'.format(curve_.name()))
+    _shape.ws >> _node.ic
     return _node
 
 def rot_helper(name_, object_):
