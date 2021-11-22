@@ -32,6 +32,13 @@ reload(_node)
 reload(_transform)
 reload(_control)
 
+def division(number):
+    list_ = [0]
+    div_ = 1/number
+    for i in range(number):
+        i=i+1
+        list_.append(i*div_)
+    return list_
 
 def createIKCurves(joints_, type_):
     curves_ = []
@@ -45,6 +52,7 @@ def createIKCurves(joints_, type_):
 def getCurveParamTransform(param, curve_):
     matrixList = []
     poci_ = _node.pointOnCurveInfo_(curve_)
+    poci_.attr('turnOnPercentage').set(1)
     poci_.attr('parameter').set(param)
     vecX = poci_.getAttr('normalizedTangent')
     normal = poci_.getAttr('normalizedNormal')
@@ -64,10 +72,11 @@ def getCurveParamTransform(param, curve_):
 
 def paramAtJoint(num_, curve_):
     name_ = 'IKBind'
+    divNum = division(num_)
     jnts_ = []
-    for i in range(num_+1):
+    for i in divNum:
         getMatrix_ = getCurveParamTransform(i, curve_)
-        jnt_ = joint(n='{0}{1}Jnt'.format(name_, i+1))
+        jnt_ = joint(n='{0}{1}Jnt'.format(name_, i))
         jnt_.setMatrix(getMatrix_)
         jnts_.append(jnt_)
         select(cl=1)
