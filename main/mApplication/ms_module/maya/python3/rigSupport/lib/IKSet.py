@@ -1,21 +1,3 @@
-# -*- coding: utf-8 -*-
-"""============================================================================
-Module descriptions.
-
-
-__AUTHOR__ = 'minsung'
-__UPDATE__ = 20211108
-
-:Example:
-from rigSupport.lib import stretchSet
-reload(stretchSet)
-sel = ls(sl=1,r=1,fl=1)
-stretchSet.StretchSet(sel[-1], sel[:-1])
-
-============================================================================"""
-#
-# when start coding 3 empty lines.
-#
 import maya.api.OpenMaya as om
 from pymel.core import *
 from rigSupport.lib import _curve
@@ -32,64 +14,20 @@ reload(_node)
 reload(_transform)
 reload(_control)
 
+def jointReLabel(object_):
+    for i in object_:
+        if i.getAttr('type') != 18:
+            i.attr('type').set(18)
+        name_ = i.name().split('Jnt')[0]
+        i.attr('otherType').set(name_)
+
 def division(number):
     list_ = [0]
-    div_ = 1/number
+    div_ = float(1)/float(number)
     for i in range(number):
         i=i+1
         list_.append(i*div_)
     return list_
-
-def createIKCurves(joints_, type_):
-    curves_ = []
-    for i in type_:
-        crv_ = _curve.object_cv_curve(joints_, dgree_=None)
-        crv_.rename('{}Crv'.format(i))
-        rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=2,kcp=0,kt=1,s=0,d=3)
-        curves_.append(crv_)
-    return curves_
-
-def getCurveParamTransform(param, curve_):
-    matrixList = []
-    poci_ = _node.pointOnCurveInfo_(curve_)
-    poci_.attr('turnOnPercentage').set(1)
-    poci_.attr('parameter').set(param)
-    vecX = poci_.getAttr('normalizedTangent')
-    normal = poci_.getAttr('normalizedNormal')
-    tangent = poci_.getAttr('normalizedTangent')
-    position = poci_.getAttr('position')
-    crossY = om.MVector(normal)^om.MVector(tangent)
-    crossZ = crossY^om.MVector(normal)
-    vecY = [y for y in crossY]
-    vecZ = [z for z in crossZ]
-    matrixList.extend(vecX)
-    matrixList.extend(vecY)
-    matrixList.extend(vecZ)
-    matrixList.extend(position)
-    matrix_ = _transform.setMatrixFromList(matrixList)
-    delete(poci_)
-    return matrix_
-
-def paramAtJoint(num_, curve_):
-    name_ = 'IKBind'
-    divNum = division(num_)
-    jnts_ = []
-    for i in divNum:
-        getMatrix_ = getCurveParamTransform(i, curve_)
-        jnt_ = joint(n='{0}{1}Jnt'.format(name_, i))
-        jnt_.setMatrix(getMatrix_)
-        jnts_.append(jnt_)
-        select(cl=1)
-    return jnts_
-
-def createIKCtrl(names_, object_):
-    grp_ = []
-    ctrls_ = _control.control_(object_, 'circle')
-    for i,ctrl in enumerate(ctrls_):
-        ctrl.rename('{0}IKCtrl'.format(names_[i]))
-        grp_.append(_node.offset_(ctrl, num_=1))
-    return grp_, ctrls_
-
 
 def searchJoint(stJnt, enJnt):
     allP_ = enJnt.getAllParents()
@@ -99,136 +37,97 @@ def searchJoint(stJnt, enJnt):
     list_.reverse()
     return list_
 
-def splName(object_, spl, idx):
-    names_ = []
+def createCrv(name_, number, joints_):
+    crv_ = _curve.object_cv_curve(joints_, dgree_=None)
+    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kt=0,s=number-3,d=3)
+    crv_.rename('{0}Crv'.format(name_))
+    shape_ = crv_.getShape()
+    if crv_.name() != shape_.name():
+        shape_.rename(crv_.name())
+    return crv_
+
+def object_cv_curve(name_, object_, dgree_=None):
+    object_ = ls(object_)
+    if not dgree_:
+        dgree_ = 1
+    trans_list = []
     for i in object_:
-        if spl in i.name():
-            names_.append(i.name().split(spl)[idx])
-    return names_    
+        trans, rot = _transform.get_transform(i)
+        trans_list.append(trans)
+    crv_ = curve(n=name_, d=dgree_, p = trans_list)
+    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kt=0,s=number-3,d=3)
+    return crv_
 
-def IKSetting(num, baseName, stJnt, enJnt):
-    """Get the childrens from top object
-
-    Arguments:
-        num (int): ik bind joint and controller number
-        baseName (string): base name
-        stJnt ('joint'): ik start joint
-        enJnt ('joint'): ik end joint
-
-    Returns:
-        build : ik (stretch and squash) setting
-
-    """
-    # setting value setting
-    joints_ = searchJoint(stJnt, enJnt)
-    names_ = splName(joints_[:-1], 'Jnt', 0)
-    crvType_ = ['IK','IKChk']
-    IKSets = sets(n='{0}IKSets'.format(baseName))
-
-    # IK Nodes Configuration
-    IKSysGrp = _node.space_('{0}IKSys'.format(baseName))
-    IKCtrlGrp = _node.space_('{0}IKCtrl'.format(baseName))
-    IKCurves = createIKCurves(joints_, crvType_)
-    IKJnts_ = paramAtJoint(num, IKCurves[0])
-    IKJntsName_ = splName(IKJnts_, 'Jnt', 0)
-    CtrlGrps, Ctrl = createIKCtrl(IKJntsName_, IKJnts_)
-    [parent(jnt, Ctrl[j]) for j,jnt in enumerate(IKJnts_)]
-    [parent(crv, IKSysGrp) for crv in IKCurves]
-    [parent(grp, IKCtrlGrp) for grp in CtrlGrps]
-
-    sets(IKSets, e=1, add=[IKSysGrp,IKCtrlGrp,IKCurves,IKJnts_,CtrlGrps,Ctrl])
-
-    stml_ = _node.multDoubleLinear_('{0}IKStretch'.format(baseName))
-    sqml_ = _node.multDoubleLinear_('{0}IKsquash'.format(baseName))
-    ba_ = [_node.blendTwoAttr_(n) for n in names_]
-    md_ = [_node.multiplyDivide_('{0}Normalize'.format(n)) for n in names_]
-    md1_ = [_node.multiplyDivide_('{0}PW'.format(n)) for n in names_]
-    md2_ = [_node.multiplyDivide_('{0}Squash'.format(n)) for n in names_]
-    ml_ = [_node.multDoubleLinear_(n) for n in names_]
-    dbs_ = []
-    pocis_ = []
-    for c,crv in enumerate(IKCurves):
-        shape_ = crv.getShape()
-        db_ = []
-        poci_ = []
-        dbs_.append(db_)
-        pocis_.append(poci_)
-        for j,jnt in enumerate(joints_):
-            pos_ = _transform.get_trans(jnt)
-            cpos = shape_.closestPoint(pos_)
-            param_ = shape_.getParamAtPoint(cpos, space='preTransform')            
-            pc_ = _node.pointOnCurveInfo_(crv)
-            pc_.attr('parameter').set(param_)
-            poci_.append(pc_)
-            if j<int(len(joints_)-1):
-                name2_ = '{0}{1}'.format(crvType_[c], names_[j])
-                db_.append(_node.distancBetween_(name2_))
-
-    sets(IKSets, e=1, add=[stml_,sqml_,ba_,md_,md1_,md2_,ml_,
-                           dbs_[0],dbs_[1],pocis_[0],pocis_[1]])
-
-    sik_ = ikHandle(n='{}IKH'.format(baseName), 
-                    sj=joints_[0], 
-                    ee=joints_[-1], 
-                    c=IKCurves[0], 
-                    sol='ikSplineSolver', 
-                    ccv=0, 
-                    pcv=0)
-    parent(sik_[0], IKSysGrp)
-
-    sets(IKSets, e=1, add=sik_)
-
-    # Connecting IK Nodes
-    for c,crv in enumerate(IKCurves):
-        db_ = dbs_[c]
-        poci_ = pocis_[c]
-        for j,jnt in enumerate(joints_):
-            if j<int(len(joints_)-1):
-                poci_[j].position >> db_[j].point1
-                if c==0:
-                    md_[j].attr('operation').set(2)
-                    md1_[j].attr('operation').set(3)
-                    md2_[j].attr('operation').set(2)
-                    md2_[j].attr('i1x').set(1)
-                    db_[j].distance >> ba_[j].input[1]
-                    stml_.o >> ba_[j].attributesBlender
-                    sqml_.o >> md1_[j].i2x
-                    ba_[j].o >> md_[j].i1x
-                    md_[j].ox >> ml_[j].i1
-                    md_[j].ox >> md1_[j].i1x
-                    md1_[j].ox >> md2_[j].i2x
-                if c==1:
-                    db_[j].distance >> ba_[j].input[0]
-                    db_[j].distance >> md_[j].i2x
-            if j>0:
-                poci_[j].position >> db_[j-1].point2
-
-    md2_[0].ox >> joints_[0].sy
-    md2_[0].ox >> joints_[0].sz
-    for i,db in enumerate(dbs_[0]):
+def createNodes(name_, names_, crvs_, divNumList):
+    names_ = names_[1:]
+    dict_ = {}
+    chkNames_ = ['{0}Chk'.format(n) for n in names_]
+    dict_['IKSysGrp'] = _node.space_('{0}IKSys'.format(name_))
+    dict_['stml'] = _node.multDoubleLinear_('{0}IKStretch'.format(name_))
+    dict_['sqml'] = _node.multDoubleLinear_('{0}IKsquash'.format(name_))
+    dict_['ba'] = [_node.blendTwoAttr_(n) for n in names_]
+    dict_['md'] = [_node.multiplyDivide_('{0}Normalize'.format(n)) for n in names_]
+    dict_['md1'] = [_node.multiplyDivide_('{0}PW'.format(n)) for n in names_]
+    dict_['md2'] = [_node.multiplyDivide_('{0}Squash'.format(n)) for n in names_]
+    dict_['ml'] = [_node.multDoubleLinear_(n) for n in names_]
+    dict_['db'] = [_node.distancBetween_(n) for n in names_]
+    dict_['chkdb'] = [_node.distancBetween_(n) for n in chkNames_]
+    dict_['pc'] = [_node.pointOnCurveInfo_(crvs_[0]) for i in divNumList]
+    dict_['chkpc'] = [_node.pointOnCurveInfo_(crvs_[1]) for i in divNumList]
+    return dict_
+    
+def IKNodeConnection(dict_, crvs_, joints_, divNumList):
+    
+    for p,pc in enumerate(dict_['pc']):
+        pc.attr('parameter').set(divNumList[p])
+        dict_['chkpc'][p].attr('parameter').set(divNumList[p])
+        if pc in dict_['pc'][:-1]:
+            pc.position >> dict_['db'][p].point1
+            dict_['chkpc'][p].position >> dict_['chkdb'][p].point1
+            dict_['md'][p].attr('operation').set(2)
+            dict_['md1'][p].attr('operation').set(3)
+            dict_['md2'][p].attr('operation').set(2)
+            dict_['md2'][p].attr('i1x').set(1)
+            dict_['db'][p].distance >> dict_['ba'][p].input[1]
+            dict_['stml'].o >> dict_['ba'][p].attributesBlender
+            dict_['sqml'].o >> dict_['md1'][p].i2x
+            dict_['ba'][p].o >> dict_['md'][p].i1x
+            dict_['md'][p].ox >> dict_['ml'][p].i1
+            dict_['md'][p].ox >> dict_['md1'][p].i1x
+            dict_['md1'][p].ox >> dict_['md2'][p].i2x
+            dict_['chkdb'][p].distance >> dict_['ba'][p].input[0]
+            dict_['chkdb'][p].distance >> dict_['md'][p].i2x
+        if p>0:
+            pc.position >> dict_['db'][p-1].point2
+            dict_['chkpc'][p].position >> dict_['chkdb'][p-1].point2
+    
+    dict_['md2'][0].ox >> joints_[0].sy
+    dict_['md2'][0].ox >> joints_[0].sz
+    for i,db in enumerate(dict_['db']):
         dist_ = db.getAttr('distance')
-        ml_[i].attr('i2').set(dist_)
-        ml_[i].o >> joints_[1:][i].tx
-        md2_[i].ox >> joints_[1:][i].sy
-        md2_[i].ox >> joints_[1:][i].sz
-
-    stml_.attr('i1').set(10)
-    stml_.attr('i2').set(0.1)
-    sqml_.attr('i1').set(10)
-    sqml_.attr('i2').set(0.1)
-    addAttr(sik_[0], ln="Stretch",at='double',min=0,max=10,k=1)
-    addAttr(sik_[0], ln="Squash",at='double',min=0,max=10,k=1)
-    sik_[0].attr('dTwistControlEnable').set(1)
-    sik_[0].attr('dWorldUpType').set(4)
-    Ctrl[0].wm >> sik_[0].dWorldUpMatrix
-    Ctrl[-1].wm >> sik_[0].dWorldUpMatrixEnd
-    sik_[0].Stretch >> stml_.i1
-    sik_[0].Squash >> sqml_.i1
+        dict_['ml'][i].attr('i2').set(dist_)
+        dict_['ml'][i].o >> joints_[1:][i].tx
+        dict_['md2'][i].ox >> joints_[1:][i].sy
+        dict_['md2'][i].ox >> joints_[1:][i].sz
+    
+    dict_['stml'].attr('i1').set(10)
+    dict_['stml'].attr('i2').set(0.1)
+    dict_['sqml'].attr('i1').set(10)
+    dict_['sqml'].attr('i2').set(0.1)
 
 
 sel = ls(sl=1,r=1,fl=1)
-num = 4
-baseName = "Neck"
-IKSetting(num, baseName, sel[0], sel[-1])
+name_ = sel[0].split('1Jnt')[0]
+stJnt, enJnt, = sel[0], sel[1]
 
+joints_ = searchJoint(stJnt, enJnt)
+names_ = [jnt.name().split('Jnt')[0] for jnt in joints_]
 
+number = int(len(joints_))
+divNumList = division(number-1)
+
+crvs_ = [object_cv_curve(n, joints_) for n in [name_, '{0}Chk'.format(name_)]]
+
+nodeDict_ = createNodes(name_, names_, crvs_, divNumList)
+IKNodeConnection(nodeDict_, crvs_, joints_, divNumList)
+[parent(crv, nodeDict_['IKSysGrp']) for crv in crvs_]
