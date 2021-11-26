@@ -52,6 +52,13 @@ def jointlabeling_(part, side):
     
     return joints
 
+def jointReLabel(object_):
+    for i in object_:
+        if i.getAttr('type') != 18:
+            i.attr('type').set(18)
+        name_ = i.name().split('Jnt')[0]
+        i.attr('otherType').set(name_)
+
 def joint_(_name):
     return joint(n='{}Jnt'.format(_name))
 
