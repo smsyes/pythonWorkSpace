@@ -22,6 +22,7 @@ message_ = ReName().append_suffix(getRename)
 #
 from pymel.core import *
 import string
+import maya.cmds as cmds
 
 class ReName():
     def __init__(self, *args, **kwargs):
@@ -44,13 +45,17 @@ class ReName():
     def make_name(self, name_, num_, check_):
         sel_ = ls(sl=1,r=1,fl=1)
         if sel_:
-            if len(sel_)==1:
-                sel_[0].rename(name_)
-            else:
-                for i,sel_ in enumerate(sel_):
-                    pad_ = self.padding(i+int(num_), check_)
-                    makeName_ = name_ + pad_
-                    sel_.rename(makeName_)
+            try:
+                cmds.undoInfo(openChunk=True)    
+                if len(sel_)==1:
+                    sel_[0].rename(name_)
+                else:
+                    for i,sel_ in enumerate(sel_):
+                        pad_ = self.padding(i+int(num_), check_)
+                        makeName_ = name_ + pad_
+                        sel_.rename(makeName_)
+            finally:
+                cmds.undoInfo(closeChunk=True)                
 
 
     def append_name(self, name_, mode=None):
