@@ -31,9 +31,15 @@ def CurveAtObjectPosition(object_):
 
 sel = ls(sl=1,fl=1,r=1)
 
-# curve_ = sel[0]
+curve_ = sel[0]
 # number = 8
 # numList = division(number)
+# numList = [0,1,2,3,4,5,6,7]
 # LocAtCurveParam(numList, curve_)
 # CurveAtObjectPosition(sel)
 
+'''
+ef_ = polyListComponentConversion(sel, tf=True,ff=True)
+for i in sel:
+    polyListComponentConversion(i, )
+'''
