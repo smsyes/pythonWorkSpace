@@ -19,22 +19,35 @@ def getChildren_(object_, type_=None):
     child_.reverse()
     return child_
 
+def hierarchy_(object_):
+    for i,obj in enumerate(object_):
+        if i>0:
+            parent(obj, object_[i-1])
+
 def IKFKBlend(object_):
     FKChain = getChildren_(object_[0], type_='joint')
     IKChain = getChildren_(object_[1])
     DrvChain = getChildren_(object_[2], type_='joint')
-    
+    IKPos_ = [createNode('transform', n='{0}Pos'.format(ik.name())) for ik in IKChain]
+    IKTransform = [ik.getMatrix(worldSpace=True) for ik in IKChain]
+    [pos.setMatrix(IKTransform[i]) for i,pos in enumerate(IKPos_)]
+    hierarchy_(IKPos_)
+
     for i,drv in enumerate(DrvChain):
         name_ = drv.name()
         print(name_, FKChain[i], IKChain[i])
         PB_ = createNode('pairBlend', n='{0}PB'.format(name_))
         BC_ = shadingNode('blendColors', au=1, n='{0}BC'.format(name_))
+            
         FKChain[i].r >> PB_.ir2
         FKChain[i].t >> PB_.it2
         FKChain[i].s >> BC_.color1
-        IKChain[i].r >> PB_.ir1
-        IKChain[i].t >> PB_.it1
-        IKChain[i].s >> BC_.color2
+        IKChain[i].r >> IKPos_[i].r
+        IKChain[i].t >> IKPos_[i].t
+        IKChain[i].s >> IKPos_[i].s
+        IKPos_[i].r >> PB_.ir1
+        IKPos_[i].t >> PB_.it1
+        IKPos_[i].s >> BC_.color2
         PB_.outTranslate >> drv.t
         PB_.outRotate >> drv.r
         BC_.output >> drv.s

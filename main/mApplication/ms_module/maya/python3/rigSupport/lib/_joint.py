@@ -26,6 +26,14 @@ except:
 reload(_transform)
 reload(_name)
 
+def jointTransformMatch(joint_):
+    t_ = joint_[0].getAttr('t')
+    joint_[1].attr('t').set(t_)
+    r_ = joint_[0].getAttr('r')
+    joint_[1].attr('r').set(r_)
+    o_ = joint_[0].getAttr('jointOrient')
+    joint_[1].attr('jointOrient').set(o_)
+
 def jointlabeling_(part, side):    
     sel = ls(sl=1)
     
