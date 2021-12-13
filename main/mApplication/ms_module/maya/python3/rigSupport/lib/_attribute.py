@@ -51,11 +51,11 @@ def message_(object_, attr_):
     #conncet a some more objects  
     if not item.hasAttr(attr_):  
         addAttr(item,ln=attr_,at='message',m=True,im=False)
-        itemAttr = PyNode('{}.{}'.format(item, attr_))
+        itemAttr = item.attr(attr_)
     else:
-        itemAttr = PyNode('{}.{}'.format(item, attr_))
-    for i, object in enumerate(target):
-        addAttr(object,ln=attr_,at='message',m=True,im=False)
-        objectAttr = PyNode('{}.{}'.format(object, attr_))
-        connectAttr(objectAttr,itemAttr,na=True)
+        itemAttr = item.attr(attr_)
+    for i, tgt in enumerate(target):
+        addAttr(tgt,ln=attr_,at='message',m=True,im=False)
+        tgtAttr = tgt.attr(attr_)
+        connectAttr(tgtAttr,itemAttr,na=True)
       

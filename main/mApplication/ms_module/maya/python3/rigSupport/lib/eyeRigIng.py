@@ -27,6 +27,7 @@ def CurveAtObjectPosition(object_):
     pos_ = [i.getMatrix(worldSpace=True)[-1][:-1] for i in object_]
     curve(n='{0}Crv'.format(name_),d=1,p=pos_)
 
+<<<<<<< HEAD
 def surfaceAtPos(object_):
     surfShape_ = object_[-1].getShape()
     
@@ -56,6 +57,30 @@ def JntAtCurveParam(numList, curve_):
         shape_.ws >> pc_.inputCurve
         pc_.attr('parameter').set(num)
         pc_.position >> jnt_.t
+=======
+def getTransform(object_, p=None, r=None):
+    transform = []
+    if p:
+        pos_ = xform(object_, q=1, ws=1, rp=1 )
+        transform.append(pos_)
+    if r:
+        rot_ = xform(object_, q=1, ws=1, ro=1 )
+        transform.append(rot_)
+    return transform
+
+def jointAtObject(object_):
+    for i in object_:
+        select(cl=1)
+        name_ = i.name()
+        pos,rot = getTransform(i, p=1, r=1)
+        jnt_ = joint(n='{0}Jnt'.format(name_))
+        jnt_.attr('t').set(pos)
+        jnt_.attr('jointOrient').set(rot)
+
+def connection(object_):
+    object_[0].t >> object_[1].t
+    object_[0].r >> object_[1].r
+>>>>>>> 6e2a2a61626768052c81345b01c1c4c07959c047
 
 sel = ls(sl=1)
 
@@ -65,6 +90,7 @@ sel = ls(sl=1)
 # numList = [0,1,2,3,4,5,6,7]
 # LocAtCurveParam(numList, curve_)
 # CurveAtObjectPosition(sel)
+<<<<<<< HEAD
 # surfaceAtPos(sel)
 shape_ = sel[0].getShape()
 numList = range(shape_.numEPs())
@@ -75,3 +101,14 @@ shape_ = upLidCrv.getShape()
 numList = range(shape_.numCVs())
 LocAtCurveParam(numList, upLidCrv)
 '''
+=======
+# jointAtObject(sel)
+# connection(sel)
+
+
+
+
+
+
+        
+>>>>>>> 6e2a2a61626768052c81345b01c1c4c07959c047
