@@ -27,19 +27,43 @@ def CurveAtObjectPosition(object_):
     pos_ = [i.getMatrix(worldSpace=True)[-1][:-1] for i in object_]
     curve(n='{0}Crv'.format(name_),d=1,p=pos_)
 
+def getTransform(object_, p=None, r=None):
+    transform = []
+    if p:
+        pos_ = xform(object_, q=1, ws=1, rp=1 )
+        transform.append(pos_)
+    if r:
+        rot_ = xform(object_, q=1, ws=1, ro=1 )
+        transform.append(rot_)
+    return transform
 
+def jointAtObject(object_):
+    for i in object_:
+        select(cl=1)
+        name_ = i.name()
+        pos,rot = getTransform(i, p=1, r=1)
+        jnt_ = joint(n='{0}Jnt'.format(name_))
+        jnt_.attr('t').set(pos)
+        jnt_.attr('jointOrient').set(rot)
+
+def connection(object_):
+    object_[0].t >> object_[1].t
+    object_[0].r >> object_[1].r
 
 sel = ls(sl=1,fl=1,r=1)
 
-curve_ = sel[0]
+# curve_ = sel[0]
 # number = 8
 # numList = division(number)
 # numList = [0,1,2,3,4,5,6,7]
 # LocAtCurveParam(numList, curve_)
 # CurveAtObjectPosition(sel)
+# jointAtObject(sel)
+# connection(sel)
 
-'''
-ef_ = polyListComponentConversion(sel, tf=True,ff=True)
-for i in sel:
-    polyListComponentConversion(i, )
-'''
+
+
+
+
+
+        
