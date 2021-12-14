@@ -6,6 +6,20 @@ except:
     pass
 reload(_node)
 
+def getDistance(v0, v1):
+    """
+    Arguments:
+        v0 (Vector): Vector A.
+        v1 (Vector): Vector B.
+
+    Returns:
+        float: Distance Length.
+    """
+
+    v = v1 - v0
+    
+    return v.length()
+
 def division(number):
     list_ = [0]
     div_ = float(1)/float(number)
@@ -18,7 +32,7 @@ def LocAtCurveParam(numList, curve_):
     for i,num in enumerate(numList):
         name_ = curve_.name()
         poci_ = _node.pointOnCurveInfo_(curve_)
-        loc_ = spaceLocator(n = '{0}{1}Space'.format(name_,i))
+        loc_ = spaceLocator(n = '{0}{1}Pos'.format(name_,i))
         poci_.attr('parameter').set(num)
         poci_.position >> loc_.t
         
@@ -27,7 +41,6 @@ def CurveAtObjectPosition(object_):
     pos_ = [i.getMatrix(worldSpace=True)[-1][:-1] for i in object_]
     curve(n='{0}Crv'.format(name_),d=1,p=pos_)
 
-<<<<<<< HEAD
 def surfaceAtPos(object_):
     surfShape_ = object_[-1].getShape()
     
@@ -57,58 +70,74 @@ def JntAtCurveParam(numList, curve_):
         shape_.ws >> pc_.inputCurve
         pc_.attr('parameter').set(num)
         pc_.position >> jnt_.t
-=======
-def getTransform(object_, p=None, r=None):
-    transform = []
-    if p:
-        pos_ = xform(object_, q=1, ws=1, rp=1 )
-        transform.append(pos_)
-    if r:
-        rot_ = xform(object_, q=1, ws=1, ro=1 )
-        transform.append(rot_)
-    return transform
 
-def jointAtObject(object_):
-    for i in object_:
-        select(cl=1)
+def joint_(name_):
+    select(cl=1)
+    return joint(n=name_)
+
+def aimJoint(object_):
+    centerTrans_ = object_[-1].getMatrix(worldSpace=True)[-1][:-1]
+    for i in object_[:-1]:
         name_ = i.name()
-        pos,rot = getTransform(i, p=1, r=1)
-        jnt_ = joint(n='{0}Jnt'.format(name_))
-        jnt_.attr('t').set(pos)
-        jnt_.attr('jointOrient').set(rot)
+        getTrans_ = i.getMatrix(worldSpace=True)[-1][:-1]
+        jnt1_ = joint_('{0}AimJnt'.format(name_))
+        jnt2_ = joint_('{0}Jnt'.format(name_))
+        jnt1_.attr('t').set(centerTrans_)
+        aimConstraint(i,jnt1_,
+                      mo=0,
+                      w=1,
+                      aim=[1,0,0],
+                      u=[0,1,0],
+                      wut='objectrotation',
+                      wu=[0,1,0],
+                      wuo=object_[-1])
+        dist_ = getDistance(centerTrans_, getTrans_)
+        jnt2_.attr('t').set(centerTrans_)
+        parent(jnt2_, jnt1_)
+        jnt2_.attr('jo').set(0,0,0)
+        jnt2_.attr('tx').set(dist_)    
 
-def connection(object_):
-    object_[0].t >> object_[1].t
-    object_[0].r >> object_[1].r
->>>>>>> 6e2a2a61626768052c81345b01c1c4c07959c047
+def LocAtCurveEPPos(curve_):
+    locList = []
+    shape_ = curve_.getShape()
+    epNum = shape_.numEPs()
+    for i in range(epNum):
+        name_ = curve_.name()
+        cvPos = shape_.getCV(i)
+        loc_ = spaceLocator(n = '{0}{1}Pos'.format(name_,i))
+        loc_.attr('t').set(cvPos)
+        locList.append(loc_)
+    return locList
+
+def curveCVAtObjects(object_):
+    crvShape_ = object_[-1].getShape()
+    for i,obj in enumerate(object_[:-1]):
+        shape_ = obj.getShape()
+        shape_.worldPosition[0] >> crvShape_.controlPoints[i]
+
+def reverseMultMD(object_):
+    name_ = object_[0].name()
+    rvsMult_ = shadingNode('multiplyDivide', au=1, n='{0}RvsMultMD'.format(name_))
+    object_[0].t >> rvsMult_.i1
+    rvsMult_.attr('i2').set([-1,-1,-1])
+    rvsMult_.o >> object_[1].t
 
 sel = ls(sl=1)
 
 # curve_ = sel[0]
-# number = 8
+# shape_ = sel[0].getShape()
+# number = 4
 # numList = division(number)
 # numList = [0,1,2,3,4,5,6,7]
+# numList = range(shape_.numEPs())
 # LocAtCurveParam(numList, curve_)
 # CurveAtObjectPosition(sel)
-<<<<<<< HEAD
 # surfaceAtPos(sel)
-shape_ = sel[0].getShape()
-numList = range(shape_.numEPs())
-JntAtCurveParam(numList, sel[0])
-'''
-upLidCrv = PyNode(polyToCurve(n='upLid',form=0,degree=1,usm=1)[0])
-shape_ = upLidCrv.getShape()
-numList = range(shape_.numCVs())
-LocAtCurveParam(numList, upLidCrv)
-'''
-=======
-# jointAtObject(sel)
-# connection(sel)
+# JntAtCurveParam(numList, sel[0])
+# aimJoint(sel)
+# locList = LocAtCurveEPPos(sel[0])
+# curveCVAtObjects(sel)
+# reverseMultMD(sel)
 
 
 
-
-
-
-        
->>>>>>> 6e2a2a61626768052c81345b01c1c4c07959c047
