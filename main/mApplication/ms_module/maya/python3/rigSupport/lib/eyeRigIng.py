@@ -122,11 +122,17 @@ def reverseMultMD(object_):
     rvsMult_.attr('i2').set([-1,-1,-1])
     rvsMult_.o >> object_[1].t
 
+def selectLocator(object_):
+    for i in object_:
+        name_ = i.name()
+        pos_ = i.getMatrix(worldSpace=True)[-1][:-1]
+        loc_ = spaceLocator(n='{0}Pos'.format(name_), p=pos_)
+
 sel = ls(sl=1)
 
 # curve_ = sel[0]
 # shape_ = sel[0].getShape()
-# number = 4
+# number = 2
 # numList = division(number)
 # numList = [0,1,2,3,4,5,6,7]
 # numList = range(shape_.numEPs())
@@ -138,6 +144,7 @@ sel = ls(sl=1)
 # locList = LocAtCurveEPPos(sel[0])
 # curveCVAtObjects(sel)
 # reverseMultMD(sel)
+# selectLocator(sel)
 
 
 
