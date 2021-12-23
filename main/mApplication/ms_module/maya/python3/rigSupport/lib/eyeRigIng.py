@@ -6,6 +6,17 @@ except:
     pass
 reload(_node)
 
+def jointReLabel(object_):
+    for i in object_:
+        if i.getAttr('type') != 18:
+            i.attr('type').set(18)
+        name_ = i.name().split('Jnt')[0]
+        i.attr('otherType').set(name_)
+
+def jointSide(joint_, side):
+    for i in joint_:
+        i.attr('side').set(side)
+
 def getDistance(v0, v1):
     """
     Arguments:
@@ -20,9 +31,9 @@ def getDistance(v0, v1):
     
     return v.length()
 
-def division(number):
+def division(number,divNum):
     list_ = [0]
-    div_ = float(1)/float(number)
+    div_ = float(divNum)/float(number)
     for i in range(number):
         i=i+1
         list_.append(i*div_)
@@ -34,6 +45,7 @@ def LocAtCurveParam(numList, curve_):
         poci_ = _node.pointOnCurveInfo_(curve_)
         loc_ = spaceLocator(n = '{0}{1}Pos'.format(name_,i))
         poci_.attr('parameter').set(num)
+        poci_.attr('turnOnPercentage').set(1)
         poci_.position >> loc_.t
         
 def CurveAtObjectPosition(object_):
@@ -68,6 +80,7 @@ def JntAtCurveParam(numList, curve_):
         pc_ = createNode('pointOnCurveInfo', n='{0}PC'.format(name_))
         jnt_ = joint(n='{0}Jnt'.format(name_))
         shape_.ws >> pc_.inputCurve
+        pc_.attr('turnOnPercentage').set(1)
         pc_.attr('parameter').set(num)
         pc_.position >> jnt_.t
 
@@ -128,23 +141,79 @@ def selectLocator(object_):
         pos_ = i.getMatrix(worldSpace=True)[-1][:-1]
         loc_ = spaceLocator(n='{0}Pos'.format(name_), p=pos_)
 
+def surfZipSet(numList, object_):
+    surfShape_ = object_.getShape()
+    addAttr(object_, ln='zip',at='double',min=0,max=1,dv=1,k=1)
+    grp_ = [createNode('transform',n=i) for i in ['ZipAGrp','ZipBGrp','AGrp','BGrp']]
+    for i,num in enumerate(numList):
+        name_ = '{0}{1}'.format(sel[0].name(),i)
+        ps_ = createNode('pointOnSurfaceInfo', n='{0}PS'.format(name_))
+        ps_.attr('turnOnPercentage').set(1)
+        ps_.attr('parameterU').set(num)
+        ps_.attr('parameterV').set(0.5)
+        surfShape_.ws >> ps_.inputSurface
+        for p in ['A','B']:
+            zipPos_ = createNode('transform', n='{0}{1}ZipPos'.format(name_,p))
+            Pos_ = spaceLocator(n='{0}{1}Pos'.format(name_,p))
+            pb_ = createNode('pairBlend', n='{0}{1}PB'.format(name_,p))
+            rm_ = createNode('remapValue', n='{0}{1}RM'.format(name_,p))
+            pb_.attr('rotInterpolation').set(1)
+            rm_.attr('inputMax').set(num)
+            object_.zip >> rm_.inputValue
+            Pos_.getShape().worldPosition >> pb_.it1
+            rm_.outValue >> pb_.weight
+            ps_.position >> pb_.it2
+            pb_.ot >> zipPos_.t
+            getPos_ = ps_.attr('position').get()
+            Pos_.attr('t').set(getPos_)
+            if p=='A':
+                parent(zipPos_, grp_[0])
+                parent(Pos_, grp_[2])
+            if p=='B':
+                parent(zipPos_, grp_[1])
+                parent(Pos_, grp_[3])
+
+def objectCntCurveParam(object_):
+    shape_ = object_[-1].getShape()
+    numList = division(len(object_[:-1])-1,1)
+    for i,num in enumerate(numList):
+        name_ = '{0}'.format(object_[i].name())
+        pc_ = createNode('pointOnCurveInfo', n='{0}PC'.format(name_))
+        shape_.ws >> pc_.inputCurve
+        pc_.attr('turnOnPercentage').set(1)
+        pc_.attr('parameter').set(num)
+        pc_.position >> object_[i].t 
+
+def getParamAtObjectPosition(object_):
+    paramList = []
+    shape_ = object_[-1].getShape()
+    for i in object_[:-1]:
+        name_ = i.name()
+        getTrans_ = i.getMatrix(worldSpace=True)[-1][:-1]
+        cpp_ = shape_.closestPoint(getTrans_,param=None,tolerance=0.001,space='preTransform')
+        param_ = shape_.getParamAtPoint(cpp_, space='preTransform')
+        paramList.append(param_)
+    return paramList
+
 sel = ls(sl=1)
 
-# curve_ = sel[0]
 # shape_ = sel[0].getShape()
-# number = 2
-# numList = division(number)
+# number = 6
+# numList = division(number,1)
 # numList = [0,1,2,3,4,5,6,7]
 # numList = range(shape_.numEPs())
-# LocAtCurveParam(numList, curve_)
+# LocAtCurveParam(numList, sel[0])
 # CurveAtObjectPosition(sel)
 # surfaceAtPos(sel)
 # JntAtCurveParam(numList, sel[0])
+# jointReLabel(sel)
 # aimJoint(sel)
 # locList = LocAtCurveEPPos(sel[0])
 # curveCVAtObjects(sel)
 # reverseMultMD(sel)
 # selectLocator(sel)
-
-
+# jointSide(sel, 2)
+# surfZipSet(numList, sel[0])
+# objectCntCurveParam(sel)
+# getParamAtObjectPosition(sel)
 
