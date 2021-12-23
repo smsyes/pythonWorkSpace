@@ -12,7 +12,7 @@ def offset_(object_, num=1):
             midName = "Off"
         else:
             midName = ""
-        for i in selObject:
+        for i in object_:
             _space = space_(i, midName, i)
             parent(_space, w=1)
             if i.getParent():

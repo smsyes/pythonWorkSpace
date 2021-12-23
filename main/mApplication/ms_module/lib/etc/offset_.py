@@ -1,9 +1,8 @@
 from pymel.core import *
-import pymel.core.datatypes as dt
 
 # name convention
 def name_(object_):
-    _name = '_'.join(object_.split('_')[:-1])
+    _name = ''.join(object_.split('_')[:-1])
     return _name
 
 
