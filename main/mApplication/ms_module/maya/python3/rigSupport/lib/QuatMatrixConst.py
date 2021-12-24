@@ -62,12 +62,11 @@ def MCon(object_, t_=None, r_=None, s_=None, maintain=None):
     if t_:
         localDMNode.ot >> target_.t
     if r_:
-        if target_.type('joint'):
+        if target_.type()=='joint':
             QENode.outputRotate >> target_.jo
         else:
             QENode.outputRotate >> target_.r
     if s_:
         localDMNode.os >> target_.s
             
-sel = ls(sl=1, fl=1, r=1)
-MCon(sel, t_=1, r_=1, s_=1, maintain=0)
+
