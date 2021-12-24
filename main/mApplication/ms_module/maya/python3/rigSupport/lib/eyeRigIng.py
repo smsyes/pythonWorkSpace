@@ -184,7 +184,7 @@ def objectCntCurveParam(object_):
         pc_.attr('parameter').set(num)
         pc_.position >> object_[i].t 
 
-def getParamAtObjectPosition(object_):
+def getCrvParamAtObjectPosition(object_):
     paramList = []
     shape_ = object_[-1].getShape()
     for i in object_[:-1]:
@@ -194,6 +194,24 @@ def getParamAtObjectPosition(object_):
         param_ = shape_.getParamAtPoint(cpp_, space='preTransform')
         paramList.append(param_)
     return paramList
+
+
+def surfacePosAtObject(paramList, object_):
+    surfShape_ = object_[-1].getShape()
+    
+    for i,obj in enumerate(object_[:-1]):
+        posShape_ = obj.getShape()
+        name_ = obj.name()
+        ps_ = createNode('pointOnSurfaceInfo', n='{0}PS'.format(name_))
+        rh_ = createNode('rotateHelper', n='{0}RH'.format(name_))
+        SurfPos_ = createNode('transform', n='{0}SurfPos'.format(name_))
+        surfShape_.ws >> ps_.inputSurface
+        ps_.attr('parameterU').set(paramList[i])
+        ps_.attr('parameterV').set(0.5)
+        ps_.normalizedNormal >> rh_.forward
+        ps_.normalizedTangentU >> rh_.up
+        ps_.position >> SurfPos_.t
+        rh_.r >> SurfPos_.r
 
 sel = ls(sl=1)
 
@@ -216,4 +234,6 @@ sel = ls(sl=1)
 # surfZipSet(numList, sel[0])
 # objectCntCurveParam(sel)
 # getParamAtObjectPosition(sel)
-
+# paramList = getCrvParamAtObjectPosition(sel)
+# JntAtCurveParam(paramList, sel[-1])
+# surfacePosAtObject(paramList, sel)
