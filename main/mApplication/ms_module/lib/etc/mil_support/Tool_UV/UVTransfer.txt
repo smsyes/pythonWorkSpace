@@ -1,0 +1,56 @@
+//-----------------UV Transfer 2015.06.17---------------
+string $sl[]=`ls -l -sl`,$orig,$sh,$uvs[];
+int $slSz=size($sl),$i;
+for($i=0;$i<$slSz/2;$i++)
+{
+    $sh=FindShMesh($sl[$i]);
+    $uvs=`polyUVSet -q -cuv $sh`;              
+    $orig=FindOrigMesh($sl[$slSz/2+$i]); 
+    if($orig=="None")
+    {
+        $orig=FindShMesh($sl[$slSz/2+$i]);
+        select $sl[$i];
+        select -add $orig;  
+        transferAttributes -pos 0 -nml 0 -uvs 2 -col 2 -spa 1 -sus $uvs[0] -sm 3-fuv 0 -clb 1;
+        DeleteHistory $orig;    
+    }
+    else
+    {
+        setAttr ($orig+".intermediateObject") 0;
+        select $sl[$i];
+        select -add $orig;    
+        transferAttributes -pos 0 -nml 0 -uvs 2 -col 2 -spa 1 -sus $uvs[0] -sm 3-fuv 0 -clb 1;
+        DeleteHistory $orig;
+        setAttr ($orig+".intermediateObject") 1;        
+    }
+}
+proc string FindShMesh(string $obj)
+{
+    string $objSh[]=`listRelatives -f -s $obj`,$o,$origObj,$connectMesh[];
+    int $cmSz;
+    for($o in $objSh)
+    {
+        if(!`gmatch $o "*Shape*"`) continue;
+        $connectMesh=`listConnections -d 1 -s 0 ($o+".instObjGroups[0]")`;  
+        $cmSz=size($connectMesh);
+        if($cmSz==0) continue;
+        $origObj=$o;
+    }
+    if($origObj=="") return $objSh[0];
+    else return $origObj;
+}
+proc string FindOrigMesh(string $obj)
+{
+    string $objSh[]=`listRelatives -f -s $obj`,$o,$origObj,$connectMesh[];
+    int $cmSz;
+    for($o in $objSh)
+    {
+        if(!`gmatch $o "*Orig*"`) continue;
+        $connectMesh=`listConnections -d 1 -s 0 ($o+".worldMesh[0]")`; 
+        $cmSz=size($connectMesh);
+        if($cmSz==0) continue;
+        $origObj=$o;
+    }
+    if($origObj=="") return "None";
+    else return $origObj;
+}
