@@ -25,7 +25,6 @@ except:
 reload(_check)
 reload(_config)
 
-print('test')
 
 def loadConfig_(jsonName):
     # jsonName = "configDict.json"
