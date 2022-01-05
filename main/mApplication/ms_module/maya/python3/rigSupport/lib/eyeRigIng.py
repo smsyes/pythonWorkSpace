@@ -213,13 +213,33 @@ def surfacePosAtObject(paramList, object_):
         ps_.position >> SurfPos_.t
         rh_.r >> SurfPos_.r
 
+def jointFromCrvNearPos(curves):
+    curve1_, curve2_ = curves[0], curves[1]
+    shape_ = curves[0].getShape()
+    numList = list(range(shape_.numEPs()))
+    
+    for i,num in enumerate(numList):
+        name_ = curve2_.name()
+        pc1_ = _node.pointOnCurveInfo_(curve1_)
+        pc2_ = _node.pointOnCurveInfo_(curve2_)
+        np_ = createNode("nearestPointOnCurve", n='{0}NP'.format(name_))
+        jnt_ = joint(n='{0}Jnt'.format(name_))
+        pc1_.attr('parameter').set(num)
+        pc1_.attr('turnOnPercentage').set(0)
+        curve2_.getShape().ws >> np_.inputCurve
+        pc1_.position >> np_.inPosition
+        nParm_ = np_.getAttr('parameter')
+        pc2_.attr('parameter').set(nParm_)
+        pc2_.position >> jnt_.t
+        delete(pc1_, np_)
+
 sel = ls(sl=1)
 
 # shape_ = sel[0].getShape()
 # number = 6
 # numList = division(number,1)
 # numList = [0,1,2,3,4,5,6,7]
-# numList = range(shape_.numEPs())
+# numList = list(range(shape_.numEPs()))
 # LocAtCurveParam(numList, sel[0])
 # CurveAtObjectPosition(sel)
 # surfaceAtPos(sel)
@@ -237,3 +257,9 @@ sel = ls(sl=1)
 # paramList = getCrvParamAtObjectPosition(sel)
 # JntAtCurveParam(paramList, sel[-1])
 # surfacePosAtObject(paramList, sel)
+# jointFromCrvNearPos(sel)
+
+
+    
+    
+    
