@@ -217,9 +217,8 @@ def jointFromCrvNearPos(curves):
     curve1_, curve2_ = curves[0], curves[1]
     shape_ = curves[0].getShape()
     numList = list(range(shape_.numEPs()))
-    
+    name_ = curve2_.name()
     for i,num in enumerate(numList):
-        name_ = curve2_.name()
         pc1_ = _node.pointOnCurveInfo_(curve1_)
         pc2_ = _node.pointOnCurveInfo_(curve2_)
         np_ = createNode("nearestPointOnCurve", n='{0}NP'.format(name_))
