@@ -139,7 +139,8 @@ def selectLocator(object_):
     for i in object_:
         name_ = i.name()
         pos_ = i.getMatrix(worldSpace=True)[-1][:-1]
-        loc_ = spaceLocator(n='{0}Pos'.format(name_), p=pos_)
+        loc_ = spaceLocator(n='{0}Pos'.format(name_))
+        loc_.attr('t').set(pos_)
 
 def surfZipSet(numList, object_):
     surfShape_ = object_.getShape()
