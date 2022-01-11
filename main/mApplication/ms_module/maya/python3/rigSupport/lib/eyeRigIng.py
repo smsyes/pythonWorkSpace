@@ -45,7 +45,7 @@ def LocAtCurveParam(numList, curve_):
         poci_ = _node.pointOnCurveInfo_(curve_)
         loc_ = spaceLocator(n = '{0}{1}Pos'.format(name_,i))
         poci_.attr('parameter').set(num)
-        poci_.attr('turnOnPercentage').set(1)
+        # poci_.attr('turnOnPercentage').set(1)
         poci_.position >> loc_.t
         
 def CurveAtObjectPosition(object_):
@@ -213,6 +213,16 @@ def surfacePosAtObject(paramList, object_):
         ps_.position >> SurfPos_.t
         rh_.r >> SurfPos_.r
 
+def createPos(object_):
+    for i in object_:
+        name_ = i.name()
+        pos_ = createNode('transform', n='{0}Pos'.format(name_))
+        parent(pos_, i)
+        pos_.attr('t').set([0,0,0])
+        pos_.attr('r').set([0,0,0])
+        pos_.attr('s').set([1,1,1])
+        parent(pos_, w=1)
+
 sel = ls(sl=1)
 
 # shape_ = sel[0].getShape()
@@ -237,3 +247,5 @@ sel = ls(sl=1)
 # paramList = getCrvParamAtObjectPosition(sel)
 # JntAtCurveParam(paramList, sel[-1])
 # surfacePosAtObject(paramList, sel)
+# createPos(sel)
+
