@@ -46,11 +46,17 @@ def jointlabeling_(part, side):
     joints = _transform.getChildren_(sel[0], type_='joint')
     
     for i,jnt in enumerate(joints):
-        if side == 0 or side == 3:
-            name_ = part_[i] 
+        if part == "None":
+            name_ = jnt.name()
         else:
-            name_ = '{0}{1}'.format(sideName_,part_[i])
-        rename(jnt, '{0}{1}'.format(name_, type_[1]))
+            if side == 0 or side == 3:
+                if len(part_) == 1:
+                    name_ = '{0}{1}'.format(part_[0],i+1)
+                else:
+                    name_ = part_[i] 
+            else:
+                name_ = '{0}{1}'.format(sideName_,part_[i])
+            rename(jnt, '{0}{1}'.format(name_, type_[1]))
         jnt.attr('otherType').set(name_)
         if side > 3:
             jnt.attr('side').set(3)

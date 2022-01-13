@@ -53,7 +53,7 @@ def Mcon( src, tg, **op ):
         dm.osh >> tg.sh
 
 def DelMcon(obj):
-    print(obj)
+    print (obj)
     jntCfm=0
     if obj.nodeType()=='joint': jntCfm=1
     tmpLs=[]
@@ -94,9 +94,9 @@ def Exe(ev=None):
     shchk=cmds.checkBox( 'MconShearCheckBox',q=1,v=1)
     selobjchk=cmds.radioButtonGrp( 'MconSelectOptionRdoBtn', q=1, sl=1)
     slls = pm.ls(sl=1)
-    hSelSz= int(len(slls)/2)
+    hSelSz=  int(len(slls)/2)
     if selobjchk==1:
-        if len(slls)%2 != 0: cmds.error('짝수로 선택하시오')
+        if len(slls)%2 != 0: cmds.error(u'짝수로 선택하시오')
         list(map( lambda i: Mcon(slls[i], slls[hSelSz+i], pvtCalc=pcchk, pos=0 if mochk else 1,t=tchk, r=rchk, s=schk, sh=shchk ), range( hSelSz ) ))
     elif selobjchk==2:
         list(map( lambda i: Mcon(slls[0], slls[i], pvtCalc=pcchk, pos=0 if mochk else 1,t=tchk, r=rchk, s=schk, sh=shchk ) if i!=0 else None, range( int(len(slls)) ) ))

@@ -131,4 +131,5 @@ def runWin():
         pass
     MainWindow = myUIClass(parent=maya_main_window())
     MainWindow.show()
-    
+
+runWin()

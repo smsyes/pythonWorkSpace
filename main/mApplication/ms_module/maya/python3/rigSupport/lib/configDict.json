@@ -18,6 +18,7 @@
         "Right":"Left"
     },
     "jointLabel":[
+        "None",
         "arm",
         "leg",
         "spine",
@@ -36,6 +37,9 @@
         "Single"
     ],
     "jointLabelDict":{
+        "None":[
+            "None"
+        ],
         "arm":[
             "Clavicle", "Shoulder", "Elbow", "Wrist"
         ],
