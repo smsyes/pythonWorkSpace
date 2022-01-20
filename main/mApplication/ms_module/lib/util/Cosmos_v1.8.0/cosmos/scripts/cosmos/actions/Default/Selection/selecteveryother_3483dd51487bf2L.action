@@ -1,0 +1,34 @@
+(dp1
+S'info'
+p2
+VSelect every other from current selection [Selection]
+p3
+sS'name'
+p4
+VSelect every other
+p5
+sS'tags'
+p6
+Vselect
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.select(cmds.ls(sl=True)[::2])
+p11
+sS'id'
+p12
+S'3483dd51487bf2L'
+p13
+sS'icon'
+p14
+VselectEveryOther.png
+p15
+s.
+s.
+s.veryOther.png
+p15
+s.

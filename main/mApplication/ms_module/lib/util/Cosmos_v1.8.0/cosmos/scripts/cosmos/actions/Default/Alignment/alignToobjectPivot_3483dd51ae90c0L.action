@@ -1,0 +1,30 @@
+(dp0
+Vinfo
+p1
+VAlign to last selected object pivot
+p2
+sVname
+p3
+VAlign to the Objects Pivot
+p4
+sVtags
+p5
+Vmove, align, move
+p6
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get selection\u000aselection = cmds.ls(sl=True)\u000a#Define master\u000amaster = selection[-1]\u000amasterList = selection\u000amasterList.remove(master)\u000a\u000a#Define a constraint and delete then delete it\u000afor item in masterList:\u000a    cmds.select(master,item)\u000a    constraint = cmds.parentConstraint()\u000a    cmds.delete(constraint)\u000a\u000acmds.select(masterList)
+p10
+sVid
+p11
+V3483dd51ae90c0L
+p12
+sVicon
+p13
+ValignToObjectPivot.png
+p14
+s.

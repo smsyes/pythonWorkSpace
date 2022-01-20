@@ -1,0 +1,34 @@
+(dp1
+S'info'
+p2
+VReverse the selection order
+p3
+sS'name'
+p4
+VReverse selection order
+p5
+sS'tags'
+p6
+Vselect, inverse, reverse
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.select(cmds.ls(sl=True)[::-1])
+p11
+sS'id'
+p12
+S'3483dd514e9670L'
+p13
+sS'icon'
+p14
+VreverseSelection.png
+p15
+s.
+s.
+s.ion.png
+p15
+s.

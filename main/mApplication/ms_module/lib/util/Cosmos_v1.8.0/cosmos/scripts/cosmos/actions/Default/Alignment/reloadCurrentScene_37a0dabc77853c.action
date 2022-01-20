@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VReload the scene from last saved point [Without save warning]
+p3
+sS'name'
+p4
+VReload Current Scene
+p5
+sS'tags'
+p6
+Vreload, scene,reopen,current
+p7
+sS'syntax'
+p8
+Vpython
+p9
+sS'command'
+p10
+Vfrom maya import cmds\u000asFile = cmds.file(q=True, sceneName=True)\u000acmds.file(sFile, open=True, force=True)
+p11
+sS'id'
+p12
+S'37a0dabc77853c'
+p13
+sS'icon'
+p14
+Vrefresh.svg
+p15
+s.

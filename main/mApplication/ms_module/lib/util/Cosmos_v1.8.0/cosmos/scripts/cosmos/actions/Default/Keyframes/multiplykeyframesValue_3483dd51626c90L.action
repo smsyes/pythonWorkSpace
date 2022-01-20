@@ -1,0 +1,32 @@
+(dp1
+S'info'
+p2
+VScale the values of the selected keyframes/objects
+p3
+sS'name'
+p4
+VMultiply keyframes Values
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get mode\u000aselection = cmds.keyframe(q=True, name=True)\u000aif selection is not None:\u000a	#Get factor\u000a	cmds.promptDialog(title="Rescale value: Multiply by factor",message="Ex: 0.5 = Half size, 2 = Double length",button=["Ok","Cancel"],defaultButton="Ok",cancelButton="Cancel",dismissString="Cancel")\u000a	multiplyFactor = cmds.promptDialog(query=True, text=True)\u000a	if len(multiplyFactor) >= 1:\u000a		multiplyFactor = float(multiplyFactor)\u000a		#For every channel\u000a		for keyframe in selection:\u000a		    #Rescale animation\u000a		    cmds.scaleKey(keyframe,valueScale=multiplyFactor)\u000a	else:\u000a		cosmos.displayViewMessage("Cancelled by the user","error") \u000aelse:\u000a	cosmos.displayViewMessage("Nothing selected","error") 
+p11
+sS'id'
+p12
+S'3483dd51626c90L'
+p13
+sS'icon'
+p14
+VmultiplyKeyframes.png
+p15
+s.s.g
+p15
+s.

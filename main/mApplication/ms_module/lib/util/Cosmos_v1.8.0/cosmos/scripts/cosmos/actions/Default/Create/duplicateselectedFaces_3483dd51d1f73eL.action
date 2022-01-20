@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VExtract selected faces to a new geometry
+p3
+sS'name'
+p4
+VDuplicate selected Faces
+p5
+sS'tags'
+p6
+Vmodeling,mesh
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get selection\u000aselection = cmds.ls(sl=True,fl=True)\u000a\u000a#Check so everything selected is a face\u000astatus = 1\u000afor item in selection:\u000a	if ".f[" not in item:\u000a		status = 0\u000a		break\u000aif status is 1: \u000a	#Exstract geometry\u000a	selection = cmds.ls(sl=True)\u000a	mesh = selection[0].split(".")[0]\u000a	#Duplicate geo\u000a	cmds.select(mesh)\u000a	duplicate = cmds.duplicate()\u000a	#Rename\u000a	cmds.rename((mesh + "_duplicatedFaces"))\u000a	duplicate = cmds.ls(sl=True)\u000a	\u000a	cmds.select([item.replace(mesh, duplicate[0]) for item in selection])\u000a	#Inver selection and delete\u000a	mel.eval('InvertSelection;')\u000a	cmds.delete()\u000a	cmds.select(duplicate)\u000a	mel.eval('CenterPivot')\u000aelse:\u000a	cosmos.displayViewMessage("No proper faces selected found...","error") \u000a
+p11
+sS'id'
+p12
+S'3483dd51d1f73eL'
+p13
+sS'icon'
+p14
+VextractSelectedFaces.png
+p15
+s.
+s.

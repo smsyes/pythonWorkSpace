@@ -1,0 +1,34 @@
+(dp1
+S'info'
+p2
+VSave a new version of the current scene
+p3
+sS'name'
+p4
+VSave version
+p5
+sS'tags'
+p6
+Vsave,file
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Modules\u000aimport maya.cmds as cmds\u000aimport maya.mel as mel\u000aimport re\u000aimport os\u000a\u000aclass saveVersionClass():\u000a    def __init__(self):\u000a        from difflib import SequenceMatcher\u000a        import re\u000a        #Get current name\u000a        currentFile = cmds.file(sn=True,q=True)\u000a\u000a        #Check if file exists, otherwise save new\u000a        if ".fbx" in currentFile:\u000a            mel.eval('SaveSceneAs;')  \u000a        elif (currentFile != ""):\u000a            #Directory\u000a            directory = os.path.split(currentFile)[0]       \u000a            #File\u000a            base = os.path.basename(currentFile)\u000a            file = os.path.splitext(base)[0]\u000a            #Exstention\u000a            format = os.path.splitext(base)[-1]\u000a            #Get numbers from string\u000a            numbers = re.findall(r'\u005cd+', file)\u000a            #If no number add "_v000" in the end\u000a            if (len(numbers) == 0): \u000a                newFile = "{}_v000".format(file)\u000a                currentFile = currentFile.replace(file,newFile)\u000a                file = newFile\u000a                numbers = re.findall(r'\u005cd+', file) \u000a            #Get version number\u000a            number = self.getVersionNumber(file)   \u000a            #Check padding\u000a            padding = len(number)   \u000a            #Add plus one in number and add padding\u000a            newNumber = int(number) + 1\u000a            newNumber = str(newNumber).rjust(padding,"0")\u000a            ############ Check if latest\u000a            versionContent = os.listdir(directory)\u000a            #Get all files and filter based on file\u000a            similarList = []\u000a            for item in sorted(versionContent):\u000a                #Check if its the same format on the file\u000a                if format in item:\u000a                    similar = SequenceMatcher(None, base, item).ratio()\u000a                    print "{} >     {}".format(item,similar)\u000a                    if (similar >= 0.9): similarList.append(item)\u000a            #Get position in list\u000a            index = similarList.index(base) + 1\u000a            continueStatus = True\u000a            \u000a            #Calculate last number\u000a            lastFile = similarList[-1]\u000a            lastNumber = self.getVersionNumber(lastFile)\u000a            #Try to get the new new number\u000a            lastNewNumber = int(lastNumber) + 1\u000a            lastNewNumber = str(lastNewNumber).rjust(padding,"0")\u000a            try:\u000a                afterLastVersion = lastFile.replace(lastNumber, lastNewNumber)\u000a            \u000a                #Check if the file exists already\u000a                newExists = os.path.exists(currentFile.replace(number,newNumber))\u000a                if (newExists == True):\u000a                    if (len(similarList) > index):                \u000a                        dialogValue = cmds.confirmDialog( title='Newer version exist in folder', \u000a                        message='Replace "{}" or save new as "{}"'.format(base.replace(number, newNumber),afterLastVersion), \u000a                        button=['Save new','Replace','Cancel'], \u000a                        defaultButton='Save new', cancelButton='Cancel', dismissString='Cancel' ) \u000a                        if (dialogValue == "Cancel"):\u000a                            continueStatus = False\u000a                        if (dialogValue == "Replace"):\u000a                            pass\u000a                        if (dialogValue == "Save new"):\u000a                            newNumber = lastNewNumber\u000a            except:\u000a                continueStatus = False\u000a                mel.eval('error "No numbering found in filename";') \u000a\u000a\u000a            if (continueStatus == True):\u000a                #Put the string together\u000a                newFile = currentFile.replace(file,file.replace(number, newNumber))\u000a                #Rename and save the file\u000a                cmds.file(rename=newFile)\u000a                if (format == ".mb"): \u000a                    cmds.file( save=True, type='mayaBinary')\u000a                if (format == ".ma"): \u000a                    cmds.file( save=True, type='mayaAscii')\u000a                #Add it to recent files menu\u000a                mel.eval ('string $newFileName = `file -q -sn`')\u000a                mel.eval('string $format = `fileExtension $newFileName`')\u000a                mel.eval ('if ($format == "mb") {addRecentFile($newFileName, "mayaBinary");}')\u000a                mel.eval ('if ($format == "ma") {addRecentFile($newFileName, "mayaAscii");}')\u000a        else:\u000a            mel.eval('SaveScene;')  \u000a    def getVersionNumber(self,file):\u000a        #Find numbering from string\u000a        numbers = re.findall(r'\u005cd+', file)\u000a        #Get number\u000a        number = numbers[-1]\u000a        return number  \u000a        \u000a    def getVersionNumber(self,file):\u000a        #Find numbering from string\u000a        numbers = re.findall(r'\u005cd+', file)\u000a        if (len(numbers) >= 1):\u000a            #Get number\u000a            number = numbers[-1]\u000a            return number  \u000a        else:\u000a            return 0\u000a\u000a\u000asaveVersionClass()
+p11
+sS'id'
+p12
+S'3483dd5174bc10L'
+p13
+sS'icon'
+p14
+VsaveVersion.png
+p15
+s...
+p14
+VsaveVersion.png
+p15
+s.

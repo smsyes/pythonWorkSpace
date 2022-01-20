@@ -1,0 +1,32 @@
+(dp1
+S'info'
+p2
+VCreate joints from vertex [Selection]
+p3
+sS'name'
+p4
+VJoint from vertex selection
+p5
+sS'tags'
+p6
+Vjoint, select
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get selection\u000alist = cmds.ls(sl=True)\u000a\u000aif (len(list) >= 1):\u000a    if ".vtx" in list[0]: \u000a        list = cmds.ls(sl=True, fl=True)\u000a\u000a    #For every vertex in selection\u000a    for number, object in enumerate(list):    \u000a        newNumber = number + 1\u000a        #Get position\u000a        cmds.select(object)\u000a        position = cmds.xform(object, q=True, rp=True, ws=True)\u000a        #Clear selection\u000a        cmds.select(cl=True)\u000a        \u000a        #Get object name\u000a        if ".vtx" in object:\u000a            position = cmds.xform(object, q=True, t=True, ws=True) \u000a            object = object.split(".vtx")[0]\u000a                \u000a        #Place joint and position in worldspace to the current position\u000a        joint = cmds.joint(n="{}_{}_JNT".format(object, newNumber),r=True)\u000a        cmds.xform(joint,t=position)\u000aelse:\u000a    cosmos.displayViewMessage("No object found","error") 
+p11
+sS'id'
+p12
+S'3483dd51d68b20L'
+p13
+sS'icon'
+p14
+VjointFromSelection.png
+p15
+s.
+s.
+s.

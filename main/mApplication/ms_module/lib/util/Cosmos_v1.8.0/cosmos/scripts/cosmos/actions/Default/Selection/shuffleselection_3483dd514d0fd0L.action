@@ -1,0 +1,34 @@
+(dp1
+S'info'
+p2
+VRandomize the current selection order
+p3
+sS'name'
+p4
+VShuffle selection
+p5
+sS'tags'
+p6
+Vselect
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aimport random\u000a#Get selection\u000aselection = cmds.ls(sl=True)\u000a#Randomize selection\u000arandom.shuffle(selection)  \u000acmds.select(selection)\u000a
+p11
+sS'id'
+p12
+S'3483dd514d0fd0L'
+p13
+sS'icon'
+p14
+VshuffleSelection.png
+p15
+s.
+s.
+s.g
+p15
+s.

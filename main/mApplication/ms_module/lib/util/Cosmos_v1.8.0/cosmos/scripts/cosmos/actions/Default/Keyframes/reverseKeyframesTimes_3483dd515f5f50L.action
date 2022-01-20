@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VReverse the curves of selected keyframes/objects keyframes
+p3
+sS'name'
+p4
+VReverse Keyframes Times
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport pymel.core as pm\u000a\u000asel = pm.ls(sl=1)\u000akey_count = pm.keyframe(sel, selected=True, q=True, keyframeCount=True)\u000a\u000aif key_count is not 0:\u000a    selected_Curves = pm.keyframe(selected=True, q=True, name=True)\u000a    for c in range(0, len(selected_Curves)):\u000a        channel = selected_Curves[c]\u000a    \u000a        # Get indexex from time-aray\u000a        time_array = pm.keyframe(channel, selected=False, q=True, timeChange=True)\u000a        # Get selected times\u000a        sel_time_array = pm.keyframe(channel, selected=True, q=True, timeChange=True)\u000a        # Get values matching the sel time list\u000a        value_array = pm.keyframe(channel, selected=True, q=True, valueChange=True)\u000a        # Get indexes from selected keframes\u000a        index_array = [n for n, x in enumerate(time_array) if x in sel_time_array]\u000a                    \u000a        # Get middle value betweeen the highest and lowest value.\u000a        # We use this value divided by 2 to get the mid-point and can use it in the scale\u000a        mid_value = (sorted(value_array)[-1] +  sorted(value_array)[0]) / 2\u000a                                            \u000a        for n, i in enumerate(index_array):\u000a            pm.scaleKey(channel, index=[i],  valuePivot=mid_value,valueScale=-1)
+p11
+sS'id'
+p12
+S'3483dd515f5f50L'
+p13
+sS'icon'
+p14
+VreverseKeyframes.png
+p15
+s.

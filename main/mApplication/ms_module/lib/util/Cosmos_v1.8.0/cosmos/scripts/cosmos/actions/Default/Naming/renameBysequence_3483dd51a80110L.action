@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VRename selection by a string
+p3
+sS'name'
+p4
+VRename By sequence
+p5
+sS'tags'
+p6
+Vnaming
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.ls(sl=True)\u000adialog = cmds.promptDialog(title=("Sequence renamer"),message="Enter name. Optional: Add {} to be replaced by the number",button=["Rename","Cancel"],defaultButton="Rename",cancelButton="Cancel",dismissString="Cancel")\u000aif (dialog == "Rename"):\u000a    name = cmds.promptDialog(query=True, text=True)\u000a    number = len(selection)\u000a    #Check if only one object, other make sequence\u000a    if (len(selection) >= 2):\u000a        for item in selection[::-1]:\u000a            padding = 3\u000a            newNumber = str(number).rjust(padding,"0")\u000a            if "{}" in name:\u000a                cmds.rename(item, (name.replace("{}",newNumber))) \u000a            else:\u000a                cmds.rename(item, (name + newNumber))\u000a            number = number - 1\u000a    else:\u000a        cmds.rename(selection[0], name)\u000a
+p11
+sS'id'
+p12
+S'3483dd51a80110L'
+p13
+sS'icon'
+p14
+VrenameBySequence.png
+p15
+s.s..

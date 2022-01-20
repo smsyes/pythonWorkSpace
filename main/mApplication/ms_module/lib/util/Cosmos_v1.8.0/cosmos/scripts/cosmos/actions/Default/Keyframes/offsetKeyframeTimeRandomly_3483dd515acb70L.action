@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VOffset animation randomly for all [Selected objects]
+p3
+sS'name'
+p4
+VOffset Keyframe Time Randomly
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000aimport random\u000a\u000aresult = cmds.promptDialog(title='Randomize Offset keyframes',message='Random keyframe offset (max):',button=['OK', 'Cancel'],defaultButton='OK',cancelButton='Cancel',dismissString='Cancel')\u000aif result == 'OK':\u000a	#Get number\u000a	offsetFactor = cmds.promptDialog(query=True, text=True)\u000a	#Get selection\u000a	selection = cmds.ls(sl=True)\u000a	for item in selection:\u000a	    number = random.randint(-int(offsetFactor),int(offsetFactor))\u000a	    cmds.select(item)\u000a	    cmds.keyframe(edit=True, relative=True, timeChange=float(number))\u000a	cmds.select(selection)
+p11
+sS'id'
+p12
+S'3483dd515acb70L'
+p13
+sS'icon'
+p14
+VoffsetAnim.png
+p15
+s.

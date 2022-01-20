@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VShow the rotation axis visibility on selected
+p3
+sS'name'
+p4
+VShow rotation axis
+p5
+sS'tags'
+p6
+Vinterface, axis, rotation
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000astate = 1\u000aselection = cmds.ls(sl=True)\u000afor item in selection:\u000a    type = cmds.objectType(item)\u000a    if type == "joint":\u000a	    cmds.setAttr(item + ".displayLocalAxis", state)
+p11
+sS'id'
+p12
+S'3483dd518b0330L'
+p13
+sS'icon'
+p14
+VshowRotationAxis.png
+p15
+s.

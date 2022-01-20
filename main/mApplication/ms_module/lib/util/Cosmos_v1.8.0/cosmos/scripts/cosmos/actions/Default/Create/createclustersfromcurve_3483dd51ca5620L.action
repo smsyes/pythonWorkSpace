@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VCreate a cluster for every point on curve [Curve]
+p3
+sS'name'
+p4
+VCreate Clusters from curve
+p5
+sS'tags'
+p6
+Vcluster, clusters, curve
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get selection\u000aselection = cmds.ls(sl=True)\u000a#Check number of selection\u000aif (len(selection) >= 1):\u000a	#Check for required geometry\u000a	for curve in selection:\u000a		#Create clusters for middle\u000a		shape = cmds.listRelatives(curve)[0]\u000a		type = cmds.objectType(shape)\u000a		#if type == "lattice": print("This is a lattice")\u000a		number = cmds.getAttr(curve + ".spans") + cmds.getAttr(curve + ".degree")\u000a		clusters = []\u000a		for number, cv in enumerate(range(0,number),1):\u000a			cmds.select("{}.cv[{}]".format(curve, cv))\u000a			cluster = cmds.cluster()\u000a			#Fix padding based on how many CVs\u000a			newNumber = str(number).rjust(3,"0")\u000a			cluster = cmds.rename(("{}_{}_CLU".format(curve,newNumber)))\u000a			clusters.append(cluster)  \u000aelse:\u000a	cosmos.displayViewMessage("No Curve selected","error")
+p11
+sS'id'
+p12
+S'3483dd51ca5620L'
+p13
+sS'icon'
+p14
+VcreateClusterFromCurve.png
+p15
+s.

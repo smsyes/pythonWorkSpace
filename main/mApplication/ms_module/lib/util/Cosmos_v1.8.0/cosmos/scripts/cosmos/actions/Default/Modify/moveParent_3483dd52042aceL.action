@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VMove the parent without effecting the children [Run again to parent back]
+p3
+sS'name'
+p4
+VMove Parent
+p5
+sS'tags'
+p6
+Vparent, move
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get objects\u000aglobal kids\u000a#Get parent\u000aparent = cmds.ls(sl=True)\u000acontent = cmds.listRelatives(type="transform")\u000a\u000a\u000aif content is None: content = []\u000a\u000a#If there is content in the parent\u000aif (len(content) >= 1):\u000a        #Unparent kids\u000a        cmds.select(content)\u000a        cmds.parent(w=True)\u000a        kids = content\u000a        cmds.select(parent)\u000a#If there is not, try to get children\u000aelse: \u000a    cmds.select(kids, parent)\u000a    cmds.parent()\u000a    kids = None\u000a    cmds.select(parent)\u000a
+p11
+sS'id'
+p12
+S'3483dd52042aceL'
+p13
+sS'icon'
+p14
+VmoveParent.png
+p15
+s.
+s.

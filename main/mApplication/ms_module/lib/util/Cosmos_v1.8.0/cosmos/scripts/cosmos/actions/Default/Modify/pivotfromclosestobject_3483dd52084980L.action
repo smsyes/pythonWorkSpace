@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VSet pivot to closest point on Reference  [Objects + Reference]
+p3
+sS'name'
+p4
+VPivot from closest object
+p5
+sS'tags'
+p6
+Vpivot, closest
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.ls(sl=True)\u000amaster = selection[-1]\u000aselection.remove(master)\u000a#For all items\u000afor item in selection:\u000a    #-----------------------Create locator for the mastermesh\u000a    attachLocator = cmds.spaceLocator(n=(item + "_LOC"))\u000a    cmds.select(item, attachLocator)\u000a    mel.eval('doCreateParentConstraintArgList 1 { "0","0","0","0","0","0","0","1","","1" };')\u000a    parentConstraint = mel.eval('parentConstraint -weight 1;')\u000a    cmds.delete(parentConstraint)\u000a    #Get cloest position on mesh\u000a    closestPosNode = cmds.createNode('closestPointOnMesh')\u000a    shape = cmds.listRelatives(master, s=True, f=True)[0]\u000a    type = cmds.objectType(shape)\u000a    if (type == "mesh"):\u000a        cmds.connectAttr('%s.worldMesh' % shape, '%s.inMesh' % closestPosNode)\u000a        cmds.connectAttr('%s.worldMatrix' % shape, '%s.inputMatrix' % closestPosNode)\u000a        cmds.connectAttr('%s.translate' % attachLocator[0], '%s.inPosition' % closestPosNode)\u000a        closestVertex = cmds.getAttr(closestPosNode + ".result.closestVertexIndex")\u000a        #Select closest vertex\u000a        cmds.delete(closestPosNode)\u000a        cmds.delete(attachLocator)\u000a        cmds.select("{}.vtx[{}]".format(master, closestVertex))\u000a        masterVertexSelection = cmds.ls(sl=True)[0]\u000a        vertexWorldPosition = cmds.pointPosition(masterVertexSelection,w=True)\u000a    else:\u000a        vertexWorldPosition = cmds.pointPosition(master,w=True)\u000a    #-----------------------Get worldlocation with loc for the object\u000a    attachLocator = cmds.spaceLocator(n=(item + "_LOC"))\u000a    cmds.xform(attachLocator,t=vertexWorldPosition,ws=True)\u000a    #Get closest position on mesh\u000a    closestPosNode = cmds.createNode('closestPointOnMesh')    \u000a    try: shape = cmds.listRelatives(item, s=True, f=True)[0]\u000a    except: \u000a        relatives = cmds.listRelatives(item)\u000a        try: shape = cmds.listRelatives(relatives[0], s=True, f=True)[0]\u000a        except: shape = relatives\u000a    cmds.connectAttr('%s.worldMesh' % shape, '%s.inMesh' % closestPosNode)\u000a    cmds.connectAttr('%s.worldMatrix' % shape, '%s.inputMatrix' % closestPosNode)\u000a    cmds.connectAttr('%s.translate' % attachLocator[0], '%s.inPosition' % closestPosNode)\u000a    #Results\u000a    closestVertex = cmds.getAttr(closestPosNode + ".result.closestVertexIndex")\u000a    #Select closest vertex\u000a    cmds.delete(closestPosNode)\u000a    cmds.delete(attachLocator)\u000a    try: cmds.select("{}.vtx[{}]".format(item, closestVertex))\u000a    except:\u000a        cmds.select("{}.vtx[{}]".format(shape, closestVertex))\u000a    vertexSelection = cmds.ls(sl=True)[0]\u000a    #Get vertex world position\u000a    vertexWorldPosition = cmds.pointPosition(vertexSelection,w=True)\u000a    #Set pivot to vertex\u000a    cmds.xform(item,ws=True,piv=vertexWorldPosition)\u000a#Select the original selection\u000acmds.select(selection)\u000a
+p11
+sS'id'
+p12
+S'3483dd52084980L'
+p13
+sS'icon'
+p14
+VpivotFromClosestObject.png
+p15
+s.
+s.

@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VCreate onmesh controller [Select faces and object to drive]
+p3
+sS'name'
+p4
+VController follow the mesh
+p5
+sS'tags'
+p6
+Vfollow
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Select faces on mesh and then controller\u000a#Get selection\u000aselection = cmds.ls(sl=True,fl=True)\u000a#Get master objects\u000amaster = selection[-1]\u000adeformObject = selection[0].split(".")[0]\u000a#Remove joint from selection\u000aselection.remove(master)\u000a\u000a#Select object and duplicate\u000acmds.select(deformObject)\u000acontroller = cmds.duplicate()\u000acmds.rename(deformObject + "_CTRL01")\u000acontroller = cmds.ls(sl=True)[0]\u000a\u000a#Push mesh outwards\u000aextrude = cmds.polyExtrudeFacet(keepFacesTogether=True,localTranslate=(0,0,0.03) )\u000a#Select new thing\u000a\u000acmds.select([item.replace(deformObject, controller) for item in selection])\u000a\u000a#Select inverse\u000amel.eval('InvertSelection;')\u000acmds.delete()\u000a\u000a#Delete History\u000acmds.select(controller)\u000amel.eval('DeleteHistory;')\u000a\u000a#Set pivot from object\u000ajointPivot = cmds.xform(master, q=True, ws=True, rotatePivot=True)\u000acmds.xform(controller, rotatePivot=jointPivot,sp=jointPivot)\u000a\u000a#Duplicate object for wrap\u000acmds.duplicate()\u000acmds.rename(deformObject + "_MORPH01")\u000amorph = cmds.ls(sl=True)[0]\u000acmds.select(morph, deformObject)\u000awrap = mel.eval('CreateWrap;')\u000a\u000a#Get base\u000acmds.select(deformObject + "Base")\u000abase = cmds.ls(sl=True)\u000a#Parent the controller to the object\u000acmds.select(controller, master)\u000amel.eval('doCreateParentConstraintArgList 1 { "0","0","0","0","0","0","0","1","","1" };')\u000a#Blend the morph to the geo and activate\u000acmds.select(morph, controller)\u000ablendshape = cmds.blendShape(o="world")\u000acmds.setAttr(blendshape[0] + "." + morph, 1)\u000acmds.setAttr(morph + ".visibility", 0)\u000a#Clean-up the controller in a group\u000agroup = cmds.group(em=True, n=(deformObject + "_CTRL001"))\u000acmds.select(master, morph, base, controller, group)\u000acmds.parent()\u000a#Unlock all the attributes on the controller\u000acmds.setAttr( "{}.tx".format(controller), lock = 0)\u000acmds.setAttr( "{}.ty".format(controller), lock = 0)\u000acmds.setAttr( "{}.tz".format(controller), lock = 0)\u000acmds.setAttr( "{}.rx".format(controller), lock = 0)\u000acmds.setAttr( "{}.ry".format(controller), lock = 0)\u000acmds.setAttr( "{}.rz".format(controller), lock = 0)\u000acmds.setAttr( "{}.sx".format(controller), lock = 0)\u000acmds.setAttr( "{}.sy".format(controller), lock = 0)\u000acmds.setAttr( "{}.sz".format(controller), lock = 0)\u000a
+p11
+sS'id'
+p12
+S'3483dd51f9a382L'
+p13
+sS'icon'
+p14
+VcontrollerFollowMesh.png
+p15
+s.g
+p15
+s.
+s.

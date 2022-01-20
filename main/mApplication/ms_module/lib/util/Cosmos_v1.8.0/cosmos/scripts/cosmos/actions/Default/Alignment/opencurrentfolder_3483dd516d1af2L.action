@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VOpen folder from the current opened file
+p3
+sS'name'
+p4
+VOpen current folder
+p5
+sS'tags'
+p6
+Vopen,current,location
+p7
+sS'syntax'
+p8
+Vpython
+p9
+sS'command'
+p10
+V#Import Modules\u000aimport maya.cmds as cmds\u000aimport subprocess\u000aimport os, sys\u000a\u000a#Get directory\u000asceneNameFull = cmds.file (q=True,sn=True)\u000ascenNameBreak = sceneNameFull.split ("/")\u000apath = sceneNameFull.replace(scenNameBreak[-1], "")\u000a\u000aif sys.platform == 'darwin':\u000a    subprocess.check_call(['open', '--', path])\u000aelif sys.platform == 'linux2':\u000a    subprocess.Popen(["xdg-open", path])\u000aelif sys.platform is 'windows' or 'win32' or 'win64':\u000a    newPath = path.replace("/","\u005c\u005c")\u000a    try: subprocess.Popen(r'explorer /path,{}'.format(newPath))\u000a    except: cosmos.displayViewMessage("Cant open folder","error") \u000a
+p11
+sS'id'
+p12
+S'3483dd516d1af2L'
+p13
+sS'icon'
+p14
+VopenCurrentFolder.png
+p15
+s.
