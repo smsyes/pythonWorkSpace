@@ -1,7 +1,7 @@
 from pymel.core import *
 
 def division(number,divNum):
-    list_ = [0]
+    list_ = []
     div_ = float(divNum)/float(number)
     for i in range(number):
         i=i+1
