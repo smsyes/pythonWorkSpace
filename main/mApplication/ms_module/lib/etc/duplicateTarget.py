@@ -5,11 +5,12 @@ def getBlendshape(object_):
         
 def duplicateTarget(object, blendshape_):
     for bs in blendshape_:
-        bs_ = pm.aliasAttr(blendshape_, q=1)
+        bs_ = pm.aliasAttr(bs, q=1)
         bs_ = list(set(bs_))
         bs_.sort()
-        bs_ = bs_[:len(bs_)/2]
-        
+        half = int(len(bs_)/2)
+        bs_ = bs_[:half]
+            
         for i,target in enumerate(bs_):
             bsAttr = bs.attr(target)
             value_ = []
@@ -41,6 +42,7 @@ def duplicateTarget(object, blendshape_):
             name_ += [target]
             
             target_ = zip(name_, value_)
+            print(name_, value_)
             
             for name, value in target_:
                 try:
@@ -62,7 +64,7 @@ def duplicateTarget(object, blendshape_):
                         '''
                         pm.select(cl=1)
                     bsAttr.set(0)
-
+    
                 except Exception:
                     pass
     
@@ -72,3 +74,4 @@ object = sel[0]
 
 blendshape_ = getBlendshape(object)
 duplicateTarget(object, blendshape_)
+
