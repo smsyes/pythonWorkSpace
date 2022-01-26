@@ -3,7 +3,7 @@ from pymel.core import *
 def division(number,divNum):
     list_ = []
     div_ = float(divNum)/float(number)
-    for i in range(number):
+    for i in range(number-1):
         i=i+1
         list_.append(i*div_)
     return list_
