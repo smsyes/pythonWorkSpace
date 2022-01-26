@@ -26,5 +26,5 @@ def reverseMultMD(object_):
 
 sel = pm.ls(sl=1)
 for i in sel:
-    insertSpace_ = insert_space(i, 'RvsGrp')
+    insertSpace_ = insert_space(i, 'Rvs')
     reverseMultMD(pm.ls(i,insertSpace_))
