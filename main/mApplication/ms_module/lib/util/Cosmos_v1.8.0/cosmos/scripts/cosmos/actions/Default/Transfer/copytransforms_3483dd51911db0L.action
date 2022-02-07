@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VCopy the current transform position
+p3
+sS'name'
+p4
+VCopy transforms
+p5
+sS'tags'
+p6
+Vtransform, xform, copy
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a### Copy transform\u000aselection = cmds.ls(sl=True)\u000aglobal cosmosCopiedAttributes\u000acosmosCopiedAttributes = []\u000a\u000afor item in selection:\u000a    directory = {\u000a    'translate': (cmds.getAttr(item + ".tx"), cmds.getAttr(item + ".ty"), cmds.getAttr(item + ".tz")),\u000a    'rotate': (cmds.getAttr(item + ".rx"), cmds.getAttr(item + ".ry"), cmds.getAttr(item + ".rz")), \u000a    'scale': (cmds.getAttr(item + ".sx"), cmds.getAttr(item + ".sy"), cmds.getAttr(item + ".sz")),\u000a    'visibility': cmds.getAttr(item + ".visibility")}\u000a    #Add to list    \u000a    cosmosCopiedAttributes.append(directory)
+p11
+sS'id'
+p12
+S'3483dd51911db0L'
+p13
+sS'icon'
+p14
+VcopyTransform.png
+p15
+s.
+s.

@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VHide the rotation axis visibility on selection
+p3
+sS'name'
+p4
+VHide Rotation Axis
+p5
+sS'tags'
+p6
+Vinterface, axis, rotation
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000astate = 0\u000aselection = cmds.ls(sl=True)\u000afor item in selection:\u000a    try: cmds.setAttr(item + ".displayLocalAxis", state)\u000a    except: pass
+p11
+sS'id'
+p12
+S'3483dd51866f50L'
+p13
+sS'icon'
+p14
+VhideRotationAxis.png
+p15
+s.

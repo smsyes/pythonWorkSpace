@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VAlign to last selected object Shape
+p3
+sS'name'
+p4
+VAlign to the Objects Shape
+p5
+sS'tags'
+p6
+Vposition, match
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport pymel.core as pm\u000aimport maya.cmds as cmds\u000a\u000aselection = pm.ls(sl=True)\u000a\u000aif len(selection) >= 2:\u000a    locator = pm.spaceLocator()\u000a    pm.select(locator, selection[-1])\u000a    try: cmds.align(x='mid', y="mid", z="mid",alignToLead=True)\u000a    except: pass\u000a\u000a    for item in selection[:-1]:\u000a        pm.delete(pm.parentConstraint(locator, item,mo=False))\u000a    pm.delete(locator)\u000a    pm.select(selection)\u000a	\u000aelse:\u000a    cosmos.displayViewMessage(text="You need at least 2 objects selected", mode="error")
+p11
+sS'id'
+p12
+S'3483dd51b19e00L'
+p13
+sS'icon'
+p14
+ValignToObjectShape.png
+p15
+s.

@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VCreate a single cross-shaped controller
+p3
+sS'name'
+p4
+VCross Controller
+p5
+sS'tags'
+p6
+Vcontroller, cross
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000aimport maya.mel as mel\u000a\u000aselection = cmds.ls(sl=True)\u000a\u000acontrollers = []\u000a\u000aif len(selection) == 0: selection = [None]\u000a\u000afor object in selection:\u000a    controller = cmds.curve(d=1,p=[(7.5,0,2.5),(2.5,0,2.5),(2.5,0,7.5),(-2.5,0,7.5),(-2.5,0,2.5),(-7.5,0,2.5),(-7.5,0,-2.5),(-2.5,0,-2.5),(-2.5,0,-7.5),(2.5,0,-7.5),(2.5,0,-2.5),(7.5,0,-2.5),(7.5,0,2.5)],n="cross_CTRL")\u000a    cmds.scale(0.2,0.2,0.2)\u000a    mel.eval('makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 -pn 1;')\u000a    if object != None:\u000a        parentConstraint = cmds.parentConstraint(object,controller)\u000a        cmds.delete(parentConstraint)\u000a    controllers.append(controller)\u000a    \u000acmds.select(controllers)\u000a
+p11
+sS'id'
+p12
+S'3483dd51e8daa0L'
+p13
+sS'icon'
+p14
+VcontrollerCross.png
+p15
+s.

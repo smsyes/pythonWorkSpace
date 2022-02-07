@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VCreate a shelf button to select the current selected object
+p3
+sS'name'
+p4
+VAdd to shelf
+p5
+sS'tags'
+p6
+VInterface
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.ls(sl=True)\u000a\u000aif len(selection) >= 1:\u000a    result = cmds.promptDialog(t='Add shelf button here', m='Button Tool (Max 6 characters)', b=['Exit', 'Ok'], defaultButton='Ok')\u000a \u000a    if result == 'Ok':\u000a        input = cmds.promptDialog(query=True, text=True)\u000a        currentTab = cmds.shelfTabLayout('MayaWindow|toolBar2|MainShelfLayout|formLayout14|ShelfLayout', q=True, selectTab=True)\u000a        cmds.shelfButton(annotation='Select {}'.format(selection), image1='selectByObject.png', command='cmds.select({})'.format("'" + "','".join(selection) + "'"), p=currentTab, imageOverlayLabel=input, olc=(1, 1, 1))
+p11
+sS'id'
+p12
+S'3483dd5184e8b0L'
+p13
+sS'icon'
+p14
+VaddSelectionToShelf.png
+p15
+s.p15
+s.lectionToShelf.png
+p15
+s.

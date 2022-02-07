@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VAdd prefix to name [Selection]
+p3
+sS'name'
+p4
+VAdd custom Prefix
+p5
+sS'tags'
+p6
+Vnaming
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000acmds.promptDialog(title="Custom Prefix",message="Enter prefix",button=["Ok","Cancel"],defaultButton="Ok",cancelButton="Cancel",dismissString="Cancel")\u000aprefix = cmds.promptDialog(query=True, text=True)\u000a\u000aselection = cmds.ls(sl=True)\u000a#otherwise add it\u000afor item in selection[::-1]:\u000a    cmds.rename(item, (prefix + item))  
+p11
+sS'id'
+p12
+S'3483dd51a36d30L'
+p13
+sS'icon'
+p14
+VaddPrefix.png
+p15
+s.
+s.g
+p15
+s.

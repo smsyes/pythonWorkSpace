@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VOffset animation for all times [Selected objects]
+p3
+sS'name'
+p4
+VOffset Keyframe Time
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aresult = cmds.promptDialog(\u000a		title='Offset keyframes time',\u000a		message='Enter offset:',\u000a		button=['OK', 'Cancel'],\u000a		defaultButton='OK',\u000a		cancelButton='Cancel',\u000a		dismissString='Cancel')\u000a\u000aif result == 'OK':\u000a	text = cmds.promptDialog(query=True, text=True)\u000a	cmds.keyframe(edit=True, relative=True, timeChange=float(text))\u000a
+p11
+sS'id'
+p12
+S'3483dd515944d0L'
+p13
+sS'icon'
+p14
+VoffsetAnim.png
+p15
+s.
+s.m.png
+p15
+s.

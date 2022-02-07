@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VAlign the last selected object to a group of objects [References + Object to Align]
+p3
+sS'name'
+p4
+VAlign in Middle
+p5
+sS'tags'
+p6
+Valign
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get selection\u000aselection = cmds.ls(sl=True)\u000a\u000aif len(selection) >= 3:\u000a	#Define master\u000a	master = selection[-1]\u000a	masterList = selection\u000a	masterList.remove(master)\u000a\u000a	#Define a constraint and delete then delete it\u000a	constraint = cmds.pointConstraint()\u000a	cmds.delete(constraint)\u000aelse:\u000a	cosmos.displayViewMessage(text="You need at least 3 objects selected", mode="error")
+p11
+sS'id'
+p12
+S'3483dd51bfa7c0L'
+p13
+sS'icon'
+p14
+ValignToMiddle.png
+p15
+s.

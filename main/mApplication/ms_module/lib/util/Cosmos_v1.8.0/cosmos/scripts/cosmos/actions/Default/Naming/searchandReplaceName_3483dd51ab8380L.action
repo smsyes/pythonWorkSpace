@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VSearch and replace object name [Selection]
+p3
+sS'name'
+p4
+VSearch and Replace Name
+p5
+sS'tags'
+p6
+Vnaming,replace
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000aimport maya.mel as mel\u000a\u000aclass searchAndReplaceWindow():\u000a    def __init__(self):\u000a        #Delete if window exists\u000a        if (cmds.window ("replaceWindow",exists=True)):    cmds.deleteUI ("replaceWindow")\u000a        #Create Window\u000a        replaceWordWindow = cmds.window("replaceWindow",mxb=0,t=("Search and Replace"),w=230,s=0,h=20)\u000a        cmds.columnLayout("topLayout",adjustableColumn=True,rs=10,w=100)\u000a        cmds.text(" ",h=3)\u000a        cmds.flowLayout(cs=5)\u000a        cmds.text("   Search for: ")\u000a        self.searchfield = cmds.textField("searchField",w=148)\u000a        cmds.setParent("topLayout")\u000a        cmds.flowLayout(cs=5)\u000a        cmds.text("   Replace:     ",h=20)\u000a        self.replaceField = cmds.textField("replaceField",w=148,h=20,ec=self.replaceCommand,alwaysInvokeEnterCommandOnReturn=True)\u000a        cmds.setParent("topLayout")\u000a        cmds.button(l="Search and Replace",w=140,c=self.replaceCommand)\u000a        #Show the window\u000a        cmds.showWindow(replaceWordWindow)\u000a\u000a    def replaceCommand(self,event):\u000a        #Get values\u000a        searchWord = cmds.textField(self.searchfield,q=True,tx=True)\u000a        replaceWord = cmds.textField(self.replaceField,q=True,tx=True)\u000a        #Get Selection\u000a        selection = cmds.ls(sl=True)\u000a        \u000a        #Run maya command to replace\u000a        mel.eval('searchReplaceNames "{}" "{}" "selected";'.format(searchWord,replaceWord))\u000a\u000a\u000asearchAndReplaceWindow()
+p11
+sS'id'
+p12
+S'3483dd51ab8380L'
+p13
+sS'icon'
+p14
+VsearchAndReplace.png
+p15
+s.

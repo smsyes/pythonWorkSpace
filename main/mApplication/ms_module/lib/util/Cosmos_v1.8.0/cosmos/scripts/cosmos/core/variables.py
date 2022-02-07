@@ -1,0 +1,8 @@
+maxCardInWindow = 10 # The maximum amount of items to show in view of the search [Int]
+maxResultCount = 25 # The maximum amount of items to show in a search [Int]
+showMessages = True # Display messages in the top-right corner of the UI [Bool]
+loadOnMayaLaunch = True # If False, stop loading of load directories for Actions [Bool]
+startupHotkey = True # If True, install the shortcut on startup [Bool]
+searchMayaMenus = True # If True, scan Maya menues for Actions [Bool]
+showTutorial = True # Hides the tutorial if no preferences find if False [Bool]
+customPrefsPath = False # Set a custom directory for the preferences. 'cosmosPrefs' will be created in this folder if not found. Default is False [Str]
