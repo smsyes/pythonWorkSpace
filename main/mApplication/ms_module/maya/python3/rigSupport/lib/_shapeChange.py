@@ -2,16 +2,14 @@
 """============================================================================
 Module descriptions.
 
-
 __AUTHOR__ = 'minsung'
-__UPDATE__ = 20210707
+__UPDATE__ = 20220207
 
 :Example:
-from lib.m_lib import NurbsCurveNode
-reload(NurbsCurveNode)
+from rigSupport.lib import _shapeChange
+reload(_shapeChange)
 
-blah blah blah blah blah blah
-blah blah blah blah blah blah
+첫번째 선택한 오브젝트 쉐입으로 두번째 선택한 쉐입을 교체.
 ============================================================================"""
 #
 # when start coding 3 empty lines.
@@ -30,3 +28,6 @@ def shapeChange(object_):
             delete(shape_)
         parent(itemShape, target, r=1, s=1)
         delete(dup_item)
+
+sel = ls(sl=1,fl=1,r=1)
+shapeChange(sel)
