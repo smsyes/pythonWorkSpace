@@ -63,6 +63,8 @@ def duplicateTarget(object, blendshape_):
                             target_[0].parent.set(str(name_[-1]), type='string', l=1)
                         '''
                         pm.select(cl=1)
+                    else:
+                        target_ = pm.duplicate(object, n='{0}Dup'.format(name), rr=1)
                     bsAttr.set(0)
     
                 except Exception:
