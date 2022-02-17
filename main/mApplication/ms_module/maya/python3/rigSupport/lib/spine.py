@@ -152,8 +152,7 @@ class Spine():
         
         # FK Setting
         FK_off_space = [_node.offset_(i, num_=2) for i in ordict_['FKCTLs']]
-        FK_cnt_space = [_node.insert_space(CTL, 
-                                         'cnt') for CTL in ordict_['FKCTLs']]
+        FK_cnt_space = [_node.insert_space(CTL, 'cnt') for CTL in ordict_['FKCTLs']]
         FK_spc_space = [CTL.getParent(2) for CTL in ordict_['FKCTLs']]
         self.connect_attrs(ls(ordict_['FKCTLs'], 
                             ordict_['FKJNTs']), 
@@ -162,7 +161,6 @@ class Spine():
                             ordict_['FKJNTs']), 
                             'local',
                             t='t',
-                            r='r',
                             s='s')
 
         # IK Setting
@@ -191,7 +189,7 @@ class Spine():
                                IK_bind_offset),
                                'local',
                                t='t',
-                               r='jointOrient',
+                               r='r',
                                s='s')
                                
         
@@ -259,7 +257,7 @@ class Spine():
         _matrix.matrixConsts(ls(IK_CTL[0],
                     IK_LOC_off[0]), 
                     'local',
-                    r='jointOrient')
+                    r='r')
                             
         for i,spc in enumerate(IK_LOC[:-1]):
             aimItem = spc
@@ -301,4 +299,4 @@ class Spine():
                 k=1)
         return GRPDict
 
-
+Spine('test','z')

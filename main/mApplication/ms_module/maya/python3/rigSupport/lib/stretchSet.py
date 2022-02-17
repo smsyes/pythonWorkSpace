@@ -27,16 +27,16 @@ except:
 reload(_curve)
 reload(_node)
 
-def getPointOnParam(crvName_, shape_, object_, dbs_, chkDbs_):
+def getPointOnParam(crvindex, crvName_, shape_, object_, dbs_, chkDbs_):
     for j,obj in enumerate(object_):
-        parma_ = _curve.po_crv_info(obj, shape_)
+        parma_ = _curve.getClosetPointParam(obj, shape_)
         poci_ = _node.pointOnCurveInfo_(crvName_)
         
         poci_.attr('parameter').set(parma_)
         
-        if i==0:
+        if crvindex==0:
             dbs_ = dbs_
-        if i==1:
+        if crvindex==1:
             dbs_ = chkDbs_
         if j==0:
             poci_.position >> dbs_[0].point1
@@ -63,7 +63,7 @@ def StretchSet(curve_, object_):
     
     for i,crv_ in enumerate(curves_):
         shape_ = crv_.getShape()
-        getPointOnParam(crvName_, shape_, object_, dbs_, chkDbs_)
+        getPointOnParam(i, crvName_, shape_, object_, dbs_, chkDbs_)
         for k,obj in enumerate(object_[:-1]):
             dist_ = dbs_[k].getAttr('distance')
             if i==0:

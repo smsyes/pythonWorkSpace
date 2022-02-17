@@ -112,7 +112,7 @@ def MTransform(item, target, attrs):
         data["translate"] = translate
     if 'r' in attrs:
         data["rotate"] = rotate
-    if 'jo' in attrs:
+    if target.type() == 'joint':
         data["jointOrient"] = rotate
     if 's' in attrs:
         data["scale"] = scale
