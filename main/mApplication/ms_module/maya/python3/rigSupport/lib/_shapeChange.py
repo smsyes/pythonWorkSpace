@@ -28,6 +28,3 @@ def shapeChange(object_):
             delete(shape_)
         parent(itemShape, target, r=1, s=1)
         delete(dup_item)
-
-sel = ls(sl=1,fl=1,r=1)
-shapeChange(sel)
