@@ -85,7 +85,8 @@ def createNodes(name_, names_, crvs_, divNumList):
     return dict_
     
 def IKNodeConnection(dict_, joints_, divNumList):
-    
+    joints_[0].Stretch >> dict_['stml'].i1
+    joints_[0].Squash >> dict_['sqml'].i1
     for p,pc in enumerate(dict_['pc']):
         pc.attr('parameter').set(divNumList[p])
         dict_['chkpc'][p].attr('parameter').set(divNumList[p])
@@ -113,15 +114,15 @@ def IKNodeConnection(dict_, joints_, divNumList):
             dict_['chkpc'][p].position >> dict_['chkdb'][p-1].point2
     
     for i,db in enumerate(dict_['db']):
+        addAttr(joints_[1:][i], ln="SquahY",at='double',k=1)
+        addAttr(joints_[1:][i], ln="SquahZ",at='double',k=1)
         dist_ = db.getAttr('distance')
         dict_['ml'][i].attr('i2').set(dist_)
         dict_['ml'][i].o >> joints_[1:][i].tx
-        dict_['md2'][i].oy >> joints_[1:][i].sy
-        dict_['md2'][i].oz >> joints_[1:][i].sz
+        dict_['md2'][i].oy >> joints_[1:][i].SquahY
+        dict_['md2'][i].oz >> joints_[1:][i].SquahZ
     
-    dict_['stml'].attr('i1').set(10)
     dict_['stml'].attr('i2').set(0.1)
-    dict_['sqml'].attr('i1').set(10)
     dict_['sqml'].attr('i2').set(0.1)
 
 def IKStretch(object_):
@@ -130,6 +131,9 @@ def IKStretch(object_):
 
     joints_ = searchJoint(stJnt, enJnt)
     names_ = [jnt.name().split('Jnt')[0] for jnt in joints_]
+    
+    addAttr(stJnt, ln="Stretch",at='double',min=0,max=10,k=1)
+    addAttr(stJnt, ln="Squash",at='double',min=0,max=10,k=1)
 
     number = int(len(joints_))
     divNumList = division(number-1)
@@ -139,8 +143,8 @@ def IKStretch(object_):
     nodeDict_ = createNodes(name_, names_, crvs_, divNumList)
     IKNodeConnection(nodeDict_, joints_, divNumList)
     [parent(crv, nodeDict_['IKSysGrp']) for crv in crvs_]
-
+    return crvs_
 
 # 첫번째와 마지막 조인트 잡고 실행해주세요
-sel = ls(sl=1,r=1,fl=1)
-IKStretch(sel)
+# sel = ls(sl=1,r=1,fl=1)
+# crvs_ = IKStretch(sel)
