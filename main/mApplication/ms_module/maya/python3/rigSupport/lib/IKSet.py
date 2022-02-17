@@ -1,3 +1,23 @@
+# -*- coding: utf-8 -*-
+"""============================================================================
+조인트 체인 기준 stretch squash setup.
+IKSet
+
+__AUTHOR__ = 'SUNGSEO'
+__UPDATE__ = 20220217
+
+:Example:
+Pakage is IKSet.pyc
+
+import IKSet
+# 첫번째와 마지막 조인트 잡고 실행해주세요
+sel = ls(sl=1,r=1,fl=1)
+crvs_ = IKSet.IKStretch(sel)
+
+============================================================================"""
+#
+# when start coding 3 empty lines.
+#
 from pymel.core import *
 
 def get_transform(object_):
@@ -70,7 +90,7 @@ def createNodes(name_, names_, crvs_, divNumList):
     names_ = names_[1:]
     dict_ = {}
     chkNames_ = ['{0}Chk'.format(n) for n in names_]
-    dict_['IKSysGrp'] = space_('{0}IKSys'.format(name_))
+    dict_['SysGrp'] = space_('{0}Sys'.format(name_))
     dict_['stml'] = multDoubleLinear_('{0}IKStretch'.format(name_))
     dict_['sqml'] = multDoubleLinear_('{0}IKsquash'.format(name_))
     dict_['ba'] = [blendTwoAttr_(n) for n in names_]
@@ -142,9 +162,5 @@ def IKStretch(object_):
 
     nodeDict_ = createNodes(name_, names_, crvs_, divNumList)
     IKNodeConnection(nodeDict_, joints_, divNumList)
-    [parent(crv, nodeDict_['IKSysGrp']) for crv in crvs_]
+    [parent(crv, nodeDict_['SysGrp']) for crv in crvs_]
     return crvs_
-
-# 첫번째와 마지막 조인트 잡고 실행해주세요
-# sel = ls(sl=1,r=1,fl=1)
-# crvs_ = IKStretch(sel)

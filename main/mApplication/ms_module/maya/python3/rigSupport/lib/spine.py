@@ -298,5 +298,3 @@ class Spine():
                 en="IK:FK:", 
                 k=1)
         return GRPDict
-
-Spine('test','z')
