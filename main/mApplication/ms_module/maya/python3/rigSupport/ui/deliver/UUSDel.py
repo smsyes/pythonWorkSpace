@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pymel.core as pm
 
 def FindNodes():
@@ -60,12 +61,12 @@ def DeleteNodes(ev=None):
 
     for ii in range(len(node)):
         pm.progressWindow( pr=0, min=0, max=100, t='Deleting ...' )
-        print 'Delete [%s]'%node[ii]
+        print ('Delete [%s]'%node[ii])
         pm.progressWindow( e=1, pr=(100.0/len(node))*ii )
         pm.delete(node[ii])
         PrintNodeLen()
     pm.progressWindow(endProgress=1)
-    print 'Clean!'
+    print ('Clean!')
 
 def RigFinalCheck_UI():
     rfchWin='RIG_FINAL_CHECK_TOOL'

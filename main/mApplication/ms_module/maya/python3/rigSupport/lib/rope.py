@@ -154,17 +154,19 @@ def StartEndSet(list_, name_):
         pm.matchTransform(vecPos, list_[-1])
         jntGrp = Grp_([jnt], w=0)
         upVecGrp = Grp_([upVec], w=0)
-        pm.parent(vecPos,upVecGrp)
-        pm.parent(pm.ls(jntGrp,upVecGrp),grp)
+        pm.parent(vecPos,upVecGrp[0])
+        pm.parent(jntGrp[0],grp)
+        pm.parent(upVecGrp[0],grp)
         if i==0:
             vecPos.t >> vp.i1
-            vp.attr('i2y').set(1)
+            vp.attr('i2z').set(-1)
             vp.attr('normalizeOutput').set(1)
-            for i in upVecSet.keys():
-                pm.setDrivenKeyframe(upVec.rz, cd=vp.ox)
-                anim = upVec.attr('rz').connections()[0]
-                pm.keyframe(anim,o='over',index=i,a=1,fc=upVecSet[i][0])
-                pm.keyframe(anim,index=i,a=1,vc=upVecSet[i][1])
+            for u in upVecSet.keys():
+                pm.setDrivenKeyframe(upVec.ry, 
+                                     cd=vp.ox, 
+                                     dv=upVecSet[u][0], 
+                                     v=upVecSet[u][1])
+
         
 
 name_ = 'main'
@@ -174,9 +176,12 @@ sel = pm.ls(sl=1,fl=1,r=1)
 Jnts = getChain_(sel, type='joint')
 ikJnts = ikJnts_(sel, name_)
 FKPos = hierarchy_(FKPos_(Jnts, name_))
-crvs_ = IKSet.IKStretch(pm.ls(ikJnts[0],ikJnts[-1]))
+crvs_ = IKStSq.IKStretch(pm.ls(ikJnts[0],ikJnts[-1]))
 IKPos = ikPos_(num_, crvs_[0])
 worlds, DTCtrl, FKCtrl, IKCtrl = ctrl_(Jnts, name_, IKPos)
 StartEndSet(pm.ls(ikJnts[0],ikJnts[-1]), name_)
+
+
+
 
 
