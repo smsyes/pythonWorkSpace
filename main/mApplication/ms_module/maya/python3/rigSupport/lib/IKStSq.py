@@ -1,24 +1,37 @@
 # -*- coding: utf-8 -*-
 """============================================================================
 조인트 체인 기준 stretch squash setup.
-IKSet
+IKStSq
 
 __AUTHOR__ = 'SUNGSEO'
 __UPDATE__ = 20220217
 
 :Example:
-Pakage is IKSet.pyc
+Pakage is IKStSq.pyc
 
-import IKSet
+import IKStSq
 # 첫번째와 마지막 조인트 잡고 실행해주세요
 sel = ls(sl=1,r=1,fl=1)
-crvs_ = IKSet.IKStretch(sel)
+crvs_ = IKStSq.IKStretch(sel)
 
 ============================================================================"""
 #
 # when start coding 3 empty lines.
 #
 from pymel.core import *
+
+def getParam(crv):
+    shape_ = crv.getShape()
+    cvPos = shape_.getCVs()
+    paramls = []
+    for i,pos in enumerate(cvPos):
+        cpp_ = shape_.closestPoint(pos,
+                                   param=None,
+                                   tolerance=0.001,
+                                   space='preTransform')
+        param = shape_.getParamAtPoint(cpp_)
+        paramls.append(param)
+    return paramls
 
 def get_transform(object_):
     _name = object_.name()
@@ -83,7 +96,7 @@ def object_cv_curve(name_, object_, dgree_=None):
         trans, rot = get_transform(i)
         trans_list.append(trans)
     crv_ = curve(n='{}Crv'.format(name_), d=dgree_, p = trans_list)
-    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kt=0,s=number-3,d=3)
+    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=1,kep=1,kt=1,s=number-3,d=3)
     return crv_
 
 def createNodes(name_, names_, crvs_, divNumList):
@@ -155,12 +168,38 @@ def IKStretch(object_):
     addAttr(stJnt, ln="Stretch",at='double',min=0,max=10,k=1)
     addAttr(stJnt, ln="Squash",at='double',min=0,max=10,k=1)
 
-    number = int(len(joints_))
-    divNumList = division(number-1)
-
     crvs_ = [object_cv_curve(n, joints_) for n in [name_, '{0}Chk'.format(name_)]]
+    param_ = getParam(crvs_[0])
 
-    nodeDict_ = createNodes(name_, names_, crvs_, divNumList)
-    IKNodeConnection(nodeDict_, joints_, divNumList)
+    nodeDict_ = createNodes(name_, names_, crvs_, param_)
+    IKNodeConnection(nodeDict_, joints_, param_)
     [parent(crv, nodeDict_['SysGrp']) for crv in crvs_]
     return crvs_
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

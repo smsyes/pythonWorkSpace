@@ -1,14 +1,14 @@
 import pymel.core as pm
 from collections import OrderedDict
 from rigSupport.lib import _control
-from rigSupport.lib import IKSet
+from rigSupport.lib import IKStSq
 try:
     from imp import *
 except:
     pass
 
 reload(_control)
-reload(IKSet)
+reload(IKStSq)
 
 def hierarchy_(object_):
     for i,obj in enumerate(object_):

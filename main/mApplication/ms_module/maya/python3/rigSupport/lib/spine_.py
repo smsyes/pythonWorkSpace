@@ -16,14 +16,14 @@ spine rigging setup
 #
 import pymel.core as pm
 from collections import OrderedDict
-from rigSupport.lib import IKSet
+from rigSupport.lib import IKStSq
 
 try:
     from imp import *
 except:
     pass
 
-reload(IKSet)
+reload(IKStSq)
 
 def getShape_(key):
     """Get Shape Dictionary

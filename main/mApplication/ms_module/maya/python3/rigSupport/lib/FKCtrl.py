@@ -15,4 +15,6 @@ def hierarchy_(object_):
 
 sel = ls(sl=1,fl=1,r=1)
 ctrl_ = _control.control_(sel, 'square')
+name_ = [i.name().split('Jnt')[0] for i in sel]
+[rename(ctl,'{}Ctrl'.format(name_[i])) for i,ctl in enumerate(ctrl_)]
 hierarchy_(ctrl_)
