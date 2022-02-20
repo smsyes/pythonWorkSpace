@@ -64,7 +64,7 @@ def setKwargs(target, *args):
     targetAttr.set(args[1])
 
 def matrixConst(item, target, type_, t=None, r=None, s=None):
-    _name = '{}2{}'.format(item.name(),target.name())
+    _name = target.name()
 
     MM_ = _node.multMatrix_(_name)
     DM_ = _node.decompose_(_name)

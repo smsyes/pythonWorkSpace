@@ -65,7 +65,7 @@ def CopyWeightCluster(ev=None):
                 cmds.skinPercent(rcObj,'%s.%s[%d]'% (receiveMesh,vtxTyp,i), tv=[(rcJnt, vtxVl)] )
         amount+=1
         cmds.progressWindow( e=1, pr=amount, st='%s[%d]'% (vtxTyp,i) )
-    print datetime.timedelta(seconds=time.time()-startTime)
+    print (datetime.timedelta(seconds=time.time()-startTime))
     cmds.progressWindow(endProgress=1)
 
 def SearchDeformList(obj,op):
@@ -108,8 +108,8 @@ def AllCopyWeightClusterExe(ev=None):
                 amount+=1
                 #print '%d: %s----->%s\n'% (amount,sc,rc)
                 cmds.progressWindow( e=1, pr=amount, st='%s--->%s'% (sc,rc) )
-    print datetime.timedelta(seconds=time.time()-startTime)
-    print amount
+    print (datetime.timedelta(seconds=time.time()-startTime))
+    print (amount)
     cmds.progressWindow(endProgress=1)
 
 

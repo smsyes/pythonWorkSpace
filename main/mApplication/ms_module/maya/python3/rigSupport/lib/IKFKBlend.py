@@ -29,8 +29,7 @@ def IKFKBlend(object_):
     IKChain = getChildren_(object_[1])
     DrvChain = getChildren_(object_[2], type_='joint')
     IKPos_ = [createNode('transform', n='{0}Pos'.format(ik.name())) for ik in IKChain]
-    IKTransform = [ik.getMatrix(worldSpace=True) for ik in IKChain]
-    [pos.setMatrix(IKTransform[i]) for i,pos in enumerate(IKPos_)]
+    [matchTransform(IKPos_[i],Drv) for i,Drv in enumerate(DrvChain)]
     hierarchy_(IKPos_)
 
     for i,drv in enumerate(DrvChain):

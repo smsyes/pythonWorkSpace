@@ -93,7 +93,8 @@ def pos_(number, curve_, joints_, name_):
     numList = division(number,1)
     posList = []
     posCrv = pm.duplicate(curve_)
-    pm.rebuildCurve(posCrv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kep=1,kt=0,s=number,d=3)
+    pm.rebuildCurve(posCrv,ch=0,rpo=1,rt=0,end=1,
+                    kr=0,kcp=0,kep=1,kt=0,s=number,d=3)
     for i,num in enumerate(numList):
         getParamPos_ = posCrv[0].getShape().getPointAtParam(num)
         pos_ = pm.createNode('transform',n='{0}{1}Pos'.format(name_,i+1))
@@ -114,8 +115,14 @@ def IK_(pos, curve_, joints_, name_):
     for i,p in enumerate(pos):
         cls = pm.cluster(curve_,n='{0}{1}cls'.format(name_,i))
         clsShape = cls[1].getShape()
-        clsShape.attr('origin').set(p.attr('t').get())
+        cls[1].attr('rotatePivot').set(0,0,0)
+        cls[1].attr('scalePivot').set(0,0,0)
+        clsShape.attr('origin').set(0,0,0)
         clsGrp = Grp_([cls[1]], w=0)
+        wim_ = pm.createNode('transform',
+                             n='{0}{1}wimCNT'.format(name_,i),
+                             p=clsGrp[0])
+        wim_.wim >> cls[0].bindPreMatrix
         ctrl_ = _control.control_([p], 'circle')
         pm.rename(ctrl_,'{0}IKCtrl'.format(names[i]))
         pm.parent(ctrl_, p)

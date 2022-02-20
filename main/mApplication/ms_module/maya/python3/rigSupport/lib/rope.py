@@ -1,7 +1,9 @@
 import pymel.core as pm
+import maya.OpenMaya as om
 from collections import OrderedDict
 from rigSupport.lib import _control
 from rigSupport.lib import IKStSq
+from rigSupport.lib import QuatMatrixConst as QM
 try:
     from imp import *
 except:
@@ -9,6 +11,7 @@ except:
 
 reload(_control)
 reload(IKStSq)
+reload(QM)
 
 def hierarchy_(object_):
     for i,obj in enumerate(object_):
@@ -87,56 +90,70 @@ def division(number,divNum):
         list_.append(i*div_)
     return list_
 
-def ikPos_(num_, curve_):
+def ikPos_(num_, curve_, name_):
     posList = []
     numList = division(num_-1,1)
     for i,num in enumerate(numList):
-        getParamPos_ = curve_.getShape().getPointAtParam(num)
-        posList.append(getParamPos_)
+        pc_ = pm.createNode('pointOnCurveInfo',
+                            n='{0}{1}PC'.format(name_,i))
+        pos_ = pm.createNode('transform',
+                             n='{0}{1}IKPos'.format(name_,i))
+        cpm_ = pm.shadingNode('composeMatrix',au=1,
+                              n='{0}{1}CM'.format(name_,i))
+        mm_ = pm.shadingNode('multMatrix',au=1,
+                              n='{0}{1}MM'.format(name_,i))
+        dm_ = pm.shadingNode('decomposeMatrix',au=1,
+                              n='{0}{1}DM'.format(name_,i))
+        curve_.getShape().ws >> pc_.inputCurve
+        pc_.attr('parameter').set(num)
+        pc_.attr('turnOnPercentage').set(1)
+        pc_.position >> cpm_.it
+        cpm_.outputMatrix >> mm_.matrixIn[0]
+        pos_.pim >> mm_.matrixIn[1]
+        mm_.matrixSum >> dm_.inputMatrix
+        dm_.ot >> pos_.t
+        posList.append(pos_)
     return posList
 
-def ctrl_(list_, name_, IKPos_):
-    ctrlGrp = pm.createNode('transform', n='{0}CtrlGrp'.format(name_))
-    worlds = []
-    ctrlList = OrderedDict()
-    ctrlList['WorldCtrl'] = [0,'circle',[3,3,3]]
-    ctrlList['MoveCtrl'] = [0,'circle',[2.5,2.5,2.5]]
-    ctrlList['RootCtrl'] = [0,'triangle',[2,2,2]]
-    ctrlList['RootIKCtrl'] = [-1,'pyramid',[1.5,1.5,1.5]]
-    for i in ctrlList.keys():
-        ctrl = _control.control_([list_[ctrlList[i][0]]], ctrlList[i][1])
-        pm.scale(ctrl[0].cv[:],ctrlList[i][2])
-        pm.rename(ctrl, '{0}{1}'.format(name_,i))
-        worlds.append(ctrl[0])
-    hierarchy_(worlds[:-1])
-    worldGrp = Grp_(worlds, w=0)
-    
-    DTCtrl = _control.control_(list_, 'circle')
-    FKCtrl = _control.control_(list_, 'roundSquare')
-    [pm.scale(i.cv[:],1.2,1.2,1.2) for i in FKCtrl]
-    rename_(DTCtrl,re_=name_)
-    rename_(DTCtrl,suffix='DTCtrl')
-    rename_(FKCtrl,re_=name_)
-    rename_(FKCtrl,suffix='FKCtrl')
-    hierarchy_(FKCtrl)
-    [pm.parent(ik, FKCtrl[i]) for i,ik in enumerate(DTCtrl)]
-    FKGrp = Grp_(FKCtrl, w=0)
-    
-    IKCtrl = []
-    for i,pos in enumerate(IKPos):
-        ctrl = _control.control_([list_[0]], 'cube')
-        pm.rename(ctrl, '{0}{1}IKCtrl'.format(name_,i))
-        ctrl[0].attr('t').set(pos)
-        IKCtrl.append(ctrl[0])
-    [pm.scale(i.cv[:],3,3,3) for i in IKCtrl]
-    IKGrp = Grp_(IKCtrl, w=0)
-    
-    pm.parent(pm.ls(worldGrp[-1],FKGrp[0],IKGrp),ctrlGrp)
-    pm.parent(ctrlGrp,worlds[2])
-    
-    return worlds, DTCtrl, FKCtrl, IKCtrl
+def rootIKAddAttr(item):
+    pm.addAttr(item, ln="Twist",at='double',k=1)
+    pm.addAttr(item, ln="Stretch",at='double',min=0,max=10,k=1)
+    pm.addAttr(item, ln="Squash",at='double',min=0,max=10,k=1)
+    pm.addAttr(item, ln="FKVis",at='bool',k=1)
+    pm.addAttr(item, ln="Spread",at='double',min=0,max=10,dv=10,k=1)
+    pm.addAttr(item, ln="Width",at='double',dv=1,k=1)
+    twistML = pm.shadingNode('multDoubleLinear',au=1,
+                              n='{0}TwistML'.format(item.name()))
+    twistML.i2.set(-1)
+    item.Twist >> twistML.i1
 
-def StartEndSet(list_, name_):
+def cls_(curve_, item, name_):
+    cls = pm.cluster(curve_,n='{0}Cls'.format(name_))
+    clsShape = cls[1].getShape()
+    cls[1].attr('rotatePivot').set(0,0,0)
+    cls[1].attr('scalePivot').set(0,0,0)
+    clsShape.attr('origin').set(0,0,0)
+    clsGrp = Grp_([cls[1]], w=0)
+    wim_ = pm.createNode('transform',
+                         n='{0}wimCNT'.format(name_),
+                         p=clsGrp[0])
+    wim_.wim >> cls[0].bindPreMatrix
+    item.t >> cls[1].t
+    item.r >> cls[1].r
+    item.s >> cls[1].s
+    pm.parent(clsGrp,item)
+    return cls[0]
+
+def ctrl_(list_, type_):
+    ctrl = _control.control_(list_,ctrlDict[type_][0])
+    rename_(ctrl,re_=name_)
+    rename_(ctrl,suffix=type_)
+    [pm.scale(i.cv[:],ctrlDict[type_][1]) for i in ctrl]
+    return ctrl
+
+def StartEndSet(list_, name_, curve_):
+    upVecls = []
+    vecPosls = []
     type = ['Start','End']
     upVecSet = {0:[-1,-90],1:[0,0],2:[1,90]}
     for i,item in enumerate(list_):
@@ -157,6 +174,8 @@ def StartEndSet(list_, name_):
         pm.parent(vecPos,upVecGrp[0])
         pm.parent(jntGrp[0],grp)
         pm.parent(upVecGrp[0],grp)
+        upVecls.append(upVec)
+        vecPosls.append(vecPos)
         if i==0:
             vecPos.t >> vp.i1
             vp.attr('i2z').set(-1)
@@ -166,22 +185,89 @@ def StartEndSet(list_, name_):
                                      cd=vp.ox, 
                                      dv=upVecSet[u][0], 
                                      v=upVecSet[u][1])
+    return upVecls, vecPosls
 
-        
+# dt='linear', 'sine', 'exponential', 'linearSquared', 'none'
+def clusterWeight(curve_, cls, **kwargs):
+    crvShape = curve_.getShape()
+    numCVs_ = crvShape.numCVs()
+    divNum = division(numCVs_-1,1)
+    for i in range(values):
+        pm.percent(cls,'{0}.cv[{1}]'.format(crvShape,i), v=divNum[i])
 
+
+# config
 name_ = 'main'
 num_ = 5
+ctrlDict = OrderedDict()
+ctrlDict['WorldCtrl'] = ['circle',[2,2,2]]
+ctrlDict['MoveCtrl'] = ['circle',[1.75,1.75,1.75]]
+ctrlDict['RootCtrl'] = ['triangle',[1.5,1.5,1.5]]
+ctrlDict['RootIKCtrl'] = ['pyramid',[1,1,1]]
+ctrlDict['DTCtrl'] = ['circle',[1,1,1]]
+ctrlDict['FKCtrl'] = ['roundSquare',[1.2,1.2,1.2]]
+ctrlDict['IKCtrl'] = ['cube',[1.25,1.25,1.25]]
+
+# Select Top Joint
 sel = pm.ls(sl=1,fl=1,r=1)
 
+# get base joints
 Jnts = getChain_(sel, type='joint')
+
+# create ik joints
 ikJnts = ikJnts_(sel, name_)
-FKPos = hierarchy_(FKPos_(Jnts, name_))
+
+# create FK Pos 
+FKPos = FKPos_(Jnts, name_)
+hierarchy_(FKPos)
+
+# IK stretch squash setting
 crvs_ = IKStSq.IKStretch(pm.ls(ikJnts[0],ikJnts[-1]))
-IKPos = ikPos_(num_, crvs_[0])
-worlds, DTCtrl, FKCtrl, IKCtrl = ctrl_(Jnts, name_, IKPos)
-StartEndSet(pm.ls(ikJnts[0],ikJnts[-1]), name_)
 
+# duplicate control curve
+ctrlCrv = pm.rename(pm.duplicate(crvs_[1]),'{}IKCtrlCrv'.format(name_))
 
+# create IK Pos
+IKPos = ikPos_(num_, ctrlCrv, name_)
 
+# Root IK Aim System
+upVecls,vecPosls = StartEndSet(pm.ls(ikJnts[0],ikJnts[-1]), name_, ctrlCrv)
 
+# world control Setting
+worldCtrls = [ctrl_([Jnts[0]], i)[0] for i in ctrlDict.keys()[:3]]
+hierarchy_(worldCtrls)
+worldCtrlsGrp = Grp_(worldCtrls, w=0)
 
+# rootIK control Setting
+RootIKCtrl = ctrl_([Jnts[-1]], 'RootIKCtrl')
+RootIKGrp = Grp_(RootIKCtrl, w=0)
+rootIKAddAttr(RootIKCtrl)
+
+# detail control Setting
+DTCtrl = ctrl_(Jnts, 'DTCtrl')
+
+# FK control Setting
+FKCtrl = ctrl_(Jnts, 'FKCtrl')
+hierarchy_(FKCtrl)
+[pm.parent(dt,FKCtrl[i]) for i,dt in enumerate(DTCtrl)]
+FKGrp = Grp_(FKCtrl, w=0)
+[p.t >> FKGrp[i].t for i,p in enumerate(FKPos)]
+[p.r >> FKGrp[i].r for i,p in enumerate(FKPos)]
+
+# IK control Setting
+IKCtrl = ctrl_(IKPos, 'IKCtrl')
+[pm.parent(ik,IKPos[i]) for i,ik in enumerate(IKCtrl)]
+
+# controller constructure
+ctrlGrp = pm.createNode('transform', n='{0}CtrlGrp'.format(name_))
+pm.parent(pm.ls(RootIKGrp,FKGrp[0],IKPos),ctrlGrp)
+pm.parent(ctrlGrp,worldCtrls[-1])
+
+# creaet IK cluster
+for i,ik in enumerate(IKCtrl):
+    cls_(crvs_[0], ik, '{0}{1}IK'.format(name_,i))
+
+# matrix constraints
+[QM.MCon(pm.ls(ik,FKPos[i]),t_=1,r_=1,maintain=1) for i,ik in enumerate(ikJnts)]
+QM.MCon(pm.ls(RootIKCtrl,vecPosls[0]),t_=1,r_=1,maintain=1)
+QM.MCon(pm.ls(RootIKCtrl,upVecls[1]),t_=1,r_=1,maintain=1)
