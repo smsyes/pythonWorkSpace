@@ -192,7 +192,7 @@ def clusterWeight(curve_, cls, **kwargs):
     crvShape = curve_.getShape()
     numCVs_ = crvShape.numCVs()
     divNum = division(numCVs_-1,1)
-    for i in range(values):
+    for i in range(numCVs_):
         pm.percent(cls,'{0}.cv[{1}]'.format(crvShape,i), v=divNum[i])
 
 
