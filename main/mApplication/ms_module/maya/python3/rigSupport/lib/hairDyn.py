@@ -19,11 +19,13 @@ blah blah blah blah blah blah
 import pymel.core as pm
 import maya.mel as mel
 from rigSupport.lib import _control
+from rigSupport.lib import QuatMatrixConst as mcon
 try:
     from imp import *
 except:
     pass
 reload(_control)
+reload(mcon)
 
 def hierarchy_(object_):
     for i,obj in enumerate(object_):
@@ -43,7 +45,7 @@ def JntAtCurveParam(numList,curve_,name_):
     shape_ = curve_.getShape()
     for i,num in enumerate(numList):
         pm.select(cl=1)
-        jnt = pm.joint(n='{0}{1}Jnt'.format(name_,i))
+        jnt = pm.joint(n='{0}{1}IKJnt'.format(name_,i))
         t_ = shape_.getPointAtParam(num,space='preTransform')
         jnt.t.set(t_)
         jnts.append(jnt)
@@ -78,14 +80,16 @@ def joint_orient(jointChain, **kwargs):
         if joint_ == jointChain[-1]:
             joint_.attr('jo').set(0,0,0) 
 
-def space(list_, name_, suffix):
-    spcs = []
-    for i,item in enumerate(list_):
-        spc = pm.createNode('transform',
-                            n='{0}{1}{2}'.format(name_,i,suffix))
-        pm.matchTransform(spc, item)
-        spcs.append(spc)
-    return spcs
+def space(item, num_, suffix):
+    if num_:
+        num_ = num_
+    else:
+        num_ = ''
+    name_ = item.name()
+    spc = pm.createNode('transform',
+                        n='{0}{1}{2}'.format(name_,num_,suffix))
+    pm.matchTransform(spc, item)
+    return spc
 
 def ctrl_(list_, name_):
     ctrl_ = _control.control_(list_, 'square')
@@ -93,63 +97,88 @@ def ctrl_(list_, name_):
         pm.rename(c, '{0}{1}Ctrl'.format(name_,i))
     return ctrl_
 
-def offset_(list_, name_):
-    grp = space(list_, name_, 'grp')
+def offset_(list_):
+    grps = []
     for i,item in enumerate(list_):
+        grp = space(item,i,'grp')
         if item.getParent():
-            pm.parent(grp[i],item.getParent())  
+            pm.parent(grp,item.getParent())  
         else:
-            pm.parent(grp[i],w=1)
-        pm.parent(item,grp[i])
-    return grp
+            pm.parent(grp,w=1)
+        pm.parent(item,grp)
+        grps.append(grp)
+    return grps
 
-def ikh_(jnts):
-    ikh = pm.ikHandle(sj=jnts[0],ee=jnts[-1],
-                      sol='ikSplineSolver',ccv=0,pcv=0)
+def ikh_(jnts,curves_):
+    for crv in curves_:
+        ikh = pm.ikHandle(sj=jnts[0],ee=jnts[-1],
+                          sol='ikSplineSolver',ccv=0,pcv=0,c=crv)
     return ikh
 
 def hairsystem(crv,name_):
     pm.select(crv)
     mel.eval('makeCurvesDynamicHairs 1 0 1')
-    if not isinstance(crv, list):
-        crv = list(crv)
+    crv = pm.ls(crv)
+    outCrvs = []
     for i,c in enumerate(crv):
         flc = c.wm.listConnections()[0]
         pm.rename(flc,'{0}{1}flc'.format(name_,i))
         hsys = flc.outHair.listConnections()[0]
         flc.pointLock.set(1)
         hsys.active.set(0)
+        outCrv = flc.outCurve.listConnections()[0]
+        outCrvs.append(outCrv)
     nucle = hsys.currentState.listConnections()[0]
     pm.delete(nucle)
+    return outCrvs
         
+def BIJoint(list_,name_):
+    Jnts = []
+    for i,item in enumerate(list_):
+        pm.select(cl=1)
+        jnt = pm.joint(n='{0}{1}Jnt'.format(name_,i))
+        pm.matchTransform(jnt, item)
+        pm.makeIdentity( apply=True,r=1)
+        Jnts.append(jnt)
+    return Jnts
+
+def mconsts(items,targets):
+    for i,item in enumerate(items):
+        list_ = pm.ls(item,targets[i])
+        mcon.MCon(list_, t_=1, r_=1, s_=1, maintain=1)
     
 # base config
-name_ = 'Hair'
-num_ = 9
+name_ = 'DownFront'
+num_ = 5
 crvRvs = True
 
 # joint orient config
 oj_ = 'xzy'
-sao_ = 'zup'
+sao_ = 'yup'
 
-num_ = num_-3
+num_ = num_
 sel = pm.ls(sl=1,fl=1,r=1)
-crv = polyToCurve_(sel,num_,name_,crvRvs)
+# crv = polyToCurve_(sel,num_,name_,crvRvs)
+crv = sel[0]
+pm.rebuildCurve(crv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,
+                kep=1,kt=0,s=num_,d=3,tol=0.01)
 pm.rename(crv,'{0}Crv'.format(name_))
 divs = division(num_,1)
 jnts = JntAtCurveParam(divs,crv,name_)
 hierarchy_(jnts)
 joint_orient(jnts,e=True, oj=oj_, sao=sao_, zso=True)
-spcs = space(jnts, name_, 'spc')
+spcs = [space(j,i,'spc') for i,j in enumerate(jnts)]
 hierarchy_(spcs)
 ctrl = ctrl_(jnts[:-1], name_)
+BIJnts = BIJoint(ctrl,name_)
+BIGrp = offset_(BIJnts)
+mconsts(ctrl,BIGrp)
 hierarchy_(ctrl)
-offset_(ctrl, name_)
-ikh = ikh_(jnts)
-hairsystem(crv,name_)
-
-
-
-
+ctrlGrp = offset_(ctrl)
+mconsts(jnts,spcs)
+[spc.t >> ctrlGrp[i].t for i,spc in enumerate(spcs[:-1])]
+[spc.r >> ctrlGrp[i].r for i,spc in enumerate(spcs[:-1])]
+outCrv = hairsystem(crv,name_)
+ikh = ikh_(jnts,outCrv)
 
 

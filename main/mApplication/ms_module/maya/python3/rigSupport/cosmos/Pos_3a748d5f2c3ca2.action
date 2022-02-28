@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3a748d5f2c3ca2
+p2
+sVname
+p3
+VPos
+p4
+sVinfo
+p5
+V\uc120\ud0dd\ud55c \uc624\ube0c\uc81d\ud2b8 \uc704\uce58\uac12\uc744 \uac16\uace0 \uc788\ub294 PosNull Group \uc0dd\uc131.
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vimport pymel.core as pm\u000a\u000asel = pm.ls(sl=1,fl=1,r=1)\u000a\u000afor i in sel:\u000a    pos = pm.createNode('transform',n='{0}Pos'.format(i.name()))\u000a    pm.matchTransform(pos, i)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
