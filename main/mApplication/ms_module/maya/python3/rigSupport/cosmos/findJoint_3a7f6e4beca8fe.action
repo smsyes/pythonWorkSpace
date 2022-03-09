@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3a7f6e4beca8fe
+p2
+sVname
+p3
+VfindJoint
+p4
+sVinfo
+p5
+V\uc120\ud0dd\ud55c \uc624\ube0c\uc81d\ud2b8\uc758 skincluster\uc758 influence joint\ub97c \ucc3e\uc544\uc90d\ub2c8\ub2e4.
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom pymel.core import *\u000a\u000asel = ls(sl=1,r=1)\u000a\u000ashape_ = sel[0].getShape()\u000askinCluster_ = sel[0].history(type='skinCluster')[0]\u000ajoints_ = skinCluster_.getInfluence()\u000aselect(joints_)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
