@@ -1,0 +1,28 @@
+(dp1
+Vinfo
+p2
+Vselect start, mid, end 
+p3
+sVname
+p4
+VpolePos
+p5
+sVtags
+p6
+V
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+Vimport maya.cmds as cmds\u000aimport maya.OpenMaya as om\u000a\u000aclass poleVec_:\u000a    def __init__(self, root, mid, end):\u000a        self._root =  root\u000a        self._mid = mid\u000a        self._end = end\u000a        self.get_vec_pos()\u000a\u000a    def create_loc(self, pos):\u000a        loc = cmds.spaceLocator()\u000a        cmds.move(pos.x, pos.y, pos.z, loc)\u000a\u000a    def get_vec_pos(self):\u000a\u000a        root_pos = cmds.xform(self._root, q = True, ws = True, t = True)\u000a        mid_pos = cmds.xform(self._mid, q = True, ws = True, t = True)\u000a        end_pos = cmds.xform(self._end, q = True, ws = True, t = True)\u000a        \u000a        root_joint_vec = om.MVector(root_pos[0], root_pos[1], root_pos[2])\u000a        mid_joint_vec = om.MVector(mid_pos[0], mid_pos[1], mid_pos[2])\u000a        end_joint_vec = om.MVector(end_pos[0], end_pos[1], end_pos[2])\u000a        \u000a        line = (end_joint_vec - root_joint_vec)\u000a        point = (mid_joint_vec - root_joint_vec)\u000a        \u000a        scale_value = (line * point) / (line * line)\u000a        proj_vec = line * scale_value + root_joint_vec\u000a        \u000a        root_to_mid_len = (mid_joint_vec - root_joint_vec).length()\u000a        mid_to_end_len = (end_joint_vec - mid_joint_vec).length()\u000a        total_length = root_to_mid_len + mid_to_end_len\u000a        \u000a        pole_vec_pos = (mid_joint_vec - proj_vec).normal() * total_length + mid_joint_vec\u000a\u000a        pos_loc = cmds.spaceLocator()\u000a        cmds.move(pole_vec_pos.x, pole_vec_pos.y, pole_vec_pos.z, pos_loc)\u000a\u000a        return pos_loc\u000a        \u000asel = cmds.ls(sl=1,fl=1,r=1)\u000apoleVec_(sel[0],sel[1],sel[2])\u000a
+p10
+sVid
+p11
+S'3a838992a71640L'
+p12
+sVicon
+p13
+V
+s.
