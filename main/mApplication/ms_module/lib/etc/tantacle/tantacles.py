@@ -4,27 +4,23 @@
 ============================================================================"""
 import pymel.core as pm
 
-# item의 type 확인
-def isPC(item):
-    if item.type()=='pointOnCurveInfo':
-        return item
-
 # normalize값 연결해줄 multDobleLinear생성 및 연결.
 def parameterConnection(curve_):
     list_ = curve_.getShape().ws.listConnections()
-    PCs = list(map(isPC, list_))
-
+    
     paramMLs = []
-    for i in PCs:
-        name_ = i.name()
-        slide = i.parameter.listConnections()
-        if slide:
-            i.parameter.disconnect()
-            paramML = pm.shadingNode('multDoubleLinear',au=1,n='{0}ParamML'.format(name_))
-            paramML.i1.set(1)
-            slide[0].ocr >> paramML.i2
-            paramML.o >> i.parameter
-            paramMLs.append(paramML)
+    for i in list_:
+        if i.type()=='pointOnCurveInfo':
+            name_ = i.name()
+            slide = i.parameter.listConnections()
+            if slide:
+                i.parameter.disconnect()
+                paramML = pm.shadingNode('multDoubleLinear',au=1,n='{0}ParamML'.format(name_))
+                paramML.i1.set(1)
+                slide[0].o >> paramML.i2
+                paramML.o >> i.parameter
+                paramMLs.append(paramML)
+    return paramMLs
 
 # 커브 길이 노말라이즈 값 연결
 def StretchConnection(curve_, paramMLs):
@@ -33,6 +29,7 @@ def StretchConnection(curve_, paramMLs):
     MD = pm.shadingNode('multiplyDivide',au=1,n='{0}NormalizeMD'.format(sel[0].name()))
     BC = pm.shadingNode('blendColors',au=1,n='{0}StretchBC'.format(sel[0].name()))
     ML = pm.shadingNode('multDoubleLinear',au=1,n='{0}StretchML'.format(sel[0].name()))
+    ML.operation.set(2)
     ML.i2.set(0.1)
     crvshape.ws >> CI.inputCurve
     CI.arcLength >> MD.i2x
