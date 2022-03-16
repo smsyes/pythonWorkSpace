@@ -235,9 +235,9 @@ def controller_(pos_):
 sel = pm.ls(sl=1)
 joints_ = getJoints_(sel[0],sel[-1])
 IKjoints_ = IKJoints_(joints_)
-crvs_ = IKSet.IKStretch(sel)
-pos_ = pos_(crvs_[0], joints_)
-ctrlDict_ = controller_(pos_)
+crvs_ = IKStSq.IKStretch(sel)
+pos = pos_(crvs_[0], joints_)
+ctrlDict_ = controller_(pos)
 
     
 # dir(IKCrv_.getShape().__class__)
