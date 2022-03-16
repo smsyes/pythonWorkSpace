@@ -4,7 +4,7 @@ Module descriptions.
 
 
 __AUTHOR__ = 'minsung'
-__UPDATE__ = 20220215
+__UPDATE__ = 20220317
 
 :Example:
 
@@ -201,14 +201,32 @@ def pos_(curve_, joints_):
         getParamPos_ = curve_.getShape().getPointAtParam(num)
         pos_ = pm.createNode('transform',n='Spine{}Pos'.format(i+1))
         pos_.attr('t').set(getParamPos_)
-        pm.matchTransform(pos_,joints_[0],rot=1)
+        pm.matchTransform(pos_,joints_[i],rot=1)
         posList.append(pos_)
     return posList
 
 def controller_(pos_):
-    dict_ = {'Ctrl':[], 'Off':[]}
-    nameDict = {'Hip':0,'SpineFK1':1,'SpineMid':0,
-                'SpineFK2':1,'Body':0}
+    """Positions created at regular intervals of curves.
+
+    Arguments:
+        pos_ (transform): joint position space pos
+
+    Returns:
+        pos (nodes):  A node that has a parameter position value.
+
+    """
+    dict_ = OrderedDict()
+    dict_['Ctrl'] = []
+    dict_['Off'] = []
+    dict_['Vec'] = []
+    
+    nameDict = OrderedDict()
+    nameDict['Hip'] = 0
+    nameDict['SpineFK1'] = 1
+    nameDict['SpineMid'] = 0
+    nameDict['SpineFK2'] = 1
+    nameDict['Body'] = 0
+    
     for i,name_ in enumerate(nameDict.keys()):
         if nameDict[name_]==0:
             key = 'circle'
@@ -216,35 +234,76 @@ def controller_(pos_):
             key = 'square'
         Ctrl_ = crvShape_(key,'{}Ctrl'.format(name_))
         dict_['Ctrl'].append(Ctrl_)
-        pm.matchTransform(Ctrl_,pos_[i])
+        if i == 0:
+            pm.matchTransform(Ctrl_,pos_[1],pos=1)
+            RootPos = space_('Root', suffix_='JntPos', parent_=pos_[0])
+            RootoffGrp = offGrp_(RootPos)
+            pm.parent(RootoffGrp,Ctrl_)
+        else:
+            pm.matchTransform(Ctrl_,pos_[i],pos=1)
         cb = 1
-        if nameDict[name_]==0:
-            IKGrp_ = space_(name_, suffix_='IKGrp', parent_=Ctrl_)
-            upVec_ = space_(name_, suffix_ = 'upVec', parent_=IKGrp_)
+        if nameDict[name_]==0:            
+            IKGrp_ = space_(name_, suffix_='IKGrp', parent_=pos_[i])
+            pm.parent(IKGrp_,Ctrl_)
+            upVec_ = space_(name_, suffix_ = 'UpVec', parent_=IKGrp_)
             upVecOffGrp = offGrp_(upVec_)
             CbJnt_ = pm.joint(n='SpineCb{}Jnt'.format(cb))
             pm.parent(CbJnt_,IKGrp_)
             cb +=1
-            pm.matchTransform(CbJnt_,IKGrp_)
+            pm.matchTransform(CbJnt_,pos_[i])
             offGrp = offGrp_(CbJnt_)
         offGrp = offGrp_(Ctrl_)
+        pm.parent(pos_[i],Ctrl_)
         dict_['Off'].append(offGrp)
+        dict_['Vec'].append(upVec_)
+        
+    CtrlGrp_ = space_('Spine', suffix_='CtrlGrp', parent_=None)
+    offGrp02 = offGrp_(dict_['Off'][2])
+    pm.parent(dict_['Off'][3], dict_['Ctrl'][1])
+    pm.parent(offGrp02, dict_['Ctrl'][1])
+    pm.parent(dict_['Off'][4], dict_['Ctrl'][3])
+    pm.parent(pm.ls(dict_['Off'][0],dict_['Off'][1]), CtrlGrp_)
     return dict_
-    
 
+def ikh_(jnts,crv,vector):
+    ikh = pm.ikHandle(sj=jnts[0],ee=jnts[1],c=crv,
+                       sol='ikSplineSolver',ccv=0,pcv=0)
+    ikh[0].dTwistControlEnable.set(1)
+    ikh[0].dWorldUpType.set(4)
+    vector[0].wm >> ikh[0].dWorldUpMatrix
+    vector[1].wm >> ikh[0].dWorldUpMatrixEnd    
+
+def midPbw(dict_):
+    pm.addAttr(dict_['Ctrl'][2],ln='pbw',min=0,max=10,dv=3,k=1)
+    pConst = pm.parentConstraint(pm.ls(dict_['Ctrl'][0],dict_['Ctrl'][-1],
+                                 dict_['Off'][2]),mo=1)
+    pb = pm.createNode('pairBlend',n='{}PB'.format(dict_['Off'][2].name()))
+    ml = pm.shadingNode('multDoubleLinear',au=1,n='{}ML'.format(dict_['Off'][2].name()))
+    pb.rotInterpolation.set(1)
+    dict_['Ctrl'][2].pbw >> ml.i1
+    ml.i2.set(0.1)
+    pConst.constraintRotate >> pb.ir2
+    pConst.constraintTranslate >> pb.it2
+    [dict_['Off'][2].attr(i).disconnect() for i in ['rx','ry','rz']]
+    [dict_['Off'][2].attr(i).disconnect() for i in ['tx','ty','tz']]
+    pb.outRotate >> dict_['Off'][2].r
+    pb.outTranslate >> dict_['Off'][2].t
+    ml.o >> pb.weight
+
+def spine_(object_):
+    joints_ = getJoints_(object_[0],object_[-1])
+    IKjoints_ = IKJoints_(joints_)
+    crvs_ = IKStSq.IKStretch(object_)
+    pos = pos_(crvs_[0], joints_)
+    dict_ = controller_(pos)
+    StEnJnt = pm.ls(IKjoints_[0],IKjoints_[-1])
+    vector = pm.ls(dict_['Vec'][0],dict_['Vec'][-1])
+    ikh_(StEnJnt,crvs_[0],vector)
+    midPbw(dict_)
+
+# 첫번째와 마지막 조인트 선택후 실행.
 sel = pm.ls(sl=1)
-joints_ = getJoints_(sel[0],sel[-1])
-IKjoints_ = IKJoints_(joints_)
-crvs_ = IKStSq.IKStretch(sel)
-pos = pos_(crvs_[0], joints_)
-ctrlDict_ = controller_(pos)
-
-    
-# dir(IKCrv_.getShape().__class__)
-
-
-
-
+spine_(sel)
 
 
 

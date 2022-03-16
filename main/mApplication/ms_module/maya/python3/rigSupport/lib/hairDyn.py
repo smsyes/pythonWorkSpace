@@ -4,11 +4,11 @@ Module descriptions.
 
 
 __AUTHOR__ = 'minsung'
-__UPDATE__ = 20210707
+__UPDATE__ = 20220317
 
 :Example:
-from lib import _joint
-reload(_joint)
+from lib import hairDyn
+reload(hairDyn)
 
 blah blah blah blah blah blah
 blah blah blah blah blah blah
@@ -146,39 +146,34 @@ def mconsts(items,targets):
     for i,item in enumerate(items):
         list_ = pm.ls(item,targets[i])
         mcon.MCon(list_, t_=1, r_=1, s_=1, maintain=1)
-    
+
+def hairDyn_(crv, name_=None,num_=5,oj_='xyz',sao_='yup'):
+    pm.rebuildCurve(crv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,
+                    kep=1,kt=0,s=num_,d=3,tol=0.01)
+    pm.rename(crv,'{0}Crv'.format(name_))
+    divs = division(num_,1)
+    jnts = JntAtCurveParam(divs,crv,name_)
+    hierarchy_(jnts)
+    joint_orient(jnts,e=True, oj=oj_, sao=sao_, zso=True)
+    spcs = [space(j,i,'spc') for i,j in enumerate(jnts)]
+    hierarchy_(spcs)
+    ctrl = ctrl_(jnts[:-1], name_)
+    BIJnts = BIJoint(ctrl,name_)
+    BIGrp = offset_(BIJnts)
+    mconsts(ctrl,BIGrp)
+    hierarchy_(ctrl)
+    ctrlGrp = offset_(ctrl)
+    mconsts(jnts,spcs)
+    [spc.t >> ctrlGrp[i].t for i,spc in enumerate(spcs[:-1])]
+    [spc.r >> ctrlGrp[i].r for i,spc in enumerate(spcs[:-1])]
+    outCrv = hairsystem(crv,name_)
+    ikh = ikh_(jnts,outCrv)
+
 # base config
-name_ = 'DownFront'
-num_ = 5
+'''
 crvRvs = True
-
-# joint orient config
-oj_ = 'xzy'
-sao_ = 'yup'
-
-num_ = num_
+crv = polyToCurve_(sel,num_,name_,crvRvs)
+'''
+# 커브 선택후 실행.
 sel = pm.ls(sl=1,fl=1,r=1)
-# crv = polyToCurve_(sel,num_,name_,crvRvs)
-crv = sel[0]
-pm.rebuildCurve(crv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,
-                kep=1,kt=0,s=num_,d=3,tol=0.01)
-pm.rename(crv,'{0}Crv'.format(name_))
-divs = division(num_,1)
-jnts = JntAtCurveParam(divs,crv,name_)
-hierarchy_(jnts)
-joint_orient(jnts,e=True, oj=oj_, sao=sao_, zso=True)
-spcs = [space(j,i,'spc') for i,j in enumerate(jnts)]
-hierarchy_(spcs)
-ctrl = ctrl_(jnts[:-1], name_)
-BIJnts = BIJoint(ctrl,name_)
-BIGrp = offset_(BIJnts)
-mconsts(ctrl,BIGrp)
-hierarchy_(ctrl)
-ctrlGrp = offset_(ctrl)
-mconsts(jnts,spcs)
-[spc.t >> ctrlGrp[i].t for i,spc in enumerate(spcs[:-1])]
-[spc.r >> ctrlGrp[i].r for i,spc in enumerate(spcs[:-1])]
-outCrv = hairsystem(crv,name_)
-ikh = ikh_(jnts,outCrv)
-
-
+hairDyn_(sel[0], name_='test',num_=5,oj_='xyz',sao_='yup')
