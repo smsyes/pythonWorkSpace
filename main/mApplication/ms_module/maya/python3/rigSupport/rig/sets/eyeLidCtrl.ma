@@ -1,6 +1,6 @@
 //Maya ASCII 2022 scene
-//Name: eyeLidCtrl01.ma
-//Last modified: Tue, Mar 15, 2022 02:49:26 PM
+//Name: eyeLidCtrl.ma
+//Last modified: Wed, Mar 16, 2022 02:38:31 PM
 //Codeset: 949
 requires maya "2022";
 requires "stereoCamera" "10.0";
@@ -10,17 +10,17 @@ fileInfo "product" "Maya 2022";
 fileInfo "version" "2022";
 fileInfo "cutIdentifier" "202108111415-612a77abf4";
 fileInfo "osv" "Windows 10 Pro v2009 (Build: 19042)";
-fileInfo "UUID" "479350BA-4C0D-4F74-EB0E-F08C578D2F3A";
+fileInfo "UUID" "EE50F179-44B1-B98E-C8F8-0F97E2EB227A";
 createNode transform -s -n "persp";
 	rename -uid "C1B70C88-4F2C-4B18-A575-F985F21CBDA2";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 10.840826208356047 15.302586307075083 27.141326513320699 ;
-	setAttr ".r" -type "double3" -31.538352729997083 24.600000000013374 0 ;
+	setAttr ".t" -type "double3" 10.330133901899114 1.2764084345250231 27.086325340744793 ;
+	setAttr ".r" -type "double3" -2.738352729997577 21.40000000001444 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "6D2B2E1B-4AF8-1DAF-E4C6-6A9C44E1F1EF";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 31.487282995856088;
+	setAttr ".coi" 27.161499164124859;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -2196,6 +2196,7 @@ createNode transform -n "LeftEyeLidCrvGrp" -p "LeftEyeLidSysGrp";
 	setAttr ".ovdt" 2;
 createNode transform -n "LeftEyeLidUpCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "48CE80A2-4599-CC10-6CFF-809F70DF8BF8";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidUpCrvShape" -p "LeftEyeLidUpCrv";
 	rename -uid "8C6123C9-43B8-85B1-E0DD-91928809827B";
 	setAttr -k off ".v";
@@ -2216,6 +2217,7 @@ createNode bezierCurve -n "LeftEyeLidUpCrvShape" -p "LeftEyeLidUpCrv";
 		;
 createNode transform -n "LeftEyeLidDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "AF35A092-4AC3-34DD-A0EB-198E89FF642F";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidDownCrvShape" -p "LeftEyeLidDownCrv";
 	rename -uid "2C4FFA4E-455A-0995-D556-C592CD63DC3C";
 	setAttr -k off ".v";
@@ -2236,6 +2238,7 @@ createNode bezierCurve -n "LeftEyeLidDownCrvShape" -p "LeftEyeLidDownCrv";
 		;
 createNode transform -n "LeftEyeLidUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "31DD1C77-4594-CA60-97C5-B3874B392368";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidUpJntCrvShape" -p "LeftEyeLidUpJntCrv";
 	rename -uid "944331B1-4EDE-7784-C3E2-6B800B08621B";
 	setAttr -k off ".v";
@@ -2256,6 +2259,7 @@ createNode nurbsCurve -n "LeftEyeLidUpJntCrvShape" -p "LeftEyeLidUpJntCrv";
 		;
 createNode transform -n "LeftEyeLidDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "7BDAF714-4646-658B-D76D-6F89C93FFB4F";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidDownJntCrvShape" -p "LeftEyeLidDownJntCrv";
 	rename -uid "0D4B3152-4B0C-0D74-7DF9-36B0DFFBB6C9";
 	setAttr -k off ".v";
@@ -2276,6 +2280,7 @@ createNode nurbsCurve -n "LeftEyeLidDownJntCrvShape" -p "LeftEyeLidDownJntCrv";
 		;
 createNode transform -n "LeftEyeLidOutUpCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "1AE65E68-4964-B646-C429-61B1968C6EC6";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidOutUpCrvShape" -p "LeftEyeLidOutUpCrv";
 	rename -uid "EC1FBE77-4D3A-7620-FC60-A1BC9C3B5B2A";
 	setAttr -k off ".v";
@@ -2296,6 +2301,7 @@ createNode bezierCurve -n "LeftEyeLidOutUpCrvShape" -p "LeftEyeLidOutUpCrv";
 		;
 createNode transform -n "LeftEyeLidOutDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "14AF1094-47AA-C400-DBAB-79A4E2819F6C";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidOutDownCrvShape" -p "LeftEyeLidOutDownCrv";
 	rename -uid "2741CBCD-4A37-AB4E-8034-15B2CADE93DA";
 	setAttr -k off ".v";
@@ -2316,6 +2322,7 @@ createNode bezierCurve -n "LeftEyeLidOutDownCrvShape" -p "LeftEyeLidOutDownCrv";
 		;
 createNode transform -n "LeftEyeLidOutUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "1101523A-4268-1730-521D-BAA098F448E6";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidOutUpJntCrvShape" -p "LeftEyeLidOutUpJntCrv";
 	rename -uid "7CD72C31-4D24-8EFC-D054-7FA4F2F6E183";
 	setAttr -k off ".v";
@@ -2334,6 +2341,7 @@ createNode nurbsCurve -n "LeftEyeLidOutUpJntCrvShape" -p "LeftEyeLidOutUpJntCrv"
 		;
 createNode transform -n "LeftEyeLidOutDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "A26B784D-40FE-6CCE-FB99-D996A449D693";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidOutDownJntCrvShape" -p "LeftEyeLidOutDownJntCrv";
 	rename -uid "5C37284B-4642-3E5D-C32B-7886028FF261";
 	setAttr -k off ".v";
@@ -2352,6 +2360,7 @@ createNode nurbsCurve -n "LeftEyeLidOutDownJntCrvShape" -p "LeftEyeLidOutDownJnt
 		;
 createNode transform -n "LeftEyeLidPinUpCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "AA324C64-480C-C9FA-68D3-5689A2ABBACE";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidPinUpCrvShape" -p "LeftEyeLidPinUpCrv";
 	rename -uid "375CB260-47C4-8CAF-33EA-E996FAE8FD9F";
 	setAttr -k off ".v";
@@ -2372,6 +2381,7 @@ createNode bezierCurve -n "LeftEyeLidPinUpCrvShape" -p "LeftEyeLidPinUpCrv";
 		;
 createNode transform -n "LeftEyeLidPinDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "EBA3DA68-47EC-204A-7E40-B6898462E348";
+	setAttr -av ".v" no;
 createNode bezierCurve -n "LeftEyeLidPinDownCrvShape" -p "LeftEyeLidPinDownCrv";
 	rename -uid "367FD351-46CE-5302-1B96-169FD45837B0";
 	setAttr -k off ".v";
@@ -2392,6 +2402,7 @@ createNode bezierCurve -n "LeftEyeLidPinDownCrvShape" -p "LeftEyeLidPinDownCrv";
 		;
 createNode transform -n "LeftEyeLidPinUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "E20A0092-4884-2395-C0FF-019F742BBA23";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidPinUpJntCrvShape" -p "LeftEyeLidPinUpJntCrv";
 	rename -uid "615852C6-4A8C-B7B9-8C92-8CAE06AD8010";
 	setAttr -k off ".v";
@@ -2410,6 +2421,7 @@ createNode nurbsCurve -n "LeftEyeLidPinUpJntCrvShape" -p "LeftEyeLidPinUpJntCrv"
 		;
 createNode transform -n "LeftEyeLidPinDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "D16DD15D-40CE-A472-3274-468570945F66";
+	setAttr -av ".v";
 createNode nurbsCurve -n "LeftEyeLidPinDownJntCrvShape" -p "LeftEyeLidPinDownJntCrv";
 	rename -uid "1FCD9B06-4A5C-1458-DB24-E18585A9E38F";
 	setAttr -k off ".v";
@@ -5577,7 +5589,7 @@ createNode aimConstraint -n "LeftEyeLidOutUp2AimPos_aimConstraint1" -p "LeftEyeL
 	setAttr ".a" -type "double3" 0 0 1 ;
 	setAttr ".wut" 2;
 	setAttr ".o" -type "double3" 22.615459999163896 -34.697111367476808 -13.34021278498388 ;
-	setAttr ".rsrr" -type "double3" 3.5781240166464568e-15 -1.9083328088781101e-14 7.951386703658787e-16 ;
+	setAttr ".rsrr" -type "double3" 3.5781240166464568e-15 -1.9083328088781101e-14 7.951386703658788e-16 ;
 	setAttr -k on ".w0";
 createNode transform -n "LeftEyeLidOutDown0AimPos" -p "LeftEyeLidJntGrp";
 	rename -uid "6724D3BF-4E76-8845-C226-08918453AA29";
@@ -5663,7 +5675,7 @@ createNode aimConstraint -n "LeftEyeLidOutDown2AimPos_aimConstraint1" -p "LeftEy
 	setAttr ".erp" yes;
 	setAttr ".a" -type "double3" 0 0 1 ;
 	setAttr ".wut" 2;
-	setAttr ".o" -type "double3" -22.615459998871238 -34.697111367587063 13.340212784834538 ;
+	setAttr ".o" -type "double3" -22.615459998871238 -34.69711136758707 13.340212784834538 ;
 	setAttr ".rsrr" -type "double3" 3.180554681463516e-15 -6.460501696722767e-15 -7.9513867036587919e-16 ;
 	setAttr -k on ".w0";
 createNode transform -n "LeftEyeLidPinUp0AimPos" -p "LeftEyeLidJntGrp";
@@ -5778,7 +5790,7 @@ createNode aimConstraint -n "LeftEyeLidPinDown0AimPos_aimConstraint1" -p "LeftEy
 	setAttr ".erp" yes;
 	setAttr ".a" -type "double3" 0 0 1 ;
 	setAttr ".wut" 2;
-	setAttr ".o" -type "double3" -33.693707310266383 34.730952791110766 -20.800182176697792 ;
+	setAttr ".o" -type "double3" -33.693707310266383 34.730952791110766 -20.800182176697795 ;
 	setAttr ".rsrr" -type "double3" -5.1684013573782151e-15 -2.8690390937326033e-31 
 		-6.3611093629270335e-15 ;
 	setAttr -k on ".w0";
@@ -6042,7 +6054,7 @@ createNode aimConstraint -n "RightEyeLidPinUp0AimPos_aimConstraint1" -p "RightEy
 	setAttr ".erp" yes;
 	setAttr ".a" -type "double3" 0 0 1 ;
 	setAttr ".wut" 2;
-	setAttr ".o" -type "double3" 33.693707310250737 -34.730952791134968 -20.800182176698126 ;
+	setAttr ".o" -type "double3" 33.693707310250737 -34.730952791134968 -20.800182176698129 ;
 	setAttr ".rsrr" -type "double3" 3.975693351829396e-15 -5.5659706925611543e-15 -1.9310840053969443e-31 ;
 	setAttr -k on ".w0";
 createNode transform -n "RightEyeLidPinUp1AimPos" -p "RightEyeLidJntGrp";
@@ -6099,7 +6111,7 @@ createNode aimConstraint -n "RightEyeLidPinUp2AimPos_aimConstraint1" -p "RightEy
 	setAttr ".erp" yes;
 	setAttr ".a" -type "double3" 0 0 1 ;
 	setAttr ".wut" 2;
-	setAttr ".o" -type "double3" 33.693707310174737 34.73095279119228 20.800182176670919 ;
+	setAttr ".o" -type "double3" 33.693707310174737 34.730952791192287 20.800182176670919 ;
 	setAttr ".rsrr" -type "double3" -1.1529510720305249e-14 -4.3732626870123352e-15 
 		3.1805546814635176e-15 ;
 	setAttr -k on ".w0";
@@ -6194,20 +6206,20 @@ createNode aimConstraint -n "RightEyeLidPinDown2AimPos_aimConstraint1" -p "Right
 	setAttr ".rsrr" -type "double3" -1.2324649390671127e-14 5.9635400277440935e-15 -4.7708320221952759e-15 ;
 	setAttr -k on ".w0";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "BEC87EC3-49FF-BE7F-E713-D2AB65CC57C4";
+	rename -uid "1589BAEC-4291-CCCD-1BD4-11B382FE31C8";
 	setAttr -s 2 ".lnk";
 	setAttr -s 2 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "46DBA82A-4A25-96A3-585C-8D8C59B02301";
+	rename -uid "E946112D-438A-B0CA-48E5-E2A3D5FC3D0C";
 	setAttr ".bsdt[0].bscd" -type "Int32Array" 0 ;
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "2644E93E-4FEA-D911-C980-4DA822C66FF3";
+	rename -uid "D185D840-4A82-7E0C-EC94-9FA875E0CAB9";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "240EEC4B-4176-7BE7-C1F3-8C8EF5ADF319";
+	rename -uid "B6A73498-410C-9BC3-260C-0494E3D10D81";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "B94BA74C-4D50-76C0-CEEF-B088B22E27CD";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "3C2E18A4-4E9A-81BC-FB99-9C9B4AF1B56B";
+	rename -uid "B6824087-4120-2027-9C2A-1699AD513F98";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "A82E9CAC-4623-EED3-F320-60B9F42809CD";
 	setAttr ".g" yes;
@@ -8646,14 +8658,14 @@ createNode script -n "uiConfigurationScriptNode";
 		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $nodeEditorPanelVisible = stringArrayContains(\"nodeEditorPanel1\", `getPanel -vis`);\n\tint    $nodeEditorWorkspaceControlOpen = (`workspaceControl -exists nodeEditorPanel1Window` && `workspaceControl -q -visible nodeEditorPanel1Window`);\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|top|topShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n"
 		+ "            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n"
-		+ "            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 809\n            -height 208\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
+		+ "            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
 		+ "\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Side View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Side View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|side|sideShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n"
 		+ "            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n"
-		+ "            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 808\n            -height 207\n"
+		+ "            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n"
 		+ "            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Front View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Front View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|front|frontShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n"
 		+ "            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n"
 		+ "            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n"
-		+ "            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 809\n            -height 207\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|persp|perspShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
+		+ "            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|persp|perspShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
 		+ "            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 1\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 1\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n"
 		+ "            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n"
 		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1624\n            -height 1059\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n"
@@ -8807,7 +8819,7 @@ createNode multMatrix -n "RightEyeLidPinUp2CtrlGrpMM";
 	rename -uid "BC50A4B7-4772-9373-C032-8D828288FC91";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -4.7091313922351778 1.3677172195778529 2.0512934770854421 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -8818,7 +8830,7 @@ createNode multMatrix -n "RightEyeLidPinDown1CtrlGrpMM";
 	rename -uid "F3B4D2A8-4191-4CA2-5227-41A1C0CECEB9";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -2.9999999999983631 -2.1213208763979452 2.121319757983116 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -8829,7 +8841,7 @@ createNode multMatrix -n "RightEyeLidPinUp1CtrlGrpMM";
 	rename -uid "1DE924E1-4816-19BF-A207-5D89D00241CA";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -3.0000000000013953 2.1213208347867711 2.1213197863444058 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -8840,7 +8852,7 @@ createNode multMatrix -n "RightEyeLidPinUp0CtrlGrpMM";
 	rename -uid "EBBBEFF8-4B8A-AF12-D7A6-778B1196E15B";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -1.290868607766539 1.3677172195802991 2.051293477085244 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -8851,7 +8863,7 @@ createNode multMatrix -n "RightEyeLidPinDown0CtrlGrpMM";
 	rename -uid "7AC7B16C-4C51-E9CE-2ABA-979AD8B3CEE5";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -1.2908686077645843 -1.3677172195821425 2.0512934770852445 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -8862,7 +8874,7 @@ createNode multMatrix -n "RightEyeLidPinDown2CtrlGrpMM";
 	rename -uid "E0EB8E0E-4AEC-C83B-7CCA-A68C30BE6AD9";
 	setAttr -s 4 ".i";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 -1.2621774483536189e-29 0
-		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.966491239064113e-29 0.99999999999999978 0
+		 -3.5726976932437532e-13 1 0 0 1.1102230246250303e-16 3.9664912390641136e-29 0.99999999999999978 0
 		 -4.7091313922332283 -1.3677172195845833 2.0512934770854385 1;
 	setAttr ".i[1]" -type "matrix" -1.0000000000000002 -3.5726976932437548e-13 5.6276864971043223e-14 0
 		 -3.5726976932437537e-13 1.0000000000000002 2.0106022566503633e-26 0 5.627686497104323e-14 -3.5873240686715317e-43 1.0000000000000002 0
@@ -9001,7 +9013,7 @@ createNode multMatrix -n "RightEyeLidOutUpCrv2JntMM";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 0 0 -3.5726976932437527e-13 1 0 0
 		 0 0 1 0 -4.7076796628416719 0.9484666326495057 2.2768129413445264 1;
 	setAttr ".i[1]" -type "matrix" 1 -3.5724201374875975e-13 0 0 3.5726976932437527e-13 1 -2.5243548967072378e-29 0
-		 -1.025313954004846e-54 -2.8698592549372254e-42 1 0 4.7076796628409943 -0.94846663265286935 -2.2768129413445264 1;
+		 -1.0253139540048459e-54 -2.8698592549372254e-42 1 0 4.7076796628409943 -0.94846663265286935 -2.2768129413445264 1;
 createNode decomposeMatrix -n "RightEyeLidOutUpCrv2JntDM";
 	rename -uid "70CFD1A1-4551-7404-B09F-7BB7B5312809";
 createNode multMatrix -n "RightEyeLidOutDownCrv0JntMM";
@@ -9019,7 +9031,7 @@ createNode multMatrix -n "RightEyeLidOutDownCrv1JntMM";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 0 0 -3.5726976932437527e-13 1 0 0
 		 0 0 1 0 -2.9999999722027395 -1.6777424036723432 2.3004049117906895 1;
 	setAttr ".i[1]" -type "matrix" 1 -3.5726976932437537e-13 0 0 3.5726976932437527e-13 1 5.0487097934144756e-29 0
-		 -1.025313954004846e-54 -2.8698592549372254e-42 1 0 2.9999999722039385 1.6777424036701996 -2.3004049117906895 1;
+		 -1.0253139540048459e-54 -2.8698592549372254e-42 1 0 2.9999999722039385 1.6777424036701996 -2.3004049117906895 1;
 createNode decomposeMatrix -n "RightEyeLidOutDownCrv1JntDM";
 	rename -uid "A0A18FEA-4795-218F-8F72-DC9A4DD8EC6E";
 createNode multMatrix -n "RightEyeLidOutDownCrv2JntMM";
@@ -9074,7 +9086,7 @@ createNode multMatrix -n "RightEyeLidPinDownCrv1JntMM";
 	setAttr ".i[0]" -type "matrix" 1 3.5726976932437537e-13 0 0 -3.5726976932437527e-13 1 0 0
 		 0 0 1 0 -2.9999999722023083 -1.9315955375137268 2.1058901546196003 1;
 	setAttr ".i[1]" -type "matrix" 1 -3.5726976932437537e-13 0 0 3.5726976932437527e-13 1 -5.0487097934144756e-29 0
-		 -1.025313954004846e-54 -2.8698592549372254e-42 1 0 2.9999999722036881 1.931595537511583 -2.1058901546196003 1;
+		 -1.0253139540048459e-54 -2.8698592549372254e-42 1 0 2.9999999722036881 1.931595537511583 -2.1058901546196003 1;
 createNode decomposeMatrix -n "RightEyeLidPinDownCrv1JntDM";
 	rename -uid "7E218486-4C10-E41F-6891-C4BFE8440E1F";
 createNode multMatrix -n "RightEyeLidPinDownCrv2JntMM";
@@ -9120,7 +9132,7 @@ createNode blendTwoAttr -n "blendTwoAttr2";
 	setAttr -s 2 ".i";
 	setAttr -s 2 ".i";
 createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
-	rename -uid "34F33239-4FC4-1170-A055-249A38AD601D";
+	rename -uid "BE1ED129-4578-CE6D-7CC3-A2864DCC1003";
 	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
 	setAttr ".tgi[0].vl" -type "double2" -961.90472368210237 -305.95236879492614 ;
 	setAttr ".tgi[0].vh" -type "double2" 961.90472368210237 304.7618926517552 ;
@@ -9381,7 +9393,6 @@ connectAttr "RightEyeLidPinDown2CtrlGrpDM.or" "RightEyeLidPinDown2CtrlGrp.r";
 connectAttr "RightEyeLidPinDownCrv4PosPS.p" "RightEyeLidPinDown2CtrlGrp.t";
 connectAttr "RightEyeLidPinDown2CtrlRvsMultMD.o" "RightEyeLidPinDown2CtrlRvsGrp.t"
 		;
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidUpCrv.v";
 connectAttr "LeftEyeLidInLocShape.wp" "LeftEyeLidUpCrvShape.cp[0]";
 connectAttr "LeftEyeLidInLocShape.wp" "LeftEyeLidUpCrvShape.cp[1]";
 connectAttr "LeftEyeLidUpCvPos2Shape.wp" "LeftEyeLidUpCrvShape.cp[2]";
@@ -9389,7 +9400,6 @@ connectAttr "LeftEyeLidUpLocShape.wp" "LeftEyeLidUpCrvShape.cp[3]";
 connectAttr "LeftEyeLidUpCvPos1Shape.wp" "LeftEyeLidUpCrvShape.cp[4]";
 connectAttr "LeftEyeLidOutLocShape.wp" "LeftEyeLidUpCrvShape.cp[5]";
 connectAttr "LeftEyeLidOutLocShape.wp" "LeftEyeLidUpCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidDownCrv.v";
 connectAttr "LefteyeLidInEPPosShape.wp" "LeftEyeLidDownCrvShape.cp[0]";
 connectAttr "LefteyeLidInEPPosShape.wp" "LeftEyeLidDownCrvShape.cp[1]";
 connectAttr "LeftEyeLidDownCvPos2Shape.wp" "LeftEyeLidDownCrvShape.cp[2]";
@@ -9397,7 +9407,6 @@ connectAttr "LeftEyeLidDownLocShape.wp" "LeftEyeLidDownCrvShape.cp[3]";
 connectAttr "LeftEyeLidDownCvPos1Shape.wp" "LeftEyeLidDownCrvShape.cp[4]";
 connectAttr "LefteyeLidOutEPPosShape.wp" "LeftEyeLidDownCrvShape.cp[5]";
 connectAttr "LefteyeLidOutEPPosShape.wp" "LeftEyeLidDownCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidUpJntCrv.v";
 connectAttr "LeftEyeLidUp1PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[0]";
 connectAttr "LeftEyeLidUp2PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[1]";
 connectAttr "LeftEyeLidUp3PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[2]";
@@ -9405,7 +9414,6 @@ connectAttr "LeftEyeLidUp4PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[3]";
 connectAttr "LeftEyeLidUp5PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[4]";
 connectAttr "LeftEyeLidUp6PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[5]";
 connectAttr "LeftEyeLidUp7PosShape.wp" "LeftEyeLidUpJntCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidDownJntCrv.v";
 connectAttr "LeftEyeLidDown1PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[0]";
 connectAttr "LeftEyeLidDown2PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[1]";
 connectAttr "LeftEyeLidDown3PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[2]";
@@ -9413,7 +9421,6 @@ connectAttr "LeftEyeLidDown4PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[3]";
 connectAttr "LeftEyeLidDown5PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[4]";
 connectAttr "LeftEyeLidDown6PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[5]";
 connectAttr "LeftEyeLidDown7PosShape.wp" "LeftEyeLidDownJntCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidOutUpCrv.v";
 connectAttr "LeftEyeLidOutUp1PosShape.wp" "LeftEyeLidOutUpCrvShape.cp[0]";
 connectAttr "LeftEyeLidOutUp1PosShape.wp" "LeftEyeLidOutUpCrvShape.cp[1]";
 connectAttr "LeftEyeLidOutUp2CvPos1Shape.wp" "LeftEyeLidOutUpCrvShape.cp[2]";
@@ -9421,7 +9428,6 @@ connectAttr "LeftEyeLidOutUp2PosShape.wp" "LeftEyeLidOutUpCrvShape.cp[3]";
 connectAttr "LeftEyeLidOutUp2CvPos2Shape.wp" "LeftEyeLidOutUpCrvShape.cp[4]";
 connectAttr "LeftEyeLidOutUp3PosShape.wp" "LeftEyeLidOutUpCrvShape.cp[5]";
 connectAttr "LeftEyeLidOutUp3PosShape.wp" "LeftEyeLidOutUpCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidOutDownCrv.v";
 connectAttr "LeftEyeLidOutDown1PosShape.wp" "LeftEyeLidOutDownCrvShape.cp[0]";
 connectAttr "LeftEyeLidOutDown1PosShape.wp" "LeftEyeLidOutDownCrvShape.cp[1]";
 connectAttr "LeftEyeLidOutDown2CvPos1Shape.wp" "LeftEyeLidOutDownCrvShape.cp[2]"
@@ -9431,7 +9437,6 @@ connectAttr "LeftEyeLidOutDown2CvPos2Shape.wp" "LeftEyeLidOutDownCrvShape.cp[4]"
 		;
 connectAttr "LeftEyeLidOutDown3PosShape.wp" "LeftEyeLidOutDownCrvShape.cp[5]";
 connectAttr "LeftEyeLidOutDown3PosShape.wp" "LeftEyeLidOutDownCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidOutUpJntCrv.v";
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutUpCrv0PosSurfPos|LeftEyeLidOutUpCrv0Pos|LeftEyeLidOutUpCrv0PosShape.wp" "LeftEyeLidOutUpJntCrvShape.cp[0]"
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutUpCrv1PosSurfPos|LeftEyeLidOutUpCrv1Pos|LeftEyeLidOutUpCrv1PosShape.wp" "LeftEyeLidOutUpJntCrvShape.cp[1]"
@@ -9442,7 +9447,6 @@ connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftE
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutUpCrv4PosSurfPos|LeftEyeLidOutUpCrv4Pos|LeftEyeLidOutUpCrv4PosShape.wp" "LeftEyeLidOutUpJntCrvShape.cp[4]"
 		;
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidOutDownJntCrv.v";
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutDownCrv0PosSurfPos|LeftEyeLidOutDownCrv0Pos|LeftEyeLidOutDownCrv0PosShape.wp" "LeftEyeLidOutDownJntCrvShape.cp[0]"
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutDownCrv1PosSurfPos|LeftEyeLidOutDownCrv1Pos|LeftEyeLidOutDownCrv1PosShape.wp" "LeftEyeLidOutDownJntCrvShape.cp[1]"
@@ -9453,7 +9457,6 @@ connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftE
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidOutDownCrv4PosSurfPos|LeftEyeLidOutDownCrv4Pos|LeftEyeLidOutDownCrv4PosShape.wp" "LeftEyeLidOutDownJntCrvShape.cp[4]"
 		;
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidPinUpCrv.v";
 connectAttr "LeftEyeLidPinUp1PosShape.wp" "LeftEyeLidPinUpCrvShape.cp[0]";
 connectAttr "LeftEyeLidPinUp1PosShape.wp" "LeftEyeLidPinUpCrvShape.cp[1]";
 connectAttr "LeftEyeLidPinUp2CvPos1Shape.wp" "LeftEyeLidPinUpCrvShape.cp[2]";
@@ -9461,7 +9464,6 @@ connectAttr "LeftEyeLidPinUp2PosShape.wp" "LeftEyeLidPinUpCrvShape.cp[3]";
 connectAttr "LeftEyeLidPinUp2CvPos2Shape.wp" "LeftEyeLidPinUpCrvShape.cp[4]";
 connectAttr "LeftEyeLidPinUp3PosShape.wp" "LeftEyeLidPinUpCrvShape.cp[5]";
 connectAttr "LeftEyeLidPinUp3PosShape.wp" "LeftEyeLidPinUpCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidPinDownCrv.v";
 connectAttr "LeftEyeLidPinDown1PosShape.wp" "LeftEyeLidPinDownCrvShape.cp[0]";
 connectAttr "LeftEyeLidPinDown1PosShape.wp" "LeftEyeLidPinDownCrvShape.cp[1]";
 connectAttr "LeftEyeLidPinDown2CvPos1Shape.wp" "LeftEyeLidPinDownCrvShape.cp[2]"
@@ -9471,7 +9473,6 @@ connectAttr "LeftEyeLidPinDown2CvPos2Shape.wp" "LeftEyeLidPinDownCrvShape.cp[4]"
 		;
 connectAttr "LeftEyeLidPinDown3PosShape.wp" "LeftEyeLidPinDownCrvShape.cp[5]";
 connectAttr "LeftEyeLidPinDown3PosShape.wp" "LeftEyeLidPinDownCrvShape.cp[6]";
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidPinUpJntCrv.v";
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidPinUpCrv0PosSurfPos|LeftEyeLidPinUpCrv0Pos|LeftEyeLidPinUpCrv0PosShape.wp" "LeftEyeLidPinUpJntCrvShape.cp[0]"
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidPinUpCrv1PosSurfPos|LeftEyeLidPinUpCrv1Pos|LeftEyeLidPinUpCrv1PosShape.wp" "LeftEyeLidPinUpJntCrvShape.cp[1]"
@@ -9482,7 +9483,6 @@ connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftE
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidPinUpCrv4PosSurfPos|LeftEyeLidPinUpCrv4Pos|LeftEyeLidPinUpCrv4PosShape.wp" "LeftEyeLidPinUpJntCrvShape.cp[4]"
 		;
-connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidPinDownJntCrv.v";
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidPinDownCrv0PosSurfPos|LeftEyeLidPinDownCrv0Pos|LeftEyeLidPinDownCrv0PosShape.wp" "LeftEyeLidPinDownJntCrvShape.cp[0]"
 		;
 connectAttr "|EyeLidGrp|EyeLidSysGrp|LeftEyeLidSysGrp|LeftEyeLidSurfPosGrp|LeftEyeLidPinDownCrv1PosSurfPos|LeftEyeLidPinDownCrv1Pos|LeftEyeLidPinDownCrv1PosShape.wp" "LeftEyeLidPinDownJntCrvShape.cp[1]"
@@ -9742,6 +9742,7 @@ connectAttr "LeftEyeLidRootModeRvs.ox" "LeftEyeLidLocGrp.v";
 connectAttr "LeftEyeLidCCtrl.t" "LeftEyeLidLocGrp.t";
 connectAttr "LeftEyeLidCCtrl.sy" "LeftEyeLidLocGrp.sy";
 connectAttr "LeftEyeLidCCtrl.sx" "LeftEyeLidLocGrp.sx";
+connectAttr "LeftEyeLidCCtrl.r" "LeftEyeLidLocGrp.r";
 connectAttr "unitConversion1.o" "LeftEyeLidUpCenterGrp.rx";
 connectAttr "LeftEyeLidUpMainCtrl.t" "LeftEyeLidUpLoc.t";
 connectAttr "LeftEyeLidUpMainCtrl.r" "LeftEyeLidUpLoc.r";
@@ -10150,6 +10151,7 @@ connectAttr "RightEyeLidRootModeRvs.ox" "RightEyeLidLocGrp.v";
 connectAttr "RightEyeLidCCtrl.sx" "RightEyeLidLocGrp.sx";
 connectAttr "RightEyeLidCCtrl.sy" "RightEyeLidLocGrp.sy";
 connectAttr "RightEyeLidCCtrl.t" "RightEyeLidLocGrp.t";
+connectAttr "RightEyeLidCCtrl.r" "RightEyeLidLocGrp.r";
 connectAttr "unitConversion3.o" "RightEyeLidUpPosCenterGrp.rx";
 connectAttr "LeftEyeLidUpPos.t" "RightEyeLidUpPos.t";
 connectAttr "RightEyeLidUpMainCtrl.t" "RightEyeLidUpLoc.t";
@@ -12596,11 +12598,11 @@ connectAttr "blendTwoAttr2.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "LeftEyeBallSurfShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "RightEyeBallSurfShape.iog" ":initialShadingGroup.dsm" -na;
-dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
 dataStructure -fmt "raw" -as "name=Blur3dMetaData:string=Blur3dValue";
-dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
-dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
+dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
 dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
-dataStructure -fmt "raw" -as "name=FBXFastExportSetting_MB:string=19424";
 dataStructure -fmt "raw" -as "name=faceConnectOutputStructure:bool=faceConnectOutput:string[200]=faceConnectOutputAttributes:string[200]=faceConnectOutputGroups";
-// End of eyeLidCtrl01.ma
+dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
+dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
+dataStructure -fmt "raw" -as "name=FBXFastExportSetting_MB:string=19424";
+// End of eyeLidCtrl.ma
