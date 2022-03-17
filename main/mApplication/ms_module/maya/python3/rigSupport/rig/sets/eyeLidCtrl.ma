@@ -1,26 +1,28 @@
-//Maya ASCII 2022 scene
+//Maya ASCII 2018ff09 scene
 //Name: eyeLidCtrl.ma
-//Last modified: Wed, Mar 16, 2022 02:38:31 PM
+//Last modified: Thu, Mar 17, 2022 07:33:49 PM
 //Codeset: 949
-requires maya "2022";
+requires maya "2018ff09";
+requires -nodeType "RedshiftOptions" -nodeType "RedshiftPostEffects" "redshift4maya" "3.0.50";
+requires -nodeType "decomposeMatrix" "matrixNodes" "1.0";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
-fileInfo "product" "Maya 2022";
-fileInfo "version" "2022";
-fileInfo "cutIdentifier" "202108111415-612a77abf4";
-fileInfo "osv" "Windows 10 Pro v2009 (Build: 19042)";
+fileInfo "product" "Maya 2018";
+fileInfo "version" "2018";
+fileInfo "cutIdentifier" "201903222215-65bada0e52";
+fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 fileInfo "UUID" "EE50F179-44B1-B98E-C8F8-0F97E2EB227A";
 createNode transform -s -n "persp";
 	rename -uid "C1B70C88-4F2C-4B18-A575-F985F21CBDA2";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 10.330133901899114 1.2764084345250231 27.086325340744793 ;
-	setAttr ".r" -type "double3" -2.738352729997577 21.40000000001444 0 ;
+	setAttr ".t" -type "double3" 11.818759082031177 40.073911560778136 30.655287549522932 ;
+	setAttr ".r" -type "double3" -52.538352730006601 21.800000000016595 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "6D2B2E1B-4AF8-1DAF-E4C6-6A9C44E1F1EF";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 27.161499164124859;
+	setAttr ".coi" 52.981984799671984;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -51,7 +53,7 @@ createNode camera -s -n "frontShape" -p "front";
 	setAttr -k off ".v" no;
 	setAttr ".rnd" no;
 	setAttr ".coi" 997.10342958642445;
-	setAttr ".ow" 24.701774485126862;
+	setAttr ".ow" 21.511144440669231;
 	setAttr ".imn" -type "string" "front";
 	setAttr ".den" -type "string" "front_depth";
 	setAttr ".man" -type "string" "front_mask";
@@ -90,11 +92,8 @@ createNode transform -n "LeftEyeLidOutCtrlGrp" -p "LeftEyeLidCtrlGrp";
 	setAttr ".r" -type "double3" 0 0 8.0322806413020668e-28 ;
 createNode transform -n "LeftEyeLidOutUpCtrlGrp" -p "LeftEyeLidOutCtrlGrp";
 	rename -uid "3F144051-428F-00AA-5E18-B191D0F86C3A";
-createNode transform -n "LeftEyeLidOutUp1CtrlPos" -p "LeftEyeLidOutUpCtrlGrp";
-	rename -uid "D521CF55-4CBE-9839-C2F5-FEB1AB4BF314";
-createNode transform -n "LeftEyeLidOutUp1CtrlGrp" -p "LeftEyeLidOutUp1CtrlPos";
+createNode transform -n "LeftEyeLidOutUp1CtrlGrp" -p "LeftEyeLidOutUpCtrlGrp";
 	rename -uid "B442811B-400A-C282-48A1-5BB6143EB0FF";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutUp1CtrlRvs" -p "LeftEyeLidOutUp1CtrlGrp";
 	rename -uid "45DD530B-43E5-7C25-0D1B-02AC8A280869";
 createNode transform -n "LeftEyeLidOutUp1Ctrl" -p "LeftEyeLidOutUp1CtrlRvs";
@@ -124,11 +123,8 @@ createNode nurbsCurve -n "LeftEyeLidOutUp1CtrlShape" -p "LeftEyeLidOutUp1Ctrl";
 		-0.20504438968241762 -0.91358388813988145 -0.5472157011697999 -0.20587133751074854 
 		-0.5890013254767158 -0.77442349503401386 -0.12359211689717009 0.1946102994145078 
 		0 0 0 0 0 0 0 0 0;
-createNode transform -n "LeftEyeLidOutUp2CtrlPos" -p "LeftEyeLidOutUpCtrlGrp";
-	rename -uid "B5C63CD8-44BB-2601-D608-B48225536753";
-createNode transform -n "LeftEyeLidOutUp2CtrlGrp" -p "LeftEyeLidOutUp2CtrlPos";
+createNode transform -n "LeftEyeLidOutUp2CtrlGrp" -p "LeftEyeLidOutUpCtrlGrp";
 	rename -uid "268DE943-499E-E89B-9F10-F0A4B97A5ABB";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutUp2CtrlRvs" -p "LeftEyeLidOutUp2CtrlGrp";
 	rename -uid "37F994A8-4DFD-DC3E-DF5C-8A80440AA2A0";
 createNode transform -n "LeftEyeLidOutUp2Ctrl" -p "LeftEyeLidOutUp2CtrlRvs";
@@ -167,11 +163,8 @@ createNode nurbsCurve -n "LeftEyeLidOutUp2CtrlShape" -p "LeftEyeLidOutUp2Ctrl";
 		0.0013124766008350379 0.20886542180288536 0.19461021576451842
 		-0.23377101086653243 0.11149065300393626 0.19461021576451842
 		;
-createNode transform -n "LeftEyeLidOutUp3CtrlPos" -p "LeftEyeLidOutUpCtrlGrp";
-	rename -uid "103D7F9E-4A77-1EE9-B82C-79863C128C8F";
-createNode transform -n "LeftEyeLidOutUp3CtrlGrp" -p "LeftEyeLidOutUp3CtrlPos";
+createNode transform -n "LeftEyeLidOutUp3CtrlGrp" -p "LeftEyeLidOutUpCtrlGrp";
 	rename -uid "5ACBE8C9-4F2E-8921-AE1E-438FCE4BCF8C";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutUp3CtrlRvs" -p "LeftEyeLidOutUp3CtrlGrp";
 	rename -uid "DD41C2D2-4FCF-84A0-C827-5E99D81EC03F";
 createNode transform -n "LeftEyeLidOutUp3Ctrl" -p "LeftEyeLidOutUp3CtrlRvs";
@@ -211,11 +204,8 @@ createNode nurbsCurve -n "LeftEyeLidOutUp3CtrlShape" -p "LeftEyeLidOutUp3Ctrl";
 		;
 createNode transform -n "LeftEyeLidOutDownCtrlGrp" -p "LeftEyeLidOutCtrlGrp";
 	rename -uid "05438C3A-4406-3CF3-8800-658088C7F335";
-createNode transform -n "LeftEyeLidOutDown1CtrlPos" -p "LeftEyeLidOutDownCtrlGrp";
-	rename -uid "712ABF3B-4F14-4F6A-0C3C-E7B233506348";
-createNode transform -n "LeftEyeLidOutDown1CtrlGrp" -p "LeftEyeLidOutDown1CtrlPos";
+createNode transform -n "LeftEyeLidOutDown1CtrlGrp" -p "LeftEyeLidOutDownCtrlGrp";
 	rename -uid "76C4780F-40BB-28B5-40EA-0880ED015C51";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutDown1CtrlRvs" -p "LeftEyeLidOutDown1CtrlGrp";
 	rename -uid "95A27E29-40DC-8A50-A085-14814DF86F1B";
 createNode transform -n "LeftEyeLidOutDown1Ctrl" -p "LeftEyeLidOutDown1CtrlRvs";
@@ -253,11 +243,8 @@ createNode nurbsCurve -n "LeftEyeLidOutDown1CtrlShape" -p "LeftEyeLidOutDown1Ctr
 		-0.0013121726979168809 -0.20886622250836806 0.40538830045208241
 		0.23377131476945065 -0.11149145370941903 0.40538830045208241
 		;
-createNode transform -n "LeftEyeLidOutDown2CtrlPos" -p "LeftEyeLidOutDownCtrlGrp";
-	rename -uid "DE0A49FB-41ED-0DDA-DB15-7B84E67EAA21";
-createNode transform -n "LeftEyeLidOutDown2CtrlGrp" -p "LeftEyeLidOutDown2CtrlPos";
+createNode transform -n "LeftEyeLidOutDown2CtrlGrp" -p "LeftEyeLidOutDownCtrlGrp";
 	rename -uid "B00C6FAA-4F0F-0176-5E98-4780E00C7C1D";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutDown2CtrlRvs" -p "LeftEyeLidOutDown2CtrlGrp";
 	rename -uid "FB0C4662-45AC-EA85-945C-458A9CC31144";
 createNode transform -n "LeftEyeLidOutDown2Ctrl" -p "LeftEyeLidOutDown2CtrlRvs";
@@ -295,11 +282,8 @@ createNode nurbsCurve -n "LeftEyeLidOutDown2CtrlShape" -p "LeftEyeLidOutDown2Ctr
 		-0.0013124647813934874 -0.20886542287776888 0.40538980199154651
 		0.23377102268597375 -0.11149065407881997 0.40538980199154651
 		;
-createNode transform -n "LeftEyeLidOutDown3CtrlPos" -p "LeftEyeLidOutDownCtrlGrp";
-	rename -uid "1C5C61AB-403C-1B98-CEC5-F88471A883C4";
-createNode transform -n "LeftEyeLidOutDown3CtrlGrp" -p "LeftEyeLidOutDown3CtrlPos";
+createNode transform -n "LeftEyeLidOutDown3CtrlGrp" -p "LeftEyeLidOutDownCtrlGrp";
 	rename -uid "231CB9A0-4DA9-CE13-7261-0EBC07371C0B";
-	setAttr ".s" -type "double3" 0.99999999999999989 1 0.99999999999999989 ;
 createNode transform -n "LeftEyeLidOutDown3CtrlRvs" -p "LeftEyeLidOutDown3CtrlGrp";
 	rename -uid "03DCD3D0-49C3-6876-7066-C3978B2F379B";
 createNode transform -n "LeftEyeLidOutDown3Ctrl" -p "LeftEyeLidOutDown3CtrlRvs";
@@ -341,11 +325,8 @@ createNode transform -n "LeftEyeLidMainCtrlGrp" -p "LeftEyeLidCtrlGrp";
 	rename -uid "DF8940B8-4DA2-D144-4A91-C697B6EE31E1";
 	setAttr ".t" -type "double3" -2.7794001988259347e-08 1.2079227474570086e-13 3.5527121189801521e-15 ;
 	setAttr ".r" -type "double3" 0 0 8.0322806413020668e-28 ;
-createNode transform -n "LeftEyeLidInCtrlPos" -p "LeftEyeLidMainCtrlGrp";
-	rename -uid "EEF03FD0-4CC7-D1F5-B4C4-FF99475BAF35";
-createNode transform -n "LeftEyeLidInMainCtrlGrp" -p "LeftEyeLidInCtrlPos";
+createNode transform -n "LeftEyeLidInMainCtrlGrp" -p "LeftEyeLidMainCtrlGrp";
 	rename -uid "4BF1DDD7-4001-437B-5E03-D7B2792793D2";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidInMainCtrlRvs" -p "LeftEyeLidInMainCtrlGrp";
 	rename -uid "B52D410A-4FC3-9571-60BE-B1A51B6F7F76";
 createNode transform -n "LeftEyeLidInMainCtrl" -p "LeftEyeLidInMainCtrlRvs";
@@ -371,11 +352,8 @@ createNode nurbsCurve -n "LeftEyeLidInMainCtrlShape" -p "LeftEyeLidInMainCtrl";
 		4.9515315191023742e-16 -0.59842486127936856 -0.80819407616703565 -0.78360739338855656 
 		-0.42315027744125983 -0.48361151350387199 -1.1081882033059263 1.2950695634930761e-15 
 		0.3000001113873525 0 0 0 0 0 0 0 0 0;
-createNode transform -n "LeftEyeLidUpCtrlPos" -p "LeftEyeLidMainCtrlGrp";
-	rename -uid "42F3F853-4053-3B5F-A4E1-229636E46C1F";
-createNode transform -n "LeftEyeLidUpMainCtrlGrp" -p "LeftEyeLidUpCtrlPos";
+createNode transform -n "LeftEyeLidUpMainCtrlGrp" -p "LeftEyeLidMainCtrlGrp";
 	rename -uid "5D56A421-44A1-2ED6-F493-80BF3E456E83";
-	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999989 ;
 createNode transform -n "LeftEyeLidUpMainCtrlRvs" -p "LeftEyeLidUpMainCtrlGrp";
 	rename -uid "114E2308-4E55-2F98-CF78-B08B7C136A64";
 createNode transform -n "LeftEyeLidUpMainCtrl" -p "LeftEyeLidUpMainCtrlRvs";
@@ -406,11 +384,8 @@ createNode nurbsCurve -n "LeftEyeLidUpMainCtrlShape" -p "LeftEyeLidUpMainCtrl";
 		-1.7202188311728433e-15 -0.20000598424846144 -0.80819418755438566 -0.36046134744996494 
 		-0.20000423150266738 -0.48361162489122211 -0.50976932627501981 -0.19999999999999996 
 		0.3000000000000026 0 0 0 0 0 0 0 0 0;
-createNode transform -n "LeftEyeLidOutCtrlPos" -p "LeftEyeLidMainCtrlGrp";
-	rename -uid "C713A200-408B-14B3-ECEB-50A10CD56579";
-createNode transform -n "LeftEyeLidOutMainCtrlGrp" -p "LeftEyeLidOutCtrlPos";
+createNode transform -n "LeftEyeLidOutMainCtrlGrp" -p "LeftEyeLidMainCtrlGrp";
 	rename -uid "D4A290FF-4CCE-3E1A-B962-15B1C690D69E";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidOutMainCtrlRvs" -p "LeftEyeLidOutMainCtrlGrp";
 	rename -uid "5BEA06A3-4057-37B0-2CA7-B7AF23E7DC3C";
 createNode transform -n "LeftEyeLidOutMainCtrl" -p "LeftEyeLidOutMainCtrlRvs";
@@ -444,11 +419,8 @@ createNode nurbsCurve -n "LeftEyeLidInMainCtrl1Shape" -p "LeftEyeLidOutMainCtrl"
 		4.0744625530526267e-16 0.598424861279371 0.30000011138734961
 		0.42315027744126155 0.42315027744126282 0.30000011138734961
 		;
-createNode transform -n "LeftEyeLidDownCtrlPos" -p "LeftEyeLidMainCtrlGrp";
-	rename -uid "5AE8EFC8-437C-CA57-544A-BD9CF88800B7";
-createNode transform -n "LeftEyeLidDownMainCtrlGrp" -p "LeftEyeLidDownCtrlPos";
+createNode transform -n "LeftEyeLidDownMainCtrlGrp" -p "LeftEyeLidMainCtrlGrp";
 	rename -uid "73DA7893-47FD-5F0C-9D70-E0A1C587188E";
-	setAttr ".s" -type "double3" 1 1.0000000000000002 1 ;
 createNode transform -n "LeftEyeLidDownMainCtrlRvs" -p "LeftEyeLidDownMainCtrlGrp";
 	rename -uid "0037667E-4D47-92DA-BF78-D9A053C42E8E";
 createNode transform -n "LeftEyeLidDownMainCtrl" -p "LeftEyeLidDownMainCtrlRvs";
@@ -487,11 +459,8 @@ createNode nurbsCurve -n "LeftEyeLidDownMainCtrlShape" -p "LeftEyeLidDownMainCtr
 		-4.3364617452468227e-16 -0.29842486127936996 0.40000000000000491
 		0.42315027744126088 -0.12315027744126093 0.40000000000000446
 		;
-createNode transform -n "LeftEyeLidCCtrlGrp" -p "LeftEyeLidCtrlGrp";
-	rename -uid "F17D2D96-46C0-02D1-9E27-A79783D01DF5";
-createNode transform -n "LeftEyeLidCCtrlOffGrp" -p "LeftEyeLidCCtrlGrp";
+createNode transform -n "LeftEyeLidCCtrlOffGrp" -p "LeftEyeLidCtrlGrp";
 	rename -uid "F2B7DECB-4350-0812-5312-1D8D42E04CF6";
-	setAttr ".t" -type "double3" 0 0 3 ;
 createNode transform -n "LeftEyeLidCCtrl" -p "LeftEyeLidCCtrlOffGrp";
 	rename -uid "A9FE0268-4880-F7CA-560F-1B92563E3455";
 	setAttr -l on -k off ".v";
@@ -942,7 +911,7 @@ createNode transform -n "LeftEyeLidPinUpCtrlGrp" -p "LeftEyeLidPinCtrlGrp";
 	setAttr ".t" -type "double3" -1.4307257320756409e-42 -7.9110081719100865e-59 2.5243548967072378e-29 ;
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1 ;
 createNode transform -n "LeftEyeLidPinUp0CtrlGrp" -p "LeftEyeLidPinUpCtrlGrp";
-	rename -uid "132E9406-453D-3BB4-CD66-1BBB6F4DC7C9";
+	rename -uid "0A30C984-4743-B25E-4845-F881F43DA8FA";
 createNode transform -n "LeftEyeLidPinUp0CtrlRvsGrp" -p "LeftEyeLidPinUp0CtrlGrp";
 	rename -uid "84F7FD92-4794-5534-45C0-86A75FC39E14";
 createNode transform -n "LeftEyeLidPinUp0Ctrl" -p "LeftEyeLidPinUp0CtrlRvsGrp";
@@ -970,7 +939,7 @@ createNode nurbsCurve -n "LeftEyeLidPinUp0CtrlShape" -p "LeftEyeLidPinUp0Ctrl";
 		0 0.3600000000000001 0.23999999999999969
 		;
 createNode transform -n "LeftEyeLidPinUp1CtrlGrp" -p "LeftEyeLidPinUpCtrlGrp";
-	rename -uid "8D31A3D7-4A17-DC0B-EA6A-70A4B1968BCD";
+	rename -uid "A8E72AB3-439F-85C0-19B9-D5A406858B50";
 createNode transform -n "LeftEyeLidPinUp1CtrlRvsGrp" -p "LeftEyeLidPinUp1CtrlGrp";
 	rename -uid "327CFE80-4ED6-1770-9A06-7C875DECFFD4";
 createNode transform -n "LeftEyeLidPinUp1Ctrl" -p "LeftEyeLidPinUp1CtrlRvsGrp";
@@ -998,7 +967,7 @@ createNode nurbsCurve -n "LeftEyeLidPinUp1CtrlShape" -p "LeftEyeLidPinUp1Ctrl";
 		0 0.3600000000000001 0.23999999999999969
 		;
 createNode transform -n "LeftEyeLidPinUp2CtrlGrp" -p "LeftEyeLidPinUpCtrlGrp";
-	rename -uid "E65AB896-4BCF-34C6-E1E8-03992F8E557D";
+	rename -uid "9C30C4E9-4CDB-A01A-7540-5CA80CF5C4BA";
 createNode transform -n "LeftEyeLidPinUp2CtrlRvsGrp" -p "LeftEyeLidPinUp2CtrlGrp";
 	rename -uid "23448FED-417F-7FA5-6F9A-BD9EC36DE3A7";
 createNode transform -n "LeftEyeLidPinUp2Ctrl" -p "LeftEyeLidPinUp2CtrlRvsGrp";
@@ -1030,7 +999,7 @@ createNode transform -n "LeftEyeLidPinDownCtrlGrp" -p "LeftEyeLidPinCtrlGrp";
 	setAttr ".t" -type "double3" -1.4307257320756409e-42 -7.9110081719100865e-59 2.5243548967072378e-29 ;
 	setAttr ".s" -type "double3" 1.0000000000000002 1 1 ;
 createNode transform -n "LeftEyeLidPinDown0CtrlGrp" -p "LeftEyeLidPinDownCtrlGrp";
-	rename -uid "5092D51A-4E7B-64F5-C471-38A54FF89274";
+	rename -uid "738ABADF-4BF3-B76D-2B35-76A13AE064AA";
 createNode transform -n "LeftEyeLidPinDown0CtrlRvsGrp" -p "LeftEyeLidPinDown0CtrlGrp";
 	rename -uid "FF69EFAC-4676-836F-B6C8-0DB864D4F80B";
 createNode transform -n "LeftEyeLidPinDown0Ctrl" -p "LeftEyeLidPinDown0CtrlRvsGrp";
@@ -1058,7 +1027,7 @@ createNode nurbsCurve -n "LeftEyeLidPinDown0CtrlShape" -p "LeftEyeLidPinDown0Ctr
 		0 -0.3600000000000001 0.23999999999999988
 		;
 createNode transform -n "LeftEyeLidPinDown1CtrlGrp" -p "LeftEyeLidPinDownCtrlGrp";
-	rename -uid "9993FC5D-46A4-430F-29CF-67AAB70462B7";
+	rename -uid "772ACE4A-4740-6088-B39D-D5B93D909D17";
 createNode transform -n "LeftEyeLidPinDown1CtrlRvsGrp" -p "LeftEyeLidPinDown1CtrlGrp";
 	rename -uid "738276FC-442E-0EE4-188B-CABAAA29F8F0";
 createNode transform -n "LeftEyeLidPinDown1Ctrl" -p "LeftEyeLidPinDown1CtrlRvsGrp";
@@ -1086,7 +1055,7 @@ createNode nurbsCurve -n "LeftEyeLidPinDown1CtrlShape" -p "LeftEyeLidPinDown1Ctr
 		0 -0.3600000000000001 0.23999999999999988
 		;
 createNode transform -n "LeftEyeLidPinDown2CtrlGrp" -p "LeftEyeLidPinDownCtrlGrp";
-	rename -uid "584E1912-4A3B-AEA7-0ED5-B89A56910784";
+	rename -uid "82BA6862-42B1-4833-958E-44A40808B19E";
 createNode transform -n "LeftEyeLidPinDown2CtrlRvsGrp" -p "LeftEyeLidPinDown2CtrlGrp";
 	rename -uid "F91973BD-4206-5DBF-68AC-0CAC8095BB50";
 createNode transform -n "LeftEyeLidPinDown2Ctrl" -p "LeftEyeLidPinDown2CtrlRvsGrp";
@@ -1124,12 +1093,11 @@ createNode transform -n "RightEyeLidOutCtrlGrp" -p "RightEyeLidCtrlGrp";
 	setAttr ".s" -type "double3" 1 1.0000000000000002 -1 ;
 createNode transform -n "RightEyeLidOutUpCtrlGrp" -p "RightEyeLidOutCtrlGrp";
 	rename -uid "7BC2C588-408E-E44B-B0CA-B3B1A9A7DC09";
-createNode transform -n "RightEyeLidOutUp1CtrlPos" -p "RightEyeLidOutUpCtrlGrp";
-	rename -uid "7ADAA149-4592-D11B-33E8-D8960DC0B5B2";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutUp1CtrlGrp" -p "RightEyeLidOutUp1CtrlPos";
+createNode transform -n "RightEyeLidOutUp1CtrlOffGrp" -p "RightEyeLidOutUpCtrlGrp";
+	rename -uid "6E297B0E-4E00-74B3-1597-419F6E6FCAFF";
+createNode transform -n "RightEyeLidOutUp1CtrlGrp" -p "RightEyeLidOutUp1CtrlOffGrp";
 	rename -uid "7858A5DD-45AA-F7D5-0B3F-7E976F43B1F1";
+	setAttr ".t" -type "double3" 0 1.1102230246251565e-16 0 ;
 createNode transform -n "RightEyeLidOutUp1CtrlRvs" -p "RightEyeLidOutUp1CtrlGrp";
 	rename -uid "ACA15FDF-4C29-D53B-229D-FE98C3D5F18C";
 createNode transform -n "RightEyeLidOutUp1Ctrl" -p "RightEyeLidOutUp1CtrlRvs";
@@ -1159,12 +1127,11 @@ createNode nurbsCurve -n "RightEyeLidOutUp1CtrlShape" -p "RightEyeLidOutUp1Ctrl"
 		0.001312436237138264 -0.20504438968102207 -0.91358388814339975 -0.54721570118671925 
 		-0.20587133750935166 -0.58900132548023532 -0.77442349505093344 -0.12359211689578017 
 		0.19461029941098884 0 0 0 0 0 0 0 0 0;
-createNode transform -n "RightEyeLidOutUp2CtrlPos" -p "RightEyeLidOutUpCtrlGrp";
-	rename -uid "78FD5E31-45B8-780A-DF7F-C09F8BFF57EF";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutUp2CtrlGrp" -p "RightEyeLidOutUp2CtrlPos";
+createNode transform -n "RightEyeLidOutUp2CtrlOffGrp" -p "RightEyeLidOutUpCtrlGrp";
+	rename -uid "D4462BE0-49DC-5C01-CF86-0092CA234CB1";
+createNode transform -n "RightEyeLidOutUp2CtrlGrp" -p "RightEyeLidOutUp2CtrlOffGrp";
 	rename -uid "689F061B-4DEA-DDCD-4ABE-D3937260541B";
+	setAttr ".t" -type "double3" 0 2.2204460492503131e-16 0 ;
 createNode transform -n "RightEyeLidOutUp2CtrlRvs" -p "RightEyeLidOutUp2CtrlGrp";
 	rename -uid "9AB33DF2-4854-69E3-AB89-63A753178EAC";
 createNode transform -n "RightEyeLidOutUp2Ctrl" -p "RightEyeLidOutUp2CtrlRvs";
@@ -1202,12 +1169,11 @@ createNode nurbsCurve -n "RightEyeLidOutUp2CtrlShape" -p "RightEyeLidOutUp2Ctrl"
 		0.001312476582864491 0.20886542427898031 0.19461021372578891
 		-0.23377101088450244 0.11149065548003015 0.19461021372579246
 		;
-createNode transform -n "RightEyeLidOutUp3CtrlPos" -p "RightEyeLidOutUpCtrlGrp";
-	rename -uid "4894F9C0-4D84-2EB8-E2A2-54BB0CF5EA58";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutUp3CtrlGrp" -p "RightEyeLidOutUp3CtrlPos";
+createNode transform -n "RightEyeLidOutUp3CtrlOffGrp" -p "RightEyeLidOutUpCtrlGrp";
+	rename -uid "CF95E7FA-4A00-EAD0-7313-1793D94FAC96";
+createNode transform -n "RightEyeLidOutUp3CtrlGrp" -p "RightEyeLidOutUp3CtrlOffGrp";
 	rename -uid "C27858A0-4E7C-519C-B453-4BAF3BCE8910";
+	setAttr ".t" -type "double3" 0 -1.1102230246251565e-16 0 ;
 createNode transform -n "RightEyeLidOutUp3CtrlRvs" -p "RightEyeLidOutUp3CtrlGrp";
 	rename -uid "1270165A-45E6-473E-295D-88973CBFF746";
 createNode transform -n "RightEyeLidOutUp3Ctrl" -p "RightEyeLidOutUp3CtrlRvs";
@@ -1247,12 +1213,11 @@ createNode nurbsCurve -n "RightEyeLidOutUp3CtrlShape" -p "RightEyeLidOutUp3Ctrl"
 		;
 createNode transform -n "RightEyeLidOutDownCtrlGrp" -p "RightEyeLidOutCtrlGrp";
 	rename -uid "6B31CC0B-452B-32E6-F0FB-BF9D5DB9758A";
-createNode transform -n "RightEyeLidOutDown1CtrlPos" -p "RightEyeLidOutDownCtrlGrp";
-	rename -uid "A73D0C0E-40BC-358E-1F69-6181509C5E50";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutDown1CtrlGrp" -p "RightEyeLidOutDown1CtrlPos";
+createNode transform -n "RightEyeLidOutDown1CtrlOffGrp" -p "RightEyeLidOutDownCtrlGrp";
+	rename -uid "12D0EE40-43B3-A6DF-EE4A-B1A6B50B00C6";
+createNode transform -n "RightEyeLidOutDown1CtrlGrp" -p "RightEyeLidOutDown1CtrlOffGrp";
 	rename -uid "1B729C43-42A2-C6EA-7C9A-8496ABBEAE51";
+	setAttr ".t" -type "double3" 4.4408920985006262e-16 0 -4.4408920985006262e-16 ;
 createNode transform -n "RightEyeLidOutDown1CtrlRvs" -p "RightEyeLidOutDown1CtrlGrp";
 	rename -uid "ACDF3EA2-48E4-8525-3858-92BB55CFCDA9";
 createNode transform -n "RightEyeLidOutDown1Ctrl" -p "RightEyeLidOutDown1CtrlRvs";
@@ -1290,12 +1255,11 @@ createNode nurbsCurve -n "RightEyeLidOutDown1CtrlShape" -p "RightEyeLidOutDown1C
 		-0.0013121727119889855 -0.20886622250728298 0.40538830044912921
 		0.23377131475537835 -0.11149145370833476 0.40538830044912921
 		;
-createNode transform -n "RightEyeLidOutDown2CtrlPos" -p "RightEyeLidOutDownCtrlGrp";
-	rename -uid "3D34C43C-463E-4427-630B-0797915437A6";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutDown2CtrlGrp" -p "RightEyeLidOutDown2CtrlPos";
+createNode transform -n "RightEyeLidOutDown2CtrlOffGrp" -p "RightEyeLidOutDownCtrlGrp";
+	rename -uid "907E19E8-413E-D7E5-247D-5BA26AED319E";
+createNode transform -n "RightEyeLidOutDown2CtrlGrp" -p "RightEyeLidOutDown2CtrlOffGrp";
 	rename -uid "15FCE7C5-49B3-2837-1D11-DCB435EE4836";
+	setAttr ".t" -type "double3" 0 0 -4.4408920985006262e-16 ;
 createNode transform -n "RightEyeLidOutDown2CtrlRvs" -p "RightEyeLidOutDown2CtrlGrp";
 	rename -uid "1A79BE8E-4528-3C86-752A-73B9984D17C9";
 createNode transform -n "RightEyeLidOutDown2Ctrl" -p "RightEyeLidOutDown2CtrlRvs";
@@ -1333,11 +1297,9 @@ createNode nurbsCurve -n "RightEyeLidOutDown2CtrlShape" -p "RightEyeLidOutDown2C
 		-0.0013124647944149671 -0.20886542287458659 0.40538980198853847
 		0.23377102267295277 -0.11149065407563838 0.40538980198853847
 		;
-createNode transform -n "RightEyeLidOutDown3CtrlPos" -p "RightEyeLidOutDownCtrlGrp";
-	rename -uid "F5539A37-4166-7B2E-A451-BD81EC57710F";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutDown3CtrlGrp" -p "RightEyeLidOutDown3CtrlPos";
+createNode transform -n "RightEyeLidOutDown3CtrlOffGrp" -p "RightEyeLidOutDownCtrlGrp";
+	rename -uid "67F98B65-48FA-9741-9217-B6A16447E37D";
+createNode transform -n "RightEyeLidOutDown3CtrlGrp" -p "RightEyeLidOutDown3CtrlOffGrp";
 	rename -uid "E2F03423-4659-5CB8-3A5D-80A4B8C5314F";
 createNode transform -n "RightEyeLidOutDown3CtrlRvs" -p "RightEyeLidOutDown3CtrlGrp";
 	rename -uid "0ADFC222-493D-B0A8-1B26-DAAD753B90B7";
@@ -1381,12 +1343,11 @@ createNode transform -n "RightEyeLidMainCtrlGrp" -p "RightEyeLidCtrlGrp";
 	setAttr ".t" -type "double3" 2.7794001988259354e-08 1.2079227474220405e-13 3.5527121070426552e-15 ;
 	setAttr ".r" -type "double3" 0 180 0 ;
 	setAttr ".s" -type "double3" 1 1.0000000000000002 -1 ;
-createNode transform -n "RightEyeLidInCtrlPos" -p "RightEyeLidMainCtrlGrp";
-	rename -uid "1DF61D48-40DF-3B6F-1AA2-5A901DADA77E";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidInMainCtrlGrp" -p "RightEyeLidInCtrlPos";
+createNode transform -n "RightEyeLidInMainCtrlOffGrp" -p "RightEyeLidMainCtrlGrp";
+	rename -uid "C6B446D8-4FE9-2809-806F-E58536A04DD3";
+createNode transform -n "RightEyeLidInMainCtrlGrp" -p "RightEyeLidInMainCtrlOffGrp";
 	rename -uid "A04F8CC7-430D-8585-9FA6-15B6D66D12A6";
+	setAttr ".t" -type "double3" -2.2204460492503131e-16 0 -4.4408920985006262e-16 ;
 createNode transform -n "RightEyeLidInMainCtrlRvs" -p "RightEyeLidInMainCtrlGrp";
 	rename -uid "4F5F935C-4DE9-4F5A-868F-E3BC1DA3F77F";
 createNode transform -n "RightEyeLidInMainCtrl" -p "RightEyeLidInMainCtrlRvs";
@@ -1412,12 +1373,11 @@ createNode nurbsCurve -n "RightEyeLidInMainCtrlShape" -p "RightEyeLidInMainCtrl"
 		1.4432761992462201e-15 -0.59842486127937022 -0.8081940761670372 -0.7836073933885549 
 		-0.42315027744126182 -0.48361151350387321 -1.1081882033059247 6.6613381477509392e-16 
 		0.30000011138735105 0 0 0 0 0 0 0 0 0;
-createNode transform -n "RightEyeLidUpCtrlPos" -p "RightEyeLidMainCtrlGrp";
-	rename -uid "3B6659CC-467F-9D36-327B-F28C380276FF";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidUpMainCtrlGrp" -p "RightEyeLidUpCtrlPos";
+createNode transform -n "RightEyeLidUpMainCtrlOffGrp" -p "RightEyeLidMainCtrlGrp";
+	rename -uid "1162760C-444E-5209-CFBC-CDA9D085BD49";
+createNode transform -n "RightEyeLidUpMainCtrlGrp" -p "RightEyeLidUpMainCtrlOffGrp";
 	rename -uid "6108C7AA-413F-7A6D-8E27-FE862FCA76D7";
+	setAttr ".t" -type "double3" 0 0 4.4408920985006262e-16 ;
 createNode transform -n "RightEyeLidUpMainCtrlRvs" -p "RightEyeLidUpMainCtrlGrp";
 	rename -uid "24BC8F38-42D0-D78E-45F1-7B96156F04D0";
 createNode transform -n "RightEyeLidUpMainCtrl" -p "RightEyeLidUpMainCtrlRvs";
@@ -1448,12 +1408,11 @@ createNode nurbsCurve -n "RightEyeLidUpMainCtrlShape" -p "RightEyeLidUpMainCtrl"
 		-2.9976158992544061e-15 -0.20000598424845889 -0.80819418755438188 -0.36046134744996638 
 		-0.20000423150266683 -0.48361162489121789 -0.5097693262750207 -0.19999999999999862 
 		0.30000000000000637 0 0 0 0 0 0 0 0 0;
-createNode transform -n "RightEyeLidOutCtrlPos" -p "RightEyeLidMainCtrlGrp";
-	rename -uid "71B55AA2-4020-E701-B300-0DB5890D7B6B";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidOutMainCtrlGrp" -p "RightEyeLidOutCtrlPos";
+createNode transform -n "RightEyeLidOutMainCtrlOffGrp" -p "RightEyeLidMainCtrlGrp";
+	rename -uid "04FA7D52-46DD-2662-9179-47BC90BCF7AA";
+createNode transform -n "RightEyeLidOutMainCtrlGrp" -p "RightEyeLidOutMainCtrlOffGrp";
 	rename -uid "868343C2-46A0-01D6-526C-D289A977862D";
+	setAttr ".t" -type "double3" 0 2.0194839173657902e-28 -4.4408920985006262e-16 ;
 createNode transform -n "RightEyeLidOutMainCtrlRvs" -p "RightEyeLidOutMainCtrlGrp";
 	rename -uid "55E8CC1F-497C-9E62-774E-60BD8A966F88";
 createNode transform -n "RightEyeLidOutMainCtrl" -p "RightEyeLidOutMainCtrlRvs";
@@ -1487,12 +1446,11 @@ createNode nurbsCurve -n "LeftEyeLidInMainCtrl1Shape" -p "RightEyeLidOutMainCtrl
 		4.0744625530526267e-16 0.598424861279371 0.30000011138734961
 		0.42315027744126155 0.42315027744126282 0.30000011138734961
 		;
-createNode transform -n "RightEyeLidDownCtrlPos" -p "RightEyeLidMainCtrlGrp";
-	rename -uid "79B5C4EA-4C67-6CE4-DB39-8D9905F52212";
-	setAttr ".r" -type "double3" 0 180 0 ;
-	setAttr ".s" -type "double3" 0.99999999999999989 1 -1 ;
-createNode transform -n "RightEyeLidDownMainCtrlGrp" -p "RightEyeLidDownCtrlPos";
+createNode transform -n "RightEyeLidDownMainCtrlOffGrp" -p "RightEyeLidMainCtrlGrp";
+	rename -uid "B89560FB-4FF3-41E0-C657-B3B2E4D8745E";
+createNode transform -n "RightEyeLidDownMainCtrlGrp" -p "RightEyeLidDownMainCtrlOffGrp";
 	rename -uid "A9B2A846-4C99-497E-BB12-769E8CD0DB23";
+	setAttr ".t" -type "double3" 0 -2.2204460492503131e-16 0 ;
 createNode transform -n "RightEyeLidDownMainCtrlRvs" -p "RightEyeLidDownMainCtrlGrp";
 	rename -uid "BE19DB31-4F70-FC8F-6AAC-B3866B5005C2";
 createNode transform -n "RightEyeLidDownMainCtrl" -p "RightEyeLidDownMainCtrlRvs";
@@ -1531,9 +1489,7 @@ createNode nurbsCurve -n "RightEyeLidDownMainCtrlShape" -p "RightEyeLidDownMainC
 		0 -0.29842486127936962 0.40000000000000435
 		0.42315027744126166 -0.12315027744126117 0.4000000000000008
 		;
-createNode transform -n "RightEyeLidCCtrlGrp" -p "RightEyeLidCtrlGrp";
-	rename -uid "8291AB85-490D-3C91-2D29-A7B7557AFC7D";
-createNode transform -n "RightEyeLidCCtrlOffGrp" -p "RightEyeLidCCtrlGrp";
+createNode transform -n "RightEyeLidCCtrlOffGrp" -p "RightEyeLidCtrlGrp";
 	rename -uid "2DA910B9-4D0C-8FA3-75F3-05B48F97A60C";
 createNode transform -n "RightEyeLidCCtrl" -p "RightEyeLidCCtrlOffGrp";
 	rename -uid "81BED0A0-4E9C-DF3B-A63A-47B9378D6A02";
@@ -2009,11 +1965,8 @@ createNode transform -n "RightEyeLidPinCtrlGrp" -p "RightEyeLidCtrlGrp";
 	setAttr ".t" -type "double3" 3 0 0 ;
 createNode transform -n "RightEyeLidPinUpCtrlGrp" -p "RightEyeLidPinCtrlGrp";
 	rename -uid "0FBB32D3-4491-1E42-06E5-99B86B803627";
-	setAttr ".t" -type "double3" -2.9999999722059978 1.2079226507921678e-13 6.2172473490555547e-15 ;
-	setAttr ".r" -type "double3" 0 180.00000000000327 0 ;
-	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000002 -1 ;
 createNode transform -n "RightEyeLidPinUp0CtrlGrp" -p "RightEyeLidPinUpCtrlGrp";
-	rename -uid "C9F4E978-4359-6B25-AF78-A1AB07D06D3C";
+	rename -uid "BD2CD58C-4429-9871-1A02-54B29CBF61C9";
 createNode transform -n "RightEyeLidPinUp0CtrlRvsGrp" -p "RightEyeLidPinUp0CtrlGrp";
 	rename -uid "38BE1A05-4AAC-833B-EFF1-4498107A9E0E";
 createNode transform -n "RightEyeLidPinUp0Ctrl" -p "RightEyeLidPinUp0CtrlRvsGrp";
@@ -2041,7 +1994,7 @@ createNode nurbsCurve -n "RightEyeLidPinUp0CtrlShape" -p "RightEyeLidPinUp0Ctrl"
 		0 0.3600000000000001 0.23999999999999969
 		;
 createNode transform -n "RightEyeLidPinUp1CtrlGrp" -p "RightEyeLidPinUpCtrlGrp";
-	rename -uid "39E24843-4431-E702-BEB6-8B874A67C330";
+	rename -uid "6615AD27-483A-1FF9-C3F2-4C8A32556E79";
 createNode transform -n "RightEyeLidPinUp1CtrlRvsGrp" -p "RightEyeLidPinUp1CtrlGrp";
 	rename -uid "3CAD2A01-4B49-C7AA-B8E3-91B5557B174F";
 createNode transform -n "RightEyeLidPinUp1Ctrl" -p "RightEyeLidPinUp1CtrlRvsGrp";
@@ -2069,7 +2022,7 @@ createNode nurbsCurve -n "RightEyeLidPinUp1CtrlShape" -p "RightEyeLidPinUp1Ctrl"
 		0 0.3600000000000001 0.23999999999999969
 		;
 createNode transform -n "RightEyeLidPinUp2CtrlGrp" -p "RightEyeLidPinUpCtrlGrp";
-	rename -uid "78A4C06B-41DD-1B77-34CB-17BE78A9EE14";
+	rename -uid "0AD56F69-431F-7B63-8007-588DE34FE1D1";
 createNode transform -n "RightEyeLidPinUp2CtrlRvsGrp" -p "RightEyeLidPinUp2CtrlGrp";
 	rename -uid "AE039C8A-4B16-6531-E898-81B2933DA4BD";
 createNode transform -n "RightEyeLidPinUp2Ctrl" -p "RightEyeLidPinUp2CtrlRvsGrp";
@@ -2098,11 +2051,8 @@ createNode nurbsCurve -n "RightEyeLidPinUp2CtrlShape" -p "RightEyeLidPinUp2Ctrl"
 		;
 createNode transform -n "RightEyeLidPinDownCtrlGrp" -p "RightEyeLidPinCtrlGrp";
 	rename -uid "B0D607EF-4665-71D3-FF93-C7B6DB19291D";
-	setAttr ".t" -type "double3" -2.9999999722059978 1.2079226507921678e-13 6.2172473490555547e-15 ;
-	setAttr ".r" -type "double3" 0 180.00000000000327 0 ;
-	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000002 -1 ;
 createNode transform -n "RightEyeLidPinDown0CtrlGrp" -p "RightEyeLidPinDownCtrlGrp";
-	rename -uid "BAC0DFCC-4498-405D-2E68-4FB15CD20C44";
+	rename -uid "3E27FFFB-4E6D-12E2-60BD-1E9A33DE715A";
 createNode transform -n "RightEyeLidPinDown0CtrlRvsGrp" -p "RightEyeLidPinDown0CtrlGrp";
 	rename -uid "0AC9B3F9-4EBA-8BBD-FC0A-BB99F0242114";
 createNode transform -n "RightEyeLidPinDown0Ctrl" -p "RightEyeLidPinDown0CtrlRvsGrp";
@@ -2130,7 +2080,7 @@ createNode nurbsCurve -n "RightEyeLidPinDown0CtrlShape" -p "RightEyeLidPinDown0C
 		0 -0.3600000000000001 0.23999999999999988
 		;
 createNode transform -n "RightEyeLidPinDown1CtrlGrp" -p "RightEyeLidPinDownCtrlGrp";
-	rename -uid "481A1885-4E44-6B13-DF33-188D6FB9AE8A";
+	rename -uid "199A5E03-405F-87DD-F94B-35B04B402697";
 createNode transform -n "RightEyeLidPinDown1CtrlRvsGrp" -p "RightEyeLidPinDown1CtrlGrp";
 	rename -uid "D47B6DED-4ED3-F837-2445-DE814836D3E3";
 createNode transform -n "RightEyeLidPinDown1Ctrl" -p "RightEyeLidPinDown1CtrlRvsGrp";
@@ -2158,7 +2108,7 @@ createNode nurbsCurve -n "RightEyeLidPinDown1CtrlShape" -p "RightEyeLidPinDown1C
 		0 -0.3600000000000001 0.23999999999999988
 		;
 createNode transform -n "RightEyeLidPinDown2CtrlGrp" -p "RightEyeLidPinDownCtrlGrp";
-	rename -uid "09C62DE9-4CE9-84A0-571C-B18DAC4FCB86";
+	rename -uid "11DAB41F-4E90-3F9D-3FC3-3DB705020C63";
 createNode transform -n "RightEyeLidPinDown2CtrlRvsGrp" -p "RightEyeLidPinDown2CtrlGrp";
 	rename -uid "41834BD7-4BB0-71FB-8FF4-6DBD13E022C0";
 createNode transform -n "RightEyeLidPinDown2Ctrl" -p "RightEyeLidPinDown2CtrlRvsGrp";
@@ -2207,13 +2157,13 @@ createNode bezierCurve -n "LeftEyeLidUpCrvShape" -p "LeftEyeLidUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		1.0000000277940035 2.4385355839496914e-13 2.9999999999999907
-		1.0000000277940035 2.4385355839496914e-13 2.9999999999999907
-		1.0000000475163149 2.0000000000002376 2.9999999387567886
-		3.000000047516314 2.0000000000009521 2.999999938756766
-		5.0000000475163127 2.0000000000016667 2.9999999387567673
-		5.0000000277940018 1.6672071808600085e-12 2.9999999999999774
-		5.0000000277940018 1.6672071808600085e-12 2.9999999999999774
+		1.0000000277940029 2.4385355839496894e-13 2.9999999999999911
+		1.0000000277940029 2.4385355839496894e-13 2.9999999999999911
+		1.0000000475163144 2.0000000000002376 2.9999999387567891
+		3.0000000475163136 2.0000000000009521 2.9999999387567668
+		5.0000000475163127 2.0000000000016667 2.9999999387567686
+		5.0000000277940009 1.6672071808600085e-12 2.9999999999999787
+		5.0000000277940009 1.6672071808600085e-12 2.9999999999999787
 		;
 createNode transform -n "LeftEyeLidDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "AF35A092-4AC3-34DD-A0EB-198E89FF642F";
@@ -2228,13 +2178,13 @@ createNode bezierCurve -n "LeftEyeLidDownCrvShape" -p "LeftEyeLidDownCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		1.0000000277940035 2.4385355839496914e-13 2.9999999999999907
-		1.0000000277940035 2.4385355839496914e-13 2.9999999999999907
-		1.0000000277947185 -1.9999999999997609 2.9999999909604185
-		3.0000000277947176 -1.9999999999990463 2.9999999909604287
-		5.0000000277947168 -1.9999999999983318 2.9999999909604211
-		5.0000000277940018 1.6672071808600085e-12 2.9999999999999774
-		5.0000000277940018 1.6672071808600085e-12 2.9999999999999774
+		1.0000000277940029 2.4385355839496894e-13 2.9999999999999911
+		1.0000000277940029 2.4385355839496894e-13 2.9999999999999911
+		1.0000000277947181 -1.9999999999997609 2.9999999909604189
+		3.0000000277947172 -1.9999999999990463 2.9999999909604296
+		5.0000000277947159 -1.9999999999983318 2.9999999909604225
+		5.0000000277940009 1.6672071808600085e-12 2.9999999999999787
+		5.0000000277940009 1.6672071808600085e-12 2.9999999999999787
 		;
 createNode transform -n "LeftEyeLidUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "31DD1C77-4594-CA60-97C5-B3874B392368";
@@ -2249,13 +2199,13 @@ createNode nurbsCurve -n "LeftEyeLidUpJntCrvShape" -p "LeftEyeLidUpJntCrv";
 		3 4 0 no 3
 		9 0 0 0 1 2 3 4 4 4
 		7
-		1.3358896319268525 1.4327798058233436e-12 2.4961416060840125
-		1.3962411187840975 0.43189504969075754 2.4982258387907281
-		1.8367316878879172 1.2243757327299043 2.4794516314254951
-		3.0000000441407551 1.6641104193897329 2.4961415904043878
-		4.1632683881993655 1.2243757289293102 2.4794516236884219
-		4.6037589428848458 0.43189504903960801 2.498225834998836
-		4.6641104166212894 3.2112765025668412e-12 2.4961416107770313
+		1.3358896319268516 1.4335014507893495e-12 2.4961416060840134
+		1.3962411187840966 0.43189504969075931 2.498225838790729
+		1.8367316878879161 1.2243757327299032 2.4794516314254973
+		3.0000000441407533 1.6641104193897316 2.49614159040439
+		4.163268388199362 1.2243757289293116 2.4794516236884245
+		4.6037589428848449 0.43189504903961085 2.4982258349988387
+		4.664110423661155 3.2119565166845556e-12 2.496141606084012
 		;
 createNode transform -n "LeftEyeLidDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "7BDAF714-4646-658B-D76D-6F89C93FFB4F";
@@ -2270,13 +2220,13 @@ createNode nurbsCurve -n "LeftEyeLidDownJntCrvShape" -p "LeftEyeLidDownJntCrv";
 		3 4 0 no 3
 		9 0 0 0 1 2 3 4 4 4
 		7
-		1.3358896319268474 1.4296711813543913e-12 2.4961416060840125
-		1.3962411207622241 -0.4318950480102724 2.4982258403502078
-		1.8367316878788431 -1.2243757200420735 2.4794516376859299
-		3.0000000277963754 -1.6641103993353683 2.4961416037706297
-		4.1632683677126545 -1.2243757200387573 2.4794516376859277
-		4.6037589348270105 -0.43189504800569128 2.4982258403502042
-		4.6641104166212859 3.2121646809865401e-12 2.4961416107770313
+		1.3358896319268465 1.4303928263203973e-12 2.4961416060840134
+		1.3962411207622245 -0.43189504801027134 2.4982258403502091
+		1.8367316878788404 -1.2243757200420755 2.4794516376859295
+		3.0000000277951893 -1.6641103922955252 2.4961416084636374
+		4.163268367712651 -1.2243757200387573 2.4794516376859317
+		4.6037589348270078 -0.43189504800569306 2.498225840350206
+		4.6641104236611515 3.2128446951042546e-12 2.496141606084012
 		;
 createNode transform -n "LeftEyeLidOutUpCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "1AE65E68-4964-B646-C429-61B1968C6EC6";
@@ -2291,13 +2241,13 @@ createNode bezierCurve -n "LeftEyeLidOutUpCrvShape" -p "LeftEyeLidOutUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		0.75000002779355679 1.2500000000001488 2.9999999999999831
-		0.75000002779355679 1.2500000000001488 2.9999999999999831
-		1.5000000277931067 2.500000000000417 2.999999999999988
-		3.0000000277931056 2.5000000000009535 2.999999999999988
-		4.5000000277931056 2.5000000000014895 2.9999999999999885
-		5.2500000277935577 1.2500000000017568 2.9999999999999893
-		5.2500000277935577 1.2500000000017568 2.9999999999999893
+		0.75000002779355635 1.2500000000001488 2.9999999999999845
+		0.75000002779355635 1.2500000000001488 2.9999999999999845
+		1.5000000277931058 2.500000000000417 2.9999999999999885
+		3.0000000277931047 2.5000000000009535 2.9999999999999889
+		4.5000000277931047 2.5000000000014895 2.9999999999999898
+		5.2500000277935568 1.2500000000017568 2.9999999999999907
+		5.2500000277935568 1.2500000000017568 2.9999999999999907
 		;
 createNode transform -n "LeftEyeLidOutDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "14AF1094-47AA-C400-DBAB-79A4E2819F6C";
@@ -2312,13 +2262,13 @@ createNode bezierCurve -n "LeftEyeLidOutDownCrvShape" -p "LeftEyeLidOutDownCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		0.75000002779445107 -1.2499999999998499 2.9999999999999898
-		0.75000002779445107 -1.2499999999998499 2.9999999999999898
-		1.5000000277948973 -2.4999999999995799 2.9999999999999893
-		3.0000000277948966 -2.4999999999990443 2.9999999999999893
-		4.5000000277948962 -2.4999999999985074 2.9999999999999898
-		5.2500000277944494 -1.2499999999982419 2.9999999999999893
-		5.2500000277944494 -1.2499999999982419 2.9999999999999893
+		0.75000002779445107 -1.2499999999998499 2.9999999999999911
+		0.75000002779445107 -1.2499999999998499 2.9999999999999911
+		1.5000000277948964 -2.4999999999995799 2.9999999999999898
+		3.0000000277948957 -2.4999999999990443 2.9999999999999902
+		4.5000000277948953 -2.4999999999985074 2.9999999999999911
+		5.2500000277944494 -1.2499999999982419 2.9999999999999907
+		5.2500000277944494 -1.2499999999982419 2.9999999999999907
 		;
 createNode transform -n "LeftEyeLidOutUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "1101523A-4268-1730-521D-BAA098F448E6";
@@ -2333,11 +2283,11 @@ createNode nurbsCurve -n "LeftEyeLidOutUpJntCrvShape" -p "LeftEyeLidOutUpJntCrv"
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		1.2923203371587049 0.94846663265908115 2.276812941343608
-		1.7082827786504349 1.4349412763335441 2.2961442027117633
-		3.0000000277926304 1.92054352442749 2.3046656253411504
-		4.2917172769334648 1.4349412763372316 2.2961442027117664
-		4.7076797184265908 0.94846663266396447 2.2768129413436027
+		1.2923203371586993 0.94846663265908393 2.2768129413436045
+		1.7082827786560182 1.4349412763446128 2.2961442027087098
+		3.0000000277912773 1.9205435307655219 2.3046656210606167
+		4.2917172769278782 1.4349412763483045 2.2961442027087102
+		4.7076797184265855 0.9484666326639658 2.276812941343608
 		;
 createNode transform -n "LeftEyeLidOutDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "A26B784D-40FE-6CCE-FB99-D996A449D693";
@@ -2352,11 +2302,11 @@ createNode nurbsCurve -n "LeftEyeLidOutDownJntCrvShape" -p "LeftEyeLidOutDownJnt
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		1.2923203371608294 -0.9484666326569855 2.2768129413443896
-		1.7082827786594488 -1.4349412763417257 2.2961442027099128
-		3.0000000277953736 -1.9205435309875709 2.304665620872199
-		4.2917172769326566 -1.4349412763380334 2.2961442027099137
-		4.7076797184298869 -0.94846663265210041 2.2768129413443914
+		1.2923203371608287 -0.94846663265698561 2.2768129413443901
+		1.708282778659449 -1.4349412763417231 2.2961442027099164
+		3.0000000277953722 -1.9205435309875651 2.3046656208722061
+		4.2917172769326548 -1.4349412763380363 2.296144202709915
+		4.7076797184298895 -0.94846663265210474 2.2768129413443887
 		;
 createNode transform -n "LeftEyeLidPinUpCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "AA324C64-480C-C9FA-68D3-5689A2ABBACE";
@@ -2371,13 +2321,13 @@ createNode bezierCurve -n "LeftEyeLidPinUpCrvShape" -p "LeftEyeLidPinUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		0.50000002779328856 2.0000000000000591 2.9999999999999827
-		0.50000002779328856 2.0000000000000591 2.9999999999999827
-		1.5000000277929286 3.0000000000004157 2.999999999999988
-		3.000000027792928 3.0000000000009517 2.999999999999988
-		4.5000000277929271 3.0000000000014881 2.9999999999999885
-		5.5000000277932877 2.0000000000018452 2.9999999999999898
-		5.5000000277932877 2.0000000000018452 2.9999999999999898
+		0.50000002779328812 2.0000000000000591 2.9999999999999831
+		0.50000002779328812 2.0000000000000591 2.9999999999999831
+		1.5000000277929277 3.0000000000004157 2.9999999999999885
+		3.0000000277929271 3.0000000000009517 2.9999999999999889
+		4.5000000277929262 3.0000000000014881 2.9999999999999898
+		5.5000000277932868 2.0000000000018452 2.9999999999999911
+		5.5000000277932868 2.0000000000018452 2.9999999999999911
 		;
 createNode transform -n "LeftEyeLidPinDownCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "EBA3DA68-47EC-204A-7E40-B6898462E348";
@@ -2392,13 +2342,13 @@ createNode bezierCurve -n "LeftEyeLidPinDownCrvShape" -p "LeftEyeLidPinDownCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		0.50000002779471808 -1.9999999999999394 2.9999999999999907
-		0.50000002779471808 -1.9999999999999394 2.9999999999999907
-		1.5000000277950758 -2.9999999999995817 2.9999999999999893
-		3.0000000277950751 -2.9999999999990457 2.9999999999999893
-		4.5000000277950747 -2.9999999999985092 2.9999999999999898
-		5.5000000277947159 -1.9999999999981535 2.9999999999999898
-		5.5000000277947159 -1.9999999999981535 2.9999999999999898
+		0.50000002779471764 -1.9999999999999394 2.9999999999999911
+		0.50000002779471764 -1.9999999999999394 2.9999999999999911
+		1.5000000277950749 -2.9999999999995817 2.9999999999999898
+		3.0000000277950742 -2.9999999999990457 2.9999999999999902
+		4.5000000277950738 -2.9999999999985092 2.9999999999999911
+		5.5000000277947159 -1.9999999999981535 2.9999999999999911
+		5.5000000277947159 -1.9999999999981535 2.9999999999999911
 		;
 createNode transform -n "LeftEyeLidPinUpJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "E20A0092-4884-2395-C0FF-019F742BBA23";
@@ -2413,11 +2363,11 @@ createNode nurbsCurve -n "LeftEyeLidPinUpJntCrvShape" -p "LeftEyeLidPinUpJntCrv"
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		1.2908686355581049 1.367717219581964 2.0512934770847076
-		1.7369446591337827 1.7418701881995509 2.0904605496682169
-		3.0000000277924861 2.1213208347008425 2.1213197864343281
-		4.2630553964492348 1.7418701882031631 2.0904605496682183
-		4.7091314200259866 1.3677172195868477 2.051293477084712
+		1.2908686355581029 1.3677172195819631 2.051293477084708
+		1.7369446582593795 1.7418701937501464 2.0904605447936415
+		3.0000000277909722 2.1213208764961204 2.1213197578846499
+		4.2630553799055591 1.7418701986255176 2.0904605512549828
+		4.7091314200259804 1.3677172195868512 2.0512934770847173
 		;
 createNode transform -n "LeftEyeLidPinDownJntCrv" -p "LeftEyeLidCrvGrp";
 	rename -uid "D16DD15D-40CE-A472-3274-468570945F66";
@@ -2432,11 +2382,11 @@ createNode nurbsCurve -n "LeftEyeLidPinDownJntCrvShape" -p "LeftEyeLidPinDownJnt
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		1.2908686355612538 -1.3677172195804788 2.0512934770856246
-		1.7369446756817071 -1.7418701986194864 2.0904605512561907
-		3.0000000277970278 -2.1213208764905569 2.1213197578861647
-		4.263055379911278 -1.7418701986158756 2.0904605512561907
-		4.709131420030662 -1.367717219575592 2.051293477085621
+		1.2908686355612522 -1.3677172195804776 2.0512934770856259
+		1.7369446599394631 -1.7418701897662181 2.0904605491259223
+		3.0000000277955161 -2.1213208763930189 2.1213197579837049
+		4.2630553956535193 -1.7418701897626072 2.0904605491259245
+		4.709131420030654 -1.3677172195755887 2.0512934770856317
 		;
 createNode transform -n "LeftEyeLidSurfPosGrp" -p "LeftEyeLidSysGrp";
 	rename -uid "C1AC0664-44F5-77B7-78F9-1E855D44D038";
@@ -3218,6 +3168,46 @@ createNode locator -n "LeftEyeLidCtrl11PosShape" -p "LeftEyeLidCtrl11Pos";
 	rename -uid "70754C75-46F2-57DC-18D4-B18A8C936BDD";
 	setAttr -k off ".v";
 	setAttr ".los" -type "double3" 0.1 0.1 0.1 ;
+createNode transform -n "LeftEyeLidOutPosGrp" -p "LeftEyeLidCtrlPosGrp";
+	rename -uid "AEED2B2F-42A2-9A9D-2297-2C8138ED2A46";
+createNode transform -n "LeftEyeLidOutUp1CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "D521CF55-4CBE-9839-C2F5-FEB1AB4BF314";
+createNode transform -n "LeftEyeLidOutUp2CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "B5C63CD8-44BB-2601-D608-B48225536753";
+createNode transform -n "LeftEyeLidOutUp3CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "103D7F9E-4A77-1EE9-B82C-79863C128C8F";
+createNode transform -n "LeftEyeLidOutDown1CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "712ABF3B-4F14-4F6A-0C3C-E7B233506348";
+createNode transform -n "LeftEyeLidOutDown2CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "DE0A49FB-41ED-0DDA-DB15-7B84E67EAA21";
+createNode transform -n "LeftEyeLidOutDown3CtrlPos" -p "LeftEyeLidOutPosGrp";
+	rename -uid "1C5C61AB-403C-1B98-CEC5-F88471A883C4";
+createNode transform -n "LeftEyeLidPosGrp" -p "LeftEyeLidCtrlPosGrp";
+	rename -uid "5B8F1860-43F2-7394-E90D-29A7D21146C4";
+createNode transform -n "LeftEyeLidInCtrlPos" -p "LeftEyeLidPosGrp";
+	rename -uid "EEF03FD0-4CC7-D1F5-B4C4-FF99475BAF35";
+createNode transform -n "LeftEyeLidUpCtrlPos" -p "LeftEyeLidPosGrp";
+	rename -uid "42F3F853-4053-3B5F-A4E1-229636E46C1F";
+createNode transform -n "LeftEyeLidOutCtrlPos" -p "LeftEyeLidPosGrp";
+	rename -uid "C713A200-408B-14B3-ECEB-50A10CD56579";
+createNode transform -n "LeftEyeLidDownCtrlPos" -p "LeftEyeLidPosGrp";
+	rename -uid "5AE8EFC8-437C-CA57-544A-BD9CF88800B7";
+createNode transform -n "LeftEyeLidCCtrlPos" -p "LeftEyeLidCtrlPosGrp";
+	rename -uid "F17D2D96-46C0-02D1-9E27-A79783D01DF5";
+createNode transform -n "LeftEyeLidPinPosGrp" -p "LeftEyeLidCtrlPosGrp";
+	rename -uid "D0CFD277-4542-32CE-D10A-DFB7BBA8A5BF";
+createNode transform -n "LeftEyeLidPinUp0CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "132E9406-453D-3BB4-CD66-1BBB6F4DC7C9";
+createNode transform -n "LeftEyeLidPinUp1CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "8D31A3D7-4A17-DC0B-EA6A-70A4B1968BCD";
+createNode transform -n "LeftEyeLidPinUp2CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "E65AB896-4BCF-34C6-E1E8-03992F8E557D";
+createNode transform -n "LeftEyeLidPinDown0CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "5092D51A-4E7B-64F5-C471-38A54FF89274";
+createNode transform -n "LeftEyeLidPinDown1CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "9993FC5D-46A4-430F-29CF-67AAB70462B7";
+createNode transform -n "LeftEyeLidPinDown2CtrlPos" -p "LeftEyeLidPinPosGrp";
+	rename -uid "584E1912-4A3B-AEA7-0ED5-B89A56910784";
 createNode transform -n "LeftEyeLidRootPoserGrp" -p "LeftEyeLidSysGrp";
 	rename -uid "5FD61C17-4C4D-41D3-39F5-F2A10899E0BA";
 	setAttr ".t" -type "double3" 2.7794001988259347e-08 -1.2079226507921701e-13 -3.5527136788005009e-15 ;
@@ -3228,7 +3218,7 @@ createNode transform -n "LeftEyeLidRootPoser" -p "LeftEyeLidRootPoserGrp";
 	setAttr ".t" -type "double3" 3 0 0 ;
 	setAttr -k off ".sx";
 	setAttr -k off ".sz";
-	setAttr -k on ".mode";
+	setAttr -k on ".mode" 1;
 	setAttr -cb on ".FFD";
 createNode nurbsCurve -n "LeftEyeLidRootPoserShape" -p "LeftEyeLidRootPoser";
 	rename -uid "1C67F0AF-414A-BD77-0107-C5BEF5A08F3F";
@@ -3749,14 +3739,14 @@ createNode locator -n "LeftEyeLidPinDown3PosShape" -p "LeftEyeLidPinDown3Pos";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 14;
 	setAttr ".los" -type "double3" 0.2 0.2 0.2 ;
-createNode transform -n "LeftEyeCorneaCtrlGrp" -p "LeftEyeLidRootPoser";
+createNode transform -n "LeftEyeCorneaPoserGrp" -p "LeftEyeLidRootPoser";
 	rename -uid "21A2C7BA-41BF-305E-DC75-1D958E9E85FF";
 	setAttr ".t" -type "double3" -8.8817841970012523e-16 1.0724754417879002e-12 2.9876376390457162 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999978 1 ;
-createNode transform -n "LeftEyeCorneaCtrl" -p "LeftEyeCorneaCtrlGrp";
+createNode transform -n "LeftEyeCorneaPoser" -p "LeftEyeCorneaPoserGrp";
 	rename -uid "5441C10C-45CA-E116-1E9C-3CB68FBEE10F";
 	setAttr ".t" -type "double3" -4.4408920985006262e-16 -4.0389678347315804e-28 0 ;
-createNode nurbsCurve -n "LeftEyeCorneaCtrlShape" -p "LeftEyeCorneaCtrl";
+createNode nurbsCurve -n "LeftEyeCorneaPoserShape" -p "LeftEyeCorneaPoser";
 	rename -uid "5005BD8C-457D-DA23-0146-C7855624B491";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
@@ -3840,13 +3830,13 @@ createNode bezierCurve -n "RightEyeLidUpCrvShape" -p "RightEyeLidUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.99999997220582948 -4.7246233709312228e-13 3.000000000000044
-		-0.99999997220582948 -4.7246233709312228e-13 3.000000000000044
-		-0.9999999919295699 1.9999999999995219 2.9999999387568441
-		-2.9999999919295699 1.9999999999988074 2.9999999387569343
-		-4.9999999919295703 1.9999999999980929 2.999999938757048
-		-4.9999999722058295 -1.9072668692230853e-12 3.0000000000002558
-		-4.9999999722058295 -1.9072668692230853e-12 3.0000000000002558
+		-0.99999997220582992 -4.7246233709312248e-13 3.000000000000044
+		-0.99999997220582992 -4.7246233709312248e-13 3.000000000000044
+		-0.99999999192957034 1.9999999999995219 2.9999999387568441
+		-2.9999999919295703 1.9999999999988074 2.9999999387569338
+		-4.9999999919295703 1.9999999999980929 2.9999999387570471
+		-4.9999999722058304 -1.9072668692230853e-12 3.0000000000002549
+		-4.9999999722058304 -1.9072668692230853e-12 3.0000000000002549
 		;
 createNode transform -n "RightEyeLidDownCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "D8092CC3-496F-06D5-2FC7-DF9ADFCEB2B4";
@@ -3859,13 +3849,13 @@ createNode bezierCurve -n "RightEyeLidDownCrvShape" -p "RightEyeLidDownCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.99999997220582948 -4.7246233709312228e-13 3.000000000000044
-		-0.99999997220582948 -4.7246233709312228e-13 3.000000000000044
-		-0.99999997220511538 -2.0000000000004747 2.9999999909604744
-		-2.9999999722051154 -2.0000000000011893 2.999999990960597
-		-4.9999999722051154 -2.0000000000019038 2.9999999909607018
-		-4.9999999722058295 -1.9072668692230853e-12 3.0000000000002558
-		-4.9999999722058295 -1.9072668692230853e-12 3.0000000000002558
+		-0.99999997220582992 -4.7246233709312248e-13 3.000000000000044
+		-0.99999997220582992 -4.7246233709312248e-13 3.000000000000044
+		-0.99999997220511583 -2.0000000000004747 2.9999999909604744
+		-2.9999999722051158 -2.0000000000011893 2.9999999909605966
+		-4.9999999722051154 -2.0000000000019038 2.9999999909607009
+		-4.9999999722058304 -1.9072668692230853e-12 3.0000000000002549
+		-4.9999999722058304 -1.9072668692230853e-12 3.0000000000002549
 		;
 createNode transform -n "RightEyeLidUpJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "6A2DF559-4057-077E-5534-3ABBE19AFB3D";
@@ -3880,13 +3870,13 @@ createNode nurbsCurve -n "RightEyeLidUpJntCrvShape" -p "RightEyeLidUpJntCrv";
 		3 4 0 no 3
 		9 0 0 0 1 2 3 4 4 4
 		7
-		-1.3358895833785704 -1.0750170397546822e-12 2.4961416107771055
-		-1.3962410631967361 0.43189504968815862 2.4982258387910186
-		-1.8367316323021168 1.2243757327266294 2.4794516314261967
-		-2.9999999722070463 1.6641104123444654 2.4961415950983183
-		-4.1632683326141224 1.2243757289210566 2.4794516236892541
-		-4.6037588872977677 0.43189504903013165 2.4982258349993058
-		-4.6641103680730147 -3.4545679832808049e-12 2.4961416060842705
+		-1.3358895833785689 -1.0747811173619488e-12 2.4961416107771037
+		-1.3962410631967361 0.43189504968815934 2.4982258387910172
+		-1.8367316323021172 1.2243757327266309 2.4794516314261954
+		-2.9999999885561723 1.6641104193842069 2.4961415904053799
+		-4.163268332614126 1.2243757289210564 2.4794516236892519
+		-4.6037588872977659 0.43189504903013276 2.4982258349993063
+		-4.6641103610331536 -3.4538047024362452e-12 2.4961416107772867
 		;
 createNode transform -n "RightEyeLidDownJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "997DFF6E-4FDC-11B5-F68F-6BB40CE424FA";
@@ -3901,13 +3891,13 @@ createNode nurbsCurve -n "RightEyeLidDownJntCrvShape" -p "RightEyeLidDownJntCrv"
 		3 4 0 no 3
 		9 0 0 0 1 2 3 4 4 4
 		7
-		-1.3358895833785704 -1.0750170397546822e-12 2.4961416107771055
-		-1.3962410651732913 -0.43189504801286882 2.4982258403500719
-		-1.8367316322883547 -1.2243757200453469 2.479451637685433
-		-2.9999999722046677 -1.6641103993408888 2.4961416037699751
-		-4.1632683121216125 -1.2243757200470105 2.4794516376855635
-		-4.6037588792378044 -0.43189504801516526 2.4982258403502495
-		-4.6641103680730147 -3.4545679832808049e-12 2.4961416060842705
+		-1.3358895833785689 -1.0747811173619488e-12 2.4961416107771037
+		-1.3962410651732919 -0.43189504801286788 2.4982258403500714
+		-1.8367316322883576 -1.2243757200453458 2.4794516376854339
+		-2.9999999722046682 -1.6641103923010523 2.4961416084629753
+		-4.1632683121216134 -1.224375720047008 2.4794516376855626
+		-4.6037588792378079 -0.43189504801516515 2.4982258403502464
+		-4.6641103610331536 -3.4538047024362452e-12 2.4961416107772867
 		;
 createNode transform -n "RightEyeLidOutUpCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "726DACCC-47F4-1DC8-3104-AAAEDFF2DFD1";
@@ -3920,13 +3910,13 @@ createNode bezierCurve -n "RightEyeLidOutUpCrvShape" -p "RightEyeLidOutUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.74999997220627634 1.249999999999611 3.0000000000000266
-		-0.74999997220627634 1.249999999999611 3.0000000000000266
-		-1.499999972206723 2.4999999999993423 3.0000000000000702
-		-2.9999999722067225 2.4999999999988067 3.0000000000001545
-		-4.499999972206723 2.4999999999982707 3.0000000000002394
-		-5.2499999722062736 1.2499999999980038 3.0000000000002864
-		-5.2499999722062736 1.2499999999980038 3.0000000000002864
+		-0.74999997220627679 1.249999999999611 3.0000000000000266
+		-0.74999997220627679 1.249999999999611 3.0000000000000266
+		-1.4999999722067239 2.4999999999993423 3.0000000000000702
+		-2.9999999722067234 2.4999999999988067 3.0000000000001541
+		-4.4999999722067248 2.4999999999982707 3.0000000000002385
+		-5.2499999722062745 1.2499999999980038 3.0000000000002855
+		-5.2499999722062745 1.2499999999980038 3.0000000000002855
 		;
 createNode transform -n "RightEyeLidOutDownCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "3CDBEB52-44B4-3138-665D-B3BC4933AD02";
@@ -3939,13 +3929,13 @@ createNode bezierCurve -n "RightEyeLidOutDownCrvShape" -p "RightEyeLidOutDownCrv
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.74999997220538284 -1.2500000000003879 3.0000000000000249
-		-0.74999997220538284 -1.2500000000003879 3.0000000000000249
-		-1.4999999722049349 -2.5000000000006546 3.0000000000000817
-		-2.9999999722049346 -2.500000000001191 3.0000000000001661
-		-4.4999999722049342 -2.5000000000017262 3.0000000000002509
-		-5.2499999722053854 -1.2500000000019946 3.0000000000002913
-		-5.2499999722053854 -1.2500000000019946 3.0000000000002913
+		-0.74999997220538328 -1.2500000000003879 3.0000000000000249
+		-0.74999997220538328 -1.2500000000003879 3.0000000000000249
+		-1.4999999722049357 -2.5000000000006546 3.0000000000000817
+		-2.9999999722049355 -2.500000000001191 3.0000000000001656
+		-4.4999999722049351 -2.5000000000017262 3.00000000000025
+		-5.2499999722053854 -1.2500000000019946 3.0000000000002904
+		-5.2499999722053854 -1.2500000000019946 3.0000000000002904
 		;
 createNode transform -n "RightEyeLidOutUpJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "F6B7E94A-446D-38EB-7F3F-5190BD404FF0";
@@ -3960,11 +3950,11 @@ createNode nurbsCurve -n "RightEyeLidOutUpJntCrvShape" -p "RightEyeLidOutUpJntCr
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		-1.2923202815723074 0.94846663265699227 2.2768129413440659
-		-1.7082827230650406 1.4349412763307594 2.2961442027124606
-		-2.9999999722072381 1.9205435241941735 2.3046656255321789
-		-4.2917172213487476 1.4349412763289127 2.2961442027126044
-		-4.7076796628407802 0.94846663265455022 2.276812941344263
+		-1.2923202946454748 0.94846662539010085 2.2768129514738598
+		-1.708282730626294 1.4349412679426752 2.2961442103867178
+		-2.9999999722072404 1.9205435209112032 2.3046656277674091
+		-4.2917172137874946 1.4349412679408273 2.2961442103868639
+		-4.7076796497676154 0.94846662538765913 2.2768129514740565
 		;
 createNode transform -n "RightEyeLidOutDownJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "C94E64B1-44A0-26B2-71CB-9EB8DAA59E89";
@@ -3979,11 +3969,11 @@ createNode nurbsCurve -n "RightEyeLidOutDownJntCrvShape" -p "RightEyeLidOutDownJ
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		-1.2923202815709522 -0.94846663265907882 2.2768129413440668
-		-1.7082827230685764 -1.4349412763445091 2.2961442027094074
-		-2.9999999722044932 -1.9205435307647818 2.3046656210616003
-		-4.2917172213411101 -1.4349412763463574 2.2961442027095504
-		-4.7076796628394249 -0.94846663266151521 2.2768129413442639
+		-1.2923202946441217 -0.94846662539218718 2.2768129514738615
+		-1.7082827306242436 -1.4349412679453555 2.2961442103867196
+		-2.9999999722044941 -1.9205435209156805 2.3046656277674518
+		-4.2917172137854429 -1.4349412679471996 2.2961442103868661
+		-4.7076796497662583 -0.94846662539462367 2.2768129514740578
 		;
 createNode transform -n "RightEyeLidPinUpCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "889D0045-44A9-DAA7-497E-1089AA5AA0F3";
@@ -3996,13 +3986,13 @@ createNode bezierCurve -n "RightEyeLidPinUpCrvShape" -p "RightEyeLidPinUpCrv";
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.49999997220654357 1.9999999999997005 3.0000000000000129
-		-0.49999997220654357 1.9999999999997005 3.0000000000000129
-		-1.4999999722069011 2.9999999999993432 3.0000000000000675
-		-2.9999999722069011 2.9999999999988072 3.0000000000001519
-		-4.4999999722069006 2.9999999999982716 3.0000000000002367
-		-5.4999999722065436 1.9999999999979141 3.0000000000002998
-		-5.4999999722065436 1.9999999999979141 3.0000000000002998
+		-0.49999997220654402 1.9999999999997005 3.0000000000000129
+		-0.49999997220654402 1.9999999999997005 3.0000000000000129
+		-1.499999972206902 2.9999999999993432 3.0000000000000675
+		-2.999999972206902 2.9999999999988072 3.0000000000001514
+		-4.4999999722069024 2.9999999999982716 3.0000000000002358
+		-5.4999999722065445 1.9999999999979141 3.0000000000002989
+		-5.4999999722065445 1.9999999999979141 3.0000000000002989
 		;
 createNode transform -n "RightEyeLidPinDownCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "508AEC33-4DE3-6FFF-DCFC-32B6892CD97E";
@@ -4015,13 +4005,13 @@ createNode bezierCurve -n "RightEyeLidPinDownCrvShape" -p "RightEyeLidPinDownCrv
 		3 4 0 no 3
 		9 0 0 0 1 1 1 2 2 2
 		7
-		-0.49999997220511494 -2.0000000000002989 3.0000000000000089
-		-0.49999997220511494 -2.0000000000002989 3.0000000000000089
-		-1.4999999722047566 -3.0000000000006559 3.0000000000000808
-		-2.9999999722047566 -3.0000000000011919 3.0000000000001652
-		-4.4999999722047566 -3.0000000000017275 3.00000000000025
-		-5.4999999722051154 -2.0000000000020854 3.0000000000003038
-		-5.4999999722051154 -2.0000000000020854 3.0000000000003038
+		-0.49999997220511538 -2.0000000000002989 3.0000000000000089
+		-0.49999997220511538 -2.0000000000002989 3.0000000000000089
+		-1.4999999722047574 -3.0000000000006559 3.0000000000000808
+		-2.9999999722047574 -3.0000000000011919 3.0000000000001648
+		-4.4999999722047574 -3.0000000000017275 3.0000000000002491
+		-5.4999999722051154 -2.0000000000020854 3.0000000000003029
+		-5.4999999722051154 -2.0000000000020854 3.0000000000003029
 		;
 createNode transform -n "RightEyeLidPinUpJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "993C26D9-4887-9B39-834B-1FA56D8EE289";
@@ -4036,11 +4026,11 @@ createNode nurbsCurve -n "RightEyeLidPinUpJntCrvShape" -p "RightEyeLidPinUpJntCr
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		-1.2908685799725377 1.3677172195801788 2.0512934770852382
-		-1.7369446035490304 1.7418701881969811 2.0904605496689168
-		-2.9999999722073936 2.1213208347866503 2.1213197863444
-		-4.2630553251229681 1.7418701970484451 2.0904605517993335
-		-4.7091313644411761 1.3677172195777321 2.0512934770854372
+		-1.2908686454013718 1.3677171672554511 2.0512935322828532
+		-1.7369446633329362 1.7418701389656546 2.0904606012934588
+		-2.9999999722073949 2.1213208138469226 2.1213198006613303
+		-4.26305529849955 1.7418701340920362 2.0904605948322121
+		-4.7091312990123528 1.3677171672530051 2.0512935322830441
 		;
 createNode transform -n "RightEyeLidPinDownJntCrv" -p "RightEyeLidCrvGrp";
 	rename -uid "BD1BFDC9-4A49-D4B2-A59A-7DB2F6FC3E8E";
@@ -4055,11 +4045,11 @@ createNode nurbsCurve -n "RightEyeLidPinDownJntCrvShape" -p "RightEyeLidPinDownJ
 		3 2 0 no 3
 		7 0 0 0 1 2 2 2
 		5
-		-1.2908685799705828 -1.3677172195822627 2.0512934770852391
-		-1.7369446200902117 -1.7418701986220555 2.0904605512556813
-		-2.9999999722043618 -2.121320876398066 2.1213197579831102
-		-4.2630553243190557 -1.7418701986238585 2.0904605512558265
-		-4.7091313644392265 -1.3677172195847043 2.0512934770854336
+		-1.2908686453994094 -1.3677171672575379 2.0512935322828465
+		-1.7369446475880574 -1.7418701301150203 2.0904605991631753
+		-2.9999999722043622 -2.1213208138514497 2.1213198006613312
+		-4.263055298497056 -1.7418701340983656 2.0904605948322166
+		-4.7091312990103962 -1.3677171672599817 2.051293532283041
 		;
 createNode transform -n "RightEyeLidSurfPosGrp" -p "RightEyeLidSysGrp";
 	rename -uid "C42B811F-40E3-2268-66E7-AD9B66C3AFE8";
@@ -4904,6 +4894,74 @@ createNode locator -n "RightEyeLidCtrl11PosShape" -p "RightEyeLidCtrl11Pos";
 	rename -uid "43DEB2C9-4F6D-DFD5-A711-00AECF5379A5";
 	setAttr -k off ".v";
 	setAttr ".los" -type "double3" 0.1 0.1 0.1 ;
+createNode transform -n "RightEyeLidOutPosGrp" -p "RightEyeLidCtrlPosGrp";
+	rename -uid "7D0E06EB-4570-7621-A69D-5594DFEEDF8A";
+	setAttr ".t" -type "double3" -2.779400198825935e-08 1.2079227474374691e-13 3.5527136958879712e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 1 ;
+createNode transform -n "RightEyeLidOutUp1CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "7ADAA149-4592-D11B-33E8-D8960DC0B5B2";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutUp2CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "78FD5E31-45B8-780A-DF7F-C09F8BFF57EF";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutUp3CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "4894F9C0-4D84-2EB8-E2A2-54BB0CF5EA58";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutDown1CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "A73D0C0E-40BC-358E-1F69-6181509C5E50";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutDown2CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "3D34C43C-463E-4427-630B-0797915437A6";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutDown3CtrlPos" -p "RightEyeLidOutPosGrp";
+	rename -uid "F5539A37-4166-7B2E-A451-BD81EC57710F";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidPosGrp" -p "RightEyeLidCtrlPosGrp";
+	rename -uid "77372DDB-434C-FB96-39B8-00905C5625E9";
+	setAttr ".t" -type "double3" -2.779400198825935e-08 1.2079227474374691e-13 3.5527136958879712e-15 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 1 1 ;
+createNode transform -n "RightEyeLidInCtrlPos" -p "RightEyeLidPosGrp";
+	rename -uid "1DF61D48-40DF-3B6F-1AA2-5A901DADA77E";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidUpCtrlPos" -p "RightEyeLidPosGrp";
+	rename -uid "3B6659CC-467F-9D36-327B-F28C380276FF";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidOutCtrlPos" -p "RightEyeLidPosGrp";
+	rename -uid "71B55AA2-4020-E701-B300-0DB5890D7B6B";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidDownCtrlPos" -p "RightEyeLidPosGrp";
+	rename -uid "79B5C4EA-4C67-6CE4-DB39-8D9905F52212";
+	setAttr ".r" -type "double3" 0 180 0 ;
+	setAttr ".s" -type "double3" 1 1 -1 ;
+createNode transform -n "RightEyeLidCCtrlPosGrp" -p "RightEyeLidCtrlPosGrp";
+	rename -uid "6BA0BF4D-4603-DB67-D942-998C84BA2EED";
+	setAttr ".r" -type "double3" 0 180.00000000000327 0 ;
+	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 -1 ;
+createNode transform -n "RightEyeLidCCtrlPos" -p "RightEyeLidCCtrlPosGrp";
+	rename -uid "8291AB85-490D-3C91-2D29-A7B7557AFC7D";
+createNode transform -n "RightEyeLidPinPosGrp" -p "RightEyeLidCtrlPosGrp";
+	rename -uid "CDE66A0E-4E6E-DFDE-DD2B-BAAFFEAAEC6D";
+createNode transform -n "RightEyeLidPinUp0CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "C9F4E978-4359-6B25-AF78-A1AB07D06D3C";
+createNode transform -n "RightEyeLidPinUp1CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "39E24843-4431-E702-BEB6-8B874A67C330";
+createNode transform -n "RightEyeLidPinUp2CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "78A4C06B-41DD-1B77-34CB-17BE78A9EE14";
+createNode transform -n "RightEyeLidPinDown0CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "BAC0DFCC-4498-405D-2E68-4FB15CD20C44";
+createNode transform -n "RightEyeLidPinDown1CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "481A1885-4E44-6B13-DF33-188D6FB9AE8A";
+createNode transform -n "RightEyeLidPinDown2CtrlPos" -p "RightEyeLidPinPosGrp";
+	rename -uid "09C62DE9-4CE9-84A0-571C-B18DAC4FCB86";
 createNode transform -n "RightEyeLidRootPoserGrp" -p "RightEyeLidSysGrp";
 	rename -uid "525A5FC0-439C-2098-CDD4-6B91BC433CB8";
 	setAttr ".t" -type "double3" -2.7794001988259354e-08 -1.2079226507921703e-13 -3.5527121146412049e-15 ;
@@ -5423,15 +5481,15 @@ createNode locator -n "RightEyeLidPinDown3PosShape" -p "RightEyeLidPinDown3Pos";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 14;
 	setAttr ".los" -type "double3" 0.2 0.2 0.2 ;
-createNode transform -n "RightEyeCorneaCtrlGrp" -p "RightEyeLidRootPoser";
+createNode transform -n "RightEyeCorneaPoserGrp" -p "RightEyeLidRootPoser";
 	rename -uid "0DB414D5-4A93-1B6B-DDEE-42B9F5AE5856";
 	setAttr ".t" -type "double3" 0 -1.071143174158351e-12 2.9876376390457065 ;
 	setAttr ".r" -type "double3" 0 180.00000000000321 0 ;
 	setAttr ".s" -type "double3" 1.0000000000000002 1.0000000000000002 -1.0000000000000002 ;
-createNode transform -n "RightEyeCorneaCtrl" -p "RightEyeCorneaCtrlGrp";
+createNode transform -n "RightEyeCorneaPoser" -p "RightEyeCorneaPoserGrp";
 	rename -uid "2D3175BE-4072-6839-3819-4A9D86FD9723";
 	setAttr ".t" -type "double3" -4.4408920985006262e-16 -4.0389678347315804e-28 0 ;
-createNode nurbsCurve -n "RightEyeCorneaCtrlShape" -p "RightEyeCorneaCtrl";
+createNode nurbsCurve -n "RightEyeCorneaPoserShape" -p "RightEyeCorneaPoser";
 	rename -uid "394F3C58-4AA7-0DF9-8362-BBA245CB45DB";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
@@ -6206,20 +6264,20 @@ createNode aimConstraint -n "RightEyeLidPinDown2AimPos_aimConstraint1" -p "Right
 	setAttr ".rsrr" -type "double3" -1.2324649390671127e-14 5.9635400277440935e-15 -4.7708320221952759e-15 ;
 	setAttr -k on ".w0";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "1589BAEC-4291-CCCD-1BD4-11B382FE31C8";
+	rename -uid "82F3F469-4FC0-857E-89DE-08AF63F9CDB9";
 	setAttr -s 2 ".lnk";
 	setAttr -s 2 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "E946112D-438A-B0CA-48E5-E2A3D5FC3D0C";
+	rename -uid "6BCF579C-43C6-06E8-EAB3-91890260479C";
 	setAttr ".bsdt[0].bscd" -type "Int32Array" 0 ;
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "D185D840-4A82-7E0C-EC94-9FA875E0CAB9";
+	rename -uid "8401EFD6-4DE6-A148-CE77-F7B49566A68B";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "B6A73498-410C-9BC3-260C-0494E3D10D81";
+	rename -uid "0D7E719D-493D-03C4-30AB-A3B1F266D76A";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "B94BA74C-4D50-76C0-CEEF-B088B22E27CD";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "B6824087-4120-2027-9C2A-1699AD513F98";
+	rename -uid "3BE7E1A0-430B-AEAE-EE5A-7785818CE438";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "A82E9CAC-4623-EED3-F320-60B9F42809CD";
 	setAttr ".g" yes;
@@ -6339,9 +6397,9 @@ createNode multMatrix -n "LeftEyeLidUp4CtrlPosGrpMM";
 	setAttr -s 5 ".i";
 	setAttr ".i[1]" -type "matrix" 0.93006084648920695 -0.010061500057584475 -0.18591058136067151 0
 		 0.001757494324864467 0.94755933308612394 -0.042489736555673757 0 0.1861743517753443 0.041318672721467546 0.92914424835063048 0
-		 2.4166932106018066 16.323806762695312 24.66486930847168 1;
+		 2.4166932106018066 16.323806762695313 24.66486930847168 1;
 	setAttr ".i[2]" -type "matrix" 1 0 0 0 -1.6769177786658861e-17 0.99999999999999989 -1.7114691128522261e-16 0
-		 -1.3877787807814457e-17 0 1 0 -2.4166932106018062 -16.323806762695312 -24.664869308471676 1;
+		 -1.3877787807814457e-17 0 1 0 -2.4166932106018062 -16.323806762695313 -24.664869308471676 1;
 	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
 createNode multiplyDivide -n "LeftEyeLidUp4CtrlRvsMultMD";
 	rename -uid "7A22A8AA-4A01-5CC0-36DF-70B62F9EC000";
@@ -6505,7 +6563,7 @@ createNode multMatrix -n "RightEyeLidUp4CtrlPosGrpMM";
 	setAttr -s 5 ".i";
 	setAttr ".i[1]" -type "matrix" -0.93006084648923426 -0.010061500058877895 -0.1859105813604619 0
 		 -0.0017574943261922903 0.94755933308612073 -0.042489736555672439 0 -0.18617435177519251 0.041318672721207497 0.929144248350672 0
-		 -2.4166932106004184 16.323806762695312 24.664869308471815 1;
+		 -2.4166932106004184 16.323806762695313 24.664869308471815 1;
 	setAttr ".i[2]" -type "matrix" 1 -9.0615330587380894e-16 -1.3691752902817888e-15 0
 		 0 1 0 0 0 0 1 0 2.4166932106004184 -16.323806762695316 -24.664869308471818 1;
 	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
@@ -7120,7 +7178,6 @@ createNode makeNurbCircle -n "makeNurbCircle7";
 	setAttr ".nr" -type "double3" 0 1 0 ;
 createNode ffd -n "LeftEyeBallffd";
 	rename -uid "DE76EF67-4C71-B177-2C38-75A3F2106A6E";
-	setAttr ".ip[0].gtg" -type "string" "";
 	setAttr ".lo" yes;
 createNode objectSet -n "LeftEyeBallffdSet";
 	rename -uid "9BA42970-4995-839A-EBE7-1C95C92CACA5";
@@ -7553,7 +7610,6 @@ createNode makeNurbCircle -n "makeNurbCircle12";
 	setAttr ".nr" -type "double3" 0 1 0 ;
 createNode ffd -n "RightEyeBallffd";
 	rename -uid "C25FC232-41DB-AECB-A778-D99E90C133A1";
-	setAttr ".ip[0].gtg" -type "string" "";
 	setAttr ".lo" yes;
 createNode objectSet -n "RightEyeBallffdSet";
 	rename -uid "A507D20B-43F7-E94F-E367-3A8B097C790A";
@@ -7582,7 +7638,6 @@ createNode pairBlend -n "RightEyeLidOutDown3LocOffGrpPB";
 	rename -uid "3F65F4D8-458C-8C68-932B-52A21A4FBD20";
 createNode cluster -n "LeftEyeCorneaClsCluster";
 	rename -uid "9571927B-4E98-F2D8-F69E-E9AA5AA54F18";
-	setAttr ".ip[0].gtg" -type "string" "";
 	setAttr ".gm[0]" -type "matrix" 1 3.5726976932437537e-13 2.2204460492503131e-16 0
 		 -2.2204460492503131e-16 2.2204460492495203e-16 1 0 3.5726976932437548e-13 -1.0000000000000002 2.2204460492503131e-16 0
 		 3.0000000277940018 9.510170528238658e-13 -2.8865798578538989e-15 1;
@@ -7599,7 +7654,6 @@ createNode groupParts -n "cluster1GroupParts";
 	setAttr ".ic" -type "componentList" 1 "cv[20:22][0:15]";
 createNode cluster -n "RightEyeCorneaClsCluster";
 	rename -uid "850F2EB0-4CCF-EE9D-A1CE-2ABB8208E139";
-	setAttr ".ip[0].gtg" -type "string" "";
 	setAttr ".gm[0]" -type "matrix" -0.99999999999999978 -3.5726976932437527e-13 5.6054820366118173e-14 0
 		 5.6054820366118173e-14 2.2204460494505797e-16 0.99999999999999978 0 3.5726976932437532e-13 -0.99999999999999989 2.2204460492503126e-16 0
 		 -2.9999999722059973 -1.192601563122386e-12 1.6461174742572555e-13 1;
@@ -8652,53 +8706,6 @@ createNode multiplyDivide -n "RightEyeLidPinDown1CtrlRvsMultMD";
 createNode multiplyDivide -n "RightEyeLidPinDown2CtrlRvsMultMD";
 	rename -uid "B76328AA-4163-DBCB-14BB-DF8A37967F30";
 	setAttr ".i2" -type "float3" -1 -1 -1 ;
-createNode script -n "uiConfigurationScriptNode";
-	rename -uid "81B91F30-4FE0-DF5D-0A06-1E98B8C8F02E";
-	setAttr ".b" -type "string" (
-		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $nodeEditorPanelVisible = stringArrayContains(\"nodeEditorPanel1\", `getPanel -vis`);\n\tint    $nodeEditorWorkspaceControlOpen = (`workspaceControl -exists nodeEditorPanel1Window` && `workspaceControl -q -visible nodeEditorPanel1Window`);\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|top|topShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n"
-		+ "            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n"
-		+ "            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
-		+ "\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Side View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Side View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|side|sideShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n"
-		+ "            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n"
-		+ "            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n"
-		+ "            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Front View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Front View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|front|frontShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n"
-		+ "            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n"
-		+ "            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n"
-		+ "            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1\n            -height 1\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|persp|perspShape\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n"
-		+ "            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 1\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 1\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n"
-		+ "            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n"
-		+ "            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 1\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1624\n            -height 1059\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n"
-		+ "\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 1\n            -showReferenceMembers 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n"
-		+ "            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -isSet 0\n            -isSetMember 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -selectCommand \"look\" \n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n"
-		+ "            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            -renderFilterIndex 0\n            -selectionOrder \"chronological\" \n            -expandAttribute 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n"
-		+ "            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n"
-		+ "            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 0\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAssignedMaterials 0\n                -showTimeEditor 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n"
-		+ "                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -organizeByClip 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showParentContainers 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n"
-		+ "                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                -ignoreHiddenAttribute 0\n                -ignoreOutlinerColor 0\n                -renderFilterVisible 0\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayValues 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showPlayRangeShades \"on\" \n"
-		+ "                -lockPlayRangeShades \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -keyMinScale 1\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -valueLinesToggle 1\n                -highlightAffectedCurves 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showAssignedMaterials 0\n"
-		+ "                -showTimeEditor 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -organizeByClip 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showParentContainers 1\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n"
-		+ "                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                -ignoreHiddenAttribute 0\n                -ignoreOutlinerColor 0\n                -renderFilterVisible 0\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n"
-		+ "                -displayValues 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"timeEditorPanel\" (localizedPanelLabel(\"Time Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Time Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels  $panelName;\n"
-		+ "\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayValues 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -initialized 0\n                -manageSequencer 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"sequenceEditorPanel\" (localizedPanelLabel(\"Camera Sequencer\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayValues 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -initialized 0\n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showConnectionFromSelected 0\n                -showConnectionToSelected 0\n                -showConstraintLabels 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n"
-		+ "                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n"
-		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"nodeEditorPanel\" (localizedPanelLabel(\"Node Editor\")) `;\n\tif ($nodeEditorPanelVisible || $nodeEditorWorkspaceControlOpen) {\n\t\tif (\"\" == $panelName) {\n\t\t\tif ($useSceneConfig) {\n\t\t\t\t$panelName = `scriptedPanel -unParent  -type \"nodeEditorPanel\" -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -connectionMinSegment 0.03\n                -connectionOffset 0.03\n                -connectionRoundness 0.8\n                -connectionTension -100\n                -defaultPinnedState 0\n"
-		+ "                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 0\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\t}\n\t\t} else {\n\t\t\t$label = `panel -q -label $panelName`;\n\t\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n"
-		+ "                -consistentNameSize 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -connectNodeOnCreation 0\n                -connectOnDrop 0\n                -copyConnectionsOnPaste 0\n                -connectionStyle \"bezier\" \n                -connectionMinSegment 0.03\n                -connectionOffset 0.03\n                -connectionRoundness 0.8\n                -connectionTension -100\n                -defaultPinnedState 0\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 0\n                -gridVisibility 1\n                -crosshairOnEdgeDragging 0\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n                -useAssets 1\n                -syncedSelection 1\n"
-		+ "                -extendToShapes 1\n                -editorMode \"default\" \n                -hasWatchpoint 0\n                $editorName;\n\t\t\tif (!$useSceneConfig) {\n\t\t\t\tpanel -e -l $label $panelName;\n\t\t\t}\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"createNodePanel\" (localizedPanelLabel(\"Create Node\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Create Node\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"polyTexturePlacementPanel\" (localizedPanelLabel(\"UV Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"UV Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"renderWindowPanel\" (localizedPanelLabel(\"Render View\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Render View\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"shapePanel\" (localizedPanelLabel(\"Shape Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tshapePanel -edit -l (localizedPanelLabel(\"Shape Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"posePanel\" (localizedPanelLabel(\"Pose Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tposePanel -edit -l (localizedPanelLabel(\"Pose Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" != $panelName) {\n"
-		+ "\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"profilerPanel\" (localizedPanelLabel(\"Profiler Tool\")) `;\n"
-		+ "\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Profiler Tool\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"contentBrowserPanel\" (localizedPanelLabel(\"Content Browser\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Content Browser\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\n{ string $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"|persp|perspShape\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n"
-		+ "                -displayAppearance \"smoothShaded\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -holdOuts 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 0\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 32768\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -depthOfFieldPreview 1\n"
-		+ "                -maxConstantTransparency 1\n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n"
-		+ "                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n"
-		+ "                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
-		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1624\\n    -height 1059\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 1\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1624\\n    -height 1059\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
-	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
 	rename -uid "517AB797-4403-74CB-BE72-92B6190F1F9C";
 	setAttr ".b" -type "string" "playbackOptions -min 1 -max 120 -ast 1 -aet 200 ";
@@ -9131,11 +9138,489 @@ createNode blendTwoAttr -n "blendTwoAttr2";
 	rename -uid "2B4B8FF5-478F-02AD-45A8-2FB1684EDE75";
 	setAttr -s 2 ".i";
 	setAttr -s 2 ".i";
+createNode RedshiftOptions -s -n "redshiftOptions";
+	rename -uid "C5A8DCF9-481E-D3CE-0C15-438684D8F637";
+createNode RedshiftPostEffects -n "defaultRedshiftPostEffects";
+	rename -uid "D15F9F5B-4B12-5471-BE56-C5BBE0F8079D";
+	setAttr ".v" 2;
+	setAttr -s 2 ".cr[1]" -type "float2" 1 1;
+	setAttr -s 2 ".cg[1]" -type "float2" 1 1;
+	setAttr -s 2 ".cb[1]" -type "float2" 1 1;
+	setAttr -s 2 ".cl[1]" -type "float2" 1 1;
+createNode multMatrix -n "LeftEyeLidOutUp1CtrlGrpMM";
+	rename -uid "05ACC029-48F1-C5F5-98C4-F5846D32D3EB";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 1.2923203093652131 0.94846663265895859 2.2768129413439264 1;
+	setAttr ".i[2]" -type "matrix" 1.0000000000000002 -3.5715874702191286e-13 0 0 3.5726976932437543e-13 1 1.1494967794736253e-28 5.6051938572992683e-45
+		 2.2204460492503131e-16 0 0.99999999999999989 5.5511151231257827e-17 -1.2923203371594254 -0.94846663265837616 -2.2768129413439966 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutUp1CtrlGrpDM";
+	rename -uid "FE8E57BA-4C44-6AD3-D049-7488341A831C";
+createNode multMatrix -n "LeftEyeLidOutUp2CtrlGrpMM";
+	rename -uid "77A60F1F-4B9F-C78B-D291-779C85B6576B";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 2.9999999999967488 1.9205435307495744 2.3046656210738385 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437527e-13 1 -1.5146129380243427e-28 0 2.2204460492495198e-16 0 1 0 -3.0000000277913066 -1.9205435307483818 -2.3046656210740046 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutUp2CtrlGrpDM";
+	rename -uid "632849E8-48B1-61CB-A60B-148F2EB4F2AE";
+createNode multMatrix -n "LeftEyeLidOutUp3CtrlGrpMM";
+	rename -uid "ED749E46-49BE-5D04-D893-2395A6F299E3";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 4.7076796906336869 0.94846663266139741 2.2768129413437359 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.57297524899991e-13 -2.2204460492503131e-16 0
+		 3.5726976932437537e-13 1 -1.2621774483536189e-28 0 2.22044604924952e-16 -6.1629758220391547e-33 1 0
+		 -4.7076797184278991 -0.94846663265959497 -2.2768129413439988 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutUp3CtrlGrpDM";
+	rename -uid "2364301B-4FDC-3A30-EFE6-62891033D37C";
+createNode multMatrix -n "LeftEyeLidOutDown1CtrlGrpMM";
+	rename -uid "716E090B-46C3-BFB0-8535-7D92C5CD78FA";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 1.2923203093665712 -0.94846663265710851 2.2768129413439295 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5727549067747138e-13 -2.527770150244634e-16 0
+		 3.5726976932437543e-13 1 -1.1494967794736267e-28 0 2.2204460492503131e-16 0 1 0 -1.2923203371601055 0.94846663265769093 -2.2768129413439993 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutDown1CtrlGrpDM";
+	rename -uid "B3D9BBEF-4C5D-2ECC-2122-9291B5A38219";
+createNode multMatrix -n "LeftEyeLidOutDown2CtrlGrpMM";
+	rename -uid "7EE84857-4801-384D-1CC0-CA94FE0AF453";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 3.0000000000015015 -1.9205435309874441 2.3046656208720391 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437537e-13 1 -1.0097419586828951e-28 0 2.22044604924952e-16 0 1 0 -3.000000027794687 1.9205435309886367 -2.3046656208722052 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutDown2CtrlGrpDM";
+	rename -uid "63915AA7-4C26-749B-C9C5-28ADCEA8E864";
+createNode multMatrix -n "LeftEyeLidOutDown3CtrlGrpMM";
+	rename -uid "ABBB961A-4C10-0D6D-A87A-228FCD5DA37D";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114317e-14 2.0248925449472115e-26 0.99999999999999989 0
+		 4.7076796906350413 -0.9484666326546658 2.2768129413437381 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437537e-13 1 -7.5730646901217133e-29 0 2.22044604924952e-16 0 1 0 -4.7076797184285759 0.94846663265646813 -2.276812941344001 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutDown3CtrlGrpDM";
+	rename -uid "03A1BAF1-480D-F7F1-8EA4-4FB324082070";
+createNode multMatrix -n "LeftEyeLidInMainCtrlGrpMM";
+	rename -uid "E0FE4DA0-4047-3459-AAE6-158104EE476F";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 1.3358896041329926 9.602501273016506e-13 2.4961416060839423 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437532e-13 0 0 3.5726976932437543e-13 1 0 0
+		 1.1102230246251565e-16 0 0.99999999999999989 5.5511151231257827e-17 -1.3358896319268534 -3.6225903861436734e-13 -2.4961416060840143 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidInMainCtrlGrpDM";
+	rename -uid "FCC60B2D-480B-F46D-F3CD-CE815A065070";
+createNode multMatrix -n "LeftEyeLidUpMainCtrlGrpMM";
+	rename -uid "ABBFDEBA-4826-50A6-8F45-198B81C478ED";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6676885407114317e-14 2.0248925449472115e-26 0.99999999999999989 0
+		 2.9999999999989519 1.6641104123488701 2.4961415950979853 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -1.1102230246251565e-16 0
+		 3.5726976932437537e-13 0.99999999999999989 -5.0487097934144756e-29 0 2.22044604924952e-16 0 1 0
+		 -3.0000000277934071 -1.6641104123476775 -2.4961415950981523 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidUpMainCtrlGrpDM";
+	rename -uid "4E564895-4CF9-A5CF-BC7E-70BB6997FFAB";
+createNode multMatrix -n "LeftEyeLidOutMainCtrlGrpMM";
+	rename -uid "6150B90C-41B4-45FA-BBCC-8E81DD78A20D";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 4.6641103888274209 3.3329894692091436e-12 2.4961416107767751 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437543e-13 1 -5.0487097934144756e-29 0 2.2204460492495195e-16 2.83398601425051e-41 0.99999999999999989 0
+		 -4.6641104166212823 -1.546110461880801e-12 -2.4961416107770358 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidOutMainCtrlGrpDM";
+	rename -uid "305C4175-41F4-5751-025E-888767653D3A";
+createNode multMatrix -n "LeftEyeLidDownMainCtrlGrpMM";
+	rename -uid "F198B283-4473-195C-C6B8-C5904703C2EB";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 -1.1102230246251568e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 3.0000000000013296 -1.6641103922966338 2.4961416084626498 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437537e-13 1 -1.5146129380243427e-28 0 2.22044604924952e-16 0 1 0 -3.0000000277945951 1.6641103922978264 -2.4961416084628159 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidDownMainCtrlGrpDM";
+	rename -uid "56A80796-44C0-5AC9-4244-B5B33D69E23B";
+createNode multMatrix -n "LeftEyeLidCCtrlOffGrpMM";
+	rename -uid "19CE2428-4AB6-CAA3-B256-AAB549D9A02E";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 0.99999999999999989 3.5721425817314407e-13 -5.6621374255882984e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 3.0000000000001701 1.0716427745194929e-12 2.9999999999998299 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437532e-13 1 -7.9329824781287988e-29 0 2.2204460492495198e-16 2.83398601425051e-41 1 0
+		 -3 -0 -0 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidCCtrlOffGrpDM";
+	rename -uid "8BB4676F-463C-868F-FD50-DB841CAE36D6";
+createNode multMatrix -n "LeftEyeLidPinUp0CtrlGrpMM";
+	rename -uid "F64488CC-4AA9-128E-26E0-B883DF07BCFE";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 1.2908686355582197 1.3677172195819629 2.0512934770846343 1;
+	setAttr ".i[2]" -type "matrix" 0.99999999999999989 -3.5729626120809258e-13 -7.6999693323350249e-17 0
+		 3.5723747641874153e-13 1 -2.2773932485228383e-16 0 2.2204460492503131e-16 0 1 0 -1.2908686355585919 -1.3677172195815017 -2.0512934770847076 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinUp0CtrlGrpDM";
+	rename -uid "18D88466-47B6-CA5F-302E-0A816A3418FF";
+createNode multMatrix -n "LeftEyeLidPinUp1CtrlGrpMM";
+	rename -uid "6CFB2956-48C5-7978-3EFA-C481A8732067";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 3.000000027791093 2.1213208764961196 2.1213197578844785 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437532e-13 0.99999999999999989 -1.0097419586828951e-28 0 2.2204460492495198e-16 2.4651903288156619e-32 0.99999999999999989 0
+		 -3.0000000277917303 -2.1213208764950484 -2.1213197578846494 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinUp1CtrlGrpDM";
+	rename -uid "8BA1F4AF-463E-A01C-B529-429D1BCF84EB";
+createNode multMatrix -n "LeftEyeLidPinUp2CtrlGrpMM";
+	rename -uid "D14773C2-4198-67B0-6B88-9CBB1DD85A72";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 4.7091314200260976 1.3677172195868508 2.05129347708445 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.7755575615628914e-16 0
+		 3.5726976932437543e-13 1 -1.0097419586828951e-28 0 2.2204460492495203e-16 0 1 0 -4.7091314200264698 -1.3677172195851686 -2.0512934770847164 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinUp2CtrlGrpDM";
+	rename -uid "DEF2D378-4104-BE9F-8655-C9BDCF54C24F";
+createNode multMatrix -n "LeftEyeLidPinDown0CtrlGrpMM";
+	rename -uid "35BCF4DE-4CA6-16D2-3DBB-3B8355DD06F8";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 1.290868635561369 -1.3677172195804774 2.0512934770855522 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5729626120794541e-13 -3.6708951628687057e-16 0
+		 3.5738079162683789e-13 0.99999999999999989 0 0 2.2204460492503131e-16 -1.1102230246251565e-16 1 0
+		 -1.2908686355607639 1.3677172195809388 -2.0512934770856259 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinDown0CtrlGrpDM";
+	rename -uid "AB56893B-481E-0EAE-3342-1FA69864A2D7";
+createNode multMatrix -n "LeftEyeLidPinDown1CtrlGrpMM";
+	rename -uid "15984F3C-49D9-2EDD-A813-F5BBE9FA3F7A";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 3.0000000277956369 -2.1213208763930189 2.1213197579835343 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437537e-13 1 -5.0487097934144756e-29 0 2.22044604924952e-16 0 0.99999999999999989 0
+		 -3.0000000277947589 2.1213208763940905 -2.1213197579837044 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinDown1CtrlGrpDM";
+	rename -uid "43B647C2-4A46-1C3C-A6A2-8C93D29A07A6";
+createNode multMatrix -n "LeftEyeLidPinDown2CtrlGrpMM";
+	rename -uid "A776A7B2-4CCC-44AD-ABD7-9B90AE1A5380";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" 1 3.5721425817314417e-13 -5.6621374255882996e-14 0
+		 -3.5726976932437537e-13 1 -1.1102230246251565e-16 0 5.6676885407114323e-14 2.0248925449472118e-26 1 0
+		 4.7091314200307712 -1.3677172195755887 2.0512934770853644 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5732528047560663e-13 -2.2204460492503131e-16 0
+		 3.5726976932437548e-13 1.0000000000000002 -7.5730646901217133e-29 0 2.2204460492495203e-16 1.2325951644078309e-32 1 0
+		 -4.7091314200301664 1.3677172195772711 -2.0512934770856308 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "LeftEyeLidPinDown2CtrlGrpDM";
+	rename -uid "86DDD05C-4DA3-719D-E3EE-729ACB7854E7";
+createNode multMatrix -n "RightEyeLidOutUp1CtrlOffGrpMM";
+	rename -uid "70357526-4B53-871C-B1AD-6FB39478112F";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -1.2923203224393445 0.94846662539022208 2.2768129514739366 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5736934891903231e-13 -5.0555403229820826e-16 -2.4651903288156619e-32
+		 -3.5726976932437537e-13 1 0 0 -4.4408920985006262e-16 -5.5511151231257827e-17 0.99999999999999989 5.5511151231257827e-17
+		 -1.2923203224391353 -0.94846662539068383 -2.2768129514738624 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutUp1CtrlOffGrpDM";
+	rename -uid "973F3FF6-4526-27CC-B1E6-0C93BE8920CB";
+createNode multMatrix -n "RightEyeLidOutUp2CtrlOffGrpMM";
+	rename -uid "0F34DAF4-47D5-2FC9-F913-CCAFC1B67D18";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -3.0000000000017875 1.9205435208940231 2.304665627782001 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5726976932437537e-13 -3.3306690738754696e-16 0
+		 -3.5726976932437543e-13 1 -1.5146129380243427e-28 0 -3.4450928483968456e-16 -2.4651903288156619e-32 1 0
+		 -3.0000000000012328 -1.9205435208950956 -2.3046656277818309 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutUp2CtrlOffGrpDM";
+	rename -uid "51F229E1-49F7-BA23-0872-35A426D6CBA6";
+createNode multMatrix -n "RightEyeLidOutUp3CtrlOffGrpMM";
+	rename -uid "C1FA0F2C-4E64-B131-C2FA-9B80CEA0E90A";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -4.7076796775614858 0.94846662538777848 2.2768129514743292 1;
+	setAttr ".i[2]" -type "matrix" -1 -3.5724201374875975e-13 -2.7755575615628914e-16 -2.7755575615628914e-17
+		 -3.5726976932437543e-13 1 -1.0097419586828951e-28 -1.2621774483536189e-29 -3.4450928483968456e-16 2.4651903288156619e-32 1 -1.2325951644078309e-32
+		 -4.7076796775612779 -0.94846662538945981 -2.2768129514740609 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutUp3CtrlOffGrpDM";
+	rename -uid "F78907D1-4286-5F19-71D2-7FBF136DAD13";
+createNode multMatrix -n "RightEyeLidOutDown1CtrlOffGrpMM";
+	rename -uid "3A5037C3-4457-D2A2-926F-ADB9D3CCC284";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049657e-14 2.0363814317343258e-26 1.0000000000000002 0
+		 -1.2923203224379904 -0.94846662539206739 2.2768129514739375 1;
+	setAttr ".i[2]" -type "matrix" -1 -3.5727549067827807e-13 -2.5277701614910433e-16 0
+		 -3.5726976932437543e-13 1 -2.2989935691758031e-28 0 -3.3306690738754696e-16 -1.1102230246251565e-16 1 0
+		 -1.2923203224384596 0.94846662539160598 -2.2768129514738642 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutDown1CtrlOffGrpDM";
+	rename -uid "FDD0BD42-4E05-2E95-6AA8-2483509AA10E";
+createNode multMatrix -n "RightEyeLidOutDown2CtrlOffGrpMM";
+	rename -uid "AA051F89-4568-0ED2-F839-E197BF8CEC8D";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -2.9999999999983635 -1.9205435209155595 2.3046656277676276 1;
+	setAttr ".i[2]" -type "matrix" -1 -3.5726976932437537e-13 -3.3306690738754696e-16 -5.5511151231257827e-17
+		 -3.5726976932437537e-13 1 0 -2.5243548967072378e-29 -3.4450928483968461e-16 0 1 -2.4651903288156619e-32
+		 -2.9999999999991807 1.9205435209144877 -2.3046656277674558 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutDown2CtrlOffGrpDM";
+	rename -uid "1F9665EA-4401-66F4-0F0B-E6BA6130314F";
+createNode multMatrix -n "RightEyeLidOutDown3CtrlOffGrpMM";
+	rename -uid "66E180C2-479C-2E6D-0A2E-03B62A68CE9B";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -4.7076796775601277 -0.94846662539450022 2.2768129514743327 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5726976932437537e-13 -3.8857805861880479e-16 0
+		 -3.5726976932437543e-13 1 -1.2621774483536189e-28 0 -3.4450928483968466e-16 0 1 0
+		 -4.7076796775605976 0.94846662539281867 -2.2768129514740654 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutDown3CtrlOffGrpDM";
+	rename -uid "B639D79F-438D-A1A3-81FE-EB8FBAB51FC8";
+createNode multMatrix -n "RightEyeLidInMainCtrlOffGrpMM";
+	rename -uid "C4FC3A7F-4EC5-F2A9-14A9-D4803CCC4D12";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999967 -3.5721425817314397e-13 5.6942998785818298e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -1.335889611172433 -9.5390081799161035e-13 2.4961416107771877 1;
+	setAttr ".i[2]" -type "matrix" -1 -3.5726976932437543e-13 -5.5425477780193494e-16 -2.4651903288156619e-32
+		 -3.5726976932437543e-13 1 -2.5204589192159571e-28 -1.1210387714598537e-44 -3.3306690738754696e-16 -2.5243548967072378e-29 0.99999999999999989 5.5511151231257827e-17
+		 -1.3358896111725751 4.7670200153389691e-13 -2.4961416107771113 0.99999999999999989;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidInMainCtrlOffGrpDM";
+	rename -uid "3F33FDFE-4076-206D-8BBA-D1B8AD123EA2";
+createNode multMatrix -n "RightEyeLidUpMainCtrlOffGrpMM";
+	rename -uid "E5B6DB3E-40C3-0992-8FCB-CD937218137C";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049632e-14 2.036381431734325e-26 0.99999999999999989 0
+		 -3.0000000000009059 1.6641104123445909 2.4961415950984867 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5738079162683789e-13 -4.4408920985006262e-16 0
+		 -3.5726976932437543e-13 1 -5.0487097934144756e-29 0 -3.4450928483968471e-16 0 1.0000000000000002 0
+		 -3.0000000000004534 -1.6641104123456629 -2.496141595098317 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidUpMainCtrlOffGrpDM";
+	rename -uid "DAA6341C-433B-D2DE-3F21-D68E98D780ED";
+createNode multMatrix -n "RightEyeLidOutMainCtrlOffGrpMM";
+	rename -uid "F300CC42-4702-C927-EDFA-89ACDEE52300";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437543e-13 1 -1.1102230246251565e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -4.664110388827015 -3.3318792268549033e-12 2.4961416107775523 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5726976932437543e-13 -3.3306690738754696e-16 0
+		 -3.5726976932437543e-13 1 -1.2621774483536189e-28 0 -3.4450928483968461e-16 2.6411673455594152e-41 1 0
+		 -4.6641103888271598 1.6657924942708624e-12 -2.4961416107772871 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidOutMainCtrlOffGrpDM";
+	rename -uid "B741EA87-4AAF-C15D-0C3B-2E8C13AD16DE";
+createNode multMatrix -n "RightEyeLidDownMainCtrlOffGrpMM";
+	rename -uid "8672076D-4288-F579-28EA-FEACF32BD092";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437537e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049632e-14 2.036381431734325e-26 0.99999999999999989 0
+		 -2.9999999999985261 -1.6641103923009146 2.4961416084631614 1;
+	setAttr ".i[2]" -type "matrix" -1.0000000000000002 -3.5726976932437537e-13 -3.3306690738754696e-16 0
+		 -3.5726976932437537e-13 0.99999999999999989 -1.0097419586828951e-28 0 -3.4450928483968471e-16 -2.4651903288156619e-32 1.0000000000000002 0
+		 -2.9999999999992633 1.6641103922998421 -2.4961416084629908 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidDownMainCtrlOffGrpDM";
+	rename -uid "A931B34F-462A-CA08-E409-9DA5FF455C13";
+createNode multMatrix -n "RightEyeLidCCtrlOffGrpMM";
+	rename -uid "BBA0E4B1-4A8B-5792-6DB8-F2A0820C328B";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999989 -3.5721425817314407e-13 5.6942998785818311e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -2.9999999999998286 -1.0716427745193706e-12 3.000000000000171 1;
+	setAttr ".i[2]" -type "matrix" -1 -3.5726976932437548e-13 5.6498909575968255e-14 0
+		 -3.5726976932437548e-13 1.0000000000000002 2.0185352391284927e-26 0 5.6498909575968337e-14 2.8681199275369335e-41 1 0
+		 -3 -1.5146129380243431e-28 1.8932661725304283e-29 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidCCtrlOffGrpDM";
+	rename -uid "D1D149F2-4F51-0E14-E995-BEA67158A7F3";
+createNode multMatrix -n "RightEyeLidPinUp0CtrlGrpMM1";
+	rename -uid "866A2609-4B20-E3E3-2AC7-FA8143998D4D";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -1.2908686731953734 1.3677171672555719 2.0512935322828607 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.57296247538792e-13 -2.9905871796220885e-16 0
+		 3.5741308453356443e-13 0.99999999999999989 -2.2773933098050904e-16 0 2.2204460492503131e-16 1.1102230246251565e-16 1 0
+		 1.2908686454008824 -1.3677171672559119 -2.0512935322828532 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinUp0CtrlGrpDM1";
+	rename -uid "53A21D3B-4291-73C4-A50E-1587761545E9";
+createNode multMatrix -n "RightEyeLidPinUp1CtrlGrpMM1";
+	rename -uid "4CB3D610-4602-E6BE-6F15-2A839DC08B6A";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -3.0000000000013962 2.1213208138470439 2.1213198006613361 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -3.3306690738754696e-16 0
+		 3.5726976932437543e-13 1 -1.0097419586828951e-28 0 2.2204460492494927e-16 -2.4651903288156619e-32 1 0
+		 2.9999999722066368 -2.1213208138479946 -2.1213198006613312 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinUp1CtrlGrpDM1";
+	rename -uid "35C1D101-4888-473F-A6D5-82968D36E421";
+createNode multMatrix -n "RightEyeLidPinUp2CtrlGrpMM1";
+	rename -uid "195C68F4-46E3-5E1D-0479-0F90E113D4AC";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -4.7091313268063537 1.3677171672531265 2.0512935322830512 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.2204460492503131e-16 0
+		 3.5726976932437548e-13 1.0000000000000002 -1.0097419586828951e-28 0 2.2204460492494929e-16 0 1.0000000000000002 0
+		 4.7091312990118634 -1.3677171672546877 -2.0512935322830446 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinUp2CtrlGrpDM1";
+	rename -uid "B7891A60-4EB6-B879-2239-CD9AB0722AFE";
+createNode multMatrix -n "RightEyeLidPinDown0CtrlGrpMM1";
+	rename -uid "B0429F6D-4563-49C7-E4C5-5BBDE8D15BF5";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -1.2908686731934107 -1.3677171672574173 2.0512935322828518 1;
+	setAttr ".i[2]" -type "matrix" 1.0000000000000002 -3.5729624753909649e-13 -3.6707509681459429e-16 0
+		 3.5723747641764894e-13 1 2.277393309805083e-16 0 1.1102230246251565e-16 0 1 0 1.2908686453998979 1.3677171672570774 -2.0512935322828465 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinDown0CtrlGrpDM1";
+	rename -uid "FBD85153-4B0C-1597-9475-208B533D0076";
+createNode multMatrix -n "RightEyeLidPinDown1CtrlGrpMM1";
+	rename -uid "BE067E17-4041-E09F-FB9E-F3B87343B642";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -2.9999999999983635 -2.1213208138513289 2.1213198006613387 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5738079162683789e-13 -1.1102230246251565e-16 0
+		 3.5726976932437532e-13 0.99999999999999989 -5.0487097934144756e-29 0 2.2204460492494924e-16 0 1 0
+		 2.9999999722051194 2.1213208138503776 -2.1213198006613316 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinDown1CtrlGrpDM1";
+	rename -uid "7EB462B2-4AC5-BA2F-A7CE-F78E4A81D406";
+createNode multMatrix -n "RightEyeLidPinDown2CtrlGrpMM1";
+	rename -uid "0D1991D3-4663-CFC1-C2C5-43ABF551AAD5";
+	setAttr -s 6 ".i";
+	setAttr ".i[0]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".i[1]" -type "matrix" -0.99999999999999978 -3.5721425817314402e-13 5.6942998785818298e-14 0
+		 -3.5726976932437532e-13 0.99999999999999989 -1.1102230246251564e-16 0 5.6998509937049645e-14 2.0363814317343252e-26 1 0
+		 -4.7091313268043962 -1.3677171672598603 2.0512935322830463 1;
+	setAttr ".i[2]" -type "matrix" 1 -3.5726976932437537e-13 -2.7755575615628914e-16 0
+		 3.5726976932437543e-13 1 -1.2621774483536189e-28 0 2.2204460492494932e-16 1.2325951644078309e-32 1.0000000000000002 0
+		 4.7091312990108847 1.3677171672582993 -2.0512935322830419 1;
+	setAttr ".i[5]" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0;
+createNode decomposeMatrix -n "RightEyeLidPinDown2CtrlGrpDM1";
+	rename -uid "23216646-4BEC-B9B4-D686-42BF22A4467C";
 createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
-	rename -uid "BE1ED129-4578-CE6D-7CC3-A2864DCC1003";
+	rename -uid "5A07428A-4C85-7791-2356-4198FA943667";
 	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
-	setAttr ".tgi[0].vl" -type "double2" -961.90472368210237 -305.95236879492614 ;
-	setAttr ".tgi[0].vh" -type "double2" 961.90472368210237 304.7618926517552 ;
+	setAttr ".tgi[0].vl" -type "double2" -1064.2856719948013 -224.99999105930365 ;
+	setAttr ".tgi[0].vh" -type "double2" 1064.2856719948013 223.80951491613274 ;
+	setAttr -s 12 ".tgi[0].ni";
+	setAttr ".tgi[0].ni[0].x" -250;
+	setAttr ".tgi[0].ni[0].y" -32.857143402099609;
+	setAttr ".tgi[0].ni[0].nvs" 18304;
+	setAttr ".tgi[0].ni[1].x" 81.428573608398438;
+	setAttr ".tgi[0].ni[1].y" -32.857143402099609;
+	setAttr ".tgi[0].ni[1].nvs" 18304;
+	setAttr ".tgi[0].ni[2].x" -250;
+	setAttr ".tgi[0].ni[2].y" -292.85714721679688;
+	setAttr ".tgi[0].ni[2].nvs" 18304;
+	setAttr ".tgi[0].ni[3].x" 81.428573608398438;
+	setAttr ".tgi[0].ni[3].y" -292.85714721679688;
+	setAttr ".tgi[0].ni[3].nvs" 18304;
+	setAttr ".tgi[0].ni[4].x" -250;
+	setAttr ".tgi[0].ni[4].y" -162.85714721679688;
+	setAttr ".tgi[0].ni[4].nvs" 18304;
+	setAttr ".tgi[0].ni[5].x" 81.428573608398438;
+	setAttr ".tgi[0].ni[5].y" -162.85714721679688;
+	setAttr ".tgi[0].ni[5].nvs" 18304;
+	setAttr ".tgi[0].ni[6].x" -290;
+	setAttr ".tgi[0].ni[6].y" 227.14285278320313;
+	setAttr ".tgi[0].ni[6].nvs" 18304;
+	setAttr ".tgi[0].ni[7].x" 61.428569793701172;
+	setAttr ".tgi[0].ni[7].y" 227.14285278320313;
+	setAttr ".tgi[0].ni[7].nvs" 18304;
+	setAttr ".tgi[0].ni[8].x" -290;
+	setAttr ".tgi[0].ni[8].y" 357.14285278320313;
+	setAttr ".tgi[0].ni[8].nvs" 18304;
+	setAttr ".tgi[0].ni[9].x" 61.428569793701172;
+	setAttr ".tgi[0].ni[9].y" 357.14285278320313;
+	setAttr ".tgi[0].ni[9].nvs" 18304;
+	setAttr ".tgi[0].ni[10].x" -290;
+	setAttr ".tgi[0].ni[10].y" 97.142860412597656;
+	setAttr ".tgi[0].ni[10].nvs" 18304;
+	setAttr ".tgi[0].ni[11].x" 61.428569793701172;
+	setAttr ".tgi[0].ni[11].y" 97.142860412597656;
+	setAttr ".tgi[0].ni[11].nvs" 18304;
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -9148,11 +9633,11 @@ select -ne :renderPartition;
 	setAttr -s 2 ".st";
 select -ne :renderGlobalsList1;
 select -ne :defaultShaderList1;
-	setAttr -s 5 ".s";
+	setAttr -s 4 ".s";
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 138 ".u";
+	setAttr -s 139 ".u";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
 	setAttr -s 2 ".dsm";
@@ -9174,67 +9659,71 @@ select -ne :defaultResolution;
 	setAttr ".pa" 1;
 select -ne :defaultColorMgtGlobals;
 	setAttr ".cme" no;
-	setAttr ".cfe" yes;
 	setAttr ".cfp" -type "string" "<MAYA_RESOURCES>/OCIO-configs/Maya-legacy/config.ocio";
-	setAttr ".vtn" -type "string" "sRGB gamma (legacy)";
-	setAttr ".vn" -type "string" "sRGB gamma";
-	setAttr ".dn" -type "string" "legacy";
-	setAttr ".wsn" -type "string" "scene-linear Rec 709/sRGB";
 	setAttr ".ovt" no;
 	setAttr ".povt" no;
-	setAttr ".otn" -type "string" "sRGB gamma (legacy)";
-	setAttr ".potn" -type "string" "sRGB gamma (legacy)";
 select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
 connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidOutCtrlGrp.v";
-connectAttr "LeftEyeLidOutUp1LocPS.p" "LeftEyeLidOutUp1CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp1CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp1CtrlPos.s";
+connectAttr "LeftEyeLidOutUp1CtrlGrpDM.ot" "LeftEyeLidOutUp1CtrlGrp.t";
+connectAttr "LeftEyeLidOutUp1CtrlGrpDM.or" "LeftEyeLidOutUp1CtrlGrp.r";
+connectAttr "LeftEyeLidOutUp1CtrlGrpDM.os" "LeftEyeLidOutUp1CtrlGrp.s";
+connectAttr "LeftEyeLidOutUp1CtrlGrpDM.osh" "LeftEyeLidOutUp1CtrlGrp.sh";
 connectAttr "LeftEyeLidOutUp1CtrlRvsMultMD.o" "LeftEyeLidOutUp1CtrlRvs.t";
 connectAttr "makeNurbCircle8.oc" "LeftEyeLidOutUp1CtrlShape.cr";
-connectAttr "LeftEyeLidOutUp2LocPS.p" "LeftEyeLidOutUp2CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp2CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp2CtrlPos.s";
+connectAttr "LeftEyeLidOutUp2CtrlGrpDM.ot" "LeftEyeLidOutUp2CtrlGrp.t";
+connectAttr "LeftEyeLidOutUp2CtrlGrpDM.or" "LeftEyeLidOutUp2CtrlGrp.r";
+connectAttr "LeftEyeLidOutUp2CtrlGrpDM.os" "LeftEyeLidOutUp2CtrlGrp.s";
+connectAttr "LeftEyeLidOutUp2CtrlGrpDM.osh" "LeftEyeLidOutUp2CtrlGrp.sh";
 connectAttr "LeftEyeLidOutUp2CtrlRvsMultMD.o" "LeftEyeLidOutUp2CtrlRvs.t";
-connectAttr "LeftEyeLidOutUp3LocPS.p" "LeftEyeLidOutUp3CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp3CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp3CtrlPos.s";
+connectAttr "LeftEyeLidOutUp3CtrlGrpDM.ot" "LeftEyeLidOutUp3CtrlGrp.t";
+connectAttr "LeftEyeLidOutUp3CtrlGrpDM.or" "LeftEyeLidOutUp3CtrlGrp.r";
+connectAttr "LeftEyeLidOutUp3CtrlGrpDM.os" "LeftEyeLidOutUp3CtrlGrp.s";
+connectAttr "LeftEyeLidOutUp3CtrlGrpDM.osh" "LeftEyeLidOutUp3CtrlGrp.sh";
 connectAttr "LeftEyeLidOutUp3CtrlRvsMultMD.o" "LeftEyeLidOutUp3CtrlRvs.t";
-connectAttr "LeftEyeLidOutDown1LocPS.p" "LeftEyeLidOutDown1CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown1CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown1CtrlPos.s";
+connectAttr "LeftEyeLidOutDown1CtrlGrpDM.ot" "LeftEyeLidOutDown1CtrlGrp.t";
+connectAttr "LeftEyeLidOutDown1CtrlGrpDM.or" "LeftEyeLidOutDown1CtrlGrp.r";
+connectAttr "LeftEyeLidOutDown1CtrlGrpDM.os" "LeftEyeLidOutDown1CtrlGrp.s";
+connectAttr "LeftEyeLidOutDown1CtrlGrpDM.osh" "LeftEyeLidOutDown1CtrlGrp.sh";
 connectAttr "LeftEyeLidOutDown1CtrlRvsMultMD.o" "LeftEyeLidOutDown1CtrlRvs.t";
-connectAttr "LeftEyeLidOutDown2LocPS.p" "LeftEyeLidOutDown2CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown2CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown2CtrlPos.s";
+connectAttr "LeftEyeLidOutDown2CtrlGrpDM.ot" "LeftEyeLidOutDown2CtrlGrp.t";
+connectAttr "LeftEyeLidOutDown2CtrlGrpDM.or" "LeftEyeLidOutDown2CtrlGrp.r";
+connectAttr "LeftEyeLidOutDown2CtrlGrpDM.os" "LeftEyeLidOutDown2CtrlGrp.s";
+connectAttr "LeftEyeLidOutDown2CtrlGrpDM.osh" "LeftEyeLidOutDown2CtrlGrp.sh";
 connectAttr "LeftEyeLidOutDown2CtrlRvsMultMD.o" "LeftEyeLidOutDown2CtrlRvs.t";
-connectAttr "LeftEyeLidOutDown3LocPS.p" "LeftEyeLidOutDown3CtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown3CtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown3CtrlPos.s";
+connectAttr "LeftEyeLidOutDown3CtrlGrpDM.ot" "LeftEyeLidOutDown3CtrlGrp.t";
+connectAttr "LeftEyeLidOutDown3CtrlGrpDM.or" "LeftEyeLidOutDown3CtrlGrp.r";
+connectAttr "LeftEyeLidOutDown3CtrlGrpDM.os" "LeftEyeLidOutDown3CtrlGrp.s";
+connectAttr "LeftEyeLidOutDown3CtrlGrpDM.osh" "LeftEyeLidOutDown3CtrlGrp.sh";
 connectAttr "LeftEyeLidOutDown3CtrlRvsMultMD.o" "LeftEyeLidOutDown3CtrlRvs.t";
 connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidMainCtrlGrp.v";
-connectAttr "LeftEyeLidInLocPS.p" "LeftEyeLidInCtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidInCtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidInCtrlPos.s";
+connectAttr "LeftEyeLidInMainCtrlGrpDM.ot" "LeftEyeLidInMainCtrlGrp.t";
+connectAttr "LeftEyeLidInMainCtrlGrpDM.or" "LeftEyeLidInMainCtrlGrp.r";
+connectAttr "LeftEyeLidInMainCtrlGrpDM.os" "LeftEyeLidInMainCtrlGrp.s";
+connectAttr "LeftEyeLidInMainCtrlGrpDM.osh" "LeftEyeLidInMainCtrlGrp.sh";
 connectAttr "LefteyeLidInCtrlRvsMultMD.o" "LeftEyeLidInMainCtrlRvs.t";
 connectAttr "makeNurbCircle5.oc" "LeftEyeLidInMainCtrlShape.cr";
-connectAttr "LeftEyeLidUpLocPS.p" "LeftEyeLidUpCtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidUpCtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidUpCtrlPos.s";
+connectAttr "LeftEyeLidUpMainCtrlGrpDM.ot" "LeftEyeLidUpMainCtrlGrp.t";
+connectAttr "LeftEyeLidUpMainCtrlGrpDM.or" "LeftEyeLidUpMainCtrlGrp.r";
+connectAttr "LeftEyeLidUpMainCtrlGrpDM.os" "LeftEyeLidUpMainCtrlGrp.s";
+connectAttr "LeftEyeLidUpMainCtrlGrpDM.osh" "LeftEyeLidUpMainCtrlGrp.sh";
 connectAttr "LeftEyeLidUpCtrlRvsMultMD.o" "LeftEyeLidUpMainCtrlRvs.t";
 connectAttr "makeNurbCircle4.oc" "LeftEyeLidUpMainCtrlShape.cr";
-connectAttr "LeftEyeLidOutLocPS.p" "LeftEyeLidOutCtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutCtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutCtrlPos.s";
+connectAttr "LeftEyeLidOutMainCtrlGrpDM.ot" "LeftEyeLidOutMainCtrlGrp.t";
+connectAttr "LeftEyeLidOutMainCtrlGrpDM.or" "LeftEyeLidOutMainCtrlGrp.r";
+connectAttr "LeftEyeLidOutMainCtrlGrpDM.os" "LeftEyeLidOutMainCtrlGrp.s";
+connectAttr "LeftEyeLidOutMainCtrlGrpDM.osh" "LeftEyeLidOutMainCtrlGrp.sh";
 connectAttr "LefteyeLidOutCtrlRvsMultMD.o" "LeftEyeLidOutMainCtrlRvs.t";
-connectAttr "LeftEyeLidDownLocPS.p" "LeftEyeLidDownCtrlPos.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidDownCtrlPos.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidDownCtrlPos.s";
+connectAttr "LeftEyeLidDownMainCtrlGrpDM.ot" "LeftEyeLidDownMainCtrlGrp.t";
+connectAttr "LeftEyeLidDownMainCtrlGrpDM.or" "LeftEyeLidDownMainCtrlGrp.r";
+connectAttr "LeftEyeLidDownMainCtrlGrpDM.os" "LeftEyeLidDownMainCtrlGrp.s";
+connectAttr "LeftEyeLidDownMainCtrlGrpDM.osh" "LeftEyeLidDownMainCtrlGrp.sh";
 connectAttr "LefteyeLidDownCtrlRvsMultMD.o" "LeftEyeLidDownMainCtrlRvs.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidCCtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.t" "LeftEyeLidCCtrlGrp.t";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidCCtrlGrp.s";
+connectAttr "LeftEyeLidCCtrlOffGrpDM.ot" "LeftEyeLidCCtrlOffGrp.t";
+connectAttr "LeftEyeLidCCtrlOffGrpDM.or" "LeftEyeLidCCtrlOffGrp.r";
+connectAttr "LeftEyeLidCCtrlOffGrpDM.os" "LeftEyeLidCCtrlOffGrp.s";
+connectAttr "LeftEyeLidCCtrlOffGrpDM.osh" "LeftEyeLidCCtrlOffGrp.sh";
 connectAttr "makeNurbCircle6.oc" "LeftEyeLidCCtrlShape.cr";
 connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidSegmentCtrlGrp.v";
 connectAttr "LeftEyeLidUp2CtrlPosGrpDM.ot" "LeftEyeLidUp2CtrlPosGrp.t";
@@ -9262,83 +9751,143 @@ connectAttr "LeftEyeLidSide1RvsMultMD.o" "LeftEyeLidSide1RvsGrp.t";
 connectAttr "LeftEyeLidDown7CtrlPosGrpDM.ot" "LeftEyeLidSide2CtrlPosGrp.t";
 connectAttr "LeftEyeLidSide2RvsMultMD.o" "LeftEyeLidSide2CtrlRvsGrp.t";
 connectAttr "LeftEyeLidRootPoser.mode" "LeftEyeLidPinCtrlGrp.v";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp0CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp0CtrlGrp.s";
-connectAttr "LeftEyeLidPinUpCrv0PosPS.p" "LeftEyeLidPinUp0CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp0CtrlGrpDM.ot" "LeftEyeLidPinUp0CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp0CtrlGrpDM.or" "LeftEyeLidPinUp0CtrlGrp.r";
+connectAttr "LeftEyeLidPinUp0CtrlGrpDM.os" "LeftEyeLidPinUp0CtrlGrp.s";
+connectAttr "LeftEyeLidPinUp0CtrlGrpDM.osh" "LeftEyeLidPinUp0CtrlGrp.sh";
 connectAttr "LeftEyeLidPinUp0CtrlRvsMultMD.o" "LeftEyeLidPinUp0CtrlRvsGrp.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp1CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp1CtrlGrp.s";
-connectAttr "LeftEyeLidPinUpCrv2PosPS.p" "LeftEyeLidPinUp1CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp1CtrlGrpDM.ot" "LeftEyeLidPinUp1CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp1CtrlGrpDM.or" "LeftEyeLidPinUp1CtrlGrp.r";
+connectAttr "LeftEyeLidPinUp1CtrlGrpDM.os" "LeftEyeLidPinUp1CtrlGrp.s";
+connectAttr "LeftEyeLidPinUp1CtrlGrpDM.osh" "LeftEyeLidPinUp1CtrlGrp.sh";
 connectAttr "LeftEyeLidPinUp1CtrlRvsMultMD.o" "LeftEyeLidPinUp1CtrlRvsGrp.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp2CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp2CtrlGrp.s";
-connectAttr "LeftEyeLidPinUpCrv4PosPS.p" "LeftEyeLidPinUp2CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp2CtrlGrpDM.ot" "LeftEyeLidPinUp2CtrlGrp.t";
+connectAttr "LeftEyeLidPinUp2CtrlGrpDM.or" "LeftEyeLidPinUp2CtrlGrp.r";
+connectAttr "LeftEyeLidPinUp2CtrlGrpDM.os" "LeftEyeLidPinUp2CtrlGrp.s";
+connectAttr "LeftEyeLidPinUp2CtrlGrpDM.osh" "LeftEyeLidPinUp2CtrlGrp.sh";
 connectAttr "LeftEyeLidPinUp2CtrlRvsMultMD.o" "LeftEyeLidPinUp2CtrlRvsGrp.t";
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown0CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown0CtrlGrp.s";
-connectAttr "LeftEyeLidPinDownCrv0PosPS.p" "LeftEyeLidPinDown0CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown0CtrlGrpDM.ot" "LeftEyeLidPinDown0CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown0CtrlGrpDM.or" "LeftEyeLidPinDown0CtrlGrp.r";
+connectAttr "LeftEyeLidPinDown0CtrlGrpDM.os" "LeftEyeLidPinDown0CtrlGrp.s";
+connectAttr "LeftEyeLidPinDown0CtrlGrpDM.osh" "LeftEyeLidPinDown0CtrlGrp.sh";
 connectAttr "LeftEyeLidPinDown0CtrlRvsMultMD.o" "LeftEyeLidPinDown0CtrlRvsGrp.t"
 		;
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown1CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown1CtrlGrp.s";
-connectAttr "LeftEyeLidPinDownCrv2PosPS.p" "LeftEyeLidPinDown1CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown1CtrlGrpDM.ot" "LeftEyeLidPinDown1CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown1CtrlGrpDM.or" "LeftEyeLidPinDown1CtrlGrp.r";
+connectAttr "LeftEyeLidPinDown1CtrlGrpDM.os" "LeftEyeLidPinDown1CtrlGrp.s";
+connectAttr "LeftEyeLidPinDown1CtrlGrpDM.osh" "LeftEyeLidPinDown1CtrlGrp.sh";
 connectAttr "LeftEyeLidPinDown1CtrlRvsMultMD.o" "LeftEyeLidPinDown1CtrlRvsGrp.t"
 		;
-connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown2CtrlGrp.r";
-connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown2CtrlGrp.s";
-connectAttr "LeftEyeLidPinDownCrv4PosPS.p" "LeftEyeLidPinDown2CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown2CtrlGrpDM.ot" "LeftEyeLidPinDown2CtrlGrp.t";
+connectAttr "LeftEyeLidPinDown2CtrlGrpDM.or" "LeftEyeLidPinDown2CtrlGrp.r";
+connectAttr "LeftEyeLidPinDown2CtrlGrpDM.os" "LeftEyeLidPinDown2CtrlGrp.s";
+connectAttr "LeftEyeLidPinDown2CtrlGrpDM.osh" "LeftEyeLidPinDown2CtrlGrp.sh";
 connectAttr "LeftEyeLidPinDown2CtrlRvsMultMD.o" "LeftEyeLidPinDown2CtrlRvsGrp.t"
 		;
 connectAttr "RightEyeLidRootPoser.mode" "RightEyeLidOutCtrlGrp.v";
-connectAttr "RightEyeLidOutUp1LocPS.p" "RightEyeLidOutUp1CtrlPos.t";
+connectAttr "RightEyeLidOutUp1CtrlOffGrpDM.ot" "RightEyeLidOutUp1CtrlOffGrp.t";
+connectAttr "RightEyeLidOutUp1CtrlOffGrpDM.or" "RightEyeLidOutUp1CtrlOffGrp.r";
+connectAttr "RightEyeLidOutUp1CtrlOffGrpDM.os" "RightEyeLidOutUp1CtrlOffGrp.s";
+connectAttr "RightEyeLidOutUp1CtrlOffGrpDM.osh" "RightEyeLidOutUp1CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutUp1CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutUp1CtrlGrp.s";
 connectAttr "RightEyeLidOutUp1CtrlRvsMultMD.o" "RightEyeLidOutUp1CtrlRvs.t";
 connectAttr "makeNurbCircle13.oc" "RightEyeLidOutUp1CtrlShape.cr";
-connectAttr "RightEyeLidOutUp2LocPS.p" "RightEyeLidOutUp2CtrlPos.t";
+connectAttr "RightEyeLidOutUp2CtrlOffGrpDM.ot" "RightEyeLidOutUp2CtrlOffGrp.t";
+connectAttr "RightEyeLidOutUp2CtrlOffGrpDM.or" "RightEyeLidOutUp2CtrlOffGrp.r";
+connectAttr "RightEyeLidOutUp2CtrlOffGrpDM.os" "RightEyeLidOutUp2CtrlOffGrp.s";
+connectAttr "RightEyeLidOutUp2CtrlOffGrpDM.osh" "RightEyeLidOutUp2CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutUp2CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutUp2CtrlGrp.s";
 connectAttr "RightEyeLidOutUp2CtrlRvsMultMD.o" "RightEyeLidOutUp2CtrlRvs.t";
-connectAttr "RightEyeLidOutUp3LocPS.p" "RightEyeLidOutUp3CtrlPos.t";
+connectAttr "RightEyeLidOutUp3CtrlOffGrpDM.ot" "RightEyeLidOutUp3CtrlOffGrp.t";
+connectAttr "RightEyeLidOutUp3CtrlOffGrpDM.or" "RightEyeLidOutUp3CtrlOffGrp.r";
+connectAttr "RightEyeLidOutUp3CtrlOffGrpDM.os" "RightEyeLidOutUp3CtrlOffGrp.s";
+connectAttr "RightEyeLidOutUp3CtrlOffGrpDM.osh" "RightEyeLidOutUp3CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutUp3CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutUp3CtrlGrp.s";
 connectAttr "RightEyeLidOutUp3CtrlRvsMultMD.o" "RightEyeLidOutUp3CtrlRvs.t";
-connectAttr "RightEyeLidOutDown1LocPS.p" "RightEyeLidOutDown1CtrlPos.t";
+connectAttr "RightEyeLidOutDown1CtrlOffGrpDM.ot" "RightEyeLidOutDown1CtrlOffGrp.t"
+		;
+connectAttr "RightEyeLidOutDown1CtrlOffGrpDM.or" "RightEyeLidOutDown1CtrlOffGrp.r"
+		;
+connectAttr "RightEyeLidOutDown1CtrlOffGrpDM.os" "RightEyeLidOutDown1CtrlOffGrp.s"
+		;
+connectAttr "RightEyeLidOutDown1CtrlOffGrpDM.osh" "RightEyeLidOutDown1CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutDown1CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutDown1CtrlGrp.s";
 connectAttr "RightEyeLidOutDown1CtrlRvsMultMD.o" "RightEyeLidOutDown1CtrlRvs.t";
-connectAttr "RightEyeLidOutDown2LocPS.p" "RightEyeLidOutDown2CtrlPos.t";
+connectAttr "RightEyeLidOutDown2CtrlOffGrpDM.ot" "RightEyeLidOutDown2CtrlOffGrp.t"
+		;
+connectAttr "RightEyeLidOutDown2CtrlOffGrpDM.or" "RightEyeLidOutDown2CtrlOffGrp.r"
+		;
+connectAttr "RightEyeLidOutDown2CtrlOffGrpDM.os" "RightEyeLidOutDown2CtrlOffGrp.s"
+		;
+connectAttr "RightEyeLidOutDown2CtrlOffGrpDM.osh" "RightEyeLidOutDown2CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutDown2CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutDown2CtrlGrp.s";
 connectAttr "RightEyeLidOutDown2CtrlRvsMultMD.o" "RightEyeLidOutDown2CtrlRvs.t";
-connectAttr "RightEyeLidOutDown3LocPS.p" "RightEyeLidOutDown3CtrlPos.t";
+connectAttr "RightEyeLidOutDown3CtrlOffGrpDM.ot" "RightEyeLidOutDown3CtrlOffGrp.t"
+		;
+connectAttr "RightEyeLidOutDown3CtrlOffGrpDM.or" "RightEyeLidOutDown3CtrlOffGrp.r"
+		;
+connectAttr "RightEyeLidOutDown3CtrlOffGrpDM.os" "RightEyeLidOutDown3CtrlOffGrp.s"
+		;
+connectAttr "RightEyeLidOutDown3CtrlOffGrpDM.osh" "RightEyeLidOutDown3CtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutDown3CtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutDown3CtrlGrp.s";
 connectAttr "RightEyeLidOutDown3CtrlRvsMultMD.o" "RightEyeLidOutDown3CtrlRvs.t";
 connectAttr "RightEyeLidRootPoser.mode" "RightEyeLidMainCtrlGrp.v";
-connectAttr "RightEyeLidInLocPS.p" "RightEyeLidInCtrlPos.t";
+connectAttr "RightEyeLidInMainCtrlOffGrpDM.ot" "RightEyeLidInMainCtrlOffGrp.t";
+connectAttr "RightEyeLidInMainCtrlOffGrpDM.or" "RightEyeLidInMainCtrlOffGrp.r";
+connectAttr "RightEyeLidInMainCtrlOffGrpDM.os" "RightEyeLidInMainCtrlOffGrp.s";
+connectAttr "RightEyeLidInMainCtrlOffGrpDM.osh" "RightEyeLidInMainCtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidInMainCtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidInMainCtrlGrp.s";
 connectAttr "RighteyeLidInCtrlRvsMultMD.o" "RightEyeLidInMainCtrlRvs.t";
 connectAttr "makeNurbCircle10.oc" "RightEyeLidInMainCtrlShape.cr";
-connectAttr "RightEyeLidUpLocPS.p" "RightEyeLidUpCtrlPos.t";
+connectAttr "RightEyeLidUpMainCtrlOffGrpDM.ot" "RightEyeLidUpMainCtrlOffGrp.t";
+connectAttr "RightEyeLidUpMainCtrlOffGrpDM.or" "RightEyeLidUpMainCtrlOffGrp.r";
+connectAttr "RightEyeLidUpMainCtrlOffGrpDM.os" "RightEyeLidUpMainCtrlOffGrp.s";
+connectAttr "RightEyeLidUpMainCtrlOffGrpDM.osh" "RightEyeLidUpMainCtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidUpMainCtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidUpMainCtrlGrp.s";
 connectAttr "RightEyeLidUpCtrlRvsMultMD.o" "RightEyeLidUpMainCtrlRvs.t";
 connectAttr "makeNurbCircle9.oc" "RightEyeLidUpMainCtrlShape.cr";
-connectAttr "RightEyeLidOutLocPS.p" "RightEyeLidOutCtrlPos.t";
+connectAttr "RightEyeLidOutMainCtrlOffGrpDM.ot" "RightEyeLidOutMainCtrlOffGrp.t"
+		;
+connectAttr "RightEyeLidOutMainCtrlOffGrpDM.or" "RightEyeLidOutMainCtrlOffGrp.r"
+		;
+connectAttr "RightEyeLidOutMainCtrlOffGrpDM.os" "RightEyeLidOutMainCtrlOffGrp.s"
+		;
+connectAttr "RightEyeLidOutMainCtrlOffGrpDM.osh" "RightEyeLidOutMainCtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidOutMainCtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidOutMainCtrlGrp.s";
 connectAttr "RighteyeLidOutCtrlRvsMultMD.o" "RightEyeLidOutMainCtrlRvs.t";
-connectAttr "RightEyeLidDownLocPS.p" "RightEyeLidDownCtrlPos.t";
+connectAttr "RightEyeLidDownMainCtrlOffGrpDM.ot" "RightEyeLidDownMainCtrlOffGrp.t"
+		;
+connectAttr "RightEyeLidDownMainCtrlOffGrpDM.or" "RightEyeLidDownMainCtrlOffGrp.r"
+		;
+connectAttr "RightEyeLidDownMainCtrlOffGrpDM.os" "RightEyeLidDownMainCtrlOffGrp.s"
+		;
+connectAttr "RightEyeLidDownMainCtrlOffGrpDM.osh" "RightEyeLidDownMainCtrlOffGrp.sh"
+		;
 connectAttr "RightEyeLidRootPoser.r" "RightEyeLidDownMainCtrlGrp.r";
 connectAttr "RightEyeLidRootPoser.s" "RightEyeLidDownMainCtrlGrp.s";
 connectAttr "RighteyeLidDownCtrlRvsMultMD.o" "RightEyeLidDownMainCtrlRvs.t";
-connectAttr "RightEyeLidRootPoser.r" "RightEyeLidCCtrlGrp.r";
-connectAttr "RightEyeLidRootPoser.t" "RightEyeLidCCtrlGrp.t";
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidCCtrlGrp.s";
-connectAttr "LeftEyeLidCCtrlOffGrp.t" "RightEyeLidCCtrlOffGrp.t";
-connectAttr "LeftEyeLidCCtrlOffGrp.r" "RightEyeLidCCtrlOffGrp.r";
+connectAttr "RightEyeLidCCtrlOffGrpDM.ot" "RightEyeLidCCtrlOffGrp.t";
+connectAttr "RightEyeLidCCtrlOffGrpDM.or" "RightEyeLidCCtrlOffGrp.r";
+connectAttr "RightEyeLidCCtrlOffGrpDM.os" "RightEyeLidCCtrlOffGrp.s";
+connectAttr "RightEyeLidCCtrlOffGrpDM.osh" "RightEyeLidCCtrlOffGrp.sh";
 connectAttr "makeNurbCircle11.oc" "RightEyeLidCCtrlShape.cr";
 connectAttr "RightEyeLidRootPoser.mode" "RightEyeLidSegmentCtrlGrp.v";
 connectAttr "RightEyeLidUp2CtrlPosGrpDM.ot" "RightEyeLidUp2CtrlPosGrp.t";
@@ -9366,31 +9915,37 @@ connectAttr "RightEyeLidUp1CtrlRvsMultMD.o" "RightEyeLidSide1CtrlRvsGrp.t";
 connectAttr "RightEyeLidDown7CtrlPosGrpDM.ot" "RightEyeLidSide2CtrlPosGrp.t";
 connectAttr "RightEyeLidSide2CtrlRvsMultMD.o" "RightEyeLidSide2CtrlRvsGrp.t";
 connectAttr "RightEyeLidRootPoser.mode" "RightEyeLidPinCtrlGrp.v";
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp0CtrlGrp.s";
-connectAttr "RightEyeLidPinUp0CtrlGrpDM.or" "RightEyeLidPinUp0CtrlGrp.r";
-connectAttr "RightEyeLidPinUpCrv0PosPS.p" "RightEyeLidPinUp0CtrlGrp.t";
+connectAttr "RightEyeLidPinUp0CtrlGrpDM1.ot" "RightEyeLidPinUp0CtrlGrp.t";
+connectAttr "RightEyeLidPinUp0CtrlGrpDM1.or" "RightEyeLidPinUp0CtrlGrp.r";
+connectAttr "RightEyeLidPinUp0CtrlGrpDM1.os" "RightEyeLidPinUp0CtrlGrp.s";
+connectAttr "RightEyeLidPinUp0CtrlGrpDM1.osh" "RightEyeLidPinUp0CtrlGrp.sh";
 connectAttr "RightEyeLidPinUp0CtrlRvsMultMD.o" "RightEyeLidPinUp0CtrlRvsGrp.t";
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp1CtrlGrp.s";
-connectAttr "RightEyeLidPinUp1CtrlGrpDM.or" "RightEyeLidPinUp1CtrlGrp.r";
-connectAttr "RightEyeLidPinUpCrv2PosPS.p" "RightEyeLidPinUp1CtrlGrp.t";
+connectAttr "RightEyeLidPinUp1CtrlGrpDM1.ot" "RightEyeLidPinUp1CtrlGrp.t";
+connectAttr "RightEyeLidPinUp1CtrlGrpDM1.or" "RightEyeLidPinUp1CtrlGrp.r";
+connectAttr "RightEyeLidPinUp1CtrlGrpDM1.os" "RightEyeLidPinUp1CtrlGrp.s";
+connectAttr "RightEyeLidPinUp1CtrlGrpDM1.osh" "RightEyeLidPinUp1CtrlGrp.sh";
 connectAttr "RightEyeLidPinUp1CtrlRvsMultMD.o" "RightEyeLidPinUp1CtrlRvsGrp.t";
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp2CtrlGrp.s";
-connectAttr "RightEyeLidPinUp2CtrlGrpDM.or" "RightEyeLidPinUp2CtrlGrp.r";
-connectAttr "RightEyeLidPinUpCrv4PosPS.p" "RightEyeLidPinUp2CtrlGrp.t";
+connectAttr "RightEyeLidPinUp2CtrlGrpDM1.ot" "RightEyeLidPinUp2CtrlGrp.t";
+connectAttr "RightEyeLidPinUp2CtrlGrpDM1.or" "RightEyeLidPinUp2CtrlGrp.r";
+connectAttr "RightEyeLidPinUp2CtrlGrpDM1.os" "RightEyeLidPinUp2CtrlGrp.s";
+connectAttr "RightEyeLidPinUp2CtrlGrpDM1.osh" "RightEyeLidPinUp2CtrlGrp.sh";
 connectAttr "RightEyeLidPinUp2CtrlRvsMultMD.o" "RightEyeLidPinUp2CtrlRvsGrp.t";
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown0CtrlGrp.s";
-connectAttr "RightEyeLidPinDown0CtrlGrpDM.or" "RightEyeLidPinDown0CtrlGrp.r";
-connectAttr "RightEyeLidPinDownCrv0PosPS.p" "RightEyeLidPinDown0CtrlGrp.t";
+connectAttr "RightEyeLidPinDown0CtrlGrpDM1.ot" "RightEyeLidPinDown0CtrlGrp.t";
+connectAttr "RightEyeLidPinDown0CtrlGrpDM1.or" "RightEyeLidPinDown0CtrlGrp.r";
+connectAttr "RightEyeLidPinDown0CtrlGrpDM1.os" "RightEyeLidPinDown0CtrlGrp.s";
+connectAttr "RightEyeLidPinDown0CtrlGrpDM1.osh" "RightEyeLidPinDown0CtrlGrp.sh";
 connectAttr "RightEyeLidPinDown0CtrlRvsMultMD.o" "RightEyeLidPinDown0CtrlRvsGrp.t"
 		;
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown1CtrlGrp.s";
-connectAttr "RightEyeLidPinDown1CtrlGrpDM.or" "RightEyeLidPinDown1CtrlGrp.r";
-connectAttr "RightEyeLidPinDownCrv2PosPS.p" "RightEyeLidPinDown1CtrlGrp.t";
+connectAttr "RightEyeLidPinDown1CtrlGrpDM1.ot" "RightEyeLidPinDown1CtrlGrp.t";
+connectAttr "RightEyeLidPinDown1CtrlGrpDM1.or" "RightEyeLidPinDown1CtrlGrp.r";
+connectAttr "RightEyeLidPinDown1CtrlGrpDM1.os" "RightEyeLidPinDown1CtrlGrp.s";
+connectAttr "RightEyeLidPinDown1CtrlGrpDM1.osh" "RightEyeLidPinDown1CtrlGrp.sh";
 connectAttr "RightEyeLidPinDown1CtrlRvsMultMD.o" "RightEyeLidPinDown1CtrlRvsGrp.t"
 		;
-connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown2CtrlGrp.s";
-connectAttr "RightEyeLidPinDown2CtrlGrpDM.or" "RightEyeLidPinDown2CtrlGrp.r";
-connectAttr "RightEyeLidPinDownCrv4PosPS.p" "RightEyeLidPinDown2CtrlGrp.t";
+connectAttr "RightEyeLidPinDown2CtrlGrpDM1.ot" "RightEyeLidPinDown2CtrlGrp.t";
+connectAttr "RightEyeLidPinDown2CtrlGrpDM1.or" "RightEyeLidPinDown2CtrlGrp.r";
+connectAttr "RightEyeLidPinDown2CtrlGrpDM1.os" "RightEyeLidPinDown2CtrlGrp.s";
+connectAttr "RightEyeLidPinDown2CtrlGrpDM1.osh" "RightEyeLidPinDown2CtrlGrp.sh";
 connectAttr "RightEyeLidPinDown2CtrlRvsMultMD.o" "RightEyeLidPinDown2CtrlRvsGrp.t"
 		;
 connectAttr "LeftEyeLidInLocShape.wp" "LeftEyeLidUpCrvShape.cp[0]";
@@ -9728,6 +10283,57 @@ connectAttr "LeftEyeLidCtrlPosCrvPC8.p" "LeftEyeLidCtrl8Pos.t";
 connectAttr "LeftEyeLidCtrlPosCrvPC9.p" "LeftEyeLidCtrl9Pos.t";
 connectAttr "LeftEyeLidCtrlPosCrvPC10.p" "LeftEyeLidCtrl10Pos.t";
 connectAttr "LeftEyeLidCtrlPosCrvPC11.p" "LeftEyeLidCtrl11Pos.t";
+connectAttr "LeftEyeLidOutUp1LocPS.p" "LeftEyeLidOutUp1CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp1CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp1CtrlPos.s";
+connectAttr "LeftEyeLidOutUp2LocPS.p" "LeftEyeLidOutUp2CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp2CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp2CtrlPos.s";
+connectAttr "LeftEyeLidOutUp3LocPS.p" "LeftEyeLidOutUp3CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutUp3CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutUp3CtrlPos.s";
+connectAttr "LeftEyeLidOutDown1LocPS.p" "LeftEyeLidOutDown1CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown1CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown1CtrlPos.s";
+connectAttr "LeftEyeLidOutDown2LocPS.p" "LeftEyeLidOutDown2CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown2CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown2CtrlPos.s";
+connectAttr "LeftEyeLidOutDown3LocPS.p" "LeftEyeLidOutDown3CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutDown3CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutDown3CtrlPos.s";
+connectAttr "LeftEyeLidInLocPS.p" "LeftEyeLidInCtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidInCtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidInCtrlPos.s";
+connectAttr "LeftEyeLidUpLocPS.p" "LeftEyeLidUpCtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidUpCtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidUpCtrlPos.s";
+connectAttr "LeftEyeLidOutLocPS.p" "LeftEyeLidOutCtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidOutCtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidOutCtrlPos.s";
+connectAttr "LeftEyeLidDownLocPS.p" "LeftEyeLidDownCtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidDownCtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidDownCtrlPos.s";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidCCtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.t" "LeftEyeLidCCtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidCCtrlPos.s";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp0CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp0CtrlPos.s";
+connectAttr "LeftEyeLidPinUpCrv0PosPS.p" "LeftEyeLidPinUp0CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp1CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp1CtrlPos.s";
+connectAttr "LeftEyeLidPinUpCrv2PosPS.p" "LeftEyeLidPinUp1CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinUp2CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinUp2CtrlPos.s";
+connectAttr "LeftEyeLidPinUpCrv4PosPS.p" "LeftEyeLidPinUp2CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown0CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown0CtrlPos.s";
+connectAttr "LeftEyeLidPinDownCrv0PosPS.p" "LeftEyeLidPinDown0CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown1CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown1CtrlPos.s";
+connectAttr "LeftEyeLidPinDownCrv2PosPS.p" "LeftEyeLidPinDown1CtrlPos.t";
+connectAttr "LeftEyeLidRootPoser.r" "LeftEyeLidPinDown2CtrlPos.r";
+connectAttr "LeftEyeLidRootPoser.s" "LeftEyeLidPinDown2CtrlPos.s";
+connectAttr "LeftEyeLidPinDownCrv4PosPS.p" "LeftEyeLidPinDown2CtrlPos.t";
 connectAttr "LeftEyeLidRootPoser.sy" "LeftEyeLidRootPoser.sx" -l on;
 connectAttr "LeftEyeLidRootPoser.sy" "LeftEyeLidRootPoser.sz" -l on;
 connectAttr "makeNurbCircle7.oc" "LeftEyeLidRootPoserShape.cr";
@@ -9771,9 +10377,9 @@ connectAttr "LeftEyeLidPinUp2Ctrl.t" "LeftEyeLidPinUp3LocGrp.t";
 connectAttr "LeftEyeLidPinDown0Ctrl.t" "LeftEyeLidPinDown1LocGrp.t";
 connectAttr "LeftEyeLidPinDown1Ctrl.t" "LeftEyeLidPinDown2LocGrp.t";
 connectAttr "LeftEyeLidPinDown2Ctrl.t" "LeftEyeLidPinDown3LocGrp.t";
-connectAttr "LeftEyeCorneaCtrl.t" "LeftEyeCorneaCls.t";
-connectAttr "LeftEyeCorneaCtrl.r" "LeftEyeCorneaCls.r";
-connectAttr "LeftEyeCorneaCtrl.s" "LeftEyeCorneaCls.s";
+connectAttr "LeftEyeCorneaPoser.t" "LeftEyeCorneaCls.t";
+connectAttr "LeftEyeCorneaPoser.r" "LeftEyeCorneaCls.r";
+connectAttr "LeftEyeCorneaPoser.s" "LeftEyeCorneaCls.s";
 connectAttr "RightEyeLidInLocShape.wp" "RightEyeLidUpCrvShape.cp[0]";
 connectAttr "RightEyeLidInLocShape.wp" "RightEyeLidUpCrvShape.cp[1]";
 connectAttr "RightEyeLidUpCvPos2Shape.wp" "RightEyeLidUpCrvShape.cp[2]";
@@ -10132,6 +10738,37 @@ connectAttr "RightEyeLidCtrlPosCrvPC8.p" "RightEyeLidCtrl8Pos.t";
 connectAttr "RightEyeLidCtrlPosCrvPC9.p" "RightEyeLidCtrl9Pos.t";
 connectAttr "RightEyeLidCtrlPosCrvPC10.p" "RightEyeLidCtrl10Pos.t";
 connectAttr "RightEyeLidCtrlPosCrvPC11.p" "RightEyeLidCtrl11Pos.t";
+connectAttr "RightEyeLidOutUp1LocPS.p" "RightEyeLidOutUp1CtrlPos.t";
+connectAttr "RightEyeLidOutUp2LocPS.p" "RightEyeLidOutUp2CtrlPos.t";
+connectAttr "RightEyeLidOutUp3LocPS.p" "RightEyeLidOutUp3CtrlPos.t";
+connectAttr "RightEyeLidOutDown1LocPS.p" "RightEyeLidOutDown1CtrlPos.t";
+connectAttr "RightEyeLidOutDown2LocPS.p" "RightEyeLidOutDown2CtrlPos.t";
+connectAttr "RightEyeLidOutDown3LocPS.p" "RightEyeLidOutDown3CtrlPos.t";
+connectAttr "RightEyeLidInLocPS.p" "RightEyeLidInCtrlPos.t";
+connectAttr "RightEyeLidUpLocPS.p" "RightEyeLidUpCtrlPos.t";
+connectAttr "RightEyeLidOutLocPS.p" "RightEyeLidOutCtrlPos.t";
+connectAttr "RightEyeLidDownLocPS.p" "RightEyeLidDownCtrlPos.t";
+connectAttr "RightEyeLidRootPoser.r" "RightEyeLidCCtrlPos.r";
+connectAttr "RightEyeLidRootPoser.t" "RightEyeLidCCtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidCCtrlPos.s";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp0CtrlPos.s";
+connectAttr "RightEyeLidPinUp0CtrlGrpDM.or" "RightEyeLidPinUp0CtrlPos.r";
+connectAttr "RightEyeLidPinUpCrv0PosPS.p" "RightEyeLidPinUp0CtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp1CtrlPos.s";
+connectAttr "RightEyeLidPinUp1CtrlGrpDM.or" "RightEyeLidPinUp1CtrlPos.r";
+connectAttr "RightEyeLidPinUpCrv2PosPS.p" "RightEyeLidPinUp1CtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinUp2CtrlPos.s";
+connectAttr "RightEyeLidPinUp2CtrlGrpDM.or" "RightEyeLidPinUp2CtrlPos.r";
+connectAttr "RightEyeLidPinUpCrv4PosPS.p" "RightEyeLidPinUp2CtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown0CtrlPos.s";
+connectAttr "RightEyeLidPinDown0CtrlGrpDM.or" "RightEyeLidPinDown0CtrlPos.r";
+connectAttr "RightEyeLidPinDownCrv0PosPS.p" "RightEyeLidPinDown0CtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown1CtrlPos.s";
+connectAttr "RightEyeLidPinDown1CtrlGrpDM.or" "RightEyeLidPinDown1CtrlPos.r";
+connectAttr "RightEyeLidPinDownCrv2PosPS.p" "RightEyeLidPinDown1CtrlPos.t";
+connectAttr "RightEyeLidRootPoser.s" "RightEyeLidPinDown2CtrlPos.s";
+connectAttr "RightEyeLidPinDown2CtrlGrpDM.or" "RightEyeLidPinDown2CtrlPos.r";
+connectAttr "RightEyeLidPinDownCrv4PosPS.p" "RightEyeLidPinDown2CtrlPos.t";
 connectAttr "RightEyeLidRootPoser.sy" "RightEyeLidRootPoser.sx" -l on;
 connectAttr "RightEyeLidRootPoser.sy" "RightEyeLidRootPoser.sz" -l on;
 connectAttr "LeftEyeLidRootPoser.sy" "RightEyeLidRootPoser.sy";
@@ -10211,9 +10848,9 @@ connectAttr "LeftEyeLidPinDown2CvPos1.t" "RightEyeLidPinDown2CvPos1.t";
 connectAttr "LeftEyeLidPinDown2CvPos2.t" "RightEyeLidPinDown2CvPos2.t";
 connectAttr "RightEyeLidPinDown2Ctrl.t" "RightEyeLidPinDown3LocGrp.t";
 connectAttr "LeftEyeLidPinDown3Pos.t" "RightEyeLidPinDown3Pos.t";
-connectAttr "RightEyeCorneaCtrl.t" "RightEyeCorneaCls.t";
-connectAttr "RightEyeCorneaCtrl.r" "RightEyeCorneaCls.r";
-connectAttr "RightEyeCorneaCtrl.s" "RightEyeCorneaCls.s";
+connectAttr "RightEyeCorneaPoser.t" "RightEyeCorneaCls.t";
+connectAttr "RightEyeCorneaPoser.r" "RightEyeCorneaCls.r";
+connectAttr "RightEyeCorneaPoser.s" "RightEyeCorneaCls.s";
 connectAttr "LeftEyeLidOutUp0AimPos_aimConstraint1.crx" "LeftEyeLidOutUp0AimPos.rx"
 		;
 connectAttr "LeftEyeLidOutUp0AimPos_aimConstraint1.cry" "LeftEyeLidOutUp0AimPos.ry"
@@ -12294,26 +12931,26 @@ connectAttr "RightEyeLidPinDownJntCrvShape.ws" "RightEyeLidPinDownJntCrvPC.ic";
 connectAttr "RightEyeLidPinDownJntCrvShape.ws" "RightEyeLidPinDownJntCrvPC1.ic";
 connectAttr "RightEyeLidPinDownJntCrvShape.ws" "RightEyeLidPinDownJntCrvPC2.ic";
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinUp2CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinUp2CtrlGrp.pim" "RightEyeLidPinUp2CtrlGrpMM.i[3]";
+connectAttr "RightEyeLidPinUp2CtrlPos.pim" "RightEyeLidPinUp2CtrlGrpMM.i[3]";
 connectAttr "RightEyeLidPinUp2CtrlGrpMM.o" "RightEyeLidPinUp2CtrlGrpDM.imat";
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinDown1CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinDown1CtrlGrp.pim" "RightEyeLidPinDown1CtrlGrpMM.i[3]"
+connectAttr "RightEyeLidPinDown1CtrlPos.pim" "RightEyeLidPinDown1CtrlGrpMM.i[3]"
 		;
 connectAttr "RightEyeLidPinDown1CtrlGrpMM.o" "RightEyeLidPinDown1CtrlGrpDM.imat"
 		;
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinUp1CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinUp1CtrlGrp.pim" "RightEyeLidPinUp1CtrlGrpMM.i[3]";
+connectAttr "RightEyeLidPinUp1CtrlPos.pim" "RightEyeLidPinUp1CtrlGrpMM.i[3]";
 connectAttr "RightEyeLidPinUp1CtrlGrpMM.o" "RightEyeLidPinUp1CtrlGrpDM.imat";
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinUp0CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinUp0CtrlGrp.pim" "RightEyeLidPinUp0CtrlGrpMM.i[3]";
+connectAttr "RightEyeLidPinUp0CtrlPos.pim" "RightEyeLidPinUp0CtrlGrpMM.i[3]";
 connectAttr "RightEyeLidPinUp0CtrlGrpMM.o" "RightEyeLidPinUp0CtrlGrpDM.imat";
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinDown0CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinDown0CtrlGrp.pim" "RightEyeLidPinDown0CtrlGrpMM.i[3]"
+connectAttr "RightEyeLidPinDown0CtrlPos.pim" "RightEyeLidPinDown0CtrlGrpMM.i[3]"
 		;
 connectAttr "RightEyeLidPinDown0CtrlGrpMM.o" "RightEyeLidPinDown0CtrlGrpDM.imat"
 		;
 connectAttr "RightEyeLidRootPoser.wm" "RightEyeLidPinDown2CtrlGrpMM.i[2]";
-connectAttr "RightEyeLidPinDown2CtrlGrp.pim" "RightEyeLidPinDown2CtrlGrpMM.i[3]"
+connectAttr "RightEyeLidPinDown2CtrlPos.pim" "RightEyeLidPinDown2CtrlGrpMM.i[3]"
 		;
 connectAttr "RightEyeLidPinDown2CtrlGrpMM.o" "RightEyeLidPinDown2CtrlGrpDM.imat"
 		;
@@ -12411,6 +13048,165 @@ connectAttr "RightEyeLidOutDown1ZRvs.o" "blendTwoAttr1.i[0]";
 connectAttr "RightEyeLidOutDown2ZRvs.o" "blendTwoAttr1.i[1]";
 connectAttr "RightEyeLidOutDown3ZRvs.o" "blendTwoAttr2.i[0]";
 connectAttr "RightEyeLidOutDown2ZRvs.o" "blendTwoAttr2.i[1]";
+connectAttr "defaultRedshiftPostEffects.msg" ":redshiftOptions.postEffects";
+connectAttr "LeftEyeLidOutUp1CtrlPos.wm" "LeftEyeLidOutUp1CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutUp1CtrlGrp.pim" "LeftEyeLidOutUp1CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutUp1CtrlGrpMM.o" "LeftEyeLidOutUp1CtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutUp2CtrlPos.wm" "LeftEyeLidOutUp2CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutUp2CtrlGrp.pim" "LeftEyeLidOutUp2CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutUp2CtrlGrpMM.o" "LeftEyeLidOutUp2CtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutUp3CtrlPos.wm" "LeftEyeLidOutUp3CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutUp3CtrlGrp.pim" "LeftEyeLidOutUp3CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutUp3CtrlGrpMM.o" "LeftEyeLidOutUp3CtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutDown1CtrlPos.wm" "LeftEyeLidOutDown1CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutDown1CtrlGrp.pim" "LeftEyeLidOutDown1CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutDown1CtrlGrpMM.o" "LeftEyeLidOutDown1CtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutDown2CtrlPos.wm" "LeftEyeLidOutDown2CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutDown2CtrlGrp.pim" "LeftEyeLidOutDown2CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutDown2CtrlGrpMM.o" "LeftEyeLidOutDown2CtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutDown3CtrlPos.wm" "LeftEyeLidOutDown3CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutDown3CtrlGrp.pim" "LeftEyeLidOutDown3CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutDown3CtrlGrpMM.o" "LeftEyeLidOutDown3CtrlGrpDM.imat";
+connectAttr "LeftEyeLidInCtrlPos.wm" "LeftEyeLidInMainCtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidInMainCtrlGrp.pim" "LeftEyeLidInMainCtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidInMainCtrlGrpMM.o" "LeftEyeLidInMainCtrlGrpDM.imat";
+connectAttr "LeftEyeLidUpCtrlPos.wm" "LeftEyeLidUpMainCtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidUpMainCtrlGrp.pim" "LeftEyeLidUpMainCtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidUpMainCtrlGrpMM.o" "LeftEyeLidUpMainCtrlGrpDM.imat";
+connectAttr "LeftEyeLidOutCtrlPos.wm" "LeftEyeLidOutMainCtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidOutMainCtrlGrp.pim" "LeftEyeLidOutMainCtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidOutMainCtrlGrpMM.o" "LeftEyeLidOutMainCtrlGrpDM.imat";
+connectAttr "LeftEyeLidDownCtrlPos.wm" "LeftEyeLidDownMainCtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidDownMainCtrlGrp.pim" "LeftEyeLidDownMainCtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidDownMainCtrlGrpMM.o" "LeftEyeLidDownMainCtrlGrpDM.imat";
+connectAttr "LeftEyeLidCCtrlPos.wm" "LeftEyeLidCCtrlOffGrpMM.i[3]";
+connectAttr "LeftEyeLidCCtrlOffGrp.pim" "LeftEyeLidCCtrlOffGrpMM.i[4]";
+connectAttr "LeftEyeLidCCtrlOffGrpMM.o" "LeftEyeLidCCtrlOffGrpDM.imat";
+connectAttr "LeftEyeLidPinUp0CtrlPos.wm" "LeftEyeLidPinUp0CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinUp0CtrlGrp.pim" "LeftEyeLidPinUp0CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinUp0CtrlGrpMM.o" "LeftEyeLidPinUp0CtrlGrpDM.imat";
+connectAttr "LeftEyeLidPinUp1CtrlPos.wm" "LeftEyeLidPinUp1CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinUp1CtrlGrp.pim" "LeftEyeLidPinUp1CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinUp1CtrlGrpMM.o" "LeftEyeLidPinUp1CtrlGrpDM.imat";
+connectAttr "LeftEyeLidPinUp2CtrlPos.wm" "LeftEyeLidPinUp2CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinUp2CtrlGrp.pim" "LeftEyeLidPinUp2CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinUp2CtrlGrpMM.o" "LeftEyeLidPinUp2CtrlGrpDM.imat";
+connectAttr "LeftEyeLidPinDown0CtrlPos.wm" "LeftEyeLidPinDown0CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinDown0CtrlGrp.pim" "LeftEyeLidPinDown0CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinDown0CtrlGrpMM.o" "LeftEyeLidPinDown0CtrlGrpDM.imat";
+connectAttr "LeftEyeLidPinDown1CtrlPos.wm" "LeftEyeLidPinDown1CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinDown1CtrlGrp.pim" "LeftEyeLidPinDown1CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinDown1CtrlGrpMM.o" "LeftEyeLidPinDown1CtrlGrpDM.imat";
+connectAttr "LeftEyeLidPinDown2CtrlPos.wm" "LeftEyeLidPinDown2CtrlGrpMM.i[3]";
+connectAttr "LeftEyeLidPinDown2CtrlGrp.pim" "LeftEyeLidPinDown2CtrlGrpMM.i[4]";
+connectAttr "LeftEyeLidPinDown2CtrlGrpMM.o" "LeftEyeLidPinDown2CtrlGrpDM.imat";
+connectAttr "RightEyeLidOutUp1CtrlPos.wm" "RightEyeLidOutUp1CtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidOutUp1CtrlOffGrp.pim" "RightEyeLidOutUp1CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutUp1CtrlOffGrpMM.o" "RightEyeLidOutUp1CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutUp2CtrlPos.wm" "RightEyeLidOutUp2CtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidOutUp2CtrlOffGrp.pim" "RightEyeLidOutUp2CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutUp2CtrlOffGrpMM.o" "RightEyeLidOutUp2CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutUp3CtrlPos.wm" "RightEyeLidOutUp3CtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidOutUp3CtrlOffGrp.pim" "RightEyeLidOutUp3CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutUp3CtrlOffGrpMM.o" "RightEyeLidOutUp3CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutDown1CtrlPos.wm" "RightEyeLidOutDown1CtrlOffGrpMM.i[3]"
+		;
+connectAttr "RightEyeLidOutDown1CtrlOffGrp.pim" "RightEyeLidOutDown1CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutDown1CtrlOffGrpMM.o" "RightEyeLidOutDown1CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutDown2CtrlPos.wm" "RightEyeLidOutDown2CtrlOffGrpMM.i[3]"
+		;
+connectAttr "RightEyeLidOutDown2CtrlOffGrp.pim" "RightEyeLidOutDown2CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutDown2CtrlOffGrpMM.o" "RightEyeLidOutDown2CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutDown3CtrlPos.wm" "RightEyeLidOutDown3CtrlOffGrpMM.i[3]"
+		;
+connectAttr "RightEyeLidOutDown3CtrlOffGrp.pim" "RightEyeLidOutDown3CtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutDown3CtrlOffGrpMM.o" "RightEyeLidOutDown3CtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidInCtrlPos.wm" "RightEyeLidInMainCtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidInMainCtrlOffGrp.pim" "RightEyeLidInMainCtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidInMainCtrlOffGrpMM.o" "RightEyeLidInMainCtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidUpCtrlPos.wm" "RightEyeLidUpMainCtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidUpMainCtrlOffGrp.pim" "RightEyeLidUpMainCtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidUpMainCtrlOffGrpMM.o" "RightEyeLidUpMainCtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidOutCtrlPos.wm" "RightEyeLidOutMainCtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidOutMainCtrlOffGrp.pim" "RightEyeLidOutMainCtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidOutMainCtrlOffGrpMM.o" "RightEyeLidOutMainCtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidDownCtrlPos.wm" "RightEyeLidDownMainCtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidDownMainCtrlOffGrp.pim" "RightEyeLidDownMainCtrlOffGrpMM.i[4]"
+		;
+connectAttr "RightEyeLidDownMainCtrlOffGrpMM.o" "RightEyeLidDownMainCtrlOffGrpDM.imat"
+		;
+connectAttr "RightEyeLidCCtrlPos.wm" "RightEyeLidCCtrlOffGrpMM.i[3]";
+connectAttr "RightEyeLidCCtrlOffGrp.pim" "RightEyeLidCCtrlOffGrpMM.i[4]";
+connectAttr "RightEyeLidCCtrlOffGrpMM.o" "RightEyeLidCCtrlOffGrpDM.imat";
+connectAttr "RightEyeLidPinUp0CtrlPos.wm" "RightEyeLidPinUp0CtrlGrpMM1.i[3]";
+connectAttr "RightEyeLidPinUp0CtrlGrp.pim" "RightEyeLidPinUp0CtrlGrpMM1.i[4]";
+connectAttr "RightEyeLidPinUp0CtrlGrpMM1.o" "RightEyeLidPinUp0CtrlGrpDM1.imat";
+connectAttr "RightEyeLidPinUp1CtrlPos.wm" "RightEyeLidPinUp1CtrlGrpMM1.i[3]";
+connectAttr "RightEyeLidPinUp1CtrlGrp.pim" "RightEyeLidPinUp1CtrlGrpMM1.i[4]";
+connectAttr "RightEyeLidPinUp1CtrlGrpMM1.o" "RightEyeLidPinUp1CtrlGrpDM1.imat";
+connectAttr "RightEyeLidPinUp2CtrlPos.wm" "RightEyeLidPinUp2CtrlGrpMM1.i[3]";
+connectAttr "RightEyeLidPinUp2CtrlGrp.pim" "RightEyeLidPinUp2CtrlGrpMM1.i[4]";
+connectAttr "RightEyeLidPinUp2CtrlGrpMM1.o" "RightEyeLidPinUp2CtrlGrpDM1.imat";
+connectAttr "RightEyeLidPinDown0CtrlPos.wm" "RightEyeLidPinDown0CtrlGrpMM1.i[3]"
+		;
+connectAttr "RightEyeLidPinDown0CtrlGrp.pim" "RightEyeLidPinDown0CtrlGrpMM1.i[4]"
+		;
+connectAttr "RightEyeLidPinDown0CtrlGrpMM1.o" "RightEyeLidPinDown0CtrlGrpDM1.imat"
+		;
+connectAttr "RightEyeLidPinDown1CtrlPos.wm" "RightEyeLidPinDown1CtrlGrpMM1.i[3]"
+		;
+connectAttr "RightEyeLidPinDown1CtrlGrp.pim" "RightEyeLidPinDown1CtrlGrpMM1.i[4]"
+		;
+connectAttr "RightEyeLidPinDown1CtrlGrpMM1.o" "RightEyeLidPinDown1CtrlGrpDM1.imat"
+		;
+connectAttr "RightEyeLidPinDown2CtrlPos.wm" "RightEyeLidPinDown2CtrlGrpMM1.i[3]"
+		;
+connectAttr "RightEyeLidPinDown2CtrlGrp.pim" "RightEyeLidPinDown2CtrlGrpMM1.i[4]"
+		;
+connectAttr "RightEyeLidPinDown2CtrlGrpMM1.o" "RightEyeLidPinDown2CtrlGrpDM1.imat"
+		;
+connectAttr "RightEyeLidPinUp0CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
+		;
+connectAttr "RightEyeLidPinUp0CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
+		;
+connectAttr "RightEyeLidPinUp1CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
+		;
+connectAttr "RightEyeLidPinUp1CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
+		;
+connectAttr "RightEyeLidPinUp2CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[4].dn"
+		;
+connectAttr "RightEyeLidPinUp2CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[5].dn"
+		;
+connectAttr "RightEyeLidPinDown0CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[6].dn"
+		;
+connectAttr "RightEyeLidPinDown0CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
+		;
+connectAttr "RightEyeLidPinDown1CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
+		;
+connectAttr "RightEyeLidPinDown1CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[9].dn"
+		;
+connectAttr "RightEyeLidPinDown2CtrlGrpMM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
+		;
+connectAttr "RightEyeLidPinDown2CtrlGrpDM1.msg" "MayaNodeEditorSavedTabsInfo.tgi[0].ni[11].dn"
+		;
 connectAttr "LeftEyeLidUpCtrlRvsMultMD.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "LefteyeLidDownCtrlRvsMultMD.msg" ":defaultRenderUtilityList1.u" -na
 		;
@@ -12595,14 +13391,15 @@ connectAttr "RightEyeLidOutUp1ZBA.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "RightEyeLidOutUp2ZBA.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "blendTwoAttr1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "blendTwoAttr2.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "defaultRedshiftPostEffects.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "LeftEyeBallSurfShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "RightEyeBallSurfShape.iog" ":initialShadingGroup.dsm" -na;
-dataStructure -fmt "raw" -as "name=Blur3dMetaData:string=Blur3dValue";
 dataStructure -fmt "raw" -as "name=externalContentTablZ:string=nodZ:string=key:string=upath:uint32=upathcrc:string=rpath:string=roles";
-dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
 dataStructure -fmt "raw" -as "name=faceConnectOutputStructure:bool=faceConnectOutput:string[200]=faceConnectOutputAttributes:string[200]=faceConnectOutputGroups";
-dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
+dataStructure -fmt "raw" -as "name=idStructure:int32=ID";
 dataStructure -fmt "raw" -as "name=faceConnectMarkerStructure:bool=faceConnectMarker:string[200]=faceConnectOutputGroups";
 dataStructure -fmt "raw" -as "name=FBXFastExportSetting_MB:string=19424";
+dataStructure -fmt "raw" -as "name=Blur3dMetaData:string=Blur3dValue";
+dataStructure -fmt "raw" -as "name=FBXFastExportSetting_FBX:string=54";
 // End of eyeLidCtrl.ma

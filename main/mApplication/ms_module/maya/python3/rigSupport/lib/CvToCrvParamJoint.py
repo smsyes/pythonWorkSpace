@@ -110,7 +110,7 @@ def joint_(object_):
         name_ = i.name()
         select(cl=1)
         jnt = joint(n='{}Jnt'.format(name_))
-        matchTransform(jnt, i)
+        matchTransform(jnt,i,pos=1,rot=1)
         jntList.append(jnt)
     return jntList
 
@@ -119,7 +119,7 @@ def AimPos(object_, center, upVec):
     for i in object_:
         name_ = i.name()
         pos = createNode('transform', n='{}Pos'.format(name_))
-        matchTransform(pos, center)
+        matchTransform(pos,center,pos=1,rot=1)
         aimConstraint(i,pos,mo=1,weight=1,
                         aimVector=(0, 0, 1),upVector=(0, 1, 0),
                         worldUpType="objectrotation",
@@ -127,6 +127,18 @@ def AimPos(object_, center, upVec):
                         worldUpObject=upVec)
         posList.append(pos)
     return posList
+
+def CvToCrvParamJoint_(object_):
+    posGrp = createNode('transform', n='{}PosGrp'.format(sel[1].name()))
+    jntGrp = createNode('transform', n='{}JntGrp'.format(sel[1].name()))
+    pos = PosFromCrvNearPos(object_[:-2])
+    jnt = joint_(pos)
+    aim = AimPos(pos, object_[-2], object_[-1])
+    [parent(j,aim[i]) for i,j in enumerate(jnt)]
+    parent(pos, posGrp)
+    parent(aim, jntGrp)
+    for i,p in enumerate(pos):
+        MCon(ls(p,jnt[i]), t_=1, r_=0, s_=0, maintain=1)
 
 '''
 첫번째 커브의 CV갯수만큼 조인트 생성
@@ -141,10 +153,4 @@ def AimPos(object_, center, upVec):
 '''
 
 sel = ls(sl=1)
-pos = PosFromCrvNearPos(sel[:-2])
-jnt = joint_(pos)
-aim = AimPos(pos, sel[-2], sel[-1])
-[parent(j,aim[i]) for i,j in enumerate(jnt)]
-
-for i,p in enumerate(pos):
-    MCon(ls(p,jnt[i]), t_=1, r_=1, s_=0, maintain=1)
+CvToCrvParamJoint_(sel)
