@@ -18,14 +18,103 @@ blah blah blah blah blah blah
 #
 import pymel.core as pm
 import maya.mel as mel
-from rigSupport.lib import _control
-from rigSupport.lib import QuatMatrixConst as mcon
-try:
-    from imp import *
-except:
-    pass
-reload(_control)
-reload(mcon)
+from collections import OrderedDict
+
+def getTransform(object_):
+    return object_.getMatrix(worldSpace=True)
+    
+def getInverseTransform(object_):
+    return object_.getMatrix(worldSpace=True).inverse()
+
+def getMultMatrix(mat1, mat2):
+    return mat1*mat2
+
+def multMatrix_(name_):
+    _node = pm.createNode('multMatrix', n='{}localMM'.format(name_))
+    return _node
+    
+def decompose_(name_):
+    _node = pm.createNode('decomposeMatrix', n='{}localDM'.format(name_))
+    return _node
+
+def eularToQuat_(name_):
+    _node = pm.shadingNode('eulerToQuat', au=1, n='{}jointOrietnEQ'.format(name_))
+    return _node
+
+def quatInvert_(name_):
+    _node = pm.shadingNode('quatInvert', au=1, n='{}QI'.format(name_))
+    return _node
+
+def quatProd_(name_):
+    _node = pm.shadingNode('quatProd', au=1, n='{}QP'.format(name_))
+    return _node
+    
+def quatToEuler_(name_):
+    _node = pm.shadingNode('quatToEuler', au=1, n='{}QE'.format(name_))
+    return _node
+
+def MCon(object_, t_=None, r_=None, s_=None, maintain=None):
+    item_, target_ = object_[0], object_[1]
+    name_ = target_.name()
+    MM = multMatrix_(name_)
+    DM = decompose_(name_)
+    if target_.type() == 'joint':
+        jointOrietnEQ = eularToQuat_(name_)
+        QI = quatInvert_(name_)
+        QP = quatProd_(name_)
+        QE = quatToEuler_(name_)
+    mat1_ = getTransform(target_)
+    mat2_ = getInverseTransform(item_)
+    multmat_ = getMultMatrix(mat1_, mat2_)
+
+    if maintain == 1:
+        MM.attr('matrixIn[0]').set(multmat_)
+    else:
+        pass
+
+    item_.wm >> MM.matrixIn[1]
+    target_.pim >> MM.matrixIn[2]
+    MM.matrixSum >> DM.inputMatrix
+    if target_.type() == 'joint':
+        target_.r >> jointOrietnEQ.inputRotate
+        jointOrietnEQ.outputQuat >> QI.inputQuat
+        DM.outputQuat >> QP.input1Quat
+        QI.outputQuat >> QP.input2Quat
+        QP.outputQuat >> QE.inputQuat
+    if t_:
+        DM.ot >> target_.t
+    if r_:
+        if target_.type() == 'joint':
+            QE.outputRotate >> target_.jo
+            target_.attr('r').set([0,0,0])
+        else:
+            DM.outputRotate >> target_.r
+    if s_:
+        DM.os >> target_.s
+
+def getShape_(key):
+    shape_dict = OrderedDict()
+    shape_dict['square'] = 1, [(-1,0,1),(-1,0,-1),(1,0,-1),(1,0,1),
+                            (-1,0,1)], [0,1,2,3,4]
+    return shape_dict[key]
+
+def crvShape_(key,name_):
+    """Get Shape Dictionary
+
+    Arguments:
+        key (sting): Shape name string
+        name_ (string): 
+
+    Returns:
+        dictionary : Curve information.
+
+    """
+    shapeDict = getShape_(key)
+    crv_ = pm.curve(d=shapeDict[0],
+                    p=shapeDict[1],
+                    k=shapeDict[2],
+                    n=name_)
+    return crv_
 
 def hierarchy_(object_):
     for i,obj in enumerate(object_):
@@ -92,10 +181,13 @@ def space(item, num_, suffix):
     return spc
 
 def ctrl_(list_, name_):
-    ctrl_ = _control.control_(list_, 'square')
-    for i,c in enumerate(ctrl_):
-        pm.rename(c, '{0}{1}Ctrl'.format(name_,i))
-    return ctrl_
+    ctrls= []
+    for i,item in enumerate(list_):
+        ctrl_ = crvShape_('square',name_)
+        pm.rename(ctrl_, '{0}{1}Ctrl'.format(name_,i))
+        pm.matchTransform(ctrl_,item)
+        ctrls.append(ctrl_)
+    return ctrls
 
 def offset_(list_):
     grps = []
@@ -145,9 +237,10 @@ def BIJoint(list_,name_):
 def mconsts(items,targets):
     for i,item in enumerate(items):
         list_ = pm.ls(item,targets[i])
-        mcon.MCon(list_, t_=1, r_=1, s_=1, maintain=1)
+        MCon(list_, t_=1, r_=1, s_=1, maintain=1)
 
-def hairDyn_(crv, name_=None,num_=5,oj_='xyz',sao_='yup'):
+def hairDyn_(sel, name_=None,num_=5,oj_='xyz',sao_='yup',crvRvs=None):
+    crv = polyToCurve_(sel,num_,name_,crvRvs)
     pm.rebuildCurve(crv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,
                     kep=1,kt=0,s=num_,d=3,tol=0.01)
     pm.rename(crv,'{0}Crv'.format(name_))
@@ -158,8 +251,11 @@ def hairDyn_(crv, name_=None,num_=5,oj_='xyz',sao_='yup'):
     spcs = [space(j,i,'spc') for i,j in enumerate(jnts)]
     hierarchy_(spcs)
     ctrl = ctrl_(jnts[:-1], name_)
+    JntGrp = pm.createNode('transform',n='{}JntGrp'.format(name_))
     BIJnts = BIJoint(ctrl,name_)
     BIGrp = offset_(BIJnts)
+    pm.parent(BIGrp,JntGrp)
+    pm.parent(jnts[0],JntGrp)
     mconsts(ctrl,BIGrp)
     hierarchy_(ctrl)
     ctrlGrp = offset_(ctrl)
@@ -169,11 +265,6 @@ def hairDyn_(crv, name_=None,num_=5,oj_='xyz',sao_='yup'):
     outCrv = hairsystem(crv,name_)
     ikh = ikh_(jnts,outCrv)
 
-# base config
-'''
-crvRvs = True
-crv = polyToCurve_(sel,num_,name_,crvRvs)
-'''
-# 커브 선택후 실행.
+# Edge line을 잡고 실행하세요.
 sel = pm.ls(sl=1,fl=1,r=1)
-hairDyn_(sel[0], name_='test',num_=5,oj_='xyz',sao_='yup')
+hairDyn_(sel, name_='test',num_=5,oj_='xyz',sao_='yup',crvRvs=True)

@@ -67,6 +67,11 @@ def crvShape_(key,name_):
                     k=shapeDict[2],
                     n=name_)
     return crv_
+
+def hierarchy_(object_):
+    for i,obj in enumerate(object_):
+        if i>0:
+            pm.parent(obj, object_[i-1])
                     
 def space_(name_, suffix_=None, parent_=None):
     if not suffix_:
@@ -139,38 +144,7 @@ def getJoints_(*args):
     getJnts = getCJnts[:lastJntIndex+1]
     return getJnts
 
-def CurveAtObjectPosition(object_):
-    """A curve is generated based on the selected object position.
-
-    Arguments:
-        object_ (node): Object list.
-
-    Returns:
-        curve : created curve.
-
-    """
-    pos_ = [i.getMatrix(worldSpace=True)[-1][:-1] for i in object_]
-    curve_ = pm.curve(n='SpineBaseCrv',d=1,p=pos_)
-    return curve_
-
-def rebuildCrv(curve_, num, type_):
-    """Curve rebuild.
-
-    Arguments:
-        curve_ (node): Curve that will be rebuilt.
-        num (int): spans.
-        type_ (string): string name.
-
-    Returns:
-        curve : created curve.
-
-    """
-    IKCrv_ = pm.rebuildCurve(curve_,ch=1,rpo=0,rt=0,end=1,kr=0,
-                             kcp=0,kep=1,kt=1,s=num,d=3,tol=0.01)[0]
-    pm.rename(IKCrv_, 'Spine{}Crv'.format(type_))
-    return IKCrv_
-
-def IKJoints_(joints_):
+def IKJoints_(type_,joints_):
     """Copy and rename the joint list.
 
     Arguments:
@@ -180,12 +154,16 @@ def IKJoints_(joints_):
         joints : duplicated joints
 
     """
-    IKJoints = pm.duplicate(joints_)
-    for i,jnt in enumerate(IKJoints):
-        pm.rename(jnt, 'Spine{}IKJnt'.format(i+1))
+    IKJoints = []
+    for i,jnt in enumerate(joints_):
+        pm.select(cl=1)
+        IKJoint = pm.joint(n='{0}{1}IKJnt'.format(type_,i+1))
+        pm.matchTransform(IKJoint,jnt)
+        IKJoints.append(IKJoint)
+    hierarchy_(IKJoints)
     return IKJoints
 
-def pos_(curve_, joints_):
+def pos_(crv,dict_,jnt):
     """Positions created at regular intervals of curves.
 
     Arguments:
@@ -195,75 +173,20 @@ def pos_(curve_, joints_):
         pos (nodes):  A node that has a parameter position value.
 
     """
-    numList = division(4,1)
+    numList = division(len(dict_.keys())-1,1)
     posList = []
     for i,num in enumerate(numList):
-        getParamPos_ = curve_.getShape().getPointAtParam(num)
-        pos_ = pm.createNode('transform',n='Spine{}Pos'.format(i+1))
-        pos_.attr('t').set(getParamPos_)
-        pm.matchTransform(pos_,joints_[i],rot=1)
-        posList.append(pos_)
+        getParamPos_ = crv.getShape().getPointAtParam(num)
+        pos = pm.createNode('transform',n='{0}{1}Pos'.format(type,i+1))
+        pos.t.set(getParamPos_)
+        if type == 'Neck':
+            tc = pm.tangentConstraint(crv,pos,
+                                      aim=(0,1,0),u=(0,0,1),
+                                      wut="objectrotation",
+                                      wu=(0,0,-1),wuo=jnt[0])
+            pm.delete(tc)
+        posList.append(pos)
     return posList
-
-def controller_(pos_):
-    """Positions created at regular intervals of curves.
-
-    Arguments:
-        pos_ (transform): joint position space pos
-
-    Returns:
-        pos (nodes):  A node that has a parameter position value.
-
-    """
-    dict_ = OrderedDict()
-    dict_['Ctrl'] = []
-    dict_['Off'] = []
-    dict_['Vec'] = []
-    
-    nameDict = OrderedDict()
-    nameDict['Hip'] = 0
-    nameDict['SpineFK1'] = 1
-    nameDict['SpineMid'] = 0
-    nameDict['SpineFK2'] = 1
-    nameDict['Body'] = 0
-    
-    for i,name_ in enumerate(nameDict.keys()):
-        if nameDict[name_]==0:
-            key = 'circle'
-        elif nameDict[name_]==1:
-            key = 'square'
-        Ctrl_ = crvShape_(key,'{}Ctrl'.format(name_))
-        dict_['Ctrl'].append(Ctrl_)
-        if i == 0:
-            pm.matchTransform(Ctrl_,pos_[1],pos=1)
-            RootPos = space_('Root', suffix_='JntPos', parent_=pos_[0])
-            RootoffGrp = offGrp_(RootPos)
-            pm.parent(RootoffGrp,Ctrl_)
-        else:
-            pm.matchTransform(Ctrl_,pos_[i],pos=1)
-        cb = 1
-        if nameDict[name_]==0:            
-            IKGrp_ = space_(name_, suffix_='IKGrp', parent_=pos_[i])
-            pm.parent(IKGrp_,Ctrl_)
-            upVec_ = space_(name_, suffix_ = 'UpVec', parent_=IKGrp_)
-            upVecOffGrp = offGrp_(upVec_)
-            CbJnt_ = pm.joint(n='SpineCb{}Jnt'.format(cb))
-            pm.parent(CbJnt_,IKGrp_)
-            cb +=1
-            pm.matchTransform(CbJnt_,pos_[i])
-            offGrp = offGrp_(CbJnt_)
-        offGrp = offGrp_(Ctrl_)
-        pm.parent(pos_[i],Ctrl_)
-        dict_['Off'].append(offGrp)
-        dict_['Vec'].append(upVec_)
-        
-    CtrlGrp_ = space_('Spine', suffix_='CtrlGrp', parent_=None)
-    offGrp02 = offGrp_(dict_['Off'][2])
-    pm.parent(dict_['Off'][3], dict_['Ctrl'][1])
-    pm.parent(offGrp02, dict_['Ctrl'][1])
-    pm.parent(dict_['Off'][4], dict_['Ctrl'][3])
-    pm.parent(pm.ls(dict_['Off'][0],dict_['Off'][1]), CtrlGrp_)
-    return dict_
 
 def ikh_(jnts,crv,vector):
     ikh = pm.ikHandle(sj=jnts[0],ee=jnts[1],c=crv,
@@ -273,37 +196,115 @@ def ikh_(jnts,crv,vector):
     vector[0].wm >> ikh[0].dWorldUpMatrix
     vector[1].wm >> ikh[0].dWorldUpMatrixEnd    
 
-def midPbw(dict_):
-    pm.addAttr(dict_['Ctrl'][2],ln='pbw',min=0,max=10,dv=3,k=1)
-    pConst = pm.parentConstraint(pm.ls(dict_['Ctrl'][0],dict_['Ctrl'][-1],
-                                 dict_['Off'][2]),mo=1)
-    pb = pm.createNode('pairBlend',n='{}PB'.format(dict_['Off'][2].name()))
-    ml = pm.shadingNode('multDoubleLinear',au=1,n='{}ML'.format(dict_['Off'][2].name()))
+def midPbw(stCtrl,mdCtrl,enCtrl):
+    pm.addAttr(mdCtrl,ln='pbw',min=0,max=10,dv=3,k=1)
+    pConst = pm.parentConstraint(pm.ls(stCtrl,enCtrl,mdCtrl),mo=1)
+    pb = pm.createNode('pairBlend',n='{}PB'.format(mdCtrl.name()))
+    ml = pm.shadingNode('multDoubleLinear',au=1,n='{}ML'.format(mdCtrl.name()))
     pb.rotInterpolation.set(1)
-    dict_['Ctrl'][2].pbw >> ml.i1
+    mdCtrl.pbw >> ml.i1
     ml.i2.set(0.1)
+    [mdCtrl.getParent().attr(i).disconnect() for i in ['rx','ry','rz']]
+    [mdCtrl.getParent().attr(i).disconnect() for i in ['tx','ty','tz']]
     pConst.constraintRotate >> pb.ir2
     pConst.constraintTranslate >> pb.it2
-    [dict_['Off'][2].attr(i).disconnect() for i in ['rx','ry','rz']]
-    [dict_['Off'][2].attr(i).disconnect() for i in ['tx','ty','tz']]
-    pb.outRotate >> dict_['Off'][2].r
-    pb.outTranslate >> dict_['Off'][2].t
+    pb.outRotate >> mdCtrl.getParent().r
+    pb.outTranslate >> mdCtrl.getParent().t
     ml.o >> pb.weight
 
-def spine_(object_):
+def cbJoint(name_,pos):
+    IKGrp = space_('IK',suffix_='Grp',parent_=None)
+    pm.matchTransform(IKGrp,pos)
+    upVec_ = space_(name_, suffix_ = 'UpVec', parent_=IKGrp)
+    upVecOffGrp = offGrp_(upVec_)
+    CbJnt_ = pm.joint(n='{}CbJnt'.format(name_))
+    pm.matchTransform(CbJnt_,IKGrp)
+    offGrp = offGrp_(CbJnt_)
+    return IKGrp,upVec_
+
+def controller_(type_,dict_,pos_):
+    """Positions created at regular intervals of curves.
+
+    Arguments:
+        pos_ (transform): joint position space pos
+
+    Returns:
+        pos (nodes):  A node that has a parameter position value.
+
+    """
+    ctrllist = []
+    offlist = []
+    veclist = []
+    
+    # CtrlGrp_ = space_('Spine', suffix_='CtrlGrp', parent_=None)
+
+    for i,name_ in enumerate(dict_.keys()):
+        if dict_[name_][1] == 'IK':
+            IKGrp, upVec_ = cbJoint(name_,(pos_[i]))
+        Ctrl_ = crvShape_(dict_[name_][0],'{}Ctrl'.format(name_))
+        pm.matchTransform(Ctrl_,pos_[i])
+        
+        offGrp = offGrp_(Ctrl_)
+        pm.parent(pos_[i],Ctrl_)
+        
+        if dict_[name_][1] == 'IK':
+            pm.parent(IKGrp,Ctrl_)
+            veclist.append(upVec_)
+        
+        ctrllist.append(Ctrl_)
+        offlist.append(offGrp)
+        
+        
+    return ctrllist, offlist, veclist
+
+def rootPos_(pos_):
+    RootPos = space_('Root', suffix_='JntPos', parent_=pos_[0])
+    RootoffGrp = offGrp_(RootPos)
+    return RootoffGrp
+
+def Spine_(object_):
     joints_ = getJoints_(object_[0],object_[-1])
-    IKjoints_ = IKJoints_(joints_)
-    crvs_ = IKStSq.IKStretch(object_)
-    pos = pos_(crvs_[0], joints_)
-    dict_ = controller_(pos)
+    IKjoints_ = IKJoints_(type,joints_)
+    
+    crvs_ = IKStSq.IKStretch(pm.ls(IKjoints_[0], IKjoints_[-1]))
+    
+    pos = pos_(crvs_[0],nameDict,IKjoints_)
+    ctrl,off,vec = controller_(type,nameDict,pos)
+    root = rootPos_(pos)
+    pm.parent(root,ctrl[0])
+    
     StEnJnt = pm.ls(IKjoints_[0],IKjoints_[-1])
-    vector = pm.ls(dict_['Vec'][0],dict_['Vec'][-1])
+    vector = pm.ls(vec[0],vec[-1])
+    if type == 'Spine':
+        st,md,en = ctrl[0],ctrl[2],ctrl[-1]
+    elif type == 'Neck':
+        st,md,en = ctrl[0],ctrl[1],ctrl[2]
+        
     ikh_(StEnJnt,crvs_[0],vector)
-    midPbw(dict_)
+    midPbw(st,md,en)
+
 
 # 첫번째와 마지막 조인트 선택후 실행.
+'''
+type = 'Spine' Or 'Neck' 둘중 하나로 설정하고 실행해야 합니다.
+'''
+type = 'Neck'
+
+nameDict = OrderedDict()
+if type == 'Spine':
+    nameDict['Hip'] = ['circle','IK']
+    nameDict['SpineFK1'] = ['square','FK']
+    nameDict['SpineMid'] = ['circle','IK']
+    nameDict['SpineFK2'] = ['square','FK']
+    nameDict['Body'] = ['circle','IK']
+if type == 'Neck':
+    nameDict['Neck'] = ['square','IK']
+    nameDict['NeckMid'] = ['square','IK']
+    nameDict['Head'] = ['circle','IK']
+    
 sel = pm.ls(sl=1)
-spine_(sel)
+Spine_(sel)
+
 
 
 

@@ -96,7 +96,7 @@ def object_cv_curve(name_, object_, dgree_=None):
         trans, rot = get_transform(i)
         trans_list.append(trans)
     crv_ = curve(n='{}Crv'.format(name_), d=dgree_, p = trans_list)
-    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=1,kep=1,kt=1,s=number-3,d=3)
+    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kep=1,kt=1,s=number-3,d=3)
     return crv_
 
 def createNodes(name_, names_, crvs_, divNumList):
