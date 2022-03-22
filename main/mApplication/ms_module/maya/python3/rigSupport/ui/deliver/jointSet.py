@@ -113,29 +113,30 @@ class myUIClass(QWidget):
         type_ = config_["extensionsName"]
         part_ = partDict_[part]
         sideName_ = side_[side]
-        joints = self.getChildren_(sel[0], type_='joint')
-        
-        for i,jnt in enumerate(joints):
-            if part == "None":
-                name_ = jnt.name()
-            else:
-                if side == 0 or side == 3:
-                    if len(part_) == 1:
-                        name_ = '{0}{1}{2}'.format(part_[0],i+1,type_[1])
-                    else:
-                        if i in list(range(len(part_))):
-                            name_ = '{0}{1}'.format(part_[i],type_[1])
-                        else:
-                            name_ = jnt.name()
+        for sl in sel:
+            joints = self.getChildren_(sl, type_='joint')
+            
+            for i,jnt in enumerate(joints):
+                if part == "None":
+                    name_ = jnt.name()
                 else:
-                    name_ = '{0}{1}'.format(sideName_,part_[i])
-                rename(jnt, name_)
-            jnt.attr('otherType').set(name_)
-            if side > 3:
-                jnt.attr('side').set(3)
-            else:
-                jnt.attr('side').set(side)
-            jnt.attr('type').set(18)
+                    if side == 0 or side == 3:
+                        if len(part_) == 1:
+                            name_ = '{0}{1}{2}'.format(part_[0],i+1,type_[1])
+                        else:
+                            if i in list(range(len(part_))):
+                                name_ = '{0}{1}'.format(part_[i],type_[1])
+                            else:
+                                name_ = jnt.name()
+                    else:
+                        name_ = '{0}{1}'.format(sideName_,part_[i])
+                    rename(jnt, name_)
+                jnt.attr('otherType').set(name_)
+                if side > 3:
+                    jnt.attr('side').set(3)
+                else:
+                    jnt.attr('side').set(side)
+                jnt.attr('type').set(18)
         
         return joints
 

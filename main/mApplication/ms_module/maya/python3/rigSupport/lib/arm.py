@@ -244,7 +244,7 @@ def IKCtrlPos_(part,st,en,side_='Right'):
     return pos
 
 def PVSysPos_(part,st,en,side_='Right'):
-    """IK Ctrl Pos
+    """PVSys Pos
 
     Arguments:
         part (string) : prefix name
@@ -252,7 +252,7 @@ def PVSysPos_(part,st,en,side_='Right'):
         side_ (string) : 좌우 구분
 
     Returns:
-        pos : IK Ctrl 포지션 pos
+        pos : polvector Sys Pos
 
     """
     if side_ == 'Left':
@@ -265,6 +265,101 @@ def PVSysPos_(part,st,en,side_='Right'):
                                 wut="None",mo=0)
     pm.delete(aimConst)
     return pos
+
+def get_trans(object_):
+    """오브젝트의 world translate값 
+
+    Arguments:
+        object_ (object) : world translate값 가져올 오브젝트
+
+    Returns:
+        position : translate value
+
+    """
+    return object_.getMatrix(worldSpace=True)[-1][:-1]
+
+def length(v0, v1):
+    """두 Vector 사이의 거리
+
+    Arguments:
+        v0, v1 (Vector) : length값 구할 두 Vector
+
+    Returns:
+        position : length
+    """
+    v = v1 - v0
+    return v.length()
+
+def joint_insert(joint_, name_, pos_):
+    """joint insert
+
+    Arguments:
+        joint_ (joint) : insert 할 joint
+        name_ (string) : 생성될 조인트 Name
+        pos_ (position) : 위치값
+
+    Returns:
+        joint : insert된 joint
+    """
+    if joint_.type() == 'joint':
+        JNT = joint_.insert()
+        pm.joint(JNT, n=name_, e=True, co=True, p=pos_)
+        return pm.PyNode(name_)
+
+def linear_spacing_joint(joint_, num, axis='x',side_='Right'):
+    """갯수에 따라 비율 조정하여 조인트 끼워넣기.
+
+    Arguments:
+        joint_ (joint) : insert 할 joint
+        num (int) : 추가할 조인트 갯수
+        axis (position) : joint Axis
+
+    Returns:
+        insertList : insert된 joints
+    """
+    joints = [joint_, joint_.getChildren()[0]]
+    stJoint = joints[0]
+    stOtherType = stJoint.otherType.get()
+    stSide = stJoint.side.get()
+    enJoint = joints[-1]
+    stTrans_= get_trans(stJoint)
+    enTrans_= get_trans(enJoint)
+    length_ = length(stTrans_, enTrans_)
+    divValue = length_/(num+1)
+
+    if side_ == 'Left':
+        divValue = divValue
+    else:
+        divValue = divValue*-1
+    if axis:
+        if axis=='x':
+            value = (divValue,0,0)
+        if axis=='y':
+            value = (0,divValue,0)
+        if axis=='z':
+            value = (0,0,divValue)
+        if axis=='-x':
+            value = (-1*divValue,0,0)
+        if axis=='-y':
+            value = (0,-1*divValue,0)
+        if axis=='-z':
+            value = (0,0,-1*divValue)
+    else:
+        value = (divValue,0,0)
+    
+    insertList = [stJoint]
+    for i in range(num):
+        localspace = space_(stJoint.name(), parent_=insertList[i])
+        localspace.t.set(value)
+        name_ = '{0}{1}{2}'.format(stOtherType, i+1, 'Jnt')
+        pos_ = get_trans(localspace)
+        JNT = joint_insert(insertList[i], name_, pos_)
+        JNT.attr('type').set(18)
+        JNT.otherType.set('{0}{1}'.format(stOtherType, i+1))
+        JNT.side.set(stSide)
+        pm.delete(localspace)
+        insertList.append(JNT)
+    return insertList
 
 part = 'Arm'
 side = 'Right'    
@@ -283,15 +378,19 @@ pm.parent(pm.ls(ctrlGrp,sysGrp),rigGrp)
 FKCtrlPos = fkCtrlPos_(sel[1:])
 pvCtrlPos = poleVecCtrlPos_(part,st,md,en,side_=side)
 ikCtrlPos = IKCtrlPos_(part,st,en,side_=side)
-rootCtrlPos = pm.duplicate(rootConst,n='{}CtrlPos'.format(root.name()),po=1)
+rootCtrlPos = pm.duplicate(rootConst,n='{}CtrlPos'.format(root.name()),po=1)[0]
 pvSysPos = PVSysPos_(part,st,en,side_=side)
-pm.parent(pm.sl(pvCtrlPos,ikCtrlPos),rootConst)
+pm.parent(pm.ls(FKCtrlPos[0],pvCtrlPos,ikCtrlPos),rootConst)
 pm.parent(rootCtrlPos,ctrlGrp)
 pm.parent(pvSysPos,sysGrp)
 
-# FKJoints = dupJoint(sel,'FK')
-# IKJoints = dupJoint(sel,'IK')
-# DrvJoints = dupJoint(sel,'Drv')
+# 조인트 생성.
+FKJoints = dupJoint([st,md,en],'FK')
+IKJoints = dupJoint([st,md,en],'IK')
+DrvJoints = dupJoint([st,md,en],'Drv')
+ArcJoints = dupJoint([st,md,en],'Arc')
+linear_spacing_joint(ArcJoints[0], 3, axis='x', side_=side)
+linear_spacing_joint(ArcJoints[1], 3, axis='x', side_=side)
 
 # FKCtrls = FKCtrl(sel)
 
