@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """============================================================================
-조인트 체인 기준 stretch squash setup.
+jointchain stretch squash setup.
 IKStSq
 
 __AUTHOR__ = 'SUNGSEO'
@@ -10,7 +10,7 @@ __UPDATE__ = 20220217
 Pakage is IKStSq.pyc
 
 import IKStSq
-# 첫번째와 마지막 조인트 잡고 실행해주세요
+# selected start and end joint
 sel = ls(sl=1,r=1,fl=1)
 crvs_ = IKStSq.IKStretch(sel)
 
@@ -19,6 +19,14 @@ crvs_ = IKStSq.IKStretch(sel)
 # when start coding 3 empty lines.
 #
 from pymel.core import *
+
+def division(number,divNum):
+    list_ = [0]
+    div_ = float(divNum)/float(number)
+    for i in range(number):
+        i=i+1
+        list_.append(i*div_)
+    return list_
 
 def getParam(crv):
     shape_ = crv.getShape()
@@ -70,14 +78,6 @@ def jointReLabel(object_):
         name_ = i.name().split('Jnt')[0]
         i.attr('otherType').set(name_)
 
-def division(number):
-    list_ = [0]
-    div_ = float(1)/float(number)
-    for i in range(number):
-        i=i+1
-        list_.append(i*div_)
-    return list_
-
 def searchJoint(stJnt, enJnt):
     allP_ = enJnt.getAllParents()
     if stJnt in allP_:
@@ -117,7 +117,7 @@ def createNodes(name_, names_, crvs_, divNumList):
     dict_['chkpc'] = [pointOnCurveInfo_(crvs_[1]) for i in divNumList]
     return dict_
     
-def IKNodeConnection(dict_, joints_, divNumList):
+def IKNodeConnection(dict_, joints_, divNumList, rvs=None):
     joints_[0].Stretch >> dict_['stml'].i1
     joints_[0].Squash >> dict_['sqml'].i1
     for p,pc in enumerate(dict_['pc']):
@@ -150,6 +150,8 @@ def IKNodeConnection(dict_, joints_, divNumList):
         addAttr(joints_[1:][i], ln="SquahY",at='double',k=1)
         addAttr(joints_[1:][i], ln="SquahZ",at='double',k=1)
         dist_ = db.getAttr('distance')
+        if rvs == True:
+            dist_ = dist_*-1
         dict_['ml'][i].attr('i2').set(dist_)
         dict_['ml'][i].o >> joints_[1:][i].tx
         dict_['md2'][i].oy >> joints_[1:][i].SquahY
@@ -158,7 +160,7 @@ def IKNodeConnection(dict_, joints_, divNumList):
     dict_['stml'].attr('i2').set(0.1)
     dict_['sqml'].attr('i2').set(0.1)
 
-def IKStretch(object_):
+def IKStretch(object_, rvs=None):
     name_ = object_[0].split('Jnt')[0]
     stJnt, enJnt, = object_[0], object_[1]
 
@@ -169,10 +171,12 @@ def IKStretch(object_):
     addAttr(stJnt, ln="Squash",at='double',min=0,max=10,k=1)
 
     crvs_ = [object_cv_curve(n, joints_) for n in [name_, '{0}Chk'.format(name_)]]
-    param_ = getParam(crvs_[0])
+    # param_ = getParam(crvs_[0])
+    number = int(len(joints_)-1)
+    param_ = division(number,1)
 
     nodeDict_ = createNodes(name_, names_, crvs_, param_)
-    IKNodeConnection(nodeDict_, joints_, param_)
+    IKNodeConnection(nodeDict_, joints_, param_, rvs=rvs)
     [parent(crv, nodeDict_['SysGrp']) for crv in crvs_]
     return crvs_
 

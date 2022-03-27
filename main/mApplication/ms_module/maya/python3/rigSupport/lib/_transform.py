@@ -16,6 +16,8 @@ blah blah blah blah blah blah
 #
 # when start coding 3 empty lines.
 #
+import math
+from pymel import util
 from pymel.core import *
 import maya.OpenMaya as om
 import pymel.core.datatypes as dt
@@ -317,3 +319,84 @@ def getLocalTrans(object_):
         multM_ = wm_*wim_
         getLocalTrans_ = multM_[-1][:-1]
     return getLocalTrans_.get()
+
+def getTransformLookingAt(pos, lookat, normal, axis="xy", negate=False):
+    """Return a transformation mstrix using vector positions.
+    Return the transformation matrix of the dagNode oriented looking to
+    an specific point.
+    Arguments:
+        pos (vector): The position for the transformation
+        lookat (vector): The aiming position to stablish the orientation
+        normal (vector): The normal control the transformation roll.
+        axis (str): The 2 axis used for lookat and normal. Default "xy"
+        negate (bool): If true, invert the aiming direction.
+    Returns:
+        matrix: The transformation matrix
+    >>>  t = tra.getTransformLookingAt(self.guide.pos["heel"],
+                                       self.guide.apos[-4],
+                                       self.normal,
+                                       "xz",
+                                       self.negate)
+    """
+    normal.normalize()
+
+    if negate:
+        a = pos - lookat
+    else:
+        a = lookat - pos
+
+    a.normalize()
+    c = util.cross(a, normal)
+    c.normalize()
+    b = util.cross(c, a)
+    b.normalize()
+
+    if axis == "xy":
+        X = a
+        Y = b
+        Z = c
+    elif axis == "xz":
+        X = a
+        Z = b
+        Y = -c
+    elif axis == "yx":
+        Y = a
+        X = b
+        Z = -c
+    elif axis == "yz":
+        Y = a
+        Z = b
+        X = c
+    elif axis == "zx":
+        Z = a
+        X = b
+        Y = c
+    elif axis == "z-x":
+        Z = a
+        X = -b
+        Y = -c
+    elif axis == "zy":
+        Z = a
+        Y = b
+        X = -c
+
+    elif axis == "x-y":
+        X = a
+        Y = -b
+        Z = -c
+    elif axis == "-xz":
+        X = -a
+        Z = b
+        Y = c
+    elif axis == "-xy":
+        X = -a
+        Y = b
+        Z = c
+
+    m = dt.Matrix()
+    m[0] = [X[0], X[1], X[2], 0.0]
+    m[1] = [Y[0], Y[1], Y[2], 0.0]
+    m[2] = [Z[0], Z[1], Z[2], 0.0]
+    m[3] = [pos[0], pos[1], pos[2], 1.0]
+
+    return m

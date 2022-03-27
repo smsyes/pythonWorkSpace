@@ -39,6 +39,16 @@ def crv_():
     return pm.createNode('nurbsCurve')
 
 def arcPointPos(baseName, object):
+    """ 3 point center position
+
+    Arguments:
+        baseName (string): name
+        object (list): 3 point object
+
+    Returns:
+        position : arc point position
+
+    """
     pointPos = space_('{0}ArcPoint'.format(baseName))
     al = al_('{0}ArcDistSum'.format(baseName))
     ml = ml_('{0}ArcDistMult'.format(baseName))
@@ -72,14 +82,26 @@ def arcPointPos(baseName, object):
     dblist[0].distance >> attrs[2]
     ml.o >> attrs[1]
     dblist[1].distance >> attrs[0]
-    return [poslist[0], pointPos, poslist[2]]
+    return poslist, pointPos
 
 def arcParam(baseName, arcpos_):
+    """ arc circular parameter
+
+    Arguments:
+        baseName (string): name
+        arcpos_ (float3): arc point position
+
+    Returns:
+        makeThreePointCircularArc : arc node
+        angleSetRange : angle setrange node
+
+    """
     tpc = tpc_(baseName)
     angleAl = al_('{0}Angle'.format(baseName))
     angleSr = sr_('{0}Angle'.format(baseName))
 
-    [pos.t >> tpc.attr('point{0}'.format(i+1)) for i,pos in enumerate(arcpos_)]
+    [pos.t >> tpc.attr('point{0}'.format(i+1)) for i,
+    pos in enumerate(arcpos_)]
 
     vecDict = OrderedDict()
     vecDict['VecArcTo1'] = [arcpos_[1],arcpos_[0]]
@@ -112,7 +134,24 @@ def arcParam(baseName, arcpos_):
     tpc.sections >> angleSr.maxX
     return tpc, angleSr
 
-def createArc(baseName, tpc, angleSr):
+def createArc(baseName, object_):
+    """ create 3 point Arc
+
+    Arguments:
+        baseName (string): name
+        object_ (list): 3 point object
+
+    Returns:
+        up down curve : curves
+
+    """
+    ArcGrp = space_(baseName)
+    pm.rename(ArcGrp,'{0}ArcGrp'.format(baseName))
+    poslist, pointPos = arcPointPos(baseName, object_)
+    tpc, angleSr = arcParam(baseName,
+                            pm.ls(poslist[0],pointPos,poslist[2]))
+
+    updnCrv = []
     dc = dc_('{0}Arc'.format(baseName))
     tpc.outputCurve >> dc.inputCurve
     angleSr.outValueX >> dc.parameter[0]
@@ -126,9 +165,7 @@ def createArc(baseName, tpc, angleSr):
         rc.keepRange.set(0)
         dc.outputCurve[i] >> rc.inputCurve
         rc.outputCurve >> crv.create
-        
-baseName = "test"
-sel = pm.ls(sl=1,fl=1,r=1)
-arcpos_ = arcPointPos(baseName, sel)
-tpc, angleSr = arcParam(baseName, arcpos_)
-createArc(baseName, tpc, angleSr)
+        updnCrv.append(crv)
+    pm.parent(pm.ls(poslist,pointPos,updnCrv),ArcGrp)
+    return ArcGrp,updnCrv
+    
