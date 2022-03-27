@@ -43,7 +43,7 @@ def getShape_(key):
                         15,16]
     shapeDict['Pole'] = 1, [(0,0,0),(0,5,-5),(0,2,-8),(0,0,-6),(0,-2,-8),
                         (0,-5,-5),(0,0,0)],[0,1,2,3,4,5,6]
-    shapeDict['Handle'] = 1, [(0,0,0.0810633),(0,-0.0476478,0.0655809),
+    shapeDict['IKFK'] = 1, [(0,0,0.0810633),(0,-0.0476478,0.0655809),
                         (0,-0.0770958,0.0250494),(0,-0.0770958,-0.0250508),
                         (0,-0.0476478,-0.0655821),(0,0,-0.0810633),
                         (0,0.0476478,-0.0655821),(0,0.0770958,-0.0250508),
@@ -56,7 +56,7 @@ def getShape_(key):
                         (0,-0.356796,1.936983),(0,0,1.821054)],[0,1,
                         2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
                         17,18,19,20,21]
-    shapeDict['roundSquare'] = 1, [(0,0,1.018961),(-0.27303,0,1.018961),
+    shapeDict['Arc'] = 1, [(0,0,1.018961),(-0.27303,0,1.018961),
                         (-0.577061,0,0.98492),(-0.841496,0,0.841496),
                         (-0.98492,0,0.577061),(-1.0157,0,0.278849),
                         (-1.012079,0,0),(-1.018961,0,-0.27303),
@@ -681,6 +681,15 @@ def IKHandle_(part,st,en,ikPos,pole):
     QM.MCon(pm.ls(ikPos,ikh[0]),t_=1,maintain=1)
     return ikh[0]
 
+def sIKHandle_(part,st,en,crv_,upTwist,dnTwist):
+    ikh = pm.ikHandle(sj=st,ee=en,c=crv_,ccv=0,
+                    pcv=0,sol='ikSplineSolver',n='{0}ArcIKH'.format(part))
+    ikh[0].dTwistControlEnable.set(1)
+    ikh[0].dWorldUpType.set(4)
+    upTwist.wm >> ikh[0].dWorldUpMatrix
+    dnTwist.wm >> ikh[0].dWorldUpMatrixEnd
+    return ikh[0]
+
 def IKFKBlend_(IKList,FKList,DrvList):
     pblist = []
     for i,fk in enumerate(FKList):
@@ -710,8 +719,45 @@ def IKAttrCnt(ikPos_,IKCtrl):
     pm.addAttr(IKCtrl,ln='PVStretch',at='double',min=0,max=10,dv=0,k=1)
     IKCtrl.PVStretch >> ikPos_.PVStretch
 
+def ArcCtrl_(name_,side,num_,upObject,crv_):
+    index = 0
+    number_ = num_+1+num_
+    divNum = float(1)/float(num_+1)
+    spc = [space_(name_,suffix_='Temp') for i in range(number_)]
+    ArcCtrls = Ctrl(part,spc,type_='Arc')
+    repeat = [divNum]*num_
+    numList = repeat+[1]+repeat
+    for i,a in enumerate(ArcCtrls):
+        parent_ = a.getParent()
+        pc_ = pm.createNode('pointOnCurveInfo',n='{0}{1}PC'.format(name_,i))
+        pc_.turnOnPercentage.set(1)
+        pc_.parameter.set(numList[i])
+        if i>num_:
+            index = 1
+        crv_[index].getShape().ws >> pc_.ic
+        cm_ = pm.shadingNode('composeMatrix',au=1,n='{}CM'.format(name_))
+        mm_ = pm.shadingNode('multMatrix',au=1,n='{}MM'.format(name_))
+        dm_ = pm.shadingNode('decomposeMatrix',au=1,n='{}DM'.format(name_))
+        pc_.p >> cm_.it
+        cm_.outputMatrix >> mm_.matrixIn[0]
+        mm_.matrixSum >> dm_.inputMatrix
+        dm_.ot >> parent_.t
+        parent_.pim >> mm_.matrixIn[1]
+        if i != num_:
+            if side == 'Right':
+                aim_ = (-1,0,0)
+            else:
+                aim_ = (1,0,0)
+            pm.tangentConstraint(crv_[index],parent_,aim=aim_,u=(0,1,0),
+                                wut='objectrotation',wu=(0,1,0),
+                                wuo=upObject[index])
+    pm.delete(spc)
+        
+
 part = 'Arm'
-side = 'Right'    
+side = 'Right'
+arcJointNum = 3
+arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
 root,st,md,en = sel[0],sel[1],sel[2],sel[3]
 
@@ -754,8 +800,8 @@ UpArcJoints = dupJoint([st,md],'UpArc')
 DnArcJoints = dupJoint([md,en],'DnArc')
 UpArcJoints[-1].jointOrient.set(0,0,0)
 UpArcJoints[-1].r.set(0,0,0)
-linear_spacing_joint(UpArcJoints[0], 3, axis='x', side_=side)
-linear_spacing_joint(DnArcJoints[0], 3, axis='x', side_=side)
+linear_spacing_joint(UpArcJoints[0], arcJointNum, axis='x', side_=side)
+linear_spacing_joint(DnArcJoints[0], arcJointNum, axis='x', side_=side)
 pm.parent(DnArcJoints[0],UpArcJoints[-1])
 ArcJoints = getChildren_(UpArcJoints[0], type_='joint')
 [pm.rename(arc,'{0}Arc{1}Jnt'.format(part,i+1)) for i,
@@ -781,8 +827,17 @@ pm.parent(ArcGrp,SysConst)
 pm.delete(pm.ls(upGrp,dnGrp))
 QM.MCon(pm.ls(DrvJoints[0],upIKCrv[-1]),t_=1,r_=1,maintain=1)
 QM.MCon(pm.ls(DrvJoints[1],dnIKCrv[-1]),t_=1,r_=1,maintain=1)
+bs_ = pm.blendShape(ArcCrvs[0],upIKCrv[0],
+                    n='{0}ArcBlendShape'.format(part))[0]
+bs_.addBaseObject(dnIKCrv[0].getShape())
+bs_.addTarget(dnIKCrv[0].getShape(),weightIndex=2,
+            newTarget=ArcCrvs[1],fullWeight=1.0,
+            targetType='object')
+
+
+    
                        
-# create Controller
+# 컨트롤러 생성.
 IKCtrlPos = space_(part,suffix_='IKCtrlPos')
 pm.matchTransform(IKCtrlPos,ikCtrlPoser)
 if side == 'Right': IKCtrlPos.rx.set(180)
@@ -795,13 +850,17 @@ IKCtrl = Ctrl(part,[ikCtrlPoser],type_='IK')[0]
 IKAttrCnt(ikPos[3],IKCtrl)
 PoleCtrl = Ctrl(part,[pvCtrlPoser],type_='Pole')[0]
 IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
-IKFKCtrl = Ctrl(part,[ikCtrlPoser],type_='Handle')[0]
+ArcCtrls = ArcCtrl_(part,side,arcCtrlNum,[st,md],
+                    [upIKCrv[0],dnIKCrv[0]])
+IKFKCtrl = Ctrl(part,[ikCtrlPoser],type_='IKFK')[0]
 pm.addAttr(IKFKCtrl,ln='IKFK',at='double',min=0,max=1,dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='Arc',at='double',min=0,max=10,dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='UpTwistFix',at='double',dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='DnTwistFix',at='double',dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='AutoHideIKFK',at='bool',k=1)
 pm.addAttr(IKFKCtrl,ln='ArcCtrlVis',at='bool',k=1)
+IKFKCtrl.Arc >> bs_.attr(ArcCrvs[0].name())
+IKFKCtrl.Arc >> bs_.attr(ArcCrvs[1].name())
 pm.parent(IKCtrlPos,IKCtrl)
 pm.parent(FKCtrlPos,FKCtrls[-1])
 list(map(offGrp_,[IKCtrlPos,FKCtrlPos]))
@@ -822,13 +881,13 @@ QM.MCon(pm.ls(PoleCtrl,ikPos[4]),t_=1,maintain=1)
 sys,posFW = pvSys(part,side,pvSysPoser,md,IKCtrl)
 pm.parent(sys,SysConst)
 
-# IK System 생성.
-ikh = IKHandle_(part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
-pm.parent(ikh,SysConst)
-
-def ArcIKHandle_(part,st,en,crv_):
-    ikh = pm.ikHandle(sj=st,ee=en,c=crv_,ccv=0,pcv=0,
-                      sol='ikSplineSolver',n='{0}ArcIKH'.format(part))
-
 # Twist System 생성.
 twists = twistSys(part,side,root,st,md,DrvJoints)
+
+# IK System 생성.
+ikh = IKHandle_(part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
+upikh = sIKHandle_(part+'Up',UpArcJoints[0],UpArcJoints[-1],upIKCrv[0],
+                    twists[0],twists[1])
+dnikh = sIKHandle_(part+'Dn',DnArcJoints[0],DnArcJoints[-1],dnIKCrv[0],
+                    twists[1],twists[2])
+pm.parent(pm.ls(ikh,upikh,dnikh),SysConst)
