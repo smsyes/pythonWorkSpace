@@ -160,12 +160,11 @@ def createArc(baseName, object_):
         name_ = '{0}{1}ArcCrv'.format(baseName,typ)
         rc = rc_(name_)
         crv = crv_()
-        pm.rename(crv.root(), name_)
+        pm.rename(crv.getParent(), name_)
         rc.spans.set(2)
         rc.keepRange.set(0)
         dc.outputCurve[i] >> rc.inputCurve
         rc.outputCurve >> crv.create
         updnCrv.append(crv)
     pm.parent(pm.ls(poslist,pointPos,updnCrv),ArcGrp)
-    return ArcGrp,updnCrv
-    
+    return ArcGrp,updnCrv,pointPos

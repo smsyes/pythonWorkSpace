@@ -93,9 +93,9 @@ def addVectorAttr_(name_,object_):
 
 def PRCtrl_(object_):
     for i in object_:
+        name_ = i.name()
         PRJntGrp_ = space_(name_, suffix_='PRJntGrp', parent_=None)
         pm.matchTransform(PRJntGrp_,i,pos=1,rot=1)
-        name_ = i.name()
         pm.select(i)
         PRJnt_ = pm.joint(n='{0}PRJnt'.format(name_))
         pm.select(cl=1)
@@ -103,13 +103,19 @@ def PRCtrl_(object_):
         pm.addAttr(PRCtrl_,ln="Pbw",at='double',min=0,max=10,dv=0,k=1)
         pm.matchTransform(PRCtrl_,i,pos=1,rot=1)
         offGrp_(PRCtrl_)
+        rot_ = -90
         for a in ['E','S','W','N']:
             suffix = 'PR{0}Ctrl'.format(a)
             AxisPRCtrl_ = space_(name_, suffix_='PR{0}Ctrl'.format(a), parent_=PRCtrl_)
-            AxisPRPos_ = space_(name_, suffix_='PR{0}Pos'.format(a), parent_=PRCtrl_)
-            pm.select(AxisPRPos_)
+            AxisPRCtrlGrp_ = offGrp_(AxisPRCtrl_)
+            AxisPRCtrlGrp_.rx.set(rot_)
+            pm.select(PRCtrl_)
             PRAxisJnt_ = pm.joint(n='{0}PR{1}Jnt'.format(name_,a))
             pm.select(cl=1)
+            PRAxisJntGrp_ = offGrp_(PRAxisJnt_)
+            PRAxisJntOffGrp_ = offGrp_(PRAxisJntGrp_)
+            PRAxisJntOffGrp_.rx.set(rot_)
+            PRAxisJntGrp_.tz.set(1)
             addVectorAttr_('Value',AxisPRCtrl_)
             AxisPRCtrl_.ValueZ.set(5)
             pm_ = pm.shadingNode('plusMinusAverage',au=1,n='{}PM'.format(AxisPRCtrl_.name()))
@@ -121,26 +127,8 @@ def PRCtrl_(object_):
             AxisPRCtrl_.t >> sr_.min
             pm_.output3D >> sr_.max
             sr_.outValue >> PRAxisJnt_.t
-            AxisPRCtrlGrp_ = offGrp_(AxisPRCtrl_)
-            PRAxisJntGrp_ = offGrp_(PRAxisJnt_)
-            PRAxisJntGrp_.tz.set(1)
-            pm.parent(PRAxisJntGrp_,PRJntGrp_)
+            pm.parent(PRAxisJntOffGrp_,PRJntGrp_)
+            rot_ += 90
 
 sel = pm.ls(sl=1,fl=1,r=1)
 PRCtrl_(sel)
-
-
-        
-        
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

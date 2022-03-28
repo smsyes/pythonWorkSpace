@@ -720,6 +720,7 @@ def IKAttrCnt(ikPos_,IKCtrl):
     IKCtrl.PVStretch >> ikPos_.PVStretch
 
 def ArcCtrl_(name_,side,num_,upObject,crv_):
+    ArcCtrlGrp = space_(name_,suffix_='ArcGrp')
     index = 0
     number_ = num_+1+num_
     divNum = float(1)/float(num_+1)
@@ -751,7 +752,9 @@ def ArcCtrl_(name_,side,num_,upObject,crv_):
             pm.tangentConstraint(crv_[index],parent_,aim=aim_,u=(0,1,0),
                                 wut='objectrotation',wu=(0,1,0),
                                 wuo=upObject[index])
+        pm.parent(parent_,ArcCtrlGrp)
     pm.delete(spc)
+    return ArcCtrlGrp
         
 
 part = 'Arm'
@@ -821,7 +824,7 @@ dnIKCrv = IKStSq.IKStretch(pm.ls(ArcJoints[half],ArcJoints[-1]),
 pm.rename(dnIKCrv[0],'{0}DnIKCrv'.format(part))
 pm.rename(dnIKCrv[1],'{0}DnIKChkCrv'.format(part))
 dnGrp = dnIKCrv[0].getParent()
-ArcGrp,ArcCrvs = Arc.createArc(part, [st,md,en])
+ArcGrp,ArcCrvs,ArcPoint = Arc.createArc(part, [st,md,en])
 pm.parent(pm.ls(upIKCrv,dnIKCrv),crvGrp)
 pm.parent(ArcGrp,SysConst)
 pm.delete(pm.ls(upGrp,dnGrp))
@@ -867,7 +870,8 @@ list(map(offGrp_,[IKCtrlPos,FKCtrlPos]))
 pm.parent(pm.ls(IKCtrl.getParent(),
           FKCtrls[0].getParent(),
           PoleCtrl.getParent(),
-          IKFKCtrl.getParent()),
+          IKFKCtrl.getParent(),
+          ArcCtrls),
           rootConst)
 [QM.MCon(pm.ls(fk,FKJoints[i]),
          t_=1,r_=1,maintain=1) for i,fk in enumerate(FKCtrls)]

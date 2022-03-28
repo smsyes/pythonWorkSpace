@@ -129,3 +129,5 @@ def PairMCon(object_,t=None,r=None,s=None,mo_=None):
     if r:
         pb_.outRotate >> object_[-1].r
     pb_.weight.set(0.5)
+    pb_.rotInterpolation.set(1)
+    return pb_
