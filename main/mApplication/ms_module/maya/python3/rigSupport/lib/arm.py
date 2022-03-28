@@ -730,31 +730,31 @@ def ArcCtrl_(name_,side,num_,upObject,crv_):
     numList = repeat+[1]+repeat
     for i,a in enumerate(ArcCtrls):
         parent_ = a.getParent()
-        pc_ = pm.createNode('pointOnCurveInfo',n='{0}{1}PC'.format(name_,i))
-        pc_.turnOnPercentage.set(1)
-        pc_.parameter.set(numList[i])
-        if i>num_:
-            index = 1
-        crv_[index].getShape().ws >> pc_.ic
-        cm_ = pm.shadingNode('composeMatrix',au=1,n='{}CM'.format(name_))
-        mm_ = pm.shadingNode('multMatrix',au=1,n='{}MM'.format(name_))
-        dm_ = pm.shadingNode('decomposeMatrix',au=1,n='{}DM'.format(name_))
-        pc_.p >> cm_.it
-        cm_.outputMatrix >> mm_.matrixIn[0]
-        mm_.matrixSum >> dm_.inputMatrix
-        dm_.ot >> parent_.t
-        parent_.pim >> mm_.matrixIn[1]
         if i != num_:
             if side == 'Right':
                 aim_ = (-1,0,0)
             else:
                 aim_ = (1,0,0)
+            pc_ = pm.createNode('pointOnCurveInfo',n='{0}{1}PC'.format(name_,i))
+            pc_.turnOnPercentage.set(1)
+            pc_.parameter.set(numList[i])
+            if i>num_:
+                index = 1
+            crv_[index].getShape().ws >> pc_.ic
+            cm_ = pm.shadingNode('composeMatrix',au=1,n='{}CM'.format(name_))
+            mm_ = pm.shadingNode('multMatrix',au=1,n='{}MM'.format(name_))
+            dm_ = pm.shadingNode('decomposeMatrix',au=1,n='{}DM'.format(name_))
+            pc_.p >> cm_.it
+            cm_.outputMatrix >> mm_.matrixIn[0]
+            mm_.matrixSum >> dm_.inputMatrix
+            dm_.ot >> parent_.t
+            parent_.pim >> mm_.matrixIn[1]
             pm.tangentConstraint(crv_[index],parent_,aim=aim_,u=(0,1,0),
                                 wut='objectrotation',wu=(0,1,0),
                                 wuo=upObject[index])
         pm.parent(parent_,ArcCtrlGrp)
     pm.delete(spc)
-    return ArcCtrlGrp
+    return ArcCtrls
         
 
 part = 'Arm'
@@ -836,10 +836,7 @@ bs_.addBaseObject(dnIKCrv[0].getShape())
 bs_.addTarget(dnIKCrv[0].getShape(),weightIndex=2,
             newTarget=ArcCrvs[1],fullWeight=1.0,
             targetType='object')
-
-
-    
-                       
+                  
 # 컨트롤러 생성.
 IKCtrlPos = space_(part,suffix_='IKCtrlPos')
 pm.matchTransform(IKCtrlPos,ikCtrlPoser)
@@ -871,7 +868,7 @@ pm.parent(pm.ls(IKCtrl.getParent(),
           FKCtrls[0].getParent(),
           PoleCtrl.getParent(),
           IKFKCtrl.getParent(),
-          ArcCtrls),
+          ArcCtrls[0].getParent()),
           rootConst)
 [QM.MCon(pm.ls(fk,FKJoints[i]),
          t_=1,r_=1,maintain=1) for i,fk in enumerate(FKCtrls)]
