@@ -167,4 +167,4 @@ def createArc(baseName, object_):
         rc.outputCurve >> crv.create
         updnCrv.append(crv)
     pm.parent(pm.ls(poslist,pointPos,updnCrv),ArcGrp)
-    return ArcGrp,updnCrv,pointPos
+    return updnCrv,poslist,pointPos

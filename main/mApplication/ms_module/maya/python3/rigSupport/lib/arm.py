@@ -216,7 +216,7 @@ def root_(object_):
                           n='{0}ConstGrp'.format(ctrl.name()))
     pm.matchTransform(grp,object_)
     pm.matchTransform(const,object_)
-    return grp,const
+    return grp,const,ctrl
 
 def getVecPos(st,md,en):
     """poleVector 위치값
@@ -787,8 +787,11 @@ root,st,md,en = sel[0],sel[1],sel[2],sel[3]
 rigGrp = pm.createNode('transform',n='{0}RigGrp'.format(part))
 ctrlGrp = pm.createNode('transform',n='{0}CtrlGrp'.format(part))
 sysGrp = pm.createNode('transform',n='{0}SysGrp'.format(part))
-rootGrp,rootConst = root_(root)
+rootGrp,rootConst,rootCtrl = root_(root)
 SysConst = space_(root.name(),suffix_='SysConstGrp',parent_=rootConst)
+QM.MCon(pm.ls(rootCtrl,rootConst),t_=1,r_=1,maintain=1)
+QM.MCon(pm.ls(rootCtrl,SysConst),t_=1,r_=1,maintain=1)
+
 pm.parent(SysConst,sysGrp)
 posGrp = space_(part,suffix_='PosGrp',parent_=SysConst)
 jntGrp = space_(part,suffix_='JntGrp',parent_=SysConst)
@@ -843,9 +846,9 @@ dnIKCrv = IKStSq.IKStretch(pm.ls(ArcJoints[half],ArcJoints[-1]),
 pm.rename(dnIKCrv[0],'{0}DnIKCrv'.format(part))
 pm.rename(dnIKCrv[1],'{0}DnIKChkCrv'.format(part))
 dnGrp = dnIKCrv[0].getParent()
-ArcGrp,ArcCrvs,ArcPoint = Arc.createArc(part, [st,md,en])
+ArcCrvs,ArcPos,ArcPoint = Arc.createArc(part, [st,md,en])
 pm.parent(pm.ls(upIKCrv,dnIKCrv),crvGrp)
-pm.parent(ArcGrp,SysConst)
+pm.parent(ArcPos[0].getParent(),SysConst)
 pm.delete(pm.ls(upGrp,dnGrp))
 QM.MCon(pm.ls(DrvJoints[0],upIKCrv[-1]),t_=1,r_=1,maintain=1)
 QM.MCon(pm.ls(DrvJoints[1],dnIKCrv[-1]),t_=1,r_=1,maintain=1)
