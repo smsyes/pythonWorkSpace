@@ -239,8 +239,8 @@ def mconsts(items,targets):
         list_ = pm.ls(item,targets[i])
         MCon(list_, t_=1, r_=1, s_=1, maintain=1)
 
-def hairDyn_(sel, name_=None,num_=5,oj_='xyz',sao_='yup',crvRvs=None):
-    crv = polyToCurve_(sel,num_,name_,crvRvs)
+def createJoint_(edge,name_=None,num_=5,oj_='xyz',sao_='yup',crvRvs=None):
+    crv = polyToCurve_(edge,num_,name_,crvRvs)
     pm.rebuildCurve(crv,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,
                     kep=1,kt=0,s=num_,d=3,tol=0.01)
     pm.rename(crv,'{0}Crv'.format(name_))
@@ -248,6 +248,9 @@ def hairDyn_(sel, name_=None,num_=5,oj_='xyz',sao_='yup',crvRvs=None):
     jnts = JntAtCurveParam(divs,crv,name_)
     hierarchy_(jnts)
     joint_orient(jnts,e=True, oj=oj_, sao=sao_, zso=True)
+    return jnts,crv
+
+def hairDyn_(name_=None,jnts=None,crv=None):
     spcs = [space(j,i,'spc') for i,j in enumerate(jnts)]
     hierarchy_(spcs)
     ctrl = ctrl_(jnts[:-1], name_)
@@ -267,4 +270,11 @@ def hairDyn_(sel, name_=None,num_=5,oj_='xyz',sao_='yup',crvRvs=None):
 
 # Edge line을 잡고 실행하세요.
 sel = pm.ls(sl=1,fl=1,r=1)
-hairDyn_(sel, name_='test',num_=5,oj_='xyz',sao_='yup',crvRvs=True)
+name_ = 'test'
+num_ = 5
+jnts,crv = createJoint_(sel,name_,num_,oj_='xyz',sao_='yup',crvRvs=None)
+
+# 조인트 오리엔트 값을 맞춰서 축 재설정 이후 실행합니다.
+hairDyn_(name_,jnts,crv)
+
+

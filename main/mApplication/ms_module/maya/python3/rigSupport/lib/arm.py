@@ -719,8 +719,7 @@ def IKAttrCnt(ikPos_,IKCtrl):
     pm.addAttr(IKCtrl,ln='PVStretch',at='double',min=0,max=10,dv=0,k=1)
     IKCtrl.PVStretch >> ikPos_.PVStretch
 
-def ArcCtrl_(name_,side,num_,upObject,crv_):
-    ArcCtrlGrp = space_(name_,suffix_='ArcGrp')
+def ArcCtrl_(name_,side,num_,upObject,crv_,ArcPoint,DrvJoints):
     index = 0
     number_ = num_+1+num_
     divNum = float(1)/float(num_+1)
@@ -752,14 +751,34 @@ def ArcCtrl_(name_,side,num_,upObject,crv_):
             pm.tangentConstraint(crv_[index],parent_,aim=aim_,u=(0,1,0),
                                 wut='objectrotation',wu=(0,1,0),
                                 wuo=upObject[index])
-        pm.parent(parent_,ArcCtrlGrp)
+        else:
+            pm.addAttr(ArcCtrls,ln='Pbw',at='double',min=0,max=10,dv=0,k=1)
+            pb_ = pm.createNode('pairBlend', n='{0}PB'.format(parent_.name()))
+            pm.matchTransform(parent_,ArcPoint,pos=1)
+            pm.matchTransform(parent_,DrvJoints[1],rot=1)
+            pb_.it1.set(parent_.t.get())
+            pb_.ir1.set(parent_.r.get())
+            pm.pointConstraint(ArcPoint,parent_,mo=1)
+            pm.orientConstraint(DrvJoints[0],parent_,mo=0)
+            t_ = list(map(lambda a: parent_.attr('t{0}'.format(a)),['x','y','z']))
+            r_ = list(map(lambda a: parent_.attr('r{0}'.format(a)),['x','y','z']))
+            inT_ = list(map(lambda a: a.listConnections(p=1)[0] ,t_))
+            inR_ = list(map(lambda a: a.listConnections(p=1)[0] ,r_))
+            pbt_ = list(map(lambda a: pb_.attr(a) ,['itx2','ity2','itz2']))
+            pbr_ = list(map(lambda a: pb_.attr(a) ,['irx2','iry2','irz2']))
+            [inT_[i] >> t for i,t in enumerate(pbt_)]
+            [inR_[i] >> r for i,r in enumerate(pbr_)]
+            [inT_[i] // t for i,t in enumerate(t_)]
+            [inR_[i] // r for i,r in enumerate(r_)]
+            pb_.ot >> parent_.t
+            pb_.outRotate >> parent_.r
     pm.delete(spc)
     return ArcCtrls
         
 
 part = 'Arm'
 side = 'Right'
-arcJointNum = 3
+inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
 root,st,md,en = sel[0],sel[1],sel[2],sel[3]
@@ -803,8 +822,8 @@ UpArcJoints = dupJoint([st,md],'UpArc')
 DnArcJoints = dupJoint([md,en],'DnArc')
 UpArcJoints[-1].jointOrient.set(0,0,0)
 UpArcJoints[-1].r.set(0,0,0)
-linear_spacing_joint(UpArcJoints[0], arcJointNum, axis='x', side_=side)
-linear_spacing_joint(DnArcJoints[0], arcJointNum, axis='x', side_=side)
+linear_spacing_joint(UpArcJoints[0], inbetween, axis='x', side_=side)
+linear_spacing_joint(DnArcJoints[0], inbetween, axis='x', side_=side)
 pm.parent(DnArcJoints[0],UpArcJoints[-1])
 ArcJoints = getChildren_(UpArcJoints[0], type_='joint')
 [pm.rename(arc,'{0}Arc{1}Jnt'.format(part,i+1)) for i,
@@ -851,7 +870,7 @@ IKAttrCnt(ikPos[3],IKCtrl)
 PoleCtrl = Ctrl(part,[pvCtrlPoser],type_='Pole')[0]
 IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
 ArcCtrls = ArcCtrl_(part,side,arcCtrlNum,[st,md],
-                    [upIKCrv[0],dnIKCrv[0]])
+                    [upIKCrv[0],dnIKCrv[0]],ArcPoint,DrvJoints)
 IKFKCtrl = Ctrl(part,[ikCtrlPoser],type_='IKFK')[0]
 pm.addAttr(IKFKCtrl,ln='IKFK',at='double',min=0,max=1,dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='Arc',at='double',min=0,max=10,dv=0,k=1)
@@ -868,7 +887,9 @@ pm.parent(pm.ls(IKCtrl.getParent(),
           FKCtrls[0].getParent(),
           PoleCtrl.getParent(),
           IKFKCtrl.getParent(),
-          ArcCtrls[0].getParent()),
+          ArcCtrls[0].getParent(),
+          ArcCtrls[1].getParent(),
+          ArcCtrls[2].getParent()),
           rootConst)
 [QM.MCon(pm.ls(fk,FKJoints[i]),
          t_=1,r_=1,maintain=1) for i,fk in enumerate(FKCtrls)]
