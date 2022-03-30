@@ -102,6 +102,8 @@ def arcParam(baseName, arcpos_):
 
     [pos.t >> tpc.attr('point{0}'.format(i+1)) for i,
     pos in enumerate(arcpos_)]
+    tpc_.d.set(3)
+    tpc_.s.set(10)
 
     vecDict = OrderedDict()
     vecDict['VecArcTo1'] = [arcpos_[1],arcpos_[0]]
