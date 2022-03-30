@@ -100,10 +100,10 @@ def space_(name_, suffix_=None, parent_=None):
     return space_
 
 def offGrp_(object_):
-    """선택한 오브젝트의 Offset 그룹 생성.
+    """�좏깮�� �ㅻ툕�앺듃�� Offset 洹몃９ �앹꽦.
 
     Arguments:
-        object_ (object): Offset 그룹 생성할 오브젝트
+        object_ (object): Offset 洹몃９ �앹꽦�� �ㅻ툕�앺듃
 
     Returns:
         Group :  offset Group
@@ -120,10 +120,10 @@ def offGrp_(object_):
     return offset
 
 def hierarchy_(object_):
-    """선택한 오브젝트 순서대로 hierarchy구조로 변환.
+    """�좏깮�� �ㅻ툕�앺듃 �쒖꽌�濡� hierarchy援ъ“濡� 蹂��.
 
     Arguments:
-        object_ (list): hierarchy 구조로 만들 오브젝트들
+        object_ (list): hierarchy 援ъ“濡� 留뚮뱾 �ㅻ툕�앺듃��
 
     Returns:
         None : None
@@ -134,14 +134,14 @@ def hierarchy_(object_):
             pm.parent(obj, object_[i-1])
 
 def dupJoint(joints,type_):
-    """선택한 조인트들 복사 type_리네임.
+    """�좏깮�� 議곗씤�몃뱾 蹂듭궗 type_由щ꽕��.
 
     Arguments:
-        joints (list) : 복사할 조인트들
+        joints (list) : 蹂듭궗�� 議곗씤�몃뱾
         type_ (string) : 'FK' or 'IK' or 'Drv'
 
     Returns:
-        Jnts : 복사한 chain구조 조인트
+        Jnts : 蹂듭궗�� chain援ъ“ 議곗씤��
 
     """
     Jnts = []
@@ -154,13 +154,13 @@ def dupJoint(joints,type_):
     return Jnts
 
 def fkCtrlPos_(object_):
-    """FK컨트롤러 배치 포지션용 포즈.
+    """FK而⑦듃濡ㅻ윭 諛곗튂 �ъ��섏슜 �ъ쫰.
 
     Arguments:
-        object_ (list) : pos생성할 오브젝트 리스트
+        object_ (list) : pos�앹꽦�� �ㅻ툕�앺듃 由ъ뒪��
 
     Returns:
-        list_ : 생성된 pos 리스트
+        list_ : �앹꽦�� pos 由ъ뒪��
 
     """
     list_ = []
@@ -173,13 +173,13 @@ def fkCtrlPos_(object_):
     return list_
 
 def Ctrl(part,joints,type_=None):
-    """Ctrls 생성.
+    """Ctrls �앹꽦.
 
     Arguments:
-        joints (list) : Ctrl 생성할 오즈젝트 리스트
+        joints (list) : Ctrl �앹꽦�� �ㅼ쫰�앺듃 由ъ뒪��
 
     Returns:
-        ctrls : 생성된 Ctrls
+        ctrls : �앹꽦�� Ctrls
 
     """
     ctrls = []
@@ -200,14 +200,14 @@ def Ctrl(part,joints,type_=None):
     return ctrls
 
 def root_(object_):
-    """root 구성
+    """root 援ъ꽦
 
     Arguments:
-        object_ (object) : root 위치로 구성할 오브젝트 
+        object_ (object) : root �꾩튂濡� 援ъ꽦�� �ㅻ툕�앺듃 
 
     Returns:
         grp : root Ctrl Offset Group
-        const : root 위치의 ConstGrp
+        const : root �꾩튂�� ConstGrp
 
     """
     name_ = '{}Ctrl'.format(object_.name())
@@ -220,13 +220,13 @@ def root_(object_):
     return grp,const,ctrl
 
 def getVecPos(st,md,en):
-    """poleVector 위치값
+    """poleVector �꾩튂媛�
 
     Arguments:
         st,md,en (objects) : start, mid, end Vector Object
 
     Returns:
-        position : poleVector 위치값
+        position : poleVector �꾩튂媛�
 
     """
     rootPos = pm.xform(st,q=True,ws=True,t=True)
@@ -256,10 +256,10 @@ def poleVecCtrlPos_(part,st,md,en,side_='Right'):
     Arguments:
         part (string) : prefix name
         st,md,en (objects) : start, mid, end Vector Object
-        side_ (string) : 좌우 구분
+        side_ (string) : 醫뚯슦 援щ텇
 
     Returns:
-        pos : poleVector Ctrl 포지션 pos
+        pos : poleVector Ctrl �ъ��� pos
 
     """
     if side_ == 'Left':
@@ -281,10 +281,10 @@ def IKCtrlPos_(part,st,en,side_='Right'):
     Arguments:
         part (string) : prefix name
         st,en (objects) : start, end Vector Object
-        side_ (string) : 좌우 구분
+        side_ (string) : 醫뚯슦 援щ텇
 
     Returns:
-        pos : IK Ctrl 포지션 pos
+        pos : IK Ctrl �ъ��� pos
 
     """
     if side_ == 'Left':
@@ -304,7 +304,7 @@ def PVSysPos_(part,st,en,side_='Right'):
     Arguments:
         part (string) : prefix name
         st,en (objects) : start, end Vector Object
-        side_ (string) : 좌우 구분
+        side_ (string) : 醫뚯슦 援щ텇
 
     Returns:
         pos : polvector Sys Pos
@@ -322,13 +322,13 @@ def PVSysPos_(part,st,en,side_='Right'):
     return pos
 
 def ikPos_(part,object_,ikCtrlPos,pvCtrlPos):
-    """IKStretch 포지션용 포즈.
+    """IKStretch �ъ��섏슜 �ъ쫰.
 
     Arguments:
-        object_ (list) : pos생성할 오브젝트 리스트
+        object_ (list) : pos�앹꽦�� �ㅻ툕�앺듃 由ъ뒪��
 
     Returns:
-        list_ : 생성된 pos 리스트
+        list_ : �앹꽦�� pos 由ъ뒪��
 
     """
     list_ = []
@@ -451,10 +451,10 @@ def sr_(name):
     return sr
 
 def length(v0, v1):
-    """두 Vector 사이의 거리
+    """�� Vector �ъ씠�� 嫄곕━
 
     Arguments:
-        v0, v1 (Vector) : length값 구할 두 Vector
+        v0, v1 (Vector) : length媛� 援ы븷 �� Vector
 
     Returns:
         position : length
@@ -482,7 +482,7 @@ def getChildren_(object_, type_=None):
     return child_
 
 def pvSys(part,side_,pvSysPoser,md,IKCtrl):
-    """pvSysGrp 하위 구조 생성.
+    """pvSysGrp �섏쐞 援ъ“ �앹꽦.
 
     Arguments:
         part (string) : base name.
@@ -701,7 +701,7 @@ arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
 root,st,md,en = sel[0],sel[1],sel[2],sel[3]
 
-# 베이스 구조 생성.
+# 踰좎씠�� 援ъ“ �앹꽦.
 rigGrp = pm.createNode('transform',n='{0}RigGrp'.format(part))
 ctrlGrp = pm.createNode('transform',n='{0}CtrlGrp'.format(part))
 sysGrp = pm.createNode('transform',n='{0}SysGrp'.format(part))
@@ -717,7 +717,7 @@ crvGrp = space_(part,suffix_='IKCrvGrp',parent_=SysConst)
 pm.parent(pm.ls(rootGrp,rootConst),ctrlGrp)
 pm.parent(pm.ls(ctrlGrp,sysGrp),rigGrp)
 
-# Poser 생성.
+# Poser �앹꽦.
 FKCtrlPoser = fkCtrlPos_(sel[1:])
 pvCtrlPoser = poleVecCtrlPos_(part,st,md,en,side_=side)
 ikCtrlPoser = IKCtrlPos_(part,st,en,side_=side)
@@ -729,7 +729,7 @@ pm.parent(pm.ls(FKCtrlPoser[0],pvCtrlPoser,ikCtrlPoser),rootConst)
 pm.parent(rootCtrlPoser,ctrlGrp)
 pm.parent(ikPos,posGrp)
 
-# 조인트 생성.
+# 議곗씤�� �앹꽦.
 FKJoints = dupJoint([st,md,en],'FK')
 IKJoints = dupJoint([st,md,en],'IK')
 [pos.Tx >> IKJoints[i+1].tx for i,pos in enumerate(ikPos[1:3])]
@@ -738,7 +738,7 @@ DrvJoints = dupJoint([st,md,en],'Drv')
 [pm.addAttr(i,ln='FKScaleZ',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
 [pm.addAttr(i,ln='IKSquash',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
 [squashba.o >> i.IKSquash for i in DrvJoints[:-1]] 
-IKFKBlend_(IKJoints,FKJoints,DrvJoints)
+pbs = IKFKBlend_(IKJoints,FKJoints,DrvJoints)
 axis = '-x' if side == 'Right' else 'x'
 upArcJnt,upCrvs = lj.linearJoint_('{0}UpArc'.format(side+part),[st],inbetween, axis_=axis)
 dnArcJnt,dnCrvs = lj.linearJoint_('{0}DnArc'.format(side+part),[md],inbetween, axis_=axis)
@@ -748,13 +748,12 @@ ArcJoints = getChildren_(upArcJnt[0], type_='joint')
 arc in enumerate(ArcJoints)]
 pm.parent(pm.ls(DrvJoints[0],FKJoints[0],IKJoints[0],ArcJoints[0]),jntGrp)
 
-# 커브 생성.
+# 而ㅻ툕 �앹꽦.
 IKCrvGrp = space_(part,suffix_='IKCrvGrp',parent_=crvGrp)
 IKChkCrvGrp = space_(part,suffix_='IKChkCrvGrp',parent_=crvGrp)
-ArcCrvs,ArcPos,ArcPoint = Arc.createArc(part, [st,md,en])
+ArcCrvs,ArcPos,ArcPoint,ArcCrvGrp = Arc.createArc(part, [st,md,en])
 pm.parent(pm.ls(upCrvs[0],dnCrvs[0]),IKCrvGrp)
 pm.parent(pm.ls(upCrvs[1],dnCrvs[1]),IKChkCrvGrp)
-ArcCrvs,ArcPos,ArcPoint,ArcCrvGrp = Arc.createArc(part, [st,md,en])
 pm.parent(ArcPos[0].getParent(),SysConst)
 bs_ = pm.blendShape(ArcCrvGrp,IKCrvGrp,
                     n='{0}ArcBlendShape'.format(part))[0]
@@ -763,7 +762,7 @@ bs_ = pm.blendShape(ArcCrvGrp,IKCrvGrp,
 QM.MCon(pm.ls(DrvJoints[0],upCrvs[-1]),t_=1,r_=1,maintain=1)
 QM.MCon(pm.ls(DrvJoints[1],dnCrvs[-1]),t_=1,r_=1,maintain=1)
                   
-# 컨트롤러 생성.
+# 而⑦듃濡ㅻ윭 �앹꽦.
 IKCtrlPos = space_(part,suffix_='IKCtrlPos')
 pm.matchTransform(IKCtrlPos,ikCtrlPoser)
 if side == 'Right': IKCtrlPos.rx.set(180)
@@ -785,8 +784,8 @@ pm.addAttr(IKFKCtrl,ln='UpTwistFix',at='double',dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='DnTwistFix',at='double',dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='AutoHideIKFK',at='bool',k=1)
 pm.addAttr(IKFKCtrl,ln='ArcCtrlVis',at='bool',k=1)
-IKFKCtrl.Arc >> bs_.attr(ArcCrvs[0].name())
-IKFKCtrl.Arc >> bs_.attr(ArcCrvs[1].name())
+IKFKCtrl.Arc >> bs_.attr(ArcCrvGrp.name())
+list(map(lambda a: IKFKCtrl.IKFK >> a.weight ,pbs))
 pm.parent(IKCtrlPos,IKCtrl)
 pm.parent(FKCtrlPos,FKCtrls[-1])
 list(map(offGrp_,[IKCtrlPos,FKCtrlPos]))
@@ -806,14 +805,14 @@ oriConst = pm.orientConstraint(pm.ls(IKCtrlPos,FKCtrlPos,
 QM.MCon(pm.ls(IKCtrlPos,ikPos[3]),t_=1,r_=1,maintain=1)
 QM.MCon(pm.ls(PoleCtrl,ikPos[4]),t_=1,maintain=1)
 
-# PoleVector System 생성.
+# PoleVector System �앹꽦.
 sys,posFW = pvSys(part,side,pvSysPoser,md,IKCtrl)
 pm.parent(sys,SysConst)
 
-# Twist System 생성.
+# Twist System �앹꽦.
 twists = twistSys(part,side,root,st,md,DrvJoints)
 
-# IK System 생성.
+# IK System �앹꽦.
 ikh = IKHandle_(part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
 upikh = sIKHandle_(part+'Up',upArcJnt[0],upArcJnt[-1],upCrvs[0],
                     twists[0],twists[1])
