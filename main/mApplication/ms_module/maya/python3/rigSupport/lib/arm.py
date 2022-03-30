@@ -8,6 +8,7 @@ from collections import OrderedDict
 from rigSupport.lib import IKStSq
 from rigSupport.lib import Arc
 from rigSupport.lib import QuatMatrixConst as QM
+from rigSupport.lib import linearJoint as lj
 try:
     from imp import *
 except:
@@ -16,7 +17,7 @@ except:
 reload(IKStSq)
 reload(Arc)
 reload(QM)
-
+reload(lj)
 
 def getShape_(key):
     """Get Shape Dictionary
@@ -216,7 +217,7 @@ def root_(object_):
                           n='{0}ConstGrp'.format(ctrl.name()))
     pm.matchTransform(grp,object_)
     pm.matchTransform(const,object_)
-    return grp,const
+    return grp,const,ctrl
 
 def getVecPos(st,md,en):
     """poleVector 위치값
@@ -449,18 +450,6 @@ def sr_(name):
                         n='{}SR'.format(name))
     return sr
 
-def get_trans(object_):
-    """오브젝트의 world translate값 
-
-    Arguments:
-        object_ (object) : world translate값 가져올 오브젝트
-
-    Returns:
-        position : translate value
-
-    """
-    return object_.getMatrix(worldSpace=True)[-1][:-1]
-
 def length(v0, v1):
     """두 Vector 사이의 거리
 
@@ -472,77 +461,6 @@ def length(v0, v1):
     """
     v = v1 - v0
     return v.length()
-
-def joint_insert(joint_, name_, pos_):
-    """joint insert
-
-    Arguments:
-        joint_ (joint) : insert 할 joint
-        name_ (string) : 생성될 조인트 Name
-        pos_ (position) : 위치값
-
-    Returns:
-        joint : insert된 joint
-    """
-    if joint_.type() == 'joint':
-        JNT = joint_.insert()
-        pm.joint(JNT, n=name_, e=True, co=True, p=pos_)
-        return pm.PyNode(name_)
-
-def linear_spacing_joint(joint_, num, axis='x',side_='Right'):
-    """갯수에 따라 비율 조정하여 조인트 끼워넣기.
-
-    Arguments:
-        joint_ (joint) : insert 할 joint
-        num (int) : 추가할 조인트 갯수
-        axis (position) : joint Axis
-
-    Returns:
-        insertList : insert된 joints
-    """
-    joints = [joint_, joint_.getChildren()[0]]
-    stJoint = joints[0]
-    stOtherType = stJoint.otherType.get()
-    stSide = stJoint.side.get()
-    enJoint = joints[-1]
-    stTrans_= get_trans(stJoint)
-    enTrans_= get_trans(enJoint)
-    length_ = length(stTrans_, enTrans_)
-    divValue = length_/(num+1)
-
-    if side_ == 'Left':
-        divValue = divValue
-    else:
-        divValue = divValue*-1
-    if axis:
-        if axis=='x':
-            value = (divValue,0,0)
-        if axis=='y':
-            value = (0,divValue,0)
-        if axis=='z':
-            value = (0,0,divValue)
-        if axis=='-x':
-            value = (-1*divValue,0,0)
-        if axis=='-y':
-            value = (0,-1*divValue,0)
-        if axis=='-z':
-            value = (0,0,-1*divValue)
-    else:
-        value = (divValue,0,0)
-    
-    insertList = [stJoint]
-    for i in range(num):
-        localspace = space_(stJoint.name(), parent_=insertList[i])
-        localspace.t.set(value)
-        name_ = '{0}{1}{2}'.format(stOtherType, i+1, 'Jnt')
-        pos_ = get_trans(localspace)
-        JNT = joint_insert(insertList[i], name_, pos_)
-        JNT.attr('type').set(18)
-        JNT.otherType.set('{0}{1}'.format(stOtherType, i+1))
-        JNT.side.set(stSide)
-        pm.delete(localspace)
-        insertList.append(JNT)
-    return insertList
 
 def getChildren_(object_, type_=None):
     """Get the childrens from top object
@@ -787,8 +705,11 @@ root,st,md,en = sel[0],sel[1],sel[2],sel[3]
 rigGrp = pm.createNode('transform',n='{0}RigGrp'.format(part))
 ctrlGrp = pm.createNode('transform',n='{0}CtrlGrp'.format(part))
 sysGrp = pm.createNode('transform',n='{0}SysGrp'.format(part))
-rootGrp,rootConst = root_(root)
+rootGrp,rootConst,rootCtrl = root_(root)
 SysConst = space_(root.name(),suffix_='SysConstGrp',parent_=rootConst)
+QM.MCon(pm.ls(rootCtrl,rootConst),t_=1,r_=1,maintain=1)
+QM.MCon(pm.ls(rootCtrl,SysConst),t_=1,r_=1,maintain=1)
+
 pm.parent(SysConst,sysGrp)
 posGrp = space_(part,suffix_='PosGrp',parent_=SysConst)
 jntGrp = space_(part,suffix_='JntGrp',parent_=SysConst)
@@ -818,43 +739,29 @@ DrvJoints = dupJoint([st,md,en],'Drv')
 [pm.addAttr(i,ln='IKSquash',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
 [squashba.o >> i.IKSquash for i in DrvJoints[:-1]] 
 IKFKBlend_(IKJoints,FKJoints,DrvJoints)
-UpArcJoints = dupJoint([st,md],'UpArc')
-DnArcJoints = dupJoint([md,en],'DnArc')
-UpArcJoints[-1].jointOrient.set(0,0,0)
-UpArcJoints[-1].r.set(0,0,0)
-linear_spacing_joint(UpArcJoints[0], inbetween, axis='x', side_=side)
-linear_spacing_joint(DnArcJoints[0], inbetween, axis='x', side_=side)
-pm.parent(DnArcJoints[0],UpArcJoints[-1])
-ArcJoints = getChildren_(UpArcJoints[0], type_='joint')
-[pm.rename(arc,'{0}Arc{1}Jnt'.format(part,i+1)) for i,
+axis = '-x' if side == 'Right' else 'x'
+upArcJnt,upCrvs = lj.linearJoint_('{0}UpArc'.format(side+part),[st],inbetween, axis_=axis)
+dnArcJnt,dnCrvs = lj.linearJoint_('{0}DnArc'.format(side+part),[md],inbetween, axis_=axis)
+pm.parent(dnArcJnt[0],upArcJnt[-1])
+ArcJoints = getChildren_(upArcJnt[0], type_='joint')
+[pm.rename(arc,'{0}Arc{1}Jnt'.format(side+part,i+1)) for i,
 arc in enumerate(ArcJoints)]
-pm.parent(pm.ls(FKJoints[0],IKJoints[0],DrvJoints[0],ArcJoints[0]),jntGrp)
+pm.parent(pm.ls(DrvJoints[0],FKJoints[0],IKJoints[0],ArcJoints[0]),jntGrp)
 
 # 커브 생성.
-half = int(len(ArcJoints)/2)
-rvs_ = True if side == 'Right' else False
-upIKCrv = IKStSq.IKStretch(pm.ls(ArcJoints[0],ArcJoints[half-1]),
-                           rvs=rvs_)
-pm.rename(upIKCrv[0],'{0}UpIKCrv'.format(part))
-pm.rename(upIKCrv[1],'{0}UpIKChkCrv'.format(part))
-upGrp = upIKCrv[0].getParent()
-dnIKCrv = IKStSq.IKStretch(pm.ls(ArcJoints[half],ArcJoints[-1]),
-                           rvs=rvs_)
-pm.rename(dnIKCrv[0],'{0}DnIKCrv'.format(part))
-pm.rename(dnIKCrv[1],'{0}DnIKChkCrv'.format(part))
-dnGrp = dnIKCrv[0].getParent()
-ArcGrp,ArcCrvs,ArcPoint = Arc.createArc(part, [st,md,en])
-pm.parent(pm.ls(upIKCrv,dnIKCrv),crvGrp)
-pm.parent(ArcGrp,SysConst)
-pm.delete(pm.ls(upGrp,dnGrp))
-QM.MCon(pm.ls(DrvJoints[0],upIKCrv[-1]),t_=1,r_=1,maintain=1)
-QM.MCon(pm.ls(DrvJoints[1],dnIKCrv[-1]),t_=1,r_=1,maintain=1)
-bs_ = pm.blendShape(ArcCrvs[0],upIKCrv[0],
+IKCrvGrp = space_(part,suffix_='IKCrvGrp',parent_=crvGrp)
+IKChkCrvGrp = space_(part,suffix_='IKChkCrvGrp',parent_=crvGrp)
+ArcCrvs,ArcPos,ArcPoint = Arc.createArc(part, [st,md,en])
+pm.parent(pm.ls(upCrvs[0],dnCrvs[0]),IKCrvGrp)
+pm.parent(pm.ls(upCrvs[1],dnCrvs[1]),IKChkCrvGrp)
+ArcCrvs,ArcPos,ArcPoint,ArcCrvGrp = Arc.createArc(part, [st,md,en])
+pm.parent(ArcPos[0].getParent(),SysConst)
+bs_ = pm.blendShape(ArcCrvGrp,IKCrvGrp,
                     n='{0}ArcBlendShape'.format(part))[0]
-bs_.addBaseObject(dnIKCrv[0].getShape())
-bs_.addTarget(dnIKCrv[0].getShape(),weightIndex=2,
-            newTarget=ArcCrvs[1],fullWeight=1.0,
-            targetType='object')
+[QM.MCon(pm.ls(DrvJoints[i],ap),
+         t_=1,r_=1,maintain=1) for i,ap in enumerate(ArcPos)]                    
+QM.MCon(pm.ls(DrvJoints[0],upCrvs[-1]),t_=1,r_=1,maintain=1)
+QM.MCon(pm.ls(DrvJoints[1],dnCrvs[-1]),t_=1,r_=1,maintain=1)
                   
 # 컨트롤러 생성.
 IKCtrlPos = space_(part,suffix_='IKCtrlPos')
@@ -870,7 +777,7 @@ IKAttrCnt(ikPos[3],IKCtrl)
 PoleCtrl = Ctrl(part,[pvCtrlPoser],type_='Pole')[0]
 IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
 ArcCtrls = ArcCtrl_(part,side,arcCtrlNum,[st,md],
-                    [upIKCrv[0],dnIKCrv[0]],ArcPoint,DrvJoints)
+                    [upCrvs[0],dnCrvs[0]],ArcPoint,DrvJoints)
 IKFKCtrl = Ctrl(part,[ikCtrlPoser],type_='IKFK')[0]
 pm.addAttr(IKFKCtrl,ln='IKFK',at='double',min=0,max=1,dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='Arc',at='double',min=0,max=10,dv=0,k=1)
@@ -908,8 +815,8 @@ twists = twistSys(part,side,root,st,md,DrvJoints)
 
 # IK System 생성.
 ikh = IKHandle_(part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
-upikh = sIKHandle_(part+'Up',UpArcJoints[0],UpArcJoints[-1],upIKCrv[0],
+upikh = sIKHandle_(part+'Up',upArcJnt[0],upArcJnt[-1],upCrvs[0],
                     twists[0],twists[1])
-dnikh = sIKHandle_(part+'Dn',DnArcJoints[0],DnArcJoints[-1],dnIKCrv[0],
+dnikh = sIKHandle_(part+'Dn',dnArcJnt[0],dnArcJnt[-1],dnCrvs[0],
                     twists[1],twists[2])
 pm.parent(pm.ls(ikh,upikh,dnikh),SysConst)
