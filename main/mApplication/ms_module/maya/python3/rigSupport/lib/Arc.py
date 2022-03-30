@@ -103,6 +103,9 @@ def arcParam(baseName, arcpos_):
     [pos.t >> tpc.attr('point{0}'.format(i+1)) for i,
     pos in enumerate(arcpos_)]
 
+    tpc.degree.set(3)
+    tpc.sections.set(10)
+
     vecDict = OrderedDict()
     vecDict['VecArcTo1'] = [arcpos_[1],arcpos_[0]]
     vecDict['Vec3To1'] = [arcpos_[2],arcpos_[0]]
@@ -146,7 +149,9 @@ def createArc(baseName, object_):
 
     """
     ArcGrp = space_(baseName)
+    ArcCrvGrp = space_(baseName)
     pm.rename(ArcGrp,'{0}ArcGrp'.format(baseName))
+    pm.rename(ArcCrvGrp,'{0}ArcCrvGrp'.format(baseName))
     poslist, pointPos = arcPointPos(baseName, object_)
     tpc, angleSr = arcParam(baseName,
                             pm.ls(poslist[0],pointPos,poslist[2]))
@@ -166,5 +171,7 @@ def createArc(baseName, object_):
         dc.outputCurve[i] >> rc.inputCurve
         rc.outputCurve >> crv.create
         updnCrv.append(crv)
-    pm.parent(pm.ls(poslist,pointPos,updnCrv),ArcGrp)
-    return updnCrv,poslist,pointPos
+        pm.parent(crv,ArcCrvGrp)
+    pm.parent(pm.ls(poslist,pointPos,ArcCrvGrp),ArcGrp)
+    return updnCrv,poslist,pointPos,ArcCrvGrp
+
