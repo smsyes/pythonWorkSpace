@@ -198,18 +198,21 @@ def ikh_(jnts,crv,vector):
 
 def midPbw(stCtrl,mdCtrl,enCtrl):
     pm.addAttr(mdCtrl,ln='pbw',min=0,max=10,dv=3,k=1)
-    pConst = pm.parentConstraint(pm.ls(stCtrl,enCtrl,mdCtrl),mo=1)
+    mdCtrlGrp = mdCtrl.getParent()
+    pConst = pm.parentConstraint(pm.ls(stCtrl,enCtrl,mdCtrlGrp),mo=1)
     pb = pm.createNode('pairBlend',n='{}PB'.format(mdCtrl.name()))
     ml = pm.shadingNode('multDoubleLinear',au=1,n='{}ML'.format(mdCtrl.name()))
     pb.rotInterpolation.set(1)
     mdCtrl.pbw >> ml.i1
     ml.i2.set(0.1)
-    [mdCtrl.getParent().attr(i).disconnect() for i in ['rx','ry','rz']]
-    [mdCtrl.getParent().attr(i).disconnect() for i in ['tx','ty','tz']]
+    [mdCtrlGrp.attr(i).listConnections(p=1)[0] // mdCtrlGrp.attr(i) for i in ['rx','ry','rz']]
+    [mdCtrlGrp.attr(i).listConnections(p=1)[0] // mdCtrlGrp.attr(i) for i in ['tx','ty','tz']]
+    pb.ir1.set(pConst.constraintRotate.get())
+    pb.it1.set(pConst.constraintTranslate.get())
     pConst.constraintRotate >> pb.ir2
     pConst.constraintTranslate >> pb.it2
-    pb.outRotate >> mdCtrl.getParent().r
-    pb.outTranslate >> mdCtrl.getParent().t
+    pb.outRotate >> mdCtrlGrp.r
+    pb.outTranslate >> mdCtrlGrp.t
     ml.o >> pb.weight
 
 def cbJoint(name_,pos):
@@ -284,9 +287,9 @@ def Spine_(object_):
     midPbw(st,md,en)
 
 
-# 첫번째와 마지막 조인트 선택후 실행.
+# 泥ル쾲吏몄� 留덉�留� 議곗씤�� �좏깮�� �ㅽ뻾.
 '''
-type = 'Spine' Or 'Neck' 둘중 하나로 설정하고 실행해야 합니다.
+type = 'Spine' Or 'Neck' �섏쨷 �섎굹濡� �ㅼ젙�섍퀬 �ㅽ뻾�댁빞 �⑸땲��.
 '''
 type = 'Neck'
 
