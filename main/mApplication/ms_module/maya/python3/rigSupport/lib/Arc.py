@@ -166,12 +166,12 @@ def createArc(baseName, object_):
     for i,typ in enumerate(['Up','Dn']):
         name_ = '{0}{1}ArcCrv'.format(baseName,typ)
         rc = rc_(name_)
-        crv = crv_()
-        pm.rename(crv.getParent(), name_)
+        crv = crv_().getParent()
+        pm.rename(crv, name_)
         rc.spans.set(2)
         rc.keepRange.set(0)
         dc.outputCurve[i] >> rc.inputCurve
-        rc.outputCurve >> crv.create
+        rc.outputCurve >> crv.getShape().create
         updnCrv.append(crv)
         pm.parent(crv,ArcCrvGrp)
     pm.parent(pm.ls(poslist,pointPos,ArcCrvGrp),ArcGrp)

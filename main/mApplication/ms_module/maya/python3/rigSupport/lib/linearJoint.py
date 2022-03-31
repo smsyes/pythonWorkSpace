@@ -52,6 +52,8 @@ def object_cv_curve(name_, object_):
     object_ = pm.ls(object_)  
     trans_list = list(map(lambda i: get_trans(i) ,object_))
     crv_ = pm.curve(n='{}Crv'.format(name_), d=1, p = trans_list)
+    pm.rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,
+                    kcp=0,kep=1,kt=1,s=1,d=1)
     return crv_
 
 def rebuildCrv_(crv_,object_):
@@ -68,10 +70,10 @@ def space_(name_, suffix_=None, parent_=None):
     return space_
 
 def length(v0, v1):
-    """두 Vector 사이의 거리
+    """�� Vector �ъ씠�� 嫄곕━
 
     Arguments:
-        v0, v1 (Vector) : length값 구할 두 Vector
+        v0, v1 (Vector) : length媛� 援ы븷 �� Vector
 
     Returns:
         position : length
@@ -83,12 +85,12 @@ def joint_insert(joint_, name_, pos_):
     """joint insert
 
     Arguments:
-        joint_ (joint) : insert 할 joint
-        name_ (string) : 생성될 조인트 Name
-        pos_ (position) : 위치값
+        joint_ (joint) : insert �� joint
+        name_ (string) : �앹꽦�� 議곗씤�� Name
+        pos_ (position) : �꾩튂媛�
 
     Returns:
-        joint : insert된 joint
+        joint : insert�� joint
     """
     if joint_.type() == 'joint':
         JNT = joint_.insert()
@@ -96,15 +98,15 @@ def joint_insert(joint_, name_, pos_):
         return pm.PyNode(name_)
 
 def linear_spacing_joint(joint_, num, axis='x'):
-    """갯수에 따라 비율 조정하여 조인트 끼워넣기.
+    """媛�닔�� �곕씪 鍮꾩쑉 議곗젙�섏뿬 議곗씤�� �쇱썙�ｊ린.
 
     Arguments:
-        joint_ (joint) : insert 할 joint
-        num (int) : 추가할 조인트 갯수
+        joint_ (joint) : insert �� joint
+        num (int) : 異붽��� 議곗씤�� 媛�닔
         axis (position) : joint Axis
 
     Returns:
-        insertList : insert된 joints
+        insertList : insert�� joints
     """
     joints = [joint_, joint_.getChildren()[0]]
     stJoint = joints[0]
@@ -166,14 +168,14 @@ def getChildren_(object_, type_=None):
     return child_
 
 def dupJoint(joints,type_):
-    """선택한 조인트들 복사 type_리네임.
+    """�좏깮�� 議곗씤�몃뱾 蹂듭궗 type_由щ꽕��.
 
     Arguments:
-        joints (list) : 복사할 조인트들
+        joints (list) : 蹂듭궗�� 議곗씤�몃뱾
         type_ (string) : 'FK' or 'IK' or 'Drv'
 
     Returns:
-        Jnts : 복사한 chain구조 조인트
+        Jnts : 蹂듭궗�� chain援ъ“ 議곗씤��
 
     """
     Jnts = []
@@ -186,10 +188,10 @@ def dupJoint(joints,type_):
     return Jnts    
 
 def hierarchy_(object_):
-    """선택한 오브젝트 순서대로 hierarchy구조로 변환.
+    """�좏깮�� �ㅻ툕�앺듃 �쒖꽌�濡� hierarchy援ъ“濡� 蹂��.
 
     Arguments:
-        object_ (list): hierarchy 구조로 만들 오브젝트들
+        object_ (list): hierarchy 援ъ“濡� 留뚮뱾 �ㅻ툕�앺듃��
 
     Returns:
         None : None
@@ -232,7 +234,8 @@ def linearJoint_(baseName_,object_,num_=3,axis_='x'):
                 mult = -1
             else:
                 mult = 1
-            list(map(lambda i: ml[i].i2.set(db[i].distance.get()*mult) ,range(divNum)))
+            list(map(lambda i: ml[i].i2.set(db[i].distance.get()*mult) ,
+            range(divNum)))
     list(map(lambda i: md[i].ox >> ml[i].i1 ,range(divNum)))
     list(map(lambda i: ml[i].o >> chain_[i+1].tx ,range(divNum)))
     return chain_,crvs
