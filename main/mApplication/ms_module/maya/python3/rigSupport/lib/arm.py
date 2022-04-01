@@ -752,8 +752,8 @@ def ikfkVisConnect_(name_,attr_):
     return cd.outColorR,cd.outColorG
     
 
-part = 'Arm'
-side = 'Left'
+part = 'Leg'
+side = 'Right'
 inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
@@ -879,7 +879,7 @@ QM.MCon(pm.ls(PoleCtrl,ikPos[4]),t_=1,maintain=1)
 # Create PoleVector System.
 sys,pos,tg = pvSys(side+part,side,pvSysPoser,md,IKCtrl)
 pm.matchTransform(pos,pvCtrlPoser)
-QM.MCon(pm.ls(IKCtrlPos,tg),r_=1,maintain=1)
+QM.MCon(pm.ls(IKCtrlPos,tg),t_=1,maintain=1)
 pm.parentConstraint(pos,PoleCtrl.getParent(),mo=1)
 pm.parent(sys,SysConst)
 
