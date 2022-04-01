@@ -483,7 +483,7 @@ def getChildren_(object_, type_=None):
     return child_
 
 def pvSys(name_,side_,pvSysPoser,md,IKCtrl):
-    """pvSysGrp 占쎌꼷�� �닌듼� 占쎌빘苑�.
+    """pvSysGrp 좎럩瑗뤄옙占占쎈땶셋占좎럩鍮섋땻占
 
     Arguments:
         name_ (string) : base name.
@@ -681,8 +681,8 @@ def ArcCtrl_(name_,side,num_,upObject,crv_,ArcPoint,DrvJoints,bs_):
         else:
             pm.addAttr(a,ln='Pbw',at='double',min=0,max=10,dv=0,k=1)
             pb_ = pm.createNode('pairBlend', n='{0}PB'.format(parent_.name()))
-            ml_ = ml_(parent_.name(),attrlist_=a.Pbw)
-            ml_.i2.set(0.1)
+            ml = ml_(parent_.name(),attrlist_=[a.Pbw])
+            ml.i2.set(0.1)
             pm.parentConstraint(DrvJoints[1],parent_,mo=0)
             t_ = list(map(lambda a: parent_.attr('t{0}'.format(a)),['x','y','z']))
             r_ = list(map(lambda a: parent_.attr('r{0}'.format(a)),['x','y','z']))
@@ -752,8 +752,8 @@ def ikfkVisConnect_(name_,attr_):
     return cd.outColorR,cd.outColorG
     
 
-part = 'Leg'
-side = 'Left'
+part = 'Arm'
+side = 'Right'
 inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)

@@ -73,7 +73,7 @@ def arcPointPos(baseName, object):
         dblist.append(db)
     
     pconst = pm.pointConstraint(pm.ls(poslist,pointPos),mo=0)
-    
+    pconst.offsetZ.set(-0.01)
     attrs = []
     for i,pos in enumerate(poslist):
         attr_ = '{0}W{1}'.format(pos.name(),i)
