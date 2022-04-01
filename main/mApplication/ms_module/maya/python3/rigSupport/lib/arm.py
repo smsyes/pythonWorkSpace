@@ -190,8 +190,8 @@ def Ctrl(name_,joints,type_=None):
             shape_ = 'circle'
         else:
             shape_ = type_
-        name_ = '{0}{1}{2}Ctrl'.format(name_,i+1,type_)
-        ctrl = crvShape_(shape_,name_)
+        name = '{0}{1}{2}Ctrl'.format(name_,i+1,type_)
+        ctrl = crvShape_(shape_,name)
         pm.matchTransform(ctrl,j)
         ctrls.append(ctrl)
     if type_ == 'FK':
@@ -753,7 +753,7 @@ def ikfkVisConnect_(name_,attr_):
     
 
 part = 'Arm'
-side = 'Right'
+side = 'Left'
 inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
