@@ -750,7 +750,17 @@ def ikfkVisConnect_(name_,attr_):
     attr_[0] >> cd.colorIfTrueG
     attr_[1] >> cd.firstTerm
     return cd.outColorR,cd.outColorG
-    
+
+def twistVP_(item,target):
+    vp = pm.shadingNode('vectorProduct',au=1,n='{}VP'.format(name_))
+    item.t >> vp.i1
+    vp.i2y.set(1)
+    vp.normalizeOutput.set(1)
+
+    pm.setDrivenKeyframe(target.rz,cd=vp.ox)
+    pm.setDrivenKeyframe(target.rz,cd=vp.ox,dv=-1,v=-90)
+    pm.setDrivenKeyframe(target.rz,cd=vp.ox,dv=1,v=90)
+
 
 part = 'Leg'
 side = 'Right'
