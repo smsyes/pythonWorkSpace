@@ -30,8 +30,6 @@ def getShape_(key):
 
     """
     shapeDict = OrderedDict()
-    shapeDict['square'] = 1, [(-1,0,1),(-1,0,-1),(1,0,-1),(1,0,1),
-                        (-1,0,1)], [0,1,2,3,4]
     shapeDict['circle'] = 1, [(0,0,1),(0.382683,0,0.92388),
                         (0.707107,0,0.707107),(0.92388,0,0.382683),
                         (1,0,0),(0.92388,0,-0.382683),
@@ -185,7 +183,7 @@ def Ctrl(name_,joints,type_=None):
     ctrls = []
     for i,j in enumerate(joints):
         if type_ == 'FK':
-            shape_ = 'square'
+            shape_ = 'Arc'
         elif type_ == 'IK':
             shape_ = 'circle'
         else:
@@ -483,7 +481,7 @@ def getChildren_(object_, type_=None):
     return child_
 
 def pvSys(name_,side_,pvSysPoser,md,IKCtrl):
-    """pvSysGrp 좎럩瑗뤄옙占占쎈땶셋占좎럩鍮섋땻占
+    """pvSysGrp ル∥れレØ용쐻醫롫윥좊묒쥙伊쇺뫔뿫鍮
 
     Arguments:
         name_ (string) : base name.
@@ -574,6 +572,7 @@ def twistSys(name_,side_,root,st,md,DrvJoints):
             AssiB = space_(name_,suffix_='{0}TwistFixUpVec'.format(i+1),
                            parent_=twistFixGrp)
             QM.MCon(pm.ls(DrvJoints[1],twistFixTg), t_='t', maintain=False)
+            twistVP_(twistFixTg,AssiB)
         pm.matchTransform(twistFixGrp,jnt,pos=1)
         pm.matchTransform(twistFixGrp,rotTg[i],rot=1)
         pm.parent(twistFixGrp,parentTg[i])
@@ -673,8 +672,6 @@ def ArcCtrl_(name_,side,num_,upObject,crv_,ArcPoint,DrvJoints,bs_):
             tgc = pm.tangentConstraint(crv_[index],parent_,aim=aim_,u=(0,1,0),
                                 wut='objectrotation',wu=(0,1,0),
                                 wuo=upObject[index])
-            print(tgc.target[0].targetGeometry)
-            print(tgc.target[0].targetGeometry.listConnections(p=1)[0])
             tgc.target[0].targetGeometry.listConnections(p=1)[0] // tgc.target[0].targetGeometry
             bs_.attr('outputGeometry[{0}]'.format(targetNum)) >> tgc.target[0].targetGeometry
             targetNum +=1
@@ -690,6 +687,8 @@ def ArcCtrl_(name_,side,num_,upObject,crv_,ArcPoint,DrvJoints,bs_):
             inR_ = list(map(lambda a: a.listConnections(p=1)[0] ,r_))
             pbt_ = list(map(lambda a: pb_.attr(a) ,['itx1','ity1','itz1']))
             pbr_ = list(map(lambda a: pb_.attr(a) ,['irx1','iry1','irz1']))
+            [inT_[i] >> t for i,t in enumerate(pbt_)]
+            [inR_[i] >> r for i,r in enumerate(pbr_)]
             [inT_[i] // t for i,t in enumerate(t_)]
             [inR_[i] // r for i,r in enumerate(r_)]
             pm.pointConstraint(ArcPoint,parent_,mo=1)
@@ -707,6 +706,7 @@ def ArcCtrl_(name_,side,num_,upObject,crv_,ArcPoint,DrvJoints,bs_):
             pb_.ot >> parent_.t
             pb_.outRotate >> parent_.r
             pb_.rotInterpolation.set(1)
+            ml.o >> pb_.weight
     pm.delete(spc)
     return ArcCtrls
 
@@ -752,7 +752,7 @@ def ikfkVisConnect_(name_,attr_):
     return cd.outColorR,cd.outColorG
 
 def twistVP_(item,target):
-    vp = pm.shadingNode('vectorProduct',au=1,n='{}VP'.format(name_))
+    vp = pm.shadingNode('vectorProduct',au=1,n='{}VP'.format(target.name()))
     item.t >> vp.i1
     vp.i2y.set(1)
     vp.normalizeOutput.set(1)
@@ -762,8 +762,8 @@ def twistVP_(item,target):
     pm.setDrivenKeyframe(target.rz,cd=vp.ox,dv=1,v=90)
 
 
-part = 'Leg'
-side = 'Right'
+part = 'Arm'
+side = 'Left'
 inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
@@ -794,7 +794,7 @@ rootCtrlPoser = pm.duplicate(rootConst,
 pvSysPoser = PVSysPos_(side+part,st,en,side_=side)
 ikPos,squashba = ikPos_(side+part,[st,md,en],ikCtrlPoser,pvCtrlPoser)
 pm.parent(pm.ls(FKCtrlPoser[0],pvCtrlPoser,ikCtrlPoser),rootConst)
-pm.parent(rootCtrlPoser,ctrlGrp)
+# pm.parent(rootCtrlPoser,ctrlGrp)
 pm.parent(ikPos,posGrp)
 
 # Create Joint.
@@ -845,7 +845,7 @@ IKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IK')[0]
 IKAttrCnt(ikPos[3],IKCtrl)
 PoleCtrl = Ctrl(side+part,[pvCtrlPoser],type_='Pole')[0]
 IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
-ArcCtrls = ArcCtrl_(side+part,side,arcCtrlNum,[st,md],
+ArcCtrls = ArcCtrl_(side+part,side,arcCtrlNum,DrvJoints[1:-1],
                     [upCrvs[0],dnCrvs[0]],ArcPoint,DrvJoints,bs_)
 ArcCtrlGrp = list(map(lambda a: a.getParent() ,ArcCtrls))           
 IKFKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IKFK')[0]
@@ -856,7 +856,13 @@ pm.addAttr(IKFKCtrl,ln='DnTwistFix',at='double',dv=0,k=1)
 pm.addAttr(IKFKCtrl,ln='AutoHideIKFK',at='bool',k=1)
 pm.addAttr(IKFKCtrl,ln='ArcCtrlVis',at='bool',k=1)
 ikin, fkin = ikfkVisConnect_(side+part,[IKFKCtrl.IKFK,IKFKCtrl.AutoHideIKFK])
-IKFKCtrl.Arc >> bs_.attr(ArcCrvGrp.name())
+ikin >> IKCtrl.getParent().v
+ikin >> PoleCtrl.getShape().v
+list(map(lambda f: fkin >> f.getParent().v,FKCtrls))
+ArcCrvGrpName = ArcCrvGrp.name()
+arcML = ml_(IKFKCtrl.name(),attrlist_=[IKFKCtrl.Arc])   
+arcML.i2.set(0.1)
+arcML.o >> bs_.attr(ArcCrvGrp.name())
 list(map(lambda a: IKFKCtrl.ArcCtrlVis >> a.v ,ArcCtrlGrp))
 list(map(lambda a: IKFKCtrl.IKFK >> a.weight ,pbs))
 pm.parent(IKCtrlPos,IKCtrl)
