@@ -225,7 +225,7 @@ FKOff_ = list(map(lambda a: offGrp_(a),FKCtrl_))
 pos_ = list(map(lambda a: space_(a.name(), suffix_='Pos'),iklist))
 [pm.matchTransform(pos_[i],j) for i,j in enumerate(iklist)]
 hierarchy_(pos_)
-aimPos = space_(st.name(), suffix_='AMPos',parent_=FKCtrl_[0])
+aimPos = space_(st.name(), suffix_='AMPos',parent_=RootCtrl_[0])
 pvPos = space_(st.name(), suffix_='PVPos',parent_=aimPos)
 pvPos.ty.set(0.1)
 aimUpVec = space_(IKCtrl_[0].name(), suffix_='AMUpVec',parent_=IKCtrl_[0])
