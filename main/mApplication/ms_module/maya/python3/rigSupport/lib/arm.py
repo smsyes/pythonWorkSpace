@@ -761,157 +761,159 @@ def twistVP_(item,target):
     pm.setDrivenKeyframe(target.rz,cd=vp.ox,dv=-1,v=-90)
     pm.setDrivenKeyframe(target.rz,cd=vp.ox,dv=1,v=90)
 
+def MVArm(part,side,inbetween,arcCtrlNum,root,st,md,en):
+    # Base Constructure.
+    rigGrp = pm.createNode('transform',n='{0}{1}RigGrp'.format(side,part))
+    ctrlGrp = pm.createNode('transform',n='{0}{1}CtrlGrp'.format(side,part))
+    sysGrp = pm.createNode('transform',n='{0}{1}SysGrp'.format(side,part))
+    rootGrp,rootConst,rootCtrl = root_(root)
+    SysConst = space_(root.name(),suffix_='SysConstGrp',parent_=rootConst)
+    QM.MCon(pm.ls(rootCtrl,rootConst),t_=1,r_=1,maintain=1)
+    QM.MCon(pm.ls(rootCtrl,SysConst),t_=1,r_=1,maintain=1)
+
+    pm.parent(SysConst,sysGrp)
+    posGrp = space_(side+part,suffix_='PosGrp',parent_=SysConst)
+    jntGrp = space_(side+part,suffix_='JntGrp',parent_=SysConst)
+    crvGrp = space_(side+part,suffix_='CrvGrp',parent_=SysConst)
+    pm.parent(pm.ls(rootGrp,rootConst),ctrlGrp)
+    pm.parent(pm.ls(ctrlGrp,sysGrp),rigGrp)
+
+    # Create Poser.
+    FKCtrlPoser = fkCtrlPos_(sel[1:])
+    pvCtrlPoser = poleVecCtrlPos_(side+part,st,md,en,side_=side)
+    ikCtrlPoser = IKCtrlPos_(side+part,st,en,side_=side)
+    rootCtrlPoser = pm.duplicate(rootConst,
+                                n='{}CtrlPoser'.format(root.name()),po=1)[0]
+    pvSysPoser = PVSysPos_(side+part,st,en,side_=side)
+    ikPos,squashba = ikPos_(side+part,[st,md,en],ikCtrlPoser,pvCtrlPoser)
+    pm.parent(pm.ls(FKCtrlPoser[0],pvCtrlPoser,ikCtrlPoser),rootConst)
+    # pm.parent(rootCtrlPoser,ctrlGrp)
+    pm.parent(ikPos,posGrp)
+
+    # Create Joint.
+    FKJoints = dupJoint([st,md,en],'FK')
+    IKJoints = dupJoint([st,md,en],'IK')
+    [pos.Tx >> IKJoints[i+1].tx for i,pos in enumerate(ikPos[1:3])]
+    DrvJoints = dupJoint([st,md,en],'Drv')
+    [pm.addAttr(i,ln='FKScaleY',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
+    [pm.addAttr(i,ln='FKScaleZ',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
+    [pm.addAttr(i,ln='IKSquash',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
+    [squashba.o >> i.IKSquash for i in DrvJoints[:-1]] 
+    pbs = IKFKBlend_(IKJoints,FKJoints,DrvJoints)
+    axis = '-x' if side == 'Right' else 'x'
+    upArcJnt,upCrvs = lj.linearJoint_('{0}UpArc'.format(side+part),[st],inbetween, axis_=axis)
+    dnArcJnt,dnCrvs = lj.linearJoint_('{0}DnArc'.format(side+part),[md],inbetween, axis_=axis)
+    pm.parent(dnArcJnt[0],upArcJnt[-1])
+    ArcJoints = getChildren_(upArcJnt[0], type_='joint')
+    [pm.rename(arc,'{0}Arc{1}Jnt'.format(side+part,i+1)) for i,
+    arc in enumerate(ArcJoints)]
+    pm.parent(pm.ls(DrvJoints[0],FKJoints[0],IKJoints[0],ArcJoints[0]),jntGrp)
+
+    # Create Curve.
+    IKCrvGrp = space_(side+part,suffix_='IKCrvGrp',parent_=crvGrp)
+    IKChkCrvGrp = space_(side+part,suffix_='IKChkCrvGrp',parent_=crvGrp)
+    ArcCrvs,ArcPos,ArcPoint,ArcCrvGrp = Arc.createArc(side+part, [st,md,en])
+    pm.parent(pm.ls(upCrvs[0],dnCrvs[0]),IKCrvGrp)
+    pm.parent(pm.ls(upCrvs[1],dnCrvs[1]),IKChkCrvGrp)
+    pm.parent(ArcPos[0].getParent(),SysConst)
+    bs_ = crvBlendshape_(side+part,ArcCrvGrp,IKCrvGrp,[upCrvs[0],dnCrvs[0]],inbetween)   
+    upClsGrps,upCls = clusterBind_(side+part,ArcPos[:-1],upCrvs[0])
+    dnClsGrps,dnCls = clusterBind_(side+part,ArcPos[1:],dnCrvs[0])
+    [QM.MCon(pm.ls(DrvJoints[i],ap),
+            t_=1,maintain=1) for i,ap in enumerate(ArcPos)]                    
+    QM.MCon(pm.ls(DrvJoints[0],upCrvs[-1]),t_=1,r_=1,maintain=1)
+    QM.MCon(pm.ls(DrvJoints[1],dnCrvs[-1]),t_=1,r_=1,maintain=1)
+
+            
+    # Create Controller.
+    IKCtrlPos = space_(side+part,suffix_='IKCtrlPos')
+    pm.matchTransform(IKCtrlPos,ikCtrlPoser)
+    if side == 'Right': IKCtrlPos.rx.set(180)
+    FKCtrlPos = space_(side+part,suffix_='FKCtrlPos')
+    pm.matchTransform(FKCtrlPos,FKCtrlPoser)
+    FKCtrls = Ctrl(side+part,FKJoints,type_='FK')
+    [FKCtrls[i].sy >> drv.FKScaleY for i,drv in enumerate(DrvJoints[:-1])] 
+    [FKCtrls[i].sz >> drv.FKScaleZ for i,drv in enumerate(DrvJoints[:-1])] 
+    IKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IK')[0]
+    IKAttrCnt(ikPos[3],IKCtrl)
+    PoleCtrl = Ctrl(side+part,[pvCtrlPoser],type_='Pole')[0]
+    IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
+    ArcCtrls = ArcCtrl_(side+part,side,arcCtrlNum,DrvJoints[0:-1],
+                        [upCrvs[0],dnCrvs[0]],ArcPoint,DrvJoints,bs_)
+    ArcCtrlGrp = list(map(lambda a: a.getParent() ,ArcCtrls))           
+    IKFKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IKFK')[0]
+    pm.addAttr(IKFKCtrl,ln='IKFK',at='double',min=0,max=1,dv=0,k=1)
+    pm.addAttr(IKFKCtrl,ln='Arc',at='double',min=0,max=10,dv=0,k=1)
+    pm.addAttr(IKFKCtrl,ln='UpTwistFix',at='double',dv=0,k=1)
+    pm.addAttr(IKFKCtrl,ln='DnTwistFix',at='double',dv=0,k=1)
+    pm.addAttr(IKFKCtrl,ln='AutoHideIKFK',at='bool',k=1)
+    pm.addAttr(IKFKCtrl,ln='ArcCtrlVis',at='bool',k=1)
+    ikin, fkin = ikfkVisConnect_(side+part,[IKFKCtrl.IKFK,IKFKCtrl.AutoHideIKFK])
+    ikin >> IKCtrl.getParent().v
+    ikin >> PoleCtrl.getShape().v
+    list(map(lambda f: fkin >> f.getParent().v,FKCtrls))
+    ArcCrvGrpName = ArcCrvGrp.name()
+    arcML = ml_(IKFKCtrl.name(),attrlist_=[IKFKCtrl.Arc])   
+    arcML.i2.set(0.1)
+    arcML.o >> bs_.attr(ArcCrvGrp.name())
+    list(map(lambda a: IKFKCtrl.ArcCtrlVis >> a.v ,ArcCtrlGrp))
+    list(map(lambda a: IKFKCtrl.IKFK >> a.weight ,pbs))
+    pm.parent(IKCtrlPos,IKCtrl)
+    pm.parent(FKCtrlPos,FKCtrls[-1])
+    list(map(offGrp_,[IKCtrlPos,FKCtrlPos]))
+    pm.parent(pm.ls(IKCtrl.getParent(),
+            FKCtrls[0].getParent(),
+            PoleCtrl.getParent(),
+            IKFKCtrl.getParent(),
+            ArcCtrlGrp[0],
+            ArcCtrlGrp[1],
+            ArcCtrlGrp[2]),
+            rootConst)
+    [pm.parent(upClsGrps[i],g) for i,g in enumerate([ArcCtrlGrp[0],ArcCtrlGrp[1]])]
+    [pm.parent(dnClsGrps[i],g) for i,g in enumerate([ArcCtrlGrp[1],ArcCtrlGrp[2]])]
+    [c.t >> upCls[i].t for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
+    [c.r >> upCls[i].r for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
+    [c.s >> upCls[i].s for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
+    [c.t >> dnCls[i].t for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
+    [c.r >> dnCls[i].r for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
+    [c.s >> dnCls[i].s for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
+    [QM.MCon(pm.ls(fk,FKJoints[i]),
+            t_=1,r_=1,maintain=1) for i,fk in enumerate(FKCtrls)]
+    QM.MCon(pm.ls(IKCtrlPos,IKJoints[-1]),r_=1,maintain=0)
+    oriConst = pm.orientConstraint(pm.ls(IKCtrlPos,FKCtrlPos,
+                                DrvJoints[-1]),mo=0)
+    QM.MCon(pm.ls(IKCtrlPos,ikPos[3]),t_=1,r_=1,maintain=1)
+    QM.MCon(pm.ls(PoleCtrl,ikPos[4]),t_=1,maintain=1)
+
+    # Create PoleVector System.
+    sys,pos,tg = pvSys(side+part,side,pvSysPoser,md,IKCtrl)
+    pm.matchTransform(pos,pvCtrlPoser)
+    QM.MCon(pm.ls(IKCtrlPos,tg),t_=1,maintain=1)
+    pm.parentConstraint(pos,PoleCtrl.getParent(),mo=1)
+    pm.parent(sys,SysConst)
+
+    # Create Twist System.
+    twists = twistSys(side+part,side,root,st,md,DrvJoints)
+    IKFKCtrl.UpTwistFix >> twists[0].rx
+    IKFKCtrl.DnTwistFix >> twists[1].rx
+
+    # Create IK System.
+    ikh = IKHandle_(side+part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
+    upikh = sIKHandle_(side+part+'Up',upArcJnt[0],upArcJnt[-1],upCrvs[0],
+                        twists[0],twists[1])
+    dnikh = sIKHandle_(side+part+'Dn',dnArcJnt[0],dnArcJnt[-1],dnCrvs[0],
+                        twists[1],twists[2])
+    dFwd = 1 if side == 'Right' else 0
+    upikh.dForwardAxis.set(dFwd)
+    dnikh.dForwardAxis.set(dFwd)
+    pm.parent(pm.ls(ikh,upikh,dnikh),SysConst)
 
 part = 'Arm'
-side = 'Left'
+side = 'Right'
 inbetween = 3
 arcCtrlNum = 1
 sel = pm.ls(sl=1,fl=1,r=1)
 root,st,md,en = sel[0],sel[1],sel[2],sel[3]
+MVArm(part,side,inbetween,arcCtrlNum,root,st,md,en)
 
-# Base Constructure.
-rigGrp = pm.createNode('transform',n='{0}{1}RigGrp'.format(side,part))
-ctrlGrp = pm.createNode('transform',n='{0}{1}CtrlGrp'.format(side,part))
-sysGrp = pm.createNode('transform',n='{0}{1}SysGrp'.format(side,part))
-rootGrp,rootConst,rootCtrl = root_(root)
-SysConst = space_(root.name(),suffix_='SysConstGrp',parent_=rootConst)
-QM.MCon(pm.ls(rootCtrl,rootConst),t_=1,r_=1,maintain=1)
-QM.MCon(pm.ls(rootCtrl,SysConst),t_=1,r_=1,maintain=1)
-
-pm.parent(SysConst,sysGrp)
-posGrp = space_(side+part,suffix_='PosGrp',parent_=SysConst)
-jntGrp = space_(side+part,suffix_='JntGrp',parent_=SysConst)
-crvGrp = space_(side+part,suffix_='CrvGrp',parent_=SysConst)
-pm.parent(pm.ls(rootGrp,rootConst),ctrlGrp)
-pm.parent(pm.ls(ctrlGrp,sysGrp),rigGrp)
-
-# Create Poser.
-FKCtrlPoser = fkCtrlPos_(sel[1:])
-pvCtrlPoser = poleVecCtrlPos_(side+part,st,md,en,side_=side)
-ikCtrlPoser = IKCtrlPos_(side+part,st,en,side_=side)
-rootCtrlPoser = pm.duplicate(rootConst,
-                             n='{}CtrlPoser'.format(root.name()),po=1)[0]
-pvSysPoser = PVSysPos_(side+part,st,en,side_=side)
-ikPos,squashba = ikPos_(side+part,[st,md,en],ikCtrlPoser,pvCtrlPoser)
-pm.parent(pm.ls(FKCtrlPoser[0],pvCtrlPoser,ikCtrlPoser),rootConst)
-# pm.parent(rootCtrlPoser,ctrlGrp)
-pm.parent(ikPos,posGrp)
-
-# Create Joint.
-FKJoints = dupJoint([st,md,en],'FK')
-IKJoints = dupJoint([st,md,en],'IK')
-[pos.Tx >> IKJoints[i+1].tx for i,pos in enumerate(ikPos[1:3])]
-DrvJoints = dupJoint([st,md,en],'Drv')
-[pm.addAttr(i,ln='FKScaleY',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
-[pm.addAttr(i,ln='FKScaleZ',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
-[pm.addAttr(i,ln='IKSquash',at='double',dv=0,k=1) for i in DrvJoints[:-1]]
-[squashba.o >> i.IKSquash for i in DrvJoints[:-1]] 
-pbs = IKFKBlend_(IKJoints,FKJoints,DrvJoints)
-axis = '-x' if side == 'Right' else 'x'
-upArcJnt,upCrvs = lj.linearJoint_('{0}UpArc'.format(side+part),[st],inbetween, axis_=axis)
-dnArcJnt,dnCrvs = lj.linearJoint_('{0}DnArc'.format(side+part),[md],inbetween, axis_=axis)
-pm.parent(dnArcJnt[0],upArcJnt[-1])
-ArcJoints = getChildren_(upArcJnt[0], type_='joint')
-[pm.rename(arc,'{0}Arc{1}Jnt'.format(side+part,i+1)) for i,
-arc in enumerate(ArcJoints)]
-pm.parent(pm.ls(DrvJoints[0],FKJoints[0],IKJoints[0],ArcJoints[0]),jntGrp)
-
-# Create Curve.
-IKCrvGrp = space_(side+part,suffix_='IKCrvGrp',parent_=crvGrp)
-IKChkCrvGrp = space_(side+part,suffix_='IKChkCrvGrp',parent_=crvGrp)
-ArcCrvs,ArcPos,ArcPoint,ArcCrvGrp = Arc.createArc(side+part, [st,md,en])
-pm.parent(pm.ls(upCrvs[0],dnCrvs[0]),IKCrvGrp)
-pm.parent(pm.ls(upCrvs[1],dnCrvs[1]),IKChkCrvGrp)
-pm.parent(ArcPos[0].getParent(),SysConst)
-bs_ = crvBlendshape_(side+part,ArcCrvGrp,IKCrvGrp,[upCrvs[0],dnCrvs[0]],inbetween)   
-upClsGrps,upCls = clusterBind_(side+part,ArcPos[:-1],upCrvs[0])
-dnClsGrps,dnCls = clusterBind_(side+part,ArcPos[1:],dnCrvs[0])
-[QM.MCon(pm.ls(DrvJoints[i],ap),
-         t_=1,maintain=1) for i,ap in enumerate(ArcPos)]                    
-QM.MCon(pm.ls(DrvJoints[0],upCrvs[-1]),t_=1,r_=1,maintain=1)
-QM.MCon(pm.ls(DrvJoints[1],dnCrvs[-1]),t_=1,r_=1,maintain=1)
-
-           
-# Create Controller.
-IKCtrlPos = space_(side+part,suffix_='IKCtrlPos')
-pm.matchTransform(IKCtrlPos,ikCtrlPoser)
-if side == 'Right': IKCtrlPos.rx.set(180)
-FKCtrlPos = space_(side+part,suffix_='FKCtrlPos')
-pm.matchTransform(FKCtrlPos,FKCtrlPoser)
-FKCtrls = Ctrl(side+part,FKJoints,type_='FK')
-[FKCtrls[i].sy >> drv.FKScaleY for i,drv in enumerate(DrvJoints[:-1])] 
-[FKCtrls[i].sz >> drv.FKScaleZ for i,drv in enumerate(DrvJoints[:-1])] 
-IKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IK')[0]
-IKAttrCnt(ikPos[3],IKCtrl)
-PoleCtrl = Ctrl(side+part,[pvCtrlPoser],type_='Pole')[0]
-IKCtrl.PVCtrlVis >> PoleCtrl.getParent().v
-ArcCtrls = ArcCtrl_(side+part,side,arcCtrlNum,DrvJoints[1:-1],
-                    [upCrvs[0],dnCrvs[0]],ArcPoint,DrvJoints,bs_)
-ArcCtrlGrp = list(map(lambda a: a.getParent() ,ArcCtrls))           
-IKFKCtrl = Ctrl(side+part,[ikCtrlPoser],type_='IKFK')[0]
-pm.addAttr(IKFKCtrl,ln='IKFK',at='double',min=0,max=1,dv=0,k=1)
-pm.addAttr(IKFKCtrl,ln='Arc',at='double',min=0,max=10,dv=0,k=1)
-pm.addAttr(IKFKCtrl,ln='UpTwistFix',at='double',dv=0,k=1)
-pm.addAttr(IKFKCtrl,ln='DnTwistFix',at='double',dv=0,k=1)
-pm.addAttr(IKFKCtrl,ln='AutoHideIKFK',at='bool',k=1)
-pm.addAttr(IKFKCtrl,ln='ArcCtrlVis',at='bool',k=1)
-ikin, fkin = ikfkVisConnect_(side+part,[IKFKCtrl.IKFK,IKFKCtrl.AutoHideIKFK])
-ikin >> IKCtrl.getParent().v
-ikin >> PoleCtrl.getShape().v
-list(map(lambda f: fkin >> f.getParent().v,FKCtrls))
-ArcCrvGrpName = ArcCrvGrp.name()
-arcML = ml_(IKFKCtrl.name(),attrlist_=[IKFKCtrl.Arc])   
-arcML.i2.set(0.1)
-arcML.o >> bs_.attr(ArcCrvGrp.name())
-list(map(lambda a: IKFKCtrl.ArcCtrlVis >> a.v ,ArcCtrlGrp))
-list(map(lambda a: IKFKCtrl.IKFK >> a.weight ,pbs))
-pm.parent(IKCtrlPos,IKCtrl)
-pm.parent(FKCtrlPos,FKCtrls[-1])
-list(map(offGrp_,[IKCtrlPos,FKCtrlPos]))
-pm.parent(pm.ls(IKCtrl.getParent(),
-          FKCtrls[0].getParent(),
-          PoleCtrl.getParent(),
-          IKFKCtrl.getParent(),
-          ArcCtrlGrp[0],
-          ArcCtrlGrp[1],
-          ArcCtrlGrp[2]),
-          rootConst)
-[pm.parent(upClsGrps[i],g) for i,g in enumerate([ArcCtrlGrp[0],ArcCtrlGrp[1]])]
-[pm.parent(dnClsGrps[i],g) for i,g in enumerate([ArcCtrlGrp[1],ArcCtrlGrp[2]])]
-[c.t >> upCls[i].t for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
-[c.r >> upCls[i].r for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
-[c.s >> upCls[i].s for i,c in enumerate([ArcCtrls[0],ArcCtrls[1]])]
-[c.t >> dnCls[i].t for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
-[c.r >> dnCls[i].r for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
-[c.s >> dnCls[i].s for i,c in enumerate([ArcCtrls[1],ArcCtrls[2]])]
-[QM.MCon(pm.ls(fk,FKJoints[i]),
-         t_=1,r_=1,maintain=1) for i,fk in enumerate(FKCtrls)]
-QM.MCon(pm.ls(IKCtrlPos,IKJoints[-1]),r_=1,maintain=0)
-oriConst = pm.orientConstraint(pm.ls(IKCtrlPos,FKCtrlPos,
-                               DrvJoints[-1]),mo=0)
-QM.MCon(pm.ls(IKCtrlPos,ikPos[3]),t_=1,r_=1,maintain=1)
-QM.MCon(pm.ls(PoleCtrl,ikPos[4]),t_=1,maintain=1)
-
-# Create PoleVector System.
-sys,pos,tg = pvSys(side+part,side,pvSysPoser,md,IKCtrl)
-pm.matchTransform(pos,pvCtrlPoser)
-QM.MCon(pm.ls(IKCtrlPos,tg),t_=1,maintain=1)
-pm.parentConstraint(pos,PoleCtrl.getParent(),mo=1)
-pm.parent(sys,SysConst)
-
-# Create Twist System.
-twists = twistSys(side+part,side,root,st,md,DrvJoints)
-IKFKCtrl.UpTwistFix >> twists[0].rx
-IKFKCtrl.DnTwistFix >> twists[1].rx
-
-# Create IK System.
-ikh = IKHandle_(side+part,IKJoints[0],IKJoints[-1],IKCtrlPos,PoleCtrl)
-upikh = sIKHandle_(side+part+'Up',upArcJnt[0],upArcJnt[-1],upCrvs[0],
-                    twists[0],twists[1])
-dnikh = sIKHandle_(side+part+'Dn',dnArcJnt[0],dnArcJnt[-1],dnCrvs[0],
-                    twists[1],twists[2])
-dFwd = 1 if side == 'Right' else 0
-upikh.dForwardAxis.set(dFwd)
-dnikh.dForwardAxis.set(dFwd)
-pm.parent(pm.ls(ikh,upikh,dnikh),SysConst)
 
