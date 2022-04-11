@@ -203,7 +203,7 @@ def hierarchy_(object_):
 
 def linearJoint_(baseName_,object_,num_=3,axis_='x'):
     crvs = []
-    list_ = pm.ls(object_[0],object_[0].getChildren())
+    list_ = pm.ls(object_[0],object_[0].getChildren()[0])
     divNum = num_+1
     joint_ = dupJoint(list_,'Arc')
     joint_[-1].jointOrient.set(0,0,0)
