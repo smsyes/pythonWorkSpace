@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\main",
+    "\\main\\mApplication",
+    "\\main\\mApplication\\ms_module",
+    "\\main\\mApplication\\ms_module\\lib",
+    "\\main\\mApplication\\ms_module\\lib\\m_lib",
+    "\\main\\mApplication\\ms_module\\maya",
+    "\\main\\mApplication\\ms_module\\maya\\python3",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\lib"
+  ],
+  "SelectedNode": "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\lib\\flcOutCrvSort.py",
+  "PreviewInSolutionExplorer": false
+}
