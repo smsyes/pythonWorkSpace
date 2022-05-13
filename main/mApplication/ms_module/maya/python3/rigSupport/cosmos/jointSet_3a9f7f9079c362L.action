@@ -1,7 +1,7 @@
 (dp1
 Vinfo
 p2
-Vjoint setup
+Vjoint labeling / joint orient / joint insert
 p3
 sVname
 p4
@@ -17,11 +17,11 @@ Vpython
 p9
 sVcommand
 p10
-Vfrom deliver import jointSet\u000areload(jointSet)
+Vfrom ui.deliver import jointSet\u000areload(jointSet)
 p11
 sVid
 p12
-S'3a60db17ebed20L'
+S'3a9f7f9079c362L'
 p13
 sVicon
 p14

@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\main",
+    "\\main\\mApplication",
+    "\\main\\mApplication\\ms_module",
+    "\\main\\mApplication\\ms_module\\maya",
+    "\\main\\mApplication\\ms_module\\maya\\python3",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\dictLib",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\ui",
+    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\ui\\deliver",
+    "\\Ped"
+  ],
+  "SelectedNode": "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\dictLib\\_shape_dic.py",
+  "PreviewInSolutionExplorer": false
+}

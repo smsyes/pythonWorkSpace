@@ -1,11 +1,11 @@
 (dp1
 Vinfo
 p2
-Vjoint setup
+VMRig
 p3
 sVname
 p4
-VjointSet
+VMRig
 p5
 sVtags
 p6
@@ -17,11 +17,11 @@ Vpython
 p9
 sVcommand
 p10
-Vfrom deliver import jointSet\u000areload(jointSet)
+Vfrom ui.convert import mRigTool\u000areload(mRigTool)
 p11
 sVid
 p12
-S'3a60db17ebed20L'
+S'3a9f812c1eed80L'
 p13
 sVicon
 p14

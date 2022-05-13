@@ -1,11 +1,11 @@
 (dp1
 Vinfo
 p2
-Vjoint setup
+VUn used delete clean up
 p3
 sVname
 p4
-VjointSet
+VUUSDel
 p5
 sVtags
 p6
@@ -17,11 +17,11 @@ Vpython
 p9
 sVcommand
 p10
-Vfrom deliver import jointSet\u000areload(jointSet)
+Vfrom ui.deliver import UUSDel\u000areload(UUSDel)
 p11
 sVid
 p12
-S'3a60db17ebed20L'
+S'3a9f80b2bcdc90L'
 p13
 sVicon
 p14

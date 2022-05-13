@@ -1,11 +1,11 @@
 (dp1
 Vinfo
 p2
-Vjoint setup
+VposeReader setup
 p3
 sVname
 p4
-VjointSet
+VposeReader
 p5
 sVtags
 p6
@@ -17,11 +17,11 @@ Vpython
 p9
 sVcommand
 p10
-Vfrom deliver import jointSet\u000areload(jointSet)
+Vfrom ui.convert import poseReaderV01\u000areload(poseReaderV01)
 p11
 sVid
 p12
-S'3a60db17ebed20L'
+S'3a9f814bee6410L'
 p13
 sVicon
 p14

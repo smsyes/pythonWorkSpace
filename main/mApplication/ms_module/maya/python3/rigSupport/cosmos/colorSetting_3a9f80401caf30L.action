@@ -1,11 +1,11 @@
 (dp1
 Vinfo
 p2
-Vshape Palate tool
+Vcolor setting tool
 p3
 sVname
 p4
-VColorSetting
+VcolorSetting
 p5
 sVtags
 p6
@@ -21,7 +21,7 @@ V/*\u000a-----------------------------------------color Override Procedure------
 p11
 sVid
 p12
-S'3a72fff3b80b50L'
+S'3a9f80401caf30L'
 p13
 sVicon
 p14
