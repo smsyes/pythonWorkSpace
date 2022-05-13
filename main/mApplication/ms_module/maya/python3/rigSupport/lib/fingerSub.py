@@ -34,5 +34,10 @@ def fingerSDK(iAttr,tAttr,dv_,v_):
 
 sel = pm.ls(sl=1,fl=1,r=1)
 # halfRot(sel)
+<<<<<<< HEAD
 fingerSDK(sel[0].ry,sel[1].tz,[-45],[-1])
 # fingerSDK(sel[0].ry,sel[2].tz,[45],[1])
+=======
+fingerSDK(sel[0].ry,sel[1].tz,[45],[-1])
+fingerSDK(sel[0].ry,sel[2].tz,[45],[1])
+>>>>>>> 658cd21eec3011ae7dfa2489a279e91cfdca5560
