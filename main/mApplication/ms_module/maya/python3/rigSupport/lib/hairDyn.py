@@ -271,7 +271,7 @@ def hairDyn_(name_=None,jnts=None,crv=None):
 # Curve?¡ê³  ?¤í–‰?´ì£¼?¸ìš”
 sel = pm.ls(sl=1,fl=1,r=1)
 name_ = 'mainFK'
-num_ = 8
+num_ = 24
 jnts,crv = createJoint_(sel[0],name_,num_,oj_='xyz',sao_='yup',crvRvs=None)
 
 # ì¡°ì¸?? ?¤ë¦¬?”íŠ¸ ê°’ì„ ë§ì¶°?? ì¶? ?¬ì„¤?? ?´í›„ ?¤í–‰?©ë‹ˆ??.
