@@ -39,7 +39,27 @@ def StretchConnection(curve_, paramMLs):
     ML.o >> BC.blender
     list(map(lambda p: BC.outputR >> p.i1 , paramMLs))
 
+def waveAttr(object_):
+    pm.addAttr(object_, ln="side_drive",nn="____",at='enum',en="wave:",k=1)
+    pm.addAttr(object_, ln="enable",at='double',min=0,max=1,dv=0,k=1)
+    pm.addAttr(object_, ln="amplitude",at='double',dv=0.2,k=1)
+    pm.addAttr(object_, ln="wavelength",at='double',dv=1,k=1)
+    pm.addAttr(object_, ln="offset",at='double',dv=0,k=1)
+
+def setDriven_(iAttr,tAttr,dv_,v_):
+    pm.setDrivenKeyframe(tAttr,cd=iAttr)
+    for i,d in enumerate(dv_):
+        pm.setDrivenKeyframe(tAttr,cd=iAttr,dv=d,v=v_[i])
+
+def smethodSet(hairsystems):
+    for h in hairsystems:
+        shape = h.getShape()
+        flcShape = shape.outputHair.listConnections()[0]
+        setDriven_(shape.simulationMethod,flcShape.simulationMethod,[1,3],[0,2])
+
 # 커브 선택후 실행.
 sel = pm.ls(sl=1,fl=1,r=1)
 paramMLs = parameterConnection(sel[0])
 StretchConnection(sel[0], paramMLs)
+# waveAttr(sel[0])
+# smethodSet(sel)

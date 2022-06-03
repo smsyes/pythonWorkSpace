@@ -1,0 +1,29 @@
+(dp1
+Vinfo
+p2
+Vjoint labeling / joint orient / joint insert
+p3
+sVname
+p4
+VjointSet
+p5
+sVtags
+p6
+Vtools
+p7
+sVsyntax
+p8
+Vpython
+p9
+sVcommand
+p10
+Vfrom ui.deliver import jointSet\u000areload(jointSet)
+p11
+sVid
+p12
+S'3a9f7f9079c362L'
+p13
+sVicon
+p14
+V
+s.

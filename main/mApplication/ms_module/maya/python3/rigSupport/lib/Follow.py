@@ -8,7 +8,7 @@ def space_(name_, suffix_=None, parent_=None):
                         p=parent_)
     return space_
     
-list_ = ['World','Fly','Root'] + []
+list_ = ['FK','IK','Root'] + ['World']
 enumlist = list_[0]
 for i in list_[1:]:
     enumlist = enumlist + ':' + i

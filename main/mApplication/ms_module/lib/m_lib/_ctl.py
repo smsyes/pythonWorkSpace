@@ -10,7 +10,7 @@ if not module_path in sys.path:
 
 import _shape_dic
 reload(_shape_dic)
-    
+
 # create curve shape
 #___________________________________________________________________________________________________
 class crvShape_:
