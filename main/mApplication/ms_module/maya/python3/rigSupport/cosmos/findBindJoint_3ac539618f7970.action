@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3ac539618f7970
+p2
+sVname
+p3
+VfindBindJoint
+p4
+sVinfo
+p5
+Vselect object binding joint
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom pymel.core import *\u000a\u000adef bindJoint(object_):\u000a    shape_ = object_.getShape()\u000a    connectionList_ = shape_.listHistory(gl=1,pdo=1)\u000a    for cnt_ in connectionList_:\u000a        if cnt_.type() == 'skinCluster':\u000a            scls_ = cnt_\u000a            break\u000a        else:\u000a            scls_ = None\u000a    sclsMtx_ = scls_.attr('matrix')\u000a    return sclsMtx_.listConnections(d=0,s=1,type='joint')\u000a\u000asel = ls(sl=1,r=1,fl=1)\u000aselect(bindJoint(sel[0]))
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.

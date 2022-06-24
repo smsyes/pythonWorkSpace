@@ -8,7 +8,7 @@ def space_(name_, suffix_=None, parent_=None):
                         p=parent_)
     return space_
     
-list_ = ['Chest','Root','World']
+list_ = ['Clavicle','Head','Chest','Root','Main','Master','Global']
 enumlist = list_[0]
 for i in list_[1:]:
     enumlist = enumlist + ':' + i
@@ -22,9 +22,9 @@ spclist = []
 for i,item in enumerate(list_):
     spc = space_(name_,suffix_='{0}Space'.format(item))
     pm.matchTransform(spc,sel[0])
-    pm.parentConstraint(spc,sel[0],mo=1)
+    pm.parentConstraint(spc,sel[0].getParent(),mo=1)
     spclist.append(spc)
-    const = sel[0].rx.listConnections()[0]
+    const = sel[0].getParent().rx.listConnections()[0]
     
 
 for i,item in enumerate(list_):

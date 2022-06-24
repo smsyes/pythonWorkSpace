@@ -185,15 +185,15 @@ def Ctrl(joints,type_=None):
     return ctrls
 
 def setPreffered_(joints):
-    rz_ = 0.1
+    ry_ = 0.1
     for j in joints:
         for a in ['X','Y','Z']:
             angle_ = j.attr('preferredAngle{0}'.format(a))
             if angle_.get()<0:
                 angle_.set(angle_.get()*-1)
-        j.rz.set(j.rz.get()+rz_)
+        j.ry.set(j.ry.get()+ry_)
         pm.joint(j,e=1,spa=1)
-        j.rz.set(j.rz.get()-rz_)
+        j.ry.set(j.ry.get()-ry_)
             
         
     
@@ -226,8 +226,9 @@ pos_ = list(map(lambda a: space_(a.name(), suffix_='Pos'),iklist))
 [pm.matchTransform(pos_[i],j) for i,j in enumerate(iklist)]
 hierarchy_(pos_)
 aimPos = space_(st.name(), suffix_='AMPos',parent_=RootCtrl_[0])
+pm.matchTransform(aimPos,FKCtrl_[1],pos=1)
 pvPos = space_(st.name(), suffix_='PVPos',parent_=aimPos)
-pvPos.ty.set(0.1)
+pvPos.tz.set(0.1)
 aimUpVec = space_(IKCtrl_[0].name(), suffix_='AMUpVec',parent_=IKCtrl_[0])
 grp = space_(st.name(), suffix_='Grp')
 CtrlGrp = space_(st.name(), suffix_='CtrlGrp',parent_=grp)
