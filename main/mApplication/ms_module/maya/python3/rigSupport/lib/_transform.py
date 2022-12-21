@@ -45,7 +45,6 @@ def getChildren_(object_, type_=None):
     child_ = child_ + [object_]
     child_.reverse()
     return child_
-    
 
 def divide_in_two(object_):
     divideNum = int(len(object_)/2)

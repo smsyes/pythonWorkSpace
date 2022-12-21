@@ -179,3 +179,31 @@ def IKStretch(object_, rvs=None):
     IKNodeConnection(nodeDict_, joints_, param_, rvs=rvs)
     [parent(crv, nodeDict_['SysGrp']) for crv in crvs_]
     return crvs_
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

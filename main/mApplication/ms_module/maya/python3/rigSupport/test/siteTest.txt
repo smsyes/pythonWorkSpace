@@ -1,0 +1,5 @@
+site = "http://naver.com"
+
+site = site.split('http://')[-1]
+
+print(site)

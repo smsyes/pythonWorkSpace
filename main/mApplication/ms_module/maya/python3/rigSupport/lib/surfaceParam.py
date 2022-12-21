@@ -33,10 +33,9 @@ reload(_node)
 reload(_connect)
 
 class SurfParamSpace():
-    def __init__(self, *args, **kwargs):
-
-        self.sel = ls(sl=1, fl=1, r=1)
-        shape_ = self.sel[0].getShape()
+    def __init__(self,*args, **kwargs):
+        object_ = ls(sl=1, r=1, fl=1)
+        shape_ = object_[0].getShape()
         uNum_ = shape_.numSpansInU()+1
         vNum_ = shape_.numSpansInV()+1
         spaces = self.surf_param_space(self.sel[0], uNum_, vNum_)
@@ -98,4 +97,4 @@ class SurfParamSpace():
         return GRPDict
     
 
-
+s_ = SurfParamSpace()

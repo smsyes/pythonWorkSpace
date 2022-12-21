@@ -233,10 +233,51 @@ def jointFromCrvNearPos(curves):
         pc2_.position >> jnt_.t
         delete(pc1_, np_)
 
+def surfacePosAtmiddle(object_):
+    name_ = object_[0].name()
+    surfShape_ = object_[0].getShape()
+    ps_ = createNode('pointOnSurfaceInfo', n='{0}PS'.format(name_))
+    rh_ = createNode('rotateHelper', n='{0}RH'.format(name_))
+    SurfPos_ = createNode('transform', n='{0}SurfPos'.format(name_))
+    surfShape_.ws >> ps_.inputSurface
+    ps_.attr('parameterU').set(0.5)
+    ps_.attr('parameterV').set(0.5)
+    ps_.normalizedNormal >> rh_.forward
+    ps_.normalizedTangentU >> rh_.up
+    ps_.position >> SurfPos_.t
+    rh_.r >> SurfPos_.r
+
+def surfPos(name_,surfShape_, uv_,param):
+        for i,p in enumerate(param):
+            ps_ = createNode('pointOnSurfaceInfo', n='{0}{1}PS'.format(name_,i))
+            rh_ = createNode('rotateHelper', n='{0}{1}RH'.format(name_,i))
+            SurfPos_ = createNode('transform', n='{0}{1}SurfPos'.format(name_,i))
+            surfShape_.ws >> ps_.inputSurface
+            ps_.turnOnPercentage.set(1)
+            ps_.setAttr(uv_,p)
+            ps_.normalizedNormal >> rh_.forward
+            ps_.normalizedTangentU >> rh_.up
+            ps_.position >> SurfPos_.t
+            rh_.r >> SurfPos_.r
+
+def surfaceAtPos2(object_, u=None, v=None):
+    surfShape_ = object_.getShape()
+    name_ = object_.name()
+    if u:
+        uv_ = 'parameterU'
+        uList = division(u,1)
+        surfPos(name_,surfShape_,uv_,uList)
+    else:
+        uv_ = 'parameterV'
+        vList = division(v,1)
+        surfPos(name_,surfShape_,uv_,vList)
+
+        
+
 sel = ls(sl=1)
 
 # shape_ = sel[0].getShape()
-# number = 6
+# number = 80
 # numList = division(number,1)
 # numList = [0,1,2,3,4,5,6,7]
 # numList = list(range(shape_.numEPs()))
@@ -256,9 +297,9 @@ sel = ls(sl=1)
 # getParamAtObjectPosition(sel)
 # paramList = getCrvParamAtObjectPosition(sel)
 # JntAtCurveParam(paramList, sel[-1])
-# surfacePosAtObject(paramList, sel)
+# surfacePosAtmiddle(sel)
 # jointFromCrvNearPos(sel)
-
+# surfaceAtPos2(sel[0], u=5)
 
     
     

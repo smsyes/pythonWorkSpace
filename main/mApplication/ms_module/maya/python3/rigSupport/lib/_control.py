@@ -49,6 +49,3 @@ def control_(object_, type_):
         _transform.set_transform_(ls(obj, CTL_))
         CTLList.append(CTL_)
     return CTLList
-    
-sel = ls(sl=1,fl=1,r=1)
-control_(sel, 'pin')

@@ -268,13 +268,13 @@ def hairDyn_(name_=None,jnts=None,crv=None):
     outCrv = hairsystem(crv,name_)
     ikh = ikh_(jnts,outCrv)
 
-# Curve?�고 ?�행?�주?�요
+# Curve잡고 실행해주세요
 sel = pm.ls(sl=1,fl=1,r=1)
-name_ = 'mainFK'
-num_ = 24
+name_ = 'test'
+num_ = 5
 jnts,crv = createJoint_(sel[0],name_,num_,oj_='xyz',sao_='yup',crvRvs=None)
 
-# 조인?? ?�리?�트 값을 맞춰?? �? ?�설?? ?�후 ?�행?�니??.
+# 조인트 오리엔트 값을 맞춰서 축 재설정 이후 실행합니다.
 hairDyn_(name_,jnts,crv)
 
 

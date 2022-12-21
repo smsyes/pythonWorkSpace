@@ -18,7 +18,7 @@ reload(MVCvt)
 #
 import pymel.core as pm
 
-# ì‚¼ê°í´ë¦¬ ë©”ì‰¬ì˜ ë°”ê¹¥ìª½ Edgeë¼ì¸ ì¡ê³  ì‹¤í–‰
+# »ï°¢Æú¸® ¸Ş½¬ÀÇ ¹Ù±ùÂÊ Edge¶óÀÎ Àâ°í ½ÇÇà
 sel = pm.ls(sl=1,fl=1,r=1)
 
 base_ = pm.PyNode(sel[0].name().split('.e')[0])
