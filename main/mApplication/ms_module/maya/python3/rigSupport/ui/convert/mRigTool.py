@@ -293,7 +293,8 @@ class myUIClass(QWidget):
 
     
     def surf_parma_space(self):
-        return surfaceParam.SurfParamSpace()
+        object_ = ls(sl=1, r=1, fl=1)
+        return surfaceParam.SurfParamSpace(object_)
 
 
     def hybrid_setting(self):

@@ -13,10 +13,10 @@ for groom_group_id, group_name in enumerate(groups):
 
     # xgGroom에서 커브 얻기
     curves = cmds.listRelatives(group_name, ad=True, type='nurbsCurve')
-
+    
     # 그룹 ID로 태그 그루핑
     cmds.addAttr(group_name, longName=attr_name, attributeType='short', defaultValue=groom_group_id, keyable=True)
-
+    
     # 어트리뷰트 범위 추가
     # Maya의 얼렘빅이 데이터를 GeometryScope::kConstantScope로 익스포트하도록 강제
     cmds.addAttr(group_name, longName='{}_AbcGeomScope'.format(attr_name), dataType='string', keyable=True)
@@ -28,7 +28,7 @@ attr_name = 'groom_guide'
 curves = cmds.listRelatives('xgGroom', ad=True, type='nurbsCurve')
 
 # 새 그룹 생성
-guides_group = cmds.createNode('transform', name='guides')
+guides_group = cmds.createNode('transform', name='guides01')
 
 # 그룹을 groom_guide로 태그
 cmds.addAttr(guides_group, longName=attr_name, attributeType='short', defaultValue=1, keyable=True)

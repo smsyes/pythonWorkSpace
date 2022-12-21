@@ -33,12 +33,13 @@ reload(_node)
 reload(_connect)
 
 class SurfParamSpace():
-    def __init__(self,*args, **kwargs):
-        object_ = ls(sl=1, r=1, fl=1)
-        shape_ = object_[0].getShape()
+    def __init__(self, object_, *args, **kwargs):
+        if object_:
+            self.object_ = object_
+        shape_ = self.object_[0].getShape()
         uNum_ = shape_.numSpansInU()+1
         vNum_ = shape_.numSpansInV()+1
-        spaces = self.surf_param_space(self.sel[0], uNum_, vNum_)
+        spaces = self.surf_param_space(self.object_, uNum_, vNum_)
         paramGRPs = self.param_structure(spaces.keys())
         for i,grp in enumerate(paramGRPs['V_param']):
             for spc in spaces[i]:
@@ -95,6 +96,3 @@ class SurfParamSpace():
         GRPDict['V_param'] = [_node.space_('V{}_space'.format(i), 
                              parent_=GRPDict['param']) for i in list_]
         return GRPDict
-    
-
-s_ = SurfParamSpace()

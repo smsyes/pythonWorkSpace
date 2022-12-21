@@ -299,7 +299,7 @@ sel = ls(sl=1)
 # JntAtCurveParam(paramList, sel[-1])
 # surfacePosAtmiddle(sel)
 # jointFromCrvNearPos(sel)
-# surfaceAtPos2(sel[0], u=5)
+surfaceAtPos2(sel[0], u=5)
 
     
     
