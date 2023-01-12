@@ -24,10 +24,13 @@ def hierarchy_(object_):
         if i>0:
             parent(obj, object_[i-1])
 
+def list_chuck(arr, n):
+    return [arr[i: i + n] for i in range(0, len(arr), n)]
+
 def IKFKBlend(object_):
-    FKChain = getChildren_(object_[0], type_='joint')
-    IKChain = getChildren_(object_[1])
-    DrvChain = getChildren_(object_[2], type_='joint')
+    # The current number of list checks is based on fingers.
+    result_array = list_chuck(object_, 4)
+    FKChain, IKChain, DrvChain = result_array
     IKPos_ = [createNode('transform', n='{0}Pos'.format(ik.name())) for ik in IKChain]
     [matchTransform(IKPos_[i],Drv) for i,Drv in enumerate(DrvChain)]
     hierarchy_(IKPos_)
@@ -51,6 +54,6 @@ def IKFKBlend(object_):
         PB_.outRotate >> drv.r
         BC_.output >> drv.s
 
-# 첫번째 FK 최상위 조인트, IK 최상위 조인트, Drv 최상위 조인트 선택후 실행해주세요
+# 첫번째 FK 조인트 리스트, IK 조인트 리스트, Drv 조인트 리스트 선택후 실행해주세요
 sel = ls(sl=1,r=1,fl=1)
 IKFKBlend(sel)
