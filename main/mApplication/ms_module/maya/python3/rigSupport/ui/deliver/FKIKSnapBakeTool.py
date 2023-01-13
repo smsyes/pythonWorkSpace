@@ -40,21 +40,25 @@ class Ui_Form(QWidget,object):
     def registDelete(self):
         sel = pm.ls(sl=1,fl=1,r=1)
         type_ = self.snapGroupbox()
-        ikList_ = self.msgCheck(sel, 'IK')
-        pm.delete(ikList_[-2])
-        [self.msgDelete(sel, i) for i in ['IK', 'FK']]
-    
+        if sel[0].hasAttr('IK'):
+            type_ = 'IK'
+            pm.delete(list_[1].node())
+        elif sel[0].hasAttr('FK'):
+            type_ = 'FK'
+        list_ = self.msgCheck(sel, type_)
+        self.msgDelete(sel, type_)
+            
     def register(self):
         sel = pm.ls(sl=1,fl=1,r=1)
         type_ = self.registerGroupbox()
         if type_ == 0:
             attr_ = 'IK'
-            ikLocal_ = self.createIkLocal(sel[3], sel[2])
-            sel.insert(-2, ikLocal_)
+            ikLocal_ = self.createIkLocal(sel[0], sel[-1])
+            sel.insert(2, ikLocal_)
         elif type_ == 1:
             attr_ = 'FK'
         self.createMessage(sel, attr_)
-        print('{} registration complite'.format(sel[:-1]))
+        print('{} registration complite'.format(sel))
     
     def registerGroupbox(self):
         if self.IKradioButton.isChecked() : result = 0
@@ -67,13 +71,15 @@ class Ui_Form(QWidget,object):
         if type_ == 0:
             attr_ = 'FK'
             attrs_ = self.msgCheck(sel, attr_)
-            list_ = [i.node() for i in attrs_]
+            list_ = sel + [i.node() for i in attrs_]
+            print(list_)
             self.fkSnap(list_)
             print("IK to FK Snap")
         elif type_ == 1:
             attr_ = 'IK'
             attrs_ = self.msgCheck(sel, attr_)
-            list_ = [i.node() for i in attrs_]
+            list_ = sel + [i.node() for i in attrs_]
+            print(list_)
             self.ikSnap(list_)
             print("FK to IK Snap")
             
@@ -266,8 +272,8 @@ class Ui_Form(QWidget,object):
         self.author.setText(QCoreApplication.translate("Form", u"__AUTHOR__ = 'MinSung'", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Register IK or FK.", None))
         self.label_7.setText(QCoreApplication.translate("Form", u"!! It operates on the FK IK Switching structure consisting of three joints.", None))
-        self.label_3.setText(QCoreApplication.translate("Form", u"Register IK : Please select in the order of FKJnts(St,Md,En), IKCTRL, IKPV, Input", None))
-        self.label_8.setText(QCoreApplication.translate("Form", u"Register FK : Please select in the order of FKCtrl(St,Md,En), IKJnts(St,Md,En), Input", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"Register IK : Please select in the order of IKCTRL, IKPV, FKJnts(St,Md,En)", None))
+        self.label_8.setText(QCoreApplication.translate("Form", u"Register FK : Please select in the order of FKCtrl(St,Md,En), IKJnts(St,Md,En)", None))
         self.label_9.setText(QCoreApplication.translate("Form", u"The snapitem is registered with the last selected input.", None))
         self.FKradioButton.setText(QCoreApplication.translate("Form", u"FK", None))
         self.IKradioButton.setText(QCoreApplication.translate("Form", u"IK", None))
@@ -312,11 +318,9 @@ class Ui_Form(QWidget,object):
 
     # Snap the IK controller and PoleVecor.
     def ikSnap(self, list_):
-        fkenPos_ = self.fkPos(list_[2])
-        pm.move(fkenPos_.x, fkenPos_.y, fkenPos_.z, list_[-3])
-        pm.matchTransform(list_[-3], list_[-1], rot=1)
-        pvPos_ = self.pvPos(list_[:3])
-        pm.move(pvPos_.x, pvPos_.y, pvPos_.z, list_[-2])
+        pm.matchTransform(list_[0], list_[2])
+        pvPos_ = self.pvPos(list_[3:])
+        pm.move(pvPos_.x, pvPos_.y, pvPos_.z, list_[1])
         
     # Bake the IKSnap each frame.
     def ikBake(self, list_):
@@ -355,8 +359,8 @@ class Ui_Form(QWidget,object):
         Returns:
             connection
         """
-        item = object_[-1]
-        target = object_[:-1]
+        item = object_[0]
+        target = object_[1:]
         
         #conncet a some more objects  
         if not item.hasAttr(attr_):
