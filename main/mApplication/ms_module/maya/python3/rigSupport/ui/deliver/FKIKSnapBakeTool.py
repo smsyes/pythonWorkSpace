@@ -42,10 +42,11 @@ class Ui_Form(QWidget,object):
         type_ = self.snapGroupbox()
         if sel[0].hasAttr('IK'):
             type_ = 'IK'
+            list_ = self.msgCheck(sel, type_)
             pm.delete(list_[1].node())
         elif sel[0].hasAttr('FK'):
             type_ = 'FK'
-        list_ = self.msgCheck(sel, type_)
+            list_ = self.msgCheck(sel, type_)
         self.msgDelete(sel, type_)
             
     def register(self):
@@ -72,20 +73,30 @@ class Ui_Form(QWidget,object):
             attr_ = 'FK'
             attrs_ = self.msgCheck(sel, attr_)
             list_ = sel + [i.node() for i in attrs_]
-            print(list_)
             self.fkSnap(list_)
             print("IK to FK Snap")
         elif type_ == 1:
             attr_ = 'IK'
             attrs_ = self.msgCheck(sel, attr_)
             list_ = sel + [i.node() for i in attrs_]
-            print(list_)
             self.ikSnap(list_)
             print("FK to IK Snap")
+        return list_
             
     def snapBake(self) :
+        stf, enf = self.getPlayback()
         type_ = self.snapGroupbox()
-        print("btn_1 Clicked")
+        for t in range(int(enf)):
+            pm.currentTime(t+1)
+            list_ = self.snap()
+            if type_ == 0:
+                range_ = list_[:3]
+            if type_ == 1:
+                range_ = list_[:2]
+            for i in range_:
+                pm.setKeyframe(i,at='translate',t=[t+1,t+1])
+                pm.setKeyframe(i,at='rotate',t=[t+1,t+1])
+            print('Current Frame:{} IK Baked'.format(t+1))
     
     def snapGroupbox(self):
         if self.IKtoFKradioButton.isChecked() : result = 0
@@ -321,33 +332,12 @@ class Ui_Form(QWidget,object):
         pm.matchTransform(list_[0], list_[2])
         pvPos_ = self.pvPos(list_[3:])
         pm.move(pvPos_.x, pvPos_.y, pvPos_.z, list_[1])
-        
-    # Bake the IKSnap each frame.
-    def ikBake(self, list_):
-        stf, enf = self.getPlayback()
-        for i in range(int(enf)):
-            pm.currentTime(i+1)
-            self.ikSnap(list_)
-            for iks in list_[4:]:
-                pm.setKeyframe(iks,at='translate',t=[i+1,i+1])
-                pm.setKeyframe(iks,at='rotate',t=[i+1,i+1])
-            print('Current Frame:{} IK Baked'.format(i+1))
 
     def fkSnap(self, list_):
-        for i,fk in enumerate(list_[:3]):
-            pm.matchTransform(fk, list_[i+3], rot=1)
-            pm.matchTransform(fk, list_[i+3], pos=1)
-
-    def fkBake(self, list_):
-        stf, enf = self.getPlayback()
-        for i in range(int(enf)):
-            pm.currentTime(i+1)
-            self.fkSnap(list_)
-            for fks in list_[:3]:
-                pm.setKeyframe(fks,at='translate',t=[i+1,i+1])
-                pm.setKeyframe(fks,at='rotate',t=[i+1,i+1])
-            print('Current Frame:{} IK Baked'.format(i+1))
-    
+        items,targets = self.halfList(list_)
+        for i,fk in enumerate(items):
+            pm.matchTransform(fk, targets[i], rot=1)
+            pm.matchTransform(fk, targets[i], pos=1)
 
     def createMessage(self, object_, attr_):
         """Message Attribute Association Between 
@@ -411,6 +401,12 @@ class Ui_Form(QWidget,object):
         pm.matchTransform(local_, object_)
         pm.parent(local_, parent_)
         return local_
+        
+    def halfList(self, object_):
+        half = int(len(object_)/2)
+        items = object_[:half]
+        targets = object_[half:]
+        return items,targets
 
 
 def maya_main_window():
