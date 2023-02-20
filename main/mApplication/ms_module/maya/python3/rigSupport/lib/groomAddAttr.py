@@ -7,41 +7,41 @@ curves = pm.ls(sl=1,fl=1,r=1)
 groups = [i.name() for i in curves]
 attr_name = 'groom_group_id'
 
-# Âü°í: ´ÙÀ½ ÀÌ¸§À» º¯°æÇÏ¿© ³ëµåÀÇ ¾À ¹İ¿µ
+# ì°¸ê³ : ë‹¤ìŒ ì´ë¦„ì„ ë³€ê²½í•˜ì—¬ ë…¸ë“œì˜ ì”¬ ë°˜ì˜
 
 for groom_group_id, group_name in enumerate(groups):
 
-    # xgGroom¿¡¼­ Ä¿ºê ¾ò±â
+    # xgGroomì—ì„œ ì»¤ë¸Œ ì–»ê¸°
     curves = cmds.listRelatives(group_name, ad=True, type='nurbsCurve')
     
-    # ±×·ì ID·Î ÅÂ±× ±×·çÇÎ
+    # ê·¸ë£¹ IDë¡œ íƒœê·¸ ê·¸ë£¨í•‘
     cmds.addAttr(group_name, longName=attr_name, attributeType='short', defaultValue=groom_group_id, keyable=True)
     
-    # ¾îÆ®¸®ºäÆ® ¹üÀ§ Ãß°¡
-    # MayaÀÇ ¾ó·½ºòÀÌ µ¥ÀÌÅÍ¸¦ GeometryScope::kConstantScope·Î ÀÍ½ºÆ÷Æ®ÇÏµµ·Ï °­Á¦
+    # ì–´íŠ¸ë¦¬ë·°íŠ¸ ë²”ìœ„ ì¶”ê°€
+    # Mayaì˜ ì–¼ë ˜ë¹…ì´ ë°ì´í„°ë¥¼ GeometryScope::kConstantScopeë¡œ ìµìŠ¤í¬íŠ¸í•˜ë„ë¡ ê°•ì œ
     cmds.addAttr(group_name, longName='{}_AbcGeomScope'.format(attr_name), dataType='string', keyable=True)
     cmds.setAttr('{}.{}_AbcGeomScope'.format(group_name, attr_name), 'con', type='string')
 
 attr_name = 'groom_guide'
 
-# xgGroom¿¡¼­ Ä¿ºê ¾ò±â
+# xgGroomì—ì„œ ì»¤ë¸Œ ì–»ê¸°
 curves = cmds.listRelatives('xgGroom', ad=True, type='nurbsCurve')
 
-# »õ ±×·ì »ı¼º
+# ìƒˆ ê·¸ë£¹ ìƒì„±
 guides_group = cmds.createNode('transform', name='guides01')
 
-# ±×·ìÀ» groom_guide·Î ÅÂ±×
+# ê·¸ë£¹ì„ groom_guideë¡œ íƒœê·¸
 cmds.addAttr(guides_group, longName=attr_name, attributeType='short', defaultValue=1, keyable=True)
 
-# Maya ¾ó·½ºòÀÌ Ä¿ºê¸¦ ÇÏ³ªÀÇ ±×·ìÀ¸·Î ÀÍ½ºÆ÷Æ®ÇÏµµ·Ï °­Á¦
+# Maya ì–¼ë ˜ë¹…ì´ ì»¤ë¸Œë¥¼ í•˜ë‚˜ì˜ ê·¸ë£¹ìœ¼ë¡œ ìµìŠ¤í¬íŠ¸í•˜ë„ë¡ ê°•ì œ
 cmds.addAttr(guides_group, longName='riCurves', attributeType='bool', defaultValue=1, keyable=True)
 
-# ¾îÆ®¸®ºäÆ® ¹üÀ§ Ãß°¡
-# MayaÀÇ ¾ó·½ºòÀÌ µ¥ÀÌÅÍ¸¦ GeometryScope::kConstantScope·Î ÀÍ½ºÆ÷Æ®ÇÏµµ·Ï °­Á¦
+# ì–´íŠ¸ë¦¬ë·°íŠ¸ ë²”ìœ„ ì¶”ê°€
+# Mayaì˜ ì–¼ë ˜ë¹…ì´ ë°ì´í„°ë¥¼ GeometryScope::kConstantScopeë¡œ ìµìŠ¤í¬íŠ¸í•˜ë„ë¡ ê°•ì œ
 cmds.addAttr(guides_group, longName='{}_AbcGeomScope'.format(attr_name), dataType='string', keyable=True)
 cmds.setAttr('{}.{}_AbcGeomScope'.format(guides_group, attr_name), 'con', type='string')
 
-# °¡ÀÌµå ±×·ì ³»¿¡¼­ Ä¿ºê ÀÎ Ä¿ºê
-# Á¾¼Ó ¼³Á¤:
+# ê°€ì´ë“œ ê·¸ë£¹ ë‚´ì—ì„œ ì»¤ë¸Œ ì¸ ì»¤ë¸Œ
+# ì¢…ì† ì„¤ì •:
 for curve in curves:
     cmds.parent(curve, guides_group, shape=True, relative=True)
