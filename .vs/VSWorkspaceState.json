@@ -1,28 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\main",
-    "\\main\\mApplication",
-    "\\main\\mApplication\\ms_module",
-<<<<<<< HEAD
-    "\\main\\mApplication\\ms_module\\maya",
-    "\\main\\mApplication\\ms_module\\maya\\python3",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\dictLib",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\ui",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\ui\\deliver",
-    "\\Ped"
+    ""
   ],
-  "SelectedNode": "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\dictLib\\_shape_dic.py",
-=======
-    "\\main\\mApplication\\ms_module\\lib",
-    "\\main\\mApplication\\ms_module\\lib\\m_lib",
-    "\\main\\mApplication\\ms_module\\maya",
-    "\\main\\mApplication\\ms_module\\maya\\python3",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport",
-    "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\lib"
-  ],
-  "SelectedNode": "\\main\\mApplication\\ms_module\\maya\\python3\\rigSupport\\lib\\flcOutCrvSort.py",
->>>>>>> 658cd21eec3011ae7dfa2489a279e91cfdca5560
   "PreviewInSolutionExplorer": false
 }
