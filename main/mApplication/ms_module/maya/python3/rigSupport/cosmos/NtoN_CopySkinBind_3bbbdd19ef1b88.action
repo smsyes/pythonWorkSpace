@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3bbbdd19ef1b88
+p2
+sVname
+p3
+VNtoN CopySkinBind
+p4
+sVinfo
+p5
+V\uc120\ud0dd\ub41c \uc624\ube0c\uc81d\ud2b8\ub4e4\uc744 \uc21c\uc11c\ub300\ub85c \ubc14\uc778\ub4dc \uac12\uc744 \ubcf5\uc0ac\ud574 \uc900\ub2e4.
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom pymel.core import *\u000a\u000adef halfList(object_):\u000a    half = int(len(object_)/2)\u000a    items = object_[:half]\u000a    targets = object_[half:]\u000a    return items,targets\u000a\u000asel = ls(sl=1,r=1)\u000aitems,targets = halfList(sel)\u000a\u000afor i,item in enumerate(items):\u000a    shape_ = item.getShape()\u000a    skinCluster_ = item.history(type='skinCluster')[0]\u000a    joints_ = skinCluster_.getInfluence()\u000a    skinCluster(joints_,targets[i],bm=1,mi=3,rui=0,dr=3)\u000a    select(item, r=1)\u000a    select(targets[i], add=1)\u000a    copySkinWeights(nm=1,sa='closestPoint',ia=('closestJoint', 'oneToOne'))\u000a    select(cl=1)\u000a
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
