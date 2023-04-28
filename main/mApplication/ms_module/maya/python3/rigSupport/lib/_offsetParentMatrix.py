@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file '.ui'
+##
+## Created by: Qt User Interface Compiler version 5.15.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+##__AUTHOR__ = 'minsung'
+##__UPDATE__ = 20230427
+################################################################################
 import pymel.core as pm
 
 def halfList_(list_):
@@ -48,7 +59,7 @@ def useMatrix_(node_, type_):
             node_.useShear.set(0)
 
         
-sel = pm.ls(sl=1,fl=1,r=1)
+# sel = pm.ls(sl=1,fl=1,r=1)
 # offsetMatrix_(sel)
 # pickMatrix_(sel)
 # blendMatrix_(sel)
