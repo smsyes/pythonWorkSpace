@@ -163,3 +163,26 @@ def createQM(object_, name_):
                 QENode
                 )
 
+def createQM_(object_):
+    item_, target_ = halfList_(object_)
+    for i,item in enumerate(item_):
+        name_ = item.name()
+        MM = pm.createNode('multMatrix', n='{}_MM'.format(name_))
+        DM = pm.createNode('decomposeMatrix', n='{}_DM'.format(name_))
+        EQ = pm.shadingNode('eulerToQuat', au=1, n='{}_EQ'.format(name_))
+        QI = pm.shadingNode('quatInvert', au=1, n='{}_QI'.format(name_))
+        QP = pm.shadingNode('quatProd', au=1, n='{}_QP'.format(name_))
+        QE = pm.shadingNode('quatToEuler', au=1, n='{}_QE'.format(name_))
+        item.wm >> MM.matrixIn[0]
+        target_[i].pim >> MM.matrixIn[1]
+        MM.matrixSum >> DM.inputMatrix
+        if target_[i].type() == 'joint':
+            target_[i].jo >> EQ.inputRotate
+        else:
+            target_[i].r >> EQ.inputRotate
+        EQ.outputQuat >> QI.inputQuat
+        DM.outputQuat >> QP.input1Quat
+        QI.outputQuat >> QP.input2Quat
+        QP.outputQuat >> QE.inputQuat
+        DM.ot >> target_[i].t
+        QE.outputRotate >> target_[i].r
