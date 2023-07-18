@@ -50,9 +50,9 @@ def checkAttrExist(obj,attr,type,replace):
 
 
 def offsetMatrix(item, target):
-    mat1_ = _transform.getTransform(target)
-    mat2_ = _transform.getInverseTransform(item)
-    return _transform.getMultMatrix(mat1_, mat2_)
+    mat1_ = target.getMatrix(worldSpace=True)
+    mat2_ = item.getMatrix(worldSpace=True).inverse()
+    return mat1_, mat2_
 
 def connectKwargs(item ,target, *args):
     itemAttr = item.attr(args[0])

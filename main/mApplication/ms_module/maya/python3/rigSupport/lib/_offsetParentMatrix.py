@@ -10,8 +10,15 @@
 ##__UPDATE__ = 20230427
 ################################################################################
 import pymel.core as pm
+import pymel.core.datatypes as dt
 import maya.api.OpenMaya as OpenMaya2
 from rigSupport.lib import _matrix
+
+
+def offsetMatrix(item, target):
+    mat1_ = target.getMatrix(worldSpace=True)
+    mat2_ = item.getMatrix(worldSpace=True).inverse()
+    return mat1_, mat2_
 
 def get_dag_path2(node):
     """Get the MDagPath of the given node.
@@ -31,7 +38,14 @@ def driveOffset_(item,target):
     mm_.matrixIn[0].set(target.wim.get())
     item.wm >> mm_.matrixIn[1]
     return mm_
-    
+
+def offset_(item,target):
+    offset = (
+        get_dag_path2(target).exclusiveMatrix() * 
+        OpenMaya.MMatrix(pm.getAttr("{}.worldInverseMatrix[0]".format(item)))
+    )
+    return offset
+
 def offsetMatrix_(list_):
     item_, target_ = halfList_(list_)
     for i,item in enumerate(item_):
@@ -88,9 +102,19 @@ def createQM(object_):
         QI = pm.shadingNode('quatInvert', au=1, n='{}_QI'.format(name_))
         QP = pm.shadingNode('quatProd', au=1, n='{}_QP'.format(name_))
         QE = pm.shadingNode('quatToEuler', au=1, n='{}_QE'.format(name_))
-        item.wm >> MM.matrixIn[0]
-        target_[i].pim >> MM.matrixIn[1]
-        MM.matrixSum >> DM.inputMatrix
+        
+        tgScalePivotMtx=dt.Matrix()
+        tgScalePivotMtx[3]=target_[i].getScalePivot(space='transform')
+        MM.i[0].set( tgScalePivotMtx )
+        MM.i[1].set( target_[i].getMatrix(worldSpace=1) )
+        MM.i[2].set( item.getMatrix(worldSpace=1).inverse() )
+        item.wm >> MM.i[3]
+        target_[i].pim >> MM.i[4]
+        tgTMRPM=dt.Matrix()
+        tgTMRPM[3]=target_[i].transMinusRotatePivot.get()
+        MM.i[5].set(tgTMRPM)
+        MM.o >> DM.imat
+        
         if target_[i].type() == 'joint':
             target_[i].jo >> EQ.inputRotate
         else:
@@ -100,6 +124,7 @@ def createQM(object_):
         QI.outputQuat >> QP.input2Quat
         QP.outputQuat >> QE.inputQuat
         DM.ot >> target_[i].t
+        DM.os >> target_[i].s
         QE.outputRotate >> target_[i].r
 
 
@@ -113,12 +138,18 @@ def createQM(object_):
 # createQM(sel)
 
 
-
 sel = pm.select(hi=1)
 hi_ = pm.ls(sl=1)
 
 const_ = pm.ls(hi_, type='parentConstraint')
+sconst_ = pm.ls(hi_, type='scaleConstraint')
+# pconst_ = pm.ls(hi_, type='pointConstraint')
+# oconst_ = pm.ls(hi_, type='orientConstraint')
 pm.select(cl=1)
+pm.delete(sconst_)
+# pm.delete(pconst_)
+# pm.delete(oconst_)
+# pm.delete(const_)
 # offsetMatrix_(sel)
 # pickMatrix_(sel, ['t','r'])
 # blendMatrix_(sel, ['t','r'])
@@ -143,5 +174,5 @@ for p in const_:
             
     constItem = p.constraintParentInverseMatrix.listConnections()[0]
     pm.delete(p)
-    offsetMatrix_([target_,constItem])
+    createQM([target_,constItem])
 
