@@ -1,0 +1,1 @@
+dir("PyNode".input.__class__)
