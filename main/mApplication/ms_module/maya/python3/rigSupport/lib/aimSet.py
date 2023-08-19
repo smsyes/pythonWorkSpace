@@ -10,7 +10,7 @@ def getMDagPath(node):
     sel.getDagPath(0, dag)
     return dag
 
-def aimSet(node, aimAxis='x', upAxis='y'):
+def aimSet(node, aimAxis='x', upAxis='y', rev_=0):
 
     if aimAxis == 'x':
         Aim_ = om.MVector().xAxis
@@ -18,25 +18,29 @@ def aimSet(node, aimAxis='x', upAxis='y'):
         Aim_ = om.MVector().yAxis
     elif aimAxis == 'z':
         Aim_ = om.MVector().zAxis
-        
+
     if upAxis == 'x':
         Up_ = om.MVector().xAxis
     elif upAxis == 'y':
         Up_ = om.MVector().yAxis
     elif upAxis == 'z':
         Up_ = om.MVector().zAxis
-    
 
+    
     item_ = getMDagPath(node[0])
     targetDag = getMDagPath(node[1])
 
     transformFn = om.MFnTransform(item_)
-    eyePivotPOS = transformFn.rotatePivot(om.MSpace.kWorld)
+    itemPivotPOS = transformFn.rotatePivot(om.MSpace.kWorld)
 
     transformFn.setObject(targetDag)
     targetPivotPOS = transformFn.rotatePivot(om.MSpace.kWorld)
 
-    aimVector = (targetPivotPOS - eyePivotPOS)
+    if rev_ == 1:
+        aimVector = (itemPivotPOS - targetPivotPOS)
+    else:
+        aimVector = (targetPivotPOS - itemPivotPOS)
+    
 
     eyeU = aimVector.normal()
 
@@ -68,5 +72,5 @@ def aimSet(node, aimAxis='x', upAxis='y'):
     
 """
 sel = pm.ls(sl=1,fl=1,r=1)
-aimSet(sel, aimAxis='x', upAxis='y')
+aimSet(sel, aimAxis='x', upAxis='y', rev_=1)
 """
