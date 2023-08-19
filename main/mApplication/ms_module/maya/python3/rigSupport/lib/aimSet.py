@@ -10,7 +10,7 @@ def getMDagPath(node):
     sel.getDagPath(0, dag)
     return dag
 
-def aimSet(node, aimAxis='x', upAxis='y', rev_=0):
+def aimSet(node, aimAxis=None, upAxis=None, rev_=None):
 
     if aimAxis == 'x':
         Aim_ = om.MVector().xAxis
@@ -42,29 +42,29 @@ def aimSet(node, aimAxis='x', upAxis='y', rev_=0):
         aimVector = (targetPivotPOS - itemPivotPOS)
     
 
-    eyeU = aimVector.normal()
+    itemU = aimVector.normal()
 
     worldUp = om.MGlobal.upAxis()
 
-    eyeV = worldUp
-    eyeW = (eyeU ^ eyeU).normal()
+    itemV = worldUp
+    itemW = (itemU ^ itemV).normal()
 
-    eyeV = eyeW ^ eyeU
+    itemV = itemW ^ itemU
 
     quaternion = om.MQuaternion()
 
-    quaternionU = om.MQuaternion(Aim_, eyeU)
+    quaternionU = om.MQuaternion(Aim_, itemU)
     quaternion = quaternionU
 
     upRotated = Up_.rotateBy(quaternion)
 
-    angle = math.acos(upRotated*eyeV)
+    angle = math.acos(upRotated*itemV)
 
-    quaternionV = om.MQuaternion(angle, eyeU)
+    quaternionV = om.MQuaternion(angle, itemU)
 
-    if not eyeV.isEquivalent(upRotated.rotateBy(quaternionV), 1.0e-5):
+    if not itemV.isEquivalent(upRotated.rotateBy(quaternionV), 1.0e-5):
         angle = (2*math.pi) - angle
-        quaternionV = om.MQuaternion(angle, eyeU)
+        quaternionV = om.MQuaternion(angle, itemU)
 
     quaternion *= quaternionV
     transformFn.setObject(item_)
@@ -72,5 +72,5 @@ def aimSet(node, aimAxis='x', upAxis='y', rev_=0):
     
 """
 sel = pm.ls(sl=1,fl=1,r=1)
-aimSet(sel, aimAxis='x', upAxis='y', rev_=1)
+aimSet(sel, aimAxis='x', upAxis='y', rev_=0)
 """
