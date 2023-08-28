@@ -44,7 +44,53 @@ cube = [1, [(0.5,-0.5,0.5),(0.5,0.5,0.5),(0.5,0.5,-0.5),
 (-0.5,-0.5,-0.5),(0.5,-0.5,-0.5),(0.5,0.5,-0.5),(-0.5,0.5,-0.5),
 (-0.5,-0.5,-0.5),(-0.5,-0.5,0.5),(-0.5,0.5,0.5),(0.5,0.5,0.5)], [0 ,1 ,2 ,3 ,4 ,
 5 ,6 ,7 ,8 ,9 ,10 ,11 ,12 ,13 ,14 ,15]]
+pin = [1,[(0,0,0),(-1.10596e-06,1.386038,0),(0.192665,1.424866,0),(0.356355,1.533645,0),
+(0.465134,1.697335,0),(0.503962,1.89,0),(0.465134,2.082665,0),(0.356355,2.246355,0),
+(0.192665,2.355134,0),(-1.10596e-06,2.393962,0),(-0.192663,2.355134,0),
+(-0.356359,2.246355,0),(-0.465128,2.082665,0),(-0.504,1.89,0),(-0.465128,1.697335,0),
+(-0.356359,1.533645,0),(-0.192663,1.424866,0),(-1.10596e-06,1.386038,0)],
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]]
 
+def selectionControl(list_):
+    for i in list_:
+        crv_ = crvShape_(pin)
+        pm.matchTransform(crv_,i)
+
+def offsetMatrix(item, target):
+    mat1_ = item.wm[0].get()
+    mat2_ = target.parentInverseMatrix.get()
+    return mat1_*mat2_
+
+def ikfkBlend(item01, item02, target):    
+    for i,t_ in enumerate(target):
+        name_ = '{0}_fkik'.format(t_.name().split('_')[0])
+        bm_ = pm.createNode('blendMatrix',n='{0}_bm'.format(name_))
+        mm_ = pm.shadingNode('multMatrix',au=1, n='{0}_mm'.format(name_))
+        dm_ = pm.createNode('decomposeMatrix',n='{0}_dm'.format(name_))
+        offset_ = offsetMatrix(target, target)
+        item01[i].wm >> bm_.inputMatrix
+        item02[i].wm >> bm_.target[0].targetMatrix
+        mm_.matrixIn[0].set(offset_)
+        bm_.outputMatrix >> mm_.matrixIn[1]
+        t_.parentInverseMatrix[0] >> mm_.matrixIn[2]
+        mm_.matrixSum >> dm_.inputMatrix
+
+        t_.jo.set(0,0,0)
+        dm_.ot >> t_.t
+        dm_.outputRotate >> t_.r
+        dm_.os >> t_.s
+
+
+def ikfkListBlend(list_):
+    selNum_ = len(list_)
+    div_ = selNum_/3
+    if div_>1:
+        item01 = [list_[0+i] for i in range(div_)]
+        item02 = [list_[3+i] for i in range(div_)]
+        target = [list_[6+i] for i in range(div_)]
+    else:
+        item01, item02, target = [list_[0]], [list_[1]], [list_[2]]
+    ikfkBlend(item01, item02, target)
 
 # selection create proxy attr
 '''
@@ -63,7 +109,13 @@ child_ = sel[0].listRelatives(type='joint',ad=1)
 '''
 
 sel = pm.ls(sl=1,fl=1,r=1)
-# crvShape_(cube)
+
+# selectionControl(sel)
+# crvShape_(pin)
 # CreateFKControl(sel)
 # freezeOffset(sel)
 # dir(circleList[i-1][0].offsetParentMatrix.__class__)
+# ikfkListBlend(sel)
+
+
+
