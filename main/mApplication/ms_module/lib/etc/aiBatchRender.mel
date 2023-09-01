@@ -1,0 +1,44 @@
+if ( `window -exists MyWindow` ) {
+  deleteUI MyWindow; // delete window when it exists
+}
+
+
+
+window -t "ACETEC" MyWindow;
+
+columnLayout MyMainCol;
+text -l "SmartAssRender";
+intFieldGrp -l "First Frame" -cw2 80 100 MyFirstFrame;
+intFieldGrp -l "Last Frame" -cw2 80 100 MyLastFrame;
+checkBoxGrp -l "StopRender After Current Frame" -cw2 180 100 MyStatus;
+
+
+button -l "SmartAss" -c "MyRenderings()";
+
+
+
+showWindow MyWindow;
+global proc MyRenderings() {
+  	int $firstframe = `intFieldGrp -q -v1 MyFirstFrame`;
+  	int $lastframe = `intFieldGrp -q -v1 MyLastFrame`;
+	int $status;
+
+
+$lastframe=$lastframe+1;
+currentTime $firstframe;
+while($firstframe<$lastframe)
+{
+$status= `checkBoxGrp -q -v1 MyStatus`;
+if($status==1)
+break;
+RenderIntoNewWindow; 
+if($firstframe%10==0)
+{
+pause -sec 6;
+print ( "Taking rest to cool down the CPU");
+}
+$firstframe++;
+playButtonStepForward;
+}
+}
+

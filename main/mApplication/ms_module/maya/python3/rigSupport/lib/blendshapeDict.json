@@ -1,0 +1,52 @@
+{
+    "Brow": [
+        "Up_L",
+        "Up_R",
+        "Down_L",
+        "Down_R",
+        "Angry_L",
+        "Angry_R",
+        "Sad_L",
+        "Sad_R",
+        "Squeeze_L",
+        "Squeeze_R"
+    ],
+    "Eye": [
+        "BlinkUp_L", 
+        "BlinkUp_R", 
+        "BlinkDown_L", 
+        "BlinkDown_R"
+    ],
+    "Mouth": [
+        "A",
+        "E",
+        "I",
+        "O",
+        "",
+        "F",
+        "M",
+        "Big_A",
+        "Smile_L",
+        "Smile_R",
+        "Sad_L",
+        "Sad_R",
+        "CheekOut_L",
+        "CheekOut_R",
+        "CheekIn_L",
+        "CheekIn_R",
+        "ScaleOut_L",
+        "ScaleOut_R",
+        "ScaleIn_L",
+        "ScaleIn_R",
+        "CurlOut_",
+        "CurlOut_D",
+        "CurlIn_",
+        "CurlIn_D",
+        "LipOut",
+        "LipIn"
+    ],
+    "Nose": [
+        "Nose_L", 
+        "Nose_R"
+    ]
+}

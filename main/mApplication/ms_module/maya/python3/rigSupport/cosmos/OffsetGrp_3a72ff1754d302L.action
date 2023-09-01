@@ -1,0 +1,30 @@
+(dp0
+Vinfo
+p1
+V\uc120\ud0dd\ud55c \uc624\ube0c\uc81d\ud2b8 \uc0c1\uc704\uc5d0 Offset\uadf8\ub8f9\uc744 \ub9cc\ub4e4\uc5b4\uc90c.
+p2
+sVname
+p3
+VOffsetGrp
+p4
+sVtags
+p5
+Vscript
+p6
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+Vfrom rigSupport.lib import offsetGroup\u000atry:\u000a    from imp import *\u000aexcept:\u000a    pass\u000areload(offsetGroup)
+p10
+sVid
+p11
+V3a72ff1754d302L
+p12
+sVicon
+p13
+V
+p14
+s.

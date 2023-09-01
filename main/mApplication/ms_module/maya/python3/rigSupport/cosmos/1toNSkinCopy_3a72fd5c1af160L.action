@@ -1,0 +1,29 @@
+(dp1
+Vinfo
+p2
+Vcopy skin weight script
+p3
+sVname
+p4
+V1toNSkinCopy
+p5
+sVtags
+p6
+Vscript
+p7
+sVsyntax
+p8
+Vpython
+p9
+sVcommand
+p10
+Vfrom pymel.core import *\u000a\u000asel = ls(sl=1,r=1)\u000a\u000ashape_ = sel[0].getShape()\u000askinCluster_ = sel[0].history(type='skinCluster')[0]\u000ajoints_ = skinCluster_.getInfluence()\u000afor t in sel[1:]:\u000a    skinCluster(joints_,t,bm=1,mi=3,rui=0,dr=3)\u000a    select(sel[0], r=1)\u000a    select(t, add=1)\u000a    copySkinWeights(nm=1,sa='closestPoint',ia=('closestJoint', 'oneToOne'))\u000a    select(cl=1)\u000a
+p11
+sVid
+p12
+S'3a72fd5c1af160L'
+p13
+sVicon
+p14
+V
+s.

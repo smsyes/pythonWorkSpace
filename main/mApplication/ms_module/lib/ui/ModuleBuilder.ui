@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>476</width>
+    <height>477</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Module Builder</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string># If a fit file exists in the prefix name and path, it will be imported.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="prefix_lineEdit">
+     <property name="text">
+      <string>Prefix Name..</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="module_comboBox">
+     <item>
+      <property name="text">
+       <string>spine</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>leg</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>arm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>neck</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>head</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>hand</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>foot</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Qarm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Qleg</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>tail</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="import_pushButton">
+     <property name="text">
+      <string>Import</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string># Selection List [0] = Base Fit top group / Selection List [1] = Mirror Fit top group</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="mirror_pushButton">
+     <property name="text">
+      <string>Mirror</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="build_pushButton">
+       <property name="text">
+        <string>Build</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="rebuild_pushButton">
+       <property name="text">
+        <string>ReBuild</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Bend Setting</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string># Execute after selecting the joint to be installed</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QComboBox" name="bendType_comboBox">
+       <item>
+        <property name="text">
+         <string>L</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bendAdd_pushButton">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Module Parent</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string># Selection List [0] = Parents Joint / Selection List [1] = Child top Group</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="parent_pushButton">
+     <property name="text">
+      <string>Parent</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Follow Setting</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string># Selection List [:-1] = Follower / Selection List [-1] = Following</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLineEdit" name="followEnum_lineEdit">
+       <property name="text">
+        <string>Enum Name..</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="followAdd_pushButton">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="data_label">
+     <property name="text">
+      <string>DATA : 20210705</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="authour_label">
+     <property name="text">
+      <string>AUTHOUR : Minsung</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

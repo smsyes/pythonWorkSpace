@@ -1,0 +1,28 @@
+(dp1
+Vinfo
+p2
+Vselect start, mid, end 
+p3
+sVname
+p4
+VpolePos
+p5
+sVtags
+p6
+V
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+Vimport pymel.core as pm\u000aimport maya.OpenMaya as om\u000a\u000adef getVecPos(st,md,en):\u000a    rootPos = pm.xform(st,q=True,ws=True,t=True)\u000a    midPos = pm.xform(md,q=True,ws=True,t=True)\u000a    endPos = pm.xform(en,q=True,ws=True,t=True)\u000a    \u000a    rootJointVec = om.MVector(rootPos[0],rootPos[1],rootPos[2])\u000a    midJointVec = om.MVector(midPos[0],midPos[1],midPos[2])\u000a    endJointVec = om.MVector(endPos[0],endPos[1],endPos[2])\u000a    \u000a    line = (endJointVec - rootJointVec)\u000a    point = (midJointVec - rootJointVec)\u000a    \u000a    scaleValue = (line * point) / (line * line)\u000a    projVec = line * scaleValue + rootJointVec\u000a    \u000a    poleVecPos = (midJointVec - projVec).normal() * 0.01 + midJointVec\u000a    return [poleVecPos.x, poleVecPos.y, poleVecPos.z]\u000a        \u000asel = cmds.ls(sl=1,fl=1,r=1)\u000apos = pm.spaceLocator(n='poleVec')\u000aposition = getVecPos(sel[0],sel[1],sel[2])\u000apos.t.set(position)
+p10
+sVid
+p11
+S'3a838992a71640L'
+p12
+sVicon
+p13
+V
+s.

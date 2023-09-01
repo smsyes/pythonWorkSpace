@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VPaste the current transform position
+p3
+sS'name'
+p4
+VPaste transforms
+p5
+sS'tags'
+p6
+Vtransform, xform, paste
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Modules\u000aimport maya.cmds as cmds\u000afrom difflib import SequenceMatcher\u000a\u000a### Paste transform\u000aselection = cmds.ls(sl=True)\u000a\u000a#Get translate\u000a\u000a#Check if list exists\u000aif "cosmosCopiedAttributes" in globals():\u000a    for number, item in enumerate(selection):\u000a        #Get the data\u000a        try: \u000a            dictionery = cosmosCopiedAttributes[number]\u000a            cmds.xform(item,t=dictionery["translate"],ro=dictionery["rotate"],s=dictionery["scale"])\u000a        except:\u000a            pass\u000a    if len(selection) != len(cosmosCopiedAttributes):\u000a        cosmos.displayViewMessage("Selection length not the same. \u005cn Some items might be skipped ","error")\u000a        \u000aelse:\u000a    cosmos.displayViewMessage("You need to copy some transforms first","error")
+p11
+sS'id'
+p12
+S'3483dd51942af0L'
+p13
+sS'icon'
+p14
+VpasteTransform.png
+p15
+s.
+s.

@@ -1,0 +1,3 @@
+isHistoricallyInteresting
+
+= 채널박스 상의 attribute 노출

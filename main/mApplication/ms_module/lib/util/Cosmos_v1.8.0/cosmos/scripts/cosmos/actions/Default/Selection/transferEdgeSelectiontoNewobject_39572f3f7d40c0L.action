@@ -1,0 +1,38 @@
+(dp1
+S'info'
+p2
+VTransfer a edge selection to a new geometry with the same topology [Edges + New GEo]
+p3
+sS'name'
+p4
+VTransfer Edge Selection to New object
+p5
+sS'tags'
+p6
+Vmodelling,transfer,selection,edge
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+Vimport pymel.core as pm\u000a\u000a# Get selection and split to sections\u000aselection = pm.ls(sl=True, fl=True)\u000ato_object = selection[-1]\u000afrom_selection = selection[:-1]\u000ashape = str(selection[0]).split(".")[0]\u000apm.select(cl=True)\u000afor x in from_selection:\u000a    pm.select(str(x).replace(shape, str(to_object.getShape())), toggle=True)\u000a
+p11
+sS'id'
+p12
+S'39572f3f7d40c0L'
+p13
+sS'icon'
+p14
+V
+s.on\u000apm.select(cl=True)\u000a\u000a# For every selected vertex\u000afor v in from_selection:    \u000a    # Get world space\u000a    pos_list = v.getPosition(space="world")\u000a    world_pos = [pos_list[0], pos_list[1], pos_list[2]]\u000a        \u000a    # Get closest\u000a    closest_node.inPosition.set(world_pos)\u000a    closest_vert_number = closest_node.closestVertexIndex.get()\u000a    \u000a    # Select\u000a    pm.select(to_shape.name() + ".vtx[{}]".format(closest_vert_number), toggle=True)\u000a    
+p11
+sS'id'
+p12
+S'39572f3f7d40c0L'
+p13
+sS'icon'
+p14
+V
+s.

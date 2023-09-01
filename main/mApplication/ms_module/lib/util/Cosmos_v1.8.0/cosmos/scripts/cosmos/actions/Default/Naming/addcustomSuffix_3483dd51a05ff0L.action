@@ -1,0 +1,32 @@
+(dp1
+S'info'
+p2
+VAdd sufflix to name [Selection]
+p3
+sS'name'
+p4
+VAdd custom Suffix
+p5
+sS'tags'
+p6
+Vnaming
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000acmds.promptDialog(title="Custom Suffix",message="Enter suffix",button=["Ok","Cancel"],defaultButton="Ok",cancelButton="Cancel",dismissString="Cancel")\u000asuffix = cmds.promptDialog(query=True, text=True)\u000a\u000aselection = cmds.ls(sl=True)\u000a#otherwise add it\u000afor item in selection[::-1]:\u000a    objectSlit = item.split("|")\u000a    newItem = objectSlit[-1]\u000a    cmds.rename(item, (newItem + suffix))\u000a
+p11
+sS'id'
+p12
+S'3483dd51a05ff0L'
+p13
+sS'icon'
+p14
+VaddCustomSuffix.png
+p15
+s.
+s.
+s.

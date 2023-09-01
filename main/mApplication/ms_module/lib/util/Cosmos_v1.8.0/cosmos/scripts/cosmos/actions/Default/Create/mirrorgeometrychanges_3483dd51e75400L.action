@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VMirror changes from one side to another [blendshapes + Original]
+p3
+sS'name'
+p4
+VMirror geometry changes
+p5
+sS'tags'
+p6
+Vmodeling, mirror
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000aimport maya.mel as mel\u000a\u000a#Select the blendshapes then the original\u000aselection = cmds.ls(sl=True)\u000aif (len(selection) >= 1):\u000a    original = selection[-1]\u000a    blendshapes = selection\u000a    blendshapes.remove(original)\u000a#Select the blendshapes then the original\u000aselection = cmds.ls(sl=True)\u000aif (len(selection) >= 2):\u000a    original = selection[-1]\u000a    blendshapes = selection\u000a    blendshapes.remove(original)\u000a    buttonList = ("X","Y","Z")\u000a    axis = cmds.confirmDialog(title="Mirror Geometry Changes",message="Specify axis:",button=buttonList,defaultButton=buttonList[-1],cancelButton="Cancel",dismissString="Cancel")\u000a    if (axis != "Cancel"):\u000a        #Duplicate the original twist\u000a        exec("cmds.undoInfo(openChunk=True)")\u000a        for blendshape in blendshapes:\u000a            #Create the wraptarget\u000a            cmds.select(original)\u000a            cmds.duplicate(n="wrapperObject")\u000a            wrapper = cmds.ls(sl=True)[0]\u000a            \u000a            #Create blendshape from blend\u000a            cmds.select(blendshape,wrapper)\u000a            blendShapeAttribute = cmds.blendShape()[0]\u000a            #Scale -1\u000a            cmds.setAttr("{}.scale{}".format(wrapper,axis),-1)\u000a            \u000a            #Create new blendshape\u000a            cmds.select(original)\u000a            cmds.duplicate()\u000a            #Rename\u000a            cmds.rename("{}_mirrored".format(blendshape))\u000a            mirrorGeo = cmds.ls(sl=True)[0]\u000a            \u000a            #Wrap\u000a            cmds.select(mirrorGeo,wrapper)\u000a            mel.eval('CreateWrap;')\u000a            #Activate blendshape\u000a            cmds.setAttr("{}.{}".format(blendShapeAttribute,blendshape),1)\u000a            \u000a            #Delete history and so\u000a            cmds.select(mirrorGeo)\u000a            cmds.DeleteHistory()\u000a            cmds.delete(wrapper)\u000a            \u000a            #Delete wrapper base\u000a            try: cmds.delete("{}1Base".format(original))\u000a            except: cmds.delete("wrapperObjectBase")\u000a        exec("cmds.undoInfo(closeChunk=True)")   \u000a    else:\u000a        mel.eval('error "Cancelled by the user"')  \u000a        cosmos.displayViewMessage("Cancelled by the user","error") \u000aelse:\u000a    cosmos.displayViewMessage("You need to select at least 2 objects [Deformed Geo + Original]","error") \u000a
+p11
+sS'id'
+p12
+S'3483dd51e75400L'
+p13
+sS'icon'
+p14
+VmirrorController.png
+p15
+s.

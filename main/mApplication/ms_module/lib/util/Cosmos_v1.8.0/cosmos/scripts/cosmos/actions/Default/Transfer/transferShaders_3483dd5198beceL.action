@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VTransfer material/shader [Objects + Object with Material]
+p3
+sS'name'
+p4
+VTransfer Shaders
+p5
+sS'tags'
+p6
+Vshader,material, transfer
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.ls(sl=True)\u000a\u000amaster = selection[-1]\u000a\u000a#Get material\u000ashape = cmds.listRelatives(master)\u000amasterSplit = master.split("|")\u000a\u000atry: shadingGroup = cmds.listConnections((master + "|" + masterSplit[-1] + "Shape"), type="shadingEngine")\u000aexcept: \u000a    #if not, try to see if the shapenode itselt work\u000a    try: shadingGroup = cmds.listConnections((shape), type="shadingEngine")\u000a    except: \u000a        #If not, take the object directy from its parent\u000a        shadingGroup = cmds.listConnections((master + "|" + shape[0]), type="shadingEngine")\u000a\u000a        \u000a#Save material in the data\u000ashadingGroup = shadingGroup[0]\u000a\u000afor item in selection:\u000a    if (item != master):\u000a        cmds.select(item)\u000a        cmds.hyperShade(assign=shadingGroup)\u000a
+p11
+sS'id'
+p12
+S'3483dd5198beceL'
+p13
+sS'icon'
+p14
+VtransferKeyframes.png
+p15
+s.yframes.png
+p15
+s.
+s.

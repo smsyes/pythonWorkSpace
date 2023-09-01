@@ -1,0 +1,32 @@
+(dp1
+S'info'
+p2
+VSample object-type from selectin and select similar
+p3
+sS'name'
+p4
+VSelect type from selection
+p5
+sS'tags'
+p6
+Vselect
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aselection = cmds.ls(sl=True)\u000a#Clear selection\u000acmds.select(cl=True)\u000a\u000afor item in selection:\u000a    #Get type\u000a    try: \u000a        format = cmds.listRelatives(item)\u000a        format = cmds.objectType(format[0])\u000a    except: format = cmds.objectType(item)\u000a    \u000a    print ("Sampled format: " + format)\u000a    #Get all items from type\u000a    allFromFormat = cmds.ls(typ=format)\u000a    cmds.select(allFromFormat,tgl=True)\u000a    cmds.select()\u000a\u000a#Go one step up for transforms\u000aif (len(selection) >= 1): \u000a    relative = cmds.listRelatives(item,fullPath=True,parent=True)\u000a    if (relative == None):\u000a        cmds.pickWalk(d="up")\u000a
+p11
+sS'id'
+p12
+S'3483dd514a0290L'
+p13
+sS'icon'
+p14
+VselectType.png
+p15
+s.
+s.
+s.

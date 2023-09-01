@@ -1,0 +1,29 @@
+(dp1
+Vinfo
+p2
+Vselected object get influence joint
+p3
+sVname
+p4
+VfindBindJoint
+p5
+sVtags
+p6
+Vscript
+p7
+sVsyntax
+p8
+Vpython
+p9
+sVcommand
+p10
+Vfrom pymel.core import *\u000a\u000adef bindJoint(object_):\u000a    shape_ = object_.getShape()\u000a    connectionList_ = shape_.listHistory(gl=1,pdo=1)\u000a    for cnt_ in connectionList_:\u000a        if cnt_.type() == 'skinCluster':\u000a            scls_ = cnt_\u000a            break\u000a        else:\u000a            scls_ = None\u000a    sclsMtx_ = scls_.attr('matrix')\u000a    return sclsMtx_.listConnections(d=0,s=1,type='joint')\u000a\u000asel = ls(sl=1,r=1,fl=1)\u000aselect(bindJoint(sel[0]))
+p11
+sVid
+p12
+S'3ac22bbf3e1ffeL'
+p13
+sVicon
+p14
+V
+s.

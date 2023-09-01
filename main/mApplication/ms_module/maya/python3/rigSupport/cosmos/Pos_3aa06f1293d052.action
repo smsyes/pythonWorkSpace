@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3aa06f1293d052
+p2
+sVname
+p3
+VPos
+p4
+sVinfo
+p5
+Vselection object position create null pos
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vimport pymel.core as pm\u000a    \u000asel = pm.ls(sl=1,fl=1,r=1)\u000apos = list(map(lambda a: pm.createNode('transform'),sel))\u000afor i,p in enumerate(pos):\u000a    pm.matchTransform(p,sel[i])\u000a    pm.rename(p,'{}Pos'.format(sel[i].name()))
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.

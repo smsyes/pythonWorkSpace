@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VStore a selection of shaders based on object names
+p3
+sS'name'
+p4
+VStore Shader assignment
+p5
+sS'tags'
+p6
+Vshader,material, store
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aglobal shadingGroup\u000aselection = cmds.ls(sl=True)\u000a\u000a########### COPY materials   \u000aglobal materials \u000amaterials = []\u000a\u000afor item in selection:\u000a    #Get shader\u000a    shape = cmds.listRelatives(item)\u000a    try: shadingGroup = cmds.listConnections((shape), type="shadingEngine")\u000a    except: shadingGroup = cmds.listConnections((item + "|" + shape[0]), type="shadingEngine")\u000a    #Store material\u000a    materials.append(shadingGroup)
+p11
+sS'id'
+p12
+S'3483dd5197382eL'
+p13
+sS'icon'
+p14
+VstoreShaderAssignment.png
+p15
+s.
+s.

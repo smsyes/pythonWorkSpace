@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VSave a version without version padding
+p3
+sS'name'
+p4
+VPublish Scene
+p5
+sS'tags'
+p6
+Vsave, publish
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000aimport os\u000a\u000a#######################\u000a#Publish Script\u000a\u000a#Get current file in memory\u000acurrentFile = cmds.file(sn=True,q=True)\u000a\u000a#Check if valid scene\u000aif len(currentFile) == 0:\u000a    cosmos.displayViewMessage(text="The current scene is not saved")\u000a    mel.eval('error "The current scene is not saved"')\u000a    \u000aelse:\u000a    \u000a    #Split number\u000a    currentFileNumber = (currentFile.split(".")[0]).split("_v")[-1]\u000a    #Get format\u000a    \u000a    currentFormat = currentFile.split(".")[-1]\u000a    #Exstract string\u000a    currentFileExstracted = currentFile.replace((("_v" + currentFile.split("_v")[-1])), "")\u000a    \u000a    #Put everything together\u000a    newFile = (currentFileExstracted + ".ma")  \u000a    newFileNameOnly = os.path.basename(currentFileExstracted)  \u000a    \u000a    #Rename and save the file\u000a    cmds.file(rename=newFile)\u000a    try: cmds.file( save=True, type='mayaAscii')\u000a    except: \u000a        cosmos.displayViewMessage("Problem loading the scene","error") \u000a    \u000a    #Return to the old filename\u000a    cmds.file (rn=currentFile)\u000a    if (currentFormat == "mb"):\u000a        cmds.file(save=True, type='mayaBinary')\u000a    else:\u000a        cmds.file(save=True, type='mayaAscii')\u000a        \u000a    cosmos.displayViewMessage("File published as {}".format(newFileNameOnly),header="PUBLISHING") \u000a    \u000a\u000a
+p11
+sS'id'
+p12
+S'3483dd516ea192L'
+p13
+sS'icon'
+p14
+VpublishScene.png
+p15
+s.p15
+s.

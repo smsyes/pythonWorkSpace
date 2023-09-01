@@ -1,0 +1,30 @@
+(dp0
+Vinfo
+p1
+VMatrix Constraint Tool
+p2
+sVname
+p3
+VMCon
+p4
+sVtags
+p5
+Vtools
+p6
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+Vfrom ui.deliver import MconTool\u000atry:\u000a    from imp import *\u000aexcept:\u000a    pass\u000areload(MconTool)
+p10
+sVid
+p11
+V3a5de60e3c4470L
+p12
+sVicon
+p13
+V
+p14
+s.

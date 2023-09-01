@@ -1,0 +1,31 @@
+(dp1
+S'info'
+p2
+VAlign the last selected object [Vertex/Edges/Faces + Object]
+p3
+sS'name'
+p4
+VAlign to Component
+p5
+sS'tags'
+p6
+Valign
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+Vimport maya.cmds as cmds\u000aimport maya.mel as mel\u000a\u000a#Get selection\u000aselection = cmds.ls(sl=True,flatten=True)\u000a\u000a#Define reference\u000areference = selection[-1]\u000a#Get reference\u000aselection.remove(reference)\u000apositions = []\u000amode = "Transform"\u000afor object in selection:\u000a    if ".vtx" in object: \u000a        position = cmds.pointPosition(object,world=True)\u000a        mode = "Vertex"\u000a    elif ".e[" in object: \u000a        #Convert to vertex\u000a        cmds.select(object)\u000a        mel.eval("PolySelectConvert 3;")\u000a        vertexSelection = cmds.ls(sl=True,flatten=True)\u000a        pos01 = cmds.pointPosition(vertexSelection[0],world=True)\u000a        pos02 = cmds.pointPosition(vertexSelection[1],world=True)\u000a        x = (pos01[0] + pos02[0]) / 2\u000a        y = (pos01[1] + pos02[1]) / 2\u000a        z = (pos01[2] + pos02[2]) / 2\u000a        position = [x,y,z] \u000a        mode = "Edge"\u000a    elif ".f[" in object:\u000a        cmds.select(object)\u000a        mel.eval("PolySelectConvert 3;")\u000a        vertexSelection = cmds.ls(sl=True,flatten=True)\u000a        x = 0\u000a        y = 0\u000a        z = 0\u000a        posLen = len(vertexSelection)\u000a        for vertex in vertexSelection:\u000a            position = cmds.pointPosition(vertex,world=True)\u000a            x += position[0]\u000a            y += position[1]\u000a            z += position[2]\u000a        position = [(x / posLen),(y / posLen),(z / posLen)]\u000a        mode = "Face"\u000a    else: \u000a        position = cmds.xform(object,q=True,rp=True,ws=True)\u000a    positions.append(position)\u000a\u000aif (mode != "Transform"):\u000a    xCombind = 0\u000a    yCombind = 0\u000a    zCombind = 0\u000a    for position in positions:\u000a        xCombind += position[0]\u000a        yCombind += position[1]\u000a        zCombind += position[2]\u000a    \u000a    #Get number of points\u000a    posLen = len(positions)\u000a    #Move object to that position and select it\u000a    #Create temp locator\u000a    tempLocator = cmds.spaceLocator()\u000a    cmds.xform(tempLocator[0],t=((xCombind / posLen),(yCombind / posLen),(zCombind / posLen)))\u000a    cmds.select(tempLocator,reference)\u000a    constraint = cmds.parentConstraint()\u000a    cmds.delete(constraint,tempLocator)\u000aelse:\u000a    tempLocator = cmds.spaceLocator()\u000a    cmds.xform(reference,t=positions[0],ws=True)\u000a    cmds.select(tempLocator,reference)\u000a    constraint = cmds.parentConstraint()\u000a    cmds.delete(constraint,tempLocator)\u000a\u000a#Rotation\u000a#Sample closest point from \u000atry:\u000a    cmds.select(selection[0],reference)\u000a    normalConstraint = cmds.normalConstraint()\u000a    cmds.delete(normalConstraint)\u000aexcept:\u000a    pass\u000a\u000acmds.select(reference)
+p11
+sS'id'
+p12
+S'3483dd51c2b500L'
+p13
+sS'icon'
+p14
+ValignToComponent.png
+p15
+s..15
+s..

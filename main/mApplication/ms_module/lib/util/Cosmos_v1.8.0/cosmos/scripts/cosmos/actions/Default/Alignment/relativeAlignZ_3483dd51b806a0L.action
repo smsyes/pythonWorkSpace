@@ -1,0 +1,38 @@
+(dp1
+S'info'
+p2
+VAlign objects to each other
+p3
+sS'name'
+p4
+VRelative Align Z
+p5
+sS'tags'
+p6
+Vposition, align
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aaxix = "Z"\u000aselection = cmds.ls(sl=True)\u000a\u000aif len(selection) >= 2:\u000a	#Get every instance of the value\u000a	values = []\u000a	#Get values\u000a	for item in selection:\u000a		value = cmds.xform(item, q=True, t=True)\u000a		if axix is "X": values.append(value[0])\u000a		elif axix is "Y": values.append(value[1]) \u000a		elif axix is "Z": values.append(value[2])      \u000a\u000a	#Get median values\u000a	summery = sum(values)\u000a	devided = float(summery) / len(selection)\u000a\u000a	for item in selection:\u000a		value = cmds.xform(item, q=True, t=True)\u000a		if axix is "X": value[0] = devided\u000a		elif axix is "Y": value[1] = devided\u000a		elif axix is "Z": value[2] = devided\u000a		cmds.xform(item, t=value)\u000aelse:\u000a	cosmos.displayViewMessage("No object selected", "error")
+p11
+sS'id'
+p12
+S'3483dd51b806a0L'
+p13
+sS'icon'
+p14
+VrelativeAlignZ.png
+p15
+s.S'id'
+p12
+S'3483dd51b806a0L'
+p13
+sS'icon'
+p14
+VrelativeAlignZ.png
+p15
+s.

@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VRescale the time of selected objects
+p3
+sS'name'
+p4
+VRescale Keyframes Time
+p5
+sS'tags'
+p6
+Vanimation,keyframes,scale
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get mode\u000aselection = cmds.keyframe(q=True, name=True)\u000aif selection is not None:\u000a    \u000a	buttonList = ("Start","Middle","End","Cancel")\u000a	scalingMode = cmds.confirmDialog(title="Rescale Value: Choose mode",message="Where you wanna scale the keyframes from?",button=buttonList,defaultButton=buttonList[-1],cancelButton="Cancel",dismissString="Cancel")    \u000a	if (scalingMode != "Cancel"):\u000a		#Get factor\u000a		cmds.promptDialog(title="Rescale value: Multiply by factor",message="Ex: 0.5 = Half length, 2 = Double Length",button=["Ok","Cancel"],defaultButton="Ok",cancelButton="Cancel",dismissString="Cancel")\u000a		multiplyFactor = cmds.promptDialog(query=True, text=True)\u000a		if len(multiplyFactor) >= 1:\u000a			multiplyFactor = float(multiplyFactor)\u000a			#For every channel\u000a			for keyframe in selection:\u000a			    #Get all times\u000a			    allTimes = cmds.keyframe(keyframe,q=True,timeChange=True)\u000a			    #Get mintime\u000a			    firstKeyframe = allTimes[0]    \u000a			    #Get maxtime\u000a			    lastKeyframe = allTimes[-1]\u000a			    #Calculate difference in frames\u000a			    frameLength = lastKeyframe - firstKeyframe\u000a			    #Multiply my multiplyfactor\u000a			    frameLengthMultiplied = frameLength * multiplyFactor\u000a			    #Generate new factor\u000a			    factor = (firstKeyframe + frameLengthMultiplied) / lastKeyframe\u000a			    try:\u000a			        endFactor = (lastKeyframe - frameLengthMultiplied) / firstKeyframe\u000a			    except:\u000a			        firstKeyframe = 0.0001\u000a			        endFactor = (lastKeyframe - frameLengthMultiplied) /firstKeyframe \u000a\u000a\u000a			    #Rescale animation\u000a			    if (scalingMode == "Start"): cmds.scaleKey(keyframe,newStartTime=firstKeyframe, newEndTime=(lastKeyframe * factor) )\u000a			    elif (scalingMode == "End"): cmds.scaleKey(keyframe,newStartTime=(firstKeyframe * endFactor), newEndTime= lastKeyframe)\u000a			    elif (scalingMode == "Middle"):\u000a			        #Multiply my multiplyfactor\u000a			        frameLengthMultiplied = frameLength * (multiplyFactor * 0.75)\u000a			        #Generate new factor\u000a			        factor = (firstKeyframe + frameLengthMultiplied) / lastKeyframe\u000a			        endFactor = (lastKeyframe - frameLengthMultiplied) / firstKeyframe\u000a			        cmds.scaleKey(keyframe,newStartTime=(firstKeyframe * endFactor), newEndTime=(lastKeyframe * factor) )\u000a		else:\u000a			cosmos.displayViewMessage("Cancelled by the user","error") \u000a	else:\u000a		cosmos.displayViewMessage("Cancelled by the user","error") \u000aelse:\u000a	cosmos.displayViewMessage("Nothing selected","error") 
+p11
+sS'id'
+p12
+S'3483dd51670070L'
+p13
+sS'icon'
+p14
+VmultiplyKeyframeTime.png
+p15
+s..
+VmultiplyKeyframeTime.png
+p15
+s.

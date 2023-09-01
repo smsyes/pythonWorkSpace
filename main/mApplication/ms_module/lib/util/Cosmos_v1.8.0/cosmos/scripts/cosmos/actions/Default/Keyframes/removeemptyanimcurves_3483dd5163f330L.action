@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VDelete curves with no animation [Selection]
+p3
+sS'name'
+p4
+VRemove empty anim-curves
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000a#Get curve selected\u000aselection = cmds.keyframe(q=True, name=True)\u000afor keyframe in selection:\u000a    #Get all values\u000a    allValues = cmds.keyframe(keyframe,q=True,valueChange=True)\u000a    #Get first value to match and then compare with the whole list\u000a    baseValue = allValues[0]\u000a    state = allValues.count(baseValue) == len(allValues)\u000a    if (state == True):\u000a        cmds.delete(keyframe)\u000a
+p11
+sS'id'
+p12
+S'3483dd5163f330L'
+p13
+sS'icon'
+p14
+VdeleteEmptyKeyframes.png
+p15
+s.eteEmptyKeyframes.png
+p15
+s.
+s.

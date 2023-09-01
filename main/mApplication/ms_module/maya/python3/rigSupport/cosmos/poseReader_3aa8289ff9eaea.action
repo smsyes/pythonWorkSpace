@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3aa8289ff9eaea
+p2
+sVname
+p3
+VposeReader
+p4
+sVinfo
+p5
+VposeReader tool
+p6
+sVtags
+p7
+Vtools
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom convert import poseReaderV01\u000atry:\u000a    from imp import *\u000aexcept:\u000a    pass\u000areload(poseReaderV01)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.

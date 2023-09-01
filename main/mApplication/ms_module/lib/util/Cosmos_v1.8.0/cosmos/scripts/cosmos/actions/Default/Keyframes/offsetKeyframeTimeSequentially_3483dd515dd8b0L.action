@@ -1,0 +1,33 @@
+(dp1
+S'info'
+p2
+VOffset animation for all values one by one [Selected objects]
+p3
+sS'name'
+p4
+VOffset Keyframe Time Sequentially
+p5
+sS'tags'
+p6
+Vanimation,keyframes
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+V#Import Maya modules\u000aimport maya.cmds as cmds\u000a\u000aresult = cmds.promptDialog(title='Offset keyframes',message='Enter offset:',button=['OK', 'Cancel'],defaultButton='OK',cancelButton='Cancel',dismissString='Cancel')\u000aif result == 'OK':\u000a	offsetFactor = cmds.promptDialog(query=True, text=True)\u000a	selection = cmds.ls(sl=True)\u000a	#Offset for every object in the selection\u000a	for number, item in enumerate(selection):\u000a		cmds.select(item)\u000a		cmds.keyframe(edit=True, relative=True, timeChange=float(number * float(offsetFactor)))\u000a	cmds.select(selection)\u000aelse:\u000a	cosmos.displayViewMessage("Cancelled by the user","error") 
+p11
+sS'id'
+p12
+S'3483dd515dd8b0L'
+p13
+sS'icon'
+p14
+VoffsetAnimOverTime.png
+p15
+s.
+s.setAnimOverTime.png
+p15
+s.

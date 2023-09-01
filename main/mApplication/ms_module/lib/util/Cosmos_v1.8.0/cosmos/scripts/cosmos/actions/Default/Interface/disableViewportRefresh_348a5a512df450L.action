@@ -1,0 +1,30 @@
+(dp1
+S'info'
+p2
+VDisable the drawing of the maya viewport
+p3
+sS'name'
+p4
+VDisable Viewport Refresh
+p5
+sS'tags'
+p6
+Vrefresh,viewport,disable
+p7
+sS'syntax'
+p8
+S'python'
+p9
+sS'command'
+p10
+Vimport maya.cmds as cmds\u000amaya.mel.eval("paneLayout -e -manage false $gMainPane")
+p11
+sS'id'
+p12
+S'348a5a512df450L'
+p13
+sS'icon'
+p14
+VdisableViewportRefresh
+p15
+s.

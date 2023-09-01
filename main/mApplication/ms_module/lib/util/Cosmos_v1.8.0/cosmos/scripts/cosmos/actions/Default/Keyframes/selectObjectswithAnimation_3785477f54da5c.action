@@ -1,0 +1,30 @@
+(dp0
+Vinfo
+p1
+VSelect all the scene transforms with animation curves
+p2
+sVname
+p3
+VSelect Objects with Animation
+p4
+sVtags
+p5
+Vanimation, select, scene
+p6
+sVsyntax
+p7
+Vpython
+p8
+sVcommand
+p9
+Vimport pymel.core as pm\u000a# Get scene transforms\u000aobjects = pm.ls(type="transform")\u000a# Clear selection\u000apm.select(cl=True)\u000afor object in objects:\u000a    animationCurves = pm.listConnections(object, type="animCurve")\u000a    if len(animationCurves) >= 1:\u000a        pm.select(object, toggle=True)
+p10
+sVid
+p11
+V3785477f54da5c
+p12
+sVicon
+p13
+V
+p14
+s.
