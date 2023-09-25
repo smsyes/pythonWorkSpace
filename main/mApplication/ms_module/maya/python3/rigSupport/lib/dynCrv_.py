@@ -1,7 +1,11 @@
 import pymel.core as pm
 
-def joints(crv_, num_=3, _oj='xyz', _sao='yup'):
-    shape_ = crv_.getShape()
+
+
+def ikjoints_(crv_, num_=3, _oj='xyz', _sao='yup'):
+    dup_ = pm.duplicate(crv_)[0]
+    pm.makeIdentity(dup_, apply=True, t=1,r=1,s=1,n=0,pn=1)
+    shape_ = dup_.getShape()
     #EPs_ = shape_.numEPs()
     nums = [+1/(num_-1) for i in range(num_)[1:-1]]
     nums.insert(0,0)
@@ -16,34 +20,28 @@ def joints(crv_, num_=3, _oj='xyz', _sao='yup'):
     pm.select(cl=1)
     pm.joint(ikJoints[0], e=1, oj=_oj, sao=_sao, ch=1, zso=1)
     ikJoints[-1].jo.set(0,0,0)
-    
+    pm.delete(dup_)
+
+    return ikJoints
+
+def attachs_(crv_, ikJoints):
     atJoints = []
     atCtrls = []
-    jointName = ['st','en']
+    sideName = ['st','en']
     for i,j_ in enumerate([ikJoints[0],ikJoints[-1]]):
-        name_ = '{0}_{1}'.format(crv_.name(),jointName[i])
+        name_ = '{0}_{1}'.format(crv_.name(),sideName[i])
         joint_ = pm.joint(n='{0}joint'.format(name_))
         ctrl = crvShape_(triangle)
         ctrl.rename('{0}Ctrl'.format(name_))
-        pm.select(cl=1)
-        pm.matchTransform(joint_,j_)
-        pm.matchTransform(ctrl,j_)
-        atJoints.append(joint_)
         atCtrls.append(ctrl)
-        
-    pm.parent(atCtrls[1].atCtrls[0])
-    freezeOffset(ikJoints+atJoints+atCtrls)
+        atJoints.append(joint_)
+        pm.select(cl=1)
+    pm.parent(atCtrls[1], atCtrls[0])
     
-    for i,c_ in enumerate(atCtrls):
-        c_.t >> atJoints[i].t
-        c_.r >> atJoints[i].r
-        c_.s >> atJoints[i].s
-        
-    pm.skinCluster(atJoints[0],atJoints[1],crv_)
-        
-    return ikJoints, atJoints, atCtrls
+    return atJoints, atCtrls
 
-def freezeOffset(list_):
+
+def freezeOffset_(list_):
     for i in list_:
         matrix_ = i.getMatrix()
         i.offsetParentMatrix.set(matrix_)
@@ -59,28 +57,43 @@ def crvShape_(list_):
                  k = list_[2])
     return crv_
 
+def createikHandle_(crv_,ikJoints,atJoints):
+    ikhandle_ = pm.ikHandle(n='{}ikHandle'.format(crv_.name()),sol='ikSplineSolver',
+    ccv=False,pcv=False,sj=ikJoints[0],ee=ikJoints[-1],c=crv_)
+    ikhandle_[0].dTwistControlEnable.set(1)
+    ikhandle_[0].dWorldUpType.set(4)
+    atJoints[0].wm >> ikhandle_[0].dWorldUpMatrix
+    atJoints[1].wm >> ikhandle_[0].dWorldUpMatrixEnd
+    return ikhandle_[0]
 
 triangle = [1,[(0,0,-1),(0,0,1),(2,0,0),(0,0,-1)],[0,1,2,3]]
 
-
-crv_ = pm.ls(sl=1,fl=1,r=1)[0]
-
+crvs_ = pm.ls(sl=1,fl=1,r=1)
 
 oj_='xyz'
 sao_='yup'
 num_=3
-ikJoints, atJoints, atCtrls= joints(crv_, num_, _oj=oj_, _sao=sao_)
 
-ikhandle_ = pm.ikHandle(n='{}ikHandle'.format(crv_.name()),sol='ikSplineSolver',
-ccv=False,pcv=False,sj=ikJoints[0],ee=ikJoints[-1],c=crv_)
+for i in crvs_:
+    ikGrp_ = pm.createNode('transform',n='{0}Grp'.format(i.name()))
+    ikJoints = ikjoints_(i, num_, _oj=oj_, _sao=sao_)
+    atJoints, atCtrls = attachs_(i, ikJoints)
 
-
-"""
-upVec_ = pm.spaceLocator(n='{}_upVec'.format(crv_.name()))
-pm.matchTransform(upVec_,joints_[0])
-
-if sao_ == 'yup':
-    upVec_.ty.set(1)
-"""
+    pm.parent([ikJoints[0],atJoints],ikGrp_)
+    
+    for j,ik_ in enumerate([ikJoints[0],ikJoints[-1]]):
+        pm.matchTransform(atJoints[j],ik_)
+        pm.matchTransform(atCtrls[j],ik_)
+    
+    freezeOffset_(ikJoints+atJoints+atCtrls)
+    
+    for k,c_ in enumerate(atCtrls):
+        c_.worldMatrix >> atJoints[k].offsetParentMatrix
+    
+    pm.skinCluster(atJoints[0],atJoints[1],i)
+    ikHandle_ = createikHandle_(i,ikJoints,atJoints)
+    
+    pm.parent(ikHandle_,ikGrp_)
+    
 
 # dir(shape_.__class__)
