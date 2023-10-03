@@ -124,12 +124,11 @@ def pointOnCurveInfo_(curve_):
     _shape.ws >> _node.ic
     return _node    
 
-def featherSetup(crvs_,baseName,oj_,sao_,num_):
+def ik_at_joints(crvs_, oj_, sao_, num_):
     posDict = {}
     posDict['atJoints'] = []
     posDict['atCtrls'] = []
     ikGrps = []
-    crvsName = [i.name() for i in crvs_]
 
     for i in crvs_:
         ikGrp_ = group_('{0}_{1}'.format(i.name(), 'ik'))
@@ -147,10 +146,14 @@ def featherSetup(crvs_,baseName,oj_,sao_,num_):
     stAtPos = [i[0] for i in posDict['atJoints']]
     enAtPos = [i[-1] for i in posDict['atJoints']]
     enCtrls = [i[0] for i in posDict['atCtrls']]
-        
+    return posDict,stAtPos,enAtPos,enCtrls,ikGrps
+
+def atCurve(stAtPos,enAtPos,baseName):
     stAtCurve = CurveAtObjectPosition(stAtPos, '{0}_st'.format(baseName))
     enAtCurve = CurveAtObjectPosition(enAtPos, '{0}_en'.format(baseName))
+    return stAtCurve, enAtCurve
 
+def posLoc(stAtPos,stAtCurve,enAtCurve,enAtPos,baseName,crvsName,posDict):
     stAtCurveShape_ = stAtCurve.getShape()
     stNumList = list(range(stAtCurveShape_.numEPs()))
     stLocs = LocAtCurveParam(stNumList, stAtCurve)
@@ -168,7 +171,9 @@ def featherSetup(crvs_,baseName,oj_,sao_,num_):
     ikCtrls = [crvShape_('{0}_aim_'.format(crvsName[i]),pin,en) for i,en in enumerate(enLocs)]
     [pm.parent(c, enLocs[i]) for i,c in enumerate(ikCtrls)]
     [freezeOffset_(i) for i in posDict['atCtrls']]
-
+    return stLocs,ikCtrls
+    
+def ikAim(baseName,stLocs,enAtPos,ikCtrls,enCtrls,posDict,ikGrps):
     targets = []
     targetGrp = group_('{0}_target'.format(baseName))
     for i,en in enumerate(enAtPos):
@@ -184,6 +189,7 @@ def featherSetup(crvs_,baseName,oj_,sao_,num_):
     ikGrp = group_('{0}_ik'.format(baseName)) 
     pm.parent(ikGrps,ikGrp) 
 
+
 triangle = [1,[(0,0,-1),(0,0,1),(2,0,0),(0,0,-1)],[0,1,2,3]]
 pin = [1, [(0,0,0),(0,4,0),(0,4.07612,0.382683),
 (0,4.292893,0.707107),(0,4.617317,0.92388),(0,5,1),(0,5.382683,0.92388),
@@ -193,10 +199,13 @@ pin = [1, [(0,0,0),(0,4,0),(0,4.07612,0.382683),
 11,12,13,14,15,16,17]]
 
 crvs_ = pm.ls(sl=1,fl=1,r=1)
-baseName = 'FlightRT'
+baseName = 'flightTail'
 oj_='xyz'
 sao_='yup'
 num_=3
-featherSetup(crvs_,baseName,oj_,sao_,num_)
+crvsName = [i.name() for i in crvs_]
 
-
+posDict,stAtPos,enAtPos,enCtrls,ikGrps = ik_at_joints(crvs_, oj_, sao_, num_)
+stAtCurve, enAtCurve = atCurve(stAtPos,enAtPos,baseName)
+stLocs,ikCtrls = posLoc(stAtPos,stAtCurve,enAtCurve,enAtPos,baseName,crvsName,posDict)
+ikAim(baseName,stLocs,enAtPos,ikCtrls,enCtrls,posDict,ikGrps)
