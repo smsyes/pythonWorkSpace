@@ -120,7 +120,7 @@ def offsetMatrixConnect(item_, target_):
 
 def pointOnCurveInfo_(curve_):
     _shape = curve_.getShape()
-    _node = createNode('pointOnCurveInfo', n='{}PC'.format(curve_.name()))
+    _node = pm.createNode('pointOnCurveInfo', n='{}PC'.format(curve_.name()))
     _shape.ws >> _node.ic
     return _node    
 
