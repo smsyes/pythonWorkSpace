@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3c4959ae671216
+p2
+sVname
+p3
+VMrig
+p4
+sVinfo
+p5
+Vmrig tool
+p6
+sVtags
+p7
+Vtools
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom ui.convert import mRigTool\u000atry:\u000a    from imp import *\u000aexcept:\u000a    pass\u000areload(mRigTool)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
