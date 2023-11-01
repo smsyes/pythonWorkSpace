@@ -60,27 +60,40 @@ def selectionControl(list_):
         crv_ = crvShape_(pin)
         pm.matchTransform(crv_,i)
 
-def ikfkBlend(item01, item02, target):    
+def ikfkBlend(item01, item02, target, t_=None, r_=None, s_=None, m_=None):    
     for i,t_ in enumerate(target):
         name_ = '{0}_fkik'.format(t_.name().split('_')[0])
         bm_ = pm.createNode('blendMatrix',n='{0}_bm'.format(name_))
-        mm_ = pm.shadingNode('multMatrix',au=1, n='{0}_mm'.format(name_))
-        dm_ = pm.createNode('decomposeMatrix',n='{0}_dm'.format(name_))
-        item01[i].wm >> bm_.inputMatrix
-        item02[i].wm >> bm_.target[0].targetMatrix
-        mm_.matrixIn[0].set(t_.wm.get())
-        mm_.matrixIn[1].set(item01[i].wim.get())
-        bm_.outputMatrix >> mm_.matrixIn[2]
-        t_.parentInverseMatrix[0] >> mm_.matrixIn[3]
-        mm_.matrixSum >> dm_.inputMatrix
+        for i,item in enumerate(sel[:-1]):
+            mm_ = pm.shadingNode('multMatrix',au=1, n='{0}{1}_mm'.format(name_,i))
+            mat1_ = t_.getMatrix(worldSpace=True)
+            mat2_ = item.getMatrix(worldSpace=True).inverse()
+            offset_ = mat1_*mat2_
+            
+            mm_.matrixIn[0].set(offset_)
+            item.wm >> mm_.matrixIn[1]
+            t_.pim >> mm_.matrixIn[2]
+            mm_.matrixSum >> bm_.target[i].targetMatrix
 
-        t_.jo.set(0,0,0)
-        dm_.ot >> t_.t
-        dm_.outputRotate >> t_.r
-        dm_.os >> t_.s
+        bm_.inputMatrix.set(t_.wm.get())
+        
+        if not m_:
+            dm_ = pm.createNode('decomposeMatrix',n='{0}_dm'.format(name_))
+            bm_.outputMatrix >> dm_.inputMatrix
+
+            if t_.type() == 'joint':
+                t_.jo.set(0,0,0)
+            if t_:
+                dm_.ot >> t_.t
+            if r_:
+                dm_.outputRotate >> t_.r
+            if r_:
+                dm_.os >> t_.s
+        else:
+            bm_.outputMatrix >> t_.offsetParentMatrix
 
 
-def ikfkListBlend(list_):
+def ikfkListBlend(list_,t_=None, r_=None, s_=None,m_=None):
     selNum_ = len(list_)
     div_ = selNum_/3
     if div_>1:
@@ -89,7 +102,7 @@ def ikfkListBlend(list_):
         target = [list_[6+i] for i in range(int(div_))]
     else:
         item01, item02, target = [list_[0]], [list_[1]], [list_[2]]
-    ikfkBlend(item01, item02, target)
+    ikfkBlend(item01, item02, target, t_, r_, s_, m_)
 
 def getVecPos(st,md,en):
     rootPos = pm.xform(st,q=True,ws=True,t=True)
@@ -114,6 +127,16 @@ def getVecPos(st,md,en):
     return [poleVecPos.x, poleVecPos.y, poleVecPos.z]
 
 
+def offsetMatrixConnect(item_, target_):
+    # mm = pm.shadingNode('multMatrix', au=1, n='{0}_MM'.format(target_))
+    # mat1_ = target_.getMatrix(worldSpace=True)
+    # mat2_ = item_.getMatrix(worldSpace=True).inverse()
+    # offset_ = mat1_ * mat2_
+    # mm.matrixIn[0].set(offset_)
+    item_.worldMatrix >> mm.matrixIn[1]
+    target_.pim >> mm.matrixIn[2]
+    item_.wm >> target_.offsetParentMatrix 
+
 
 sel = pm.ls(sl=1,fl=1,r=1)
 
@@ -132,12 +155,14 @@ sel = pm.ls(sl=1,fl=1,r=1)
 
 
 # selectionControl(sel)
-# crvShape_(locate)
+# crvShape_(pin)
 # CreateFKControl(sel)
 # freezeOffset(sel)
 # dir(circleList[i-1][0].offsetParentMatrix.__class__)
-# ikfkListBlend(sel)
+# ikfkListBlend(sel,m_=True)
 # getVecPos(sel[0],sel[1],sel[2])
+# offsetMatrixConnect(sel[0], sel[1])
+
 
 
 
