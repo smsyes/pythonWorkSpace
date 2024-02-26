@@ -46,42 +46,43 @@ def reJointSet(joints, findName):
 
     return bodyjoints_, facejoints_
 
-def bindJoint(object_):
-    shape_ = object_.getShape()
-    connectionList_ = shape_.listHistory(gl=1,pdo=1)
-    for cnt_ in connectionList_:
-        if cnt_.type() == 'skinCluster':
-            scls_ = cnt_
-            break
-        else:
-            scls_ = None
-    sclsMtx_ = scls_.attr('matrix')
-    return sclsMtx_.listConnections(d=0,s=1,type='joint')
-
 def skinCopy(item_, target_, joints):
-    pm.skinCluster(joints, target_, bm=1, mi=3, rui=0, dr=3)
+    sc_ = pm.skinCluster(joints, target_, bm=1, mi=3, rui=0, dr=3)
     pm.copySkinWeights(item_,target_,nm=1,sa='closestPoint',ia='oneToOne',nr=1)
+    return sc_
 
 def objectClean(object_):
     attrs = object_.listAttr(k=1)
     [i.unlock() for i in attrs]
     pm.delete('{}ShapeOrig'.format(object_.name()))
-    
+
+def hasObject_(name_):
+    if pm.objExists(name_):
+        object_ = pm.PyNode(name_)
+    return object_
+
+def parentChange(list_,ns_):
+    for i in list_:
+        p_ = i.getParent()
+        replaceName = p_.name().replace(ns_[0], ns_[1])
+        NP_ = pm.PyNode(replaceName)
+        pm.parent(i, NP_)
+
 
 # 다시 바인드 할 메타휴먼 헤드 메쉬 잡고 실행
-def metahumanHeadRebind(object_):
+def metahumanHeadRebind(ns_, object_):
+    
     for i in object_:
         name_ = i.name()
         target = pm.duplicate(i)[0]
         objectClean(target)
         bindjoints = bindJoint(i)
-        bodyjoints_, facejoints_ = reJointSet(bindjoints, 'DHIbody')
+        bodyjoints_, facejoints_ = reJointSet(bindjoints, ns_)
         rejoints = bodyjoints_ + facejoints_
-        skinCopy(i, target, rejoints)
+        sc_ = skinCopy(i, target, rejoints)
         if i.history(type='blendShape'):
             bs_ = i.history(type='blendShape')[0]
             origin_ = target.history(type='mesh')[-1]
-            sc_ = target.history(type='skinCluster')[0]
             origin_.outMesh >> bs_.originalGeometry[0]
             origin_.worldMesh[0] >> bs_.input[0].inputGeometry
             bs_.outputGeometry[0] >> sc_.input[0].inputGeometry
@@ -90,8 +91,19 @@ def metahumanHeadRebind(object_):
         sc_.rename('{}_SkinCluster'.format(name_))
         
 
+
+NS_ = ["DHIhead","DHIbody"]
+faceRoots = ['FACIAL_C_Neck1Root', 'FACIAL_C_Neck2Root', 'FACIAL_C_FacialRoot']
+
 sel = pm.ls(sl=1,r=1,fl=1)
-metahumanHeadRebind(sel)
+dict_ = {}
+for i in faceRoots:
+    name_ = '{0}:{1}'.format(NS_[0],i)
+    dict_[i] = hasObject_(name_)
+parentChange(dict_.values(),NS_)
+metahumanHeadRebind(NS_[0], sel)
+
+
 
 
 
