@@ -39,7 +39,7 @@ def offset_(object_, w=None):
 
 num_ = 4
 axis_ = 'x'
-name_ = 'upper'
+name_ = 'lower'
 div_ = division(num_,1)
 sel = pm.ls(sl=1,fl=1,r=1)
 
@@ -88,24 +88,31 @@ cendm_ = pm.createNode('decomposeMatrix',n='%s_dm'% centerCtrl.name())
 centerOffset.wm >> cendm_.inputMatrix
 cendm_.ot >> sm_[0].falloffCenter
 
+
 # upvec locator
-upvec_ = pm.spaceLocator(n='%s_upvec_loc' % name_)
-pm.matchTransform(upvec_, sel[-1], pos=1)
-pm.matchTransform(upvec_, sel[0], rot=1)
+if name_ == 'upper':
+    upvec_ = pm.spaceLocator(n='%s_upvec_loc' % name_)
+    pm.matchTransform(upvec_, sel[-1], pos=1)
+    pm.matchTransform(upvec_, sel[0], rot=1)
+else:
+    pass
 
 # 선택한 오브젝트의 포지션 값을 linearCrv가 따라가게 셋팅
 locs_ = []
 for i,item in enumerate(sel):
     dm_ = pm.createNode('decomposeMatrix',n='%s_%s_dm'% (name_,item.name()))
-    loc_ = pm.spaceLocator(n='%s_%s_offset_loc'% (name_,item.name()))
-    pm.matchTransform(loc_,item)
-    if i>0:
-        pm.matchTransform(loc_,sel[0],rot=1)
-        pm.parent(upvec_, loc_)
+    if name_ == 'upper':
+        loc_ = pm.spaceLocator(n='%s_%s_offset_loc'% (name_,item.name()))
+        pm.matchTransform(loc_,item)
+        if i>0:
+            pm.matchTransform(loc_,sel[0],rot=1)
+            pm.parent(upvec_, loc_)
+        locs_.append(loc_)
+    elif name_ == 'lower':
+        pass
     item.wm >> dm_.inputMatrix
     dm_.ot >> linearCrv.getShape().controlPoints[i]
-    locs_.append(loc_)
-
+    
 for i in list(range(num_+1)):
     mp_ = pm.createNode('motionPath',n='%s_%s_mp' % (linearCrv.name(),i))
     linearCrv.getShape().ws >> mp_.geometryPath
@@ -128,8 +135,11 @@ for i in list(range(num_+1)):
     mp_.worldUpType.set(2)
     mp_.frontAxis.set(0)
     mp_.upAxis.set(1)
-    locs_[0].worldMatrix >> mp_.worldUpMatrix
-    pm.aimConstraint(locs_[-1],sel[0], aim=(1,0,0), u=(0,1,0), wut=2, wuo=upvec_)
+    if name_ == 'upper':
+        locs_[0].worldMatrix >> mp_.worldUpMatrix
+        pm.aimConstraint(locs_[-1],sel[0], aim=(1,0,0), u=(0,1,0), wut=2, wuo=upvec_)
+    elif name_ == 'lower':
+        sel[0].worldMatrix >> mp_.worldUpMatrix
     spcs_.append(spc_)
 
 spaceGrp = pm.createNode('transform', n='%s_bendSpace_grp' % name_)
