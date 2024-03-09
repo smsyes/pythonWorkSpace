@@ -36,12 +36,13 @@ def offset_(object_, w=None):
     return node_
 
 
-
 num_ = 4
 axis_ = 'x'
-name_ = 'lower'
+# type_ is 'up' or 'dn'
+type_ = 'dn'
 div_ = division(num_,1)
 sel = pm.ls(sl=1,fl=1,r=1)
+name_ = 'lower_arm_l'
 
 
 # 선택한 오브젝트의 포지션값을 리스트로 저장
@@ -90,7 +91,7 @@ cendm_.ot >> sm_[0].falloffCenter
 
 
 # upvec locator
-if name_ == 'upper':
+if type_ == 'up':
     upvec_ = pm.spaceLocator(n='%s_upvec_loc' % name_)
     pm.matchTransform(upvec_, sel[-1], pos=1)
     pm.matchTransform(upvec_, sel[0], rot=1)
@@ -100,15 +101,15 @@ else:
 # 선택한 오브젝트의 포지션 값을 linearCrv가 따라가게 셋팅
 locs_ = []
 for i,item in enumerate(sel):
-    dm_ = pm.createNode('decomposeMatrix',n='%s_%s_dm'% (name_,item.name()))
-    if name_ == 'upper':
-        loc_ = pm.spaceLocator(n='%s_%s_offset_loc'% (name_,item.name()))
+    dm_ = pm.createNode('decomposeMatrix',n='%s_dm'% (name_))
+    if type_ == 'up':
+        loc_ = pm.spaceLocator(n='%s_offset_loc'% (item.name()))
         pm.matchTransform(loc_,item)
         if i>0:
             pm.matchTransform(loc_,sel[0],rot=1)
             pm.parent(upvec_, loc_)
         locs_.append(loc_)
-    elif name_ == 'lower':
+    elif type_ == 'dn':
         pass
     item.wm >> dm_.inputMatrix
     dm_.ot >> linearCrv.getShape().controlPoints[i]
@@ -122,10 +123,16 @@ for i in list(range(num_+1)):
 spcs_ = []
 for i in list(range(num_+1)):
     mp_ = pm.createNode('motionPath',n='%s_%s_mp' % (bendCrv.name(),i))
-    md_ = pm.createNode('multiplyDivide', n='%s_%s_twist_md' % (sel[0].name(),i))
+    md_ = pm.createNode('multiplyDivide', n='%s_%s_twist_md' % (name_,i))
     spc_ = pm.createNode('transform',n='%s_%s_space' % (bendCrv.name(),i))
     bendCrv.getShape().ws >> mp_.geometryPath
-    sel[0].rx >> md_.i1x
+    if type_ == 'up':
+        locs_[0].worldMatrix >> mp_.worldUpMatrix
+        pm.aimConstraint(locs_[-1],sel[0], aim=(1,0,0), u=(0,1,0), wut=2, wuo=upvec_)
+        sel[0].rx >> md_.i1x
+    elif type_ == 'dn':
+        sel[0].worldMatrix >> mp_.worldUpMatrix
+        sel[1].rx >> md_.i1x
     md_.i2x.set(div_[i])
     mp_.uValue.set(div_[i])
     md_.ox >> mp_.frontTwist
@@ -135,11 +142,6 @@ for i in list(range(num_+1)):
     mp_.worldUpType.set(2)
     mp_.frontAxis.set(0)
     mp_.upAxis.set(1)
-    if name_ == 'upper':
-        locs_[0].worldMatrix >> mp_.worldUpMatrix
-        pm.aimConstraint(locs_[-1],sel[0], aim=(1,0,0), u=(0,1,0), wut=2, wuo=upvec_)
-    elif name_ == 'lower':
-        sel[0].worldMatrix >> mp_.worldUpMatrix
     spcs_.append(spc_)
 
 spaceGrp = pm.createNode('transform', n='%s_bendSpace_grp' % name_)
