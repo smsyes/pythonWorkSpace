@@ -124,7 +124,7 @@ class myUIClass(QWidget):
         self.ui = Ui_ReNamer()
         self.ui.setupUi(self)
 
-        self.sel = cmds.ls(sl=1,r=1,uid=1)
+        
         self.ui.nameMathodLine.returnPressed.connect(self.renamer)
 
 
@@ -166,7 +166,7 @@ class myUIClass(QWidget):
     def renamer(self):
         try:
             cmds.undoInfo(openChunk=True)
-            list_ = self.sel
+            list_ = cmds.ls(sl=1,r=1,uid=1)
             nameMathod_ = self.getText()
 
             for i,item in enumerate(list_):
