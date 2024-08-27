@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'reNamerzaSkFN.ui'
+## Form generated from reading UI file 'reNamergmDAju.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -42,6 +42,7 @@ class Ui_ReNamer(object):
 
         self.nameMathodLine = QLineEdit(ReNamer)
         self.nameMathodLine.setObjectName(u"nameMathodLine")
+        self.nameMathodLine.setDragEnabled(True)
 
         self.verticalLayout.addWidget(self.nameMathodLine)
 

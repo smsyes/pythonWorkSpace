@@ -59,7 +59,11 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLineEdit" name="nameMathodLine"/>
+    <widget class="QLineEdit" name="nameMathodLine">
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="Line" name="line">
