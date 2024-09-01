@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3d47407ef9d61a
+p2
+sVname
+p3
+VjointSet
+p4
+sVinfo
+p5
+Vjoint setup tool
+p6
+sVtags
+p7
+Vtools
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom rigSupport.ui.deliver import jointSet\u000atry:\u000a    from imp import *\u000aexcept:\u000a    pass\u000a\u000areload(jointSet)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
