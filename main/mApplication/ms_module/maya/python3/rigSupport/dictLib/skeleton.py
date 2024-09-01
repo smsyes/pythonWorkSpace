@@ -1,0 +1,57 @@
+{'parts':
+    {'arm':
+        [1,
+        'upperarm',
+        'lowerarm',
+        'hand'
+        ],
+    'finger':
+        {'index': 
+            [1,
+            'index_metacarpal',
+            'index_01',
+            'index_02',
+            'index_03'
+            ],
+        'middle': 
+            [1,
+            'middle_metacarpal',
+            'middle_01',
+            'middle_02',
+            'middle_03'
+            ],
+        'pinky': 
+            [1,
+            'pinky_metacarpal',
+            'pinky_01',
+            'pinky_02',
+            'pinky_03'
+            ],
+        'ring': 
+            [1,
+            'ring_metacarpal',
+            'ring_01',
+            'ring_02',
+            'ring_03'
+            ],
+        'thumb': 
+            [1,
+            'thumb_01', 
+            'thumb_02', 
+            'thumb_03'
+            ]
+        },
+    'leg': [1,
+            'thigh',
+            'calf',
+            'foot',
+            'ball'
+            ],
+    'neck': [0, 'neck_01', 'neck_02', 'head'],
+    'spine': [0,'pelvis',
+                     'spine_01',
+                     'spine_02',
+                     'spine_03',
+                     'spine_04',
+                     'spine_05',
+                     'neck_01']}}
