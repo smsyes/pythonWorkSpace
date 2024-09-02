@@ -127,15 +127,19 @@ class myUIClass(QWidget):
         
         self.ui.nameMathodLine.returnPressed.connect(self.renamer)
 
-
+    # nameMathodLine get text
     def getText(self):
         return self.ui.nameMathodLine.text()
     
+    # Renames and renams the selected object
     def changeName(self, method_, name_):
         old_ = method_.split('>>')[0]
         new_ = method_.split('>>')[-1]
+        if new_ == ' ':
+            new_ = ''
         return name_.replace(old_, new_)
 
+    # padding number
     def padding(self, num_, slot_, check_):
         if check_ == True:
             pad_ = string.ascii_uppercase[num_]
@@ -145,7 +149,7 @@ class myUIClass(QWidget):
             pad_ = str(num_).zfill(slot_)
         return pad_
 
-
+    # Naming multiple objects followed by numbers in order
     def makeName(self, method_, num_):
         if '#' in method_:
             slot_ = method_.count('#')
@@ -156,6 +160,7 @@ class myUIClass(QWidget):
             name_ = method_.replace('@', pad_)
         return name_
 
+    # Add a subnaming before or after the naming of the selected object
     def prefix_suffix(self, method_, name_):
         if method_.split('%')[0]:
             name_ = method_.split('%')[0] + name_
@@ -163,6 +168,8 @@ class myUIClass(QWidget):
             name_ = name_ + method_.split('%')[-1]
         return name_
 
+    
+    # Name changes to the conventions of the name method
     def renamer(self):
         try:
             cmds.undoInfo(openChunk=True)
@@ -170,15 +177,15 @@ class myUIClass(QWidget):
             nameMathod_ = self.getText()
 
             for i,item in enumerate(list_):
+                name_ = cmds.ls(item)[0].split('|')[-1]
                 if '>>' in nameMathod_:
                     name_ = cmds.ls(item)[0].split('|')[-1]
                     name_ = self.changeName(nameMathod_, name_)
                 if '#' in nameMathod_ or '@' in nameMathod_:
                     name_ = self.makeName(nameMathod_, i+1)
                 if '%' in nameMathod_:
-                    name_ = cmds.ls(item)[0]
+                    name_ = cmds.ls(item)[0].split('|')[-1]
                     name_ = self.prefix_suffix(nameMathod_, name_)
-                    
                 cmds.rename(cmds.ls(item)[0], name_)
                 
         finally:
