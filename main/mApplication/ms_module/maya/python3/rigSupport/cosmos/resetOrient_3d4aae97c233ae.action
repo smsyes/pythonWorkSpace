@@ -1,0 +1,29 @@
+(dp0
+Vid
+p1
+V3d4aae97c233ae
+p2
+sVname
+p3
+VresetOrient
+p4
+sVinfo
+p5
+Vreset joint orient
+p6
+sVtags
+p7
+V
+p8
+sVicon
+p9
+g8
+sVcommand
+p10
+Vimport pymel.core as pm\u000aimport pymel.core.datatypes as dt\u000a\u000asel = pm.ls(sl=1,fl=1,r=1)\u000a\u000adef reset(list_):\u000a    matrix_ = dt.Matrix()\u000a    for i in list_:\u000a        mat1_ = i.getMatrix(worldSpace=True)\u000a        if i.getParent():\u000a            mat2_ = i.getParent().getMatrix(worldSpace=True).inverse()\u000a        else:\u000a            mat2_ = dt.Matrix()\u000a        offset_ = mat1_*mat2_\u000a        if i.offsetParentMatrix.get() != matrix_:\u000a            i.offsetParentMatrix.set(matrix_)\u000a        if i.type() == 'joint':\u000a            if i.jointOrient.get() != (0,0,0):\u000a                i.jointOrient.set(0,0,0)\u000a        i.setMatrix(offset_)\u000a        rot_ = i.r.get()\u000a        if i.type() == 'joint':\u000a            i.jointOrient.set(rot_)\u000a            i.r.set(0,0,0)\u000a\u000asel = pm.ls(sl=1,fl=1,r=1)\u000areset(sel)\u000a
+p11
+sVsyntax
+p12
+Vpython
+p13
+s.
