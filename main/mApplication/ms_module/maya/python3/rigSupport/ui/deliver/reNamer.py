@@ -135,7 +135,7 @@ class myUIClass(QWidget):
     def changeName(self, method_, name_):
         old_ = method_.split('>>')[0]
         new_ = method_.split('>>')[-1]
-        if new_ == ' ':
+        if not new_:
             new_ = ''
         return name_.replace(old_, new_)
 
