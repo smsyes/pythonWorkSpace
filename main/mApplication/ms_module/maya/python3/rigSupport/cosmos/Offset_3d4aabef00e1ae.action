@@ -1,0 +1,30 @@
+(dp0
+Vid
+p1
+V3d4aabef00e1ae
+p2
+sVname
+p3
+VOffset
+p4
+sVinfo
+p5
+Voffset group
+p6
+sVtags
+p7
+Vscript
+p8
+sVicon
+p9
+V
+p10
+sVcommand
+p11
+Vfrom pymel.core import *\u000a\u000adef Grp_(object_, w=None):\u000a    for i in object_:\u000a        name_ = i.name()\u000a        getTransform_ = i.getMatrix(worldSpace=True)\u000a        node_ = createNode('transform', n='{0}Grp'.format(i))\u000a        node_.setMatrix(getTransform_)\u000a        if w == 0:\u000a            getParent_ = i.getParent()\u000a            parent(node_, getParent_)\u000a        parent(i, node_)\u000a        \u000a\u000asel = ls(sl=1,r=1,fl=1)\u000aGrp_(sel, w=0)
+p12
+sVsyntax
+p13
+Vpython
+p14
+s.
