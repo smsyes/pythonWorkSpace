@@ -8,7 +8,7 @@ def curveCvAtObject(object_, dgree=None):
         dgree = 3
     pos_ = [get_trans(obj) for obj in object_]
     crv_ = curve(n=name_, d=1, p = pos_)
-    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kt=0,s=number-3,d=dgree)
+    rebuildCurve(crv_,ch=0,rpo=1,rt=0,end=1,kr=0,kcp=0,kt=0,s=int(len(sel))-3,d=dgree)
     return crv_
 
 def division(number):

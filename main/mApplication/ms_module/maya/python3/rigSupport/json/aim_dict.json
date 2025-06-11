@@ -1,0 +1,66 @@
+{
+  "arm": {
+    "clavicle": [
+      "clavicle",
+      "upperarm",
+      "lowerarm",
+      "hand"
+    ]
+  },
+  "finger": {
+    "thumb_01": [
+      "thumb_01",
+      "thumb_02",
+      "thumb_03"
+    ],
+    "middle_metacarpal": [
+      "middle_metacarpal",
+      "middle_01",
+      "middle_02",
+      "middle_03"
+    ],
+    "ring_metacarpal": [
+      "ring_metacarpal",
+      "ring_01",
+      "ring_02",
+      "ring_03"
+    ],
+    "pinky_metacarpal": [
+      "pinky_metacarpal",
+      "pinky_01",
+      "pinky_02",
+      "pinky_03"
+    ],
+    "index_metacarpal": [
+      "index_metacarpal",
+      "index_01",
+      "index_02",
+      "index_03"
+    ]
+  },
+  "leg": {
+    "thigh": [
+      "thigh",
+      "calf",
+      "foot"
+    ]
+  },
+  "foot": {
+    "foot": [
+      "foot",
+      "ball"
+    ]
+  },
+  "spine": {
+    "spine_01": [
+      "spine_01",
+      "spine_02",
+      "spine_03",
+      "spine_04",
+      "spine_05",
+      "neck_01",
+      "neck_02",
+      "head"
+    ]
+  }
+}

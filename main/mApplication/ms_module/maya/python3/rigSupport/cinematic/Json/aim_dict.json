@@ -1,0 +1,217 @@
+{
+  "arm": {
+    "clavicle_l": {
+      "sequence": [
+        "clavicle_l",
+        "upperarm_l",
+        "lowerarm_l",
+        "hand_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "y",
+      "up_reverse": true,
+      "world_up_obj": true
+    },
+    "clavicle_r": {
+      "sequence": [
+        "clavicle_r",
+        "upperarm_r",
+        "lowerarm_r",
+        "hand_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "world_up_obj": true
+    }
+  },
+  "finger": {
+    "thumb_01_l": {
+      "sequence": [
+        "thumb_01_l",
+        "thumb_02_l",
+        "thumb_03_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "world_up_obj": true
+    },
+    "thumb_01_r": {
+      "sequence": [
+        "thumb_01_r",
+        "thumb_02_r",
+        "thumb_03_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "world_up_obj": true
+    },
+    "middle_metacarpal_l": {
+      "sequence": [
+        "middle_metacarpal_l",
+        "middle_01_l",
+        "middle_02_l",
+        "middle_03_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "up_axis_0": "-y",
+      "up_reverse_0": false,
+      "world_up_obj": true
+    },
+    "middle_metacarpal_r": {
+      "sequence": [
+        "middle_metacarpal_r",
+        "middle_01_r",
+        "middle_02_r",
+        "middle_03_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "up_axis_0": "y",
+      "up_reverse_0": true,
+      "world_up_obj": true
+    },
+    "ring_metacarpal_l": {
+      "sequence": [
+        "ring_metacarpal_l",
+        "ring_01_l",
+        "ring_02_l",
+        "ring_03_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "up_axis_0": "-y",
+      "up_reverse_0": false,
+      "world_up_obj": true
+    },
+    "ring_metacarpal_r": {
+      "sequence": [
+        "ring_metacarpal_r",
+        "ring_01_r",
+        "ring_02_r",
+        "ring_03_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "up_axis_0": "y",
+      "up_reverse_0": true,
+      "world_up_obj": true
+    },
+    "pinky_metacarpal_l": {
+      "sequence": [
+        "pinky_metacarpal_l",
+        "pinky_01_l",
+        "pinky_02_l",
+        "pinky_03_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "up_axis_0": "-y",
+      "up_reverse_0": false,
+      "world_up_obj": true
+    },
+    "pinky_metacarpal_r": {
+      "sequence": [
+        "pinky_metacarpal_r",
+        "pinky_01_r",
+        "pinky_02_r",
+        "pinky_03_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "up_axis_0": "y",
+      "up_reverse_0": true,
+      "world_up_obj": true
+    },
+    "index_metacarpal_l": {
+      "sequence": [
+        "index_metacarpal_l",
+        "index_01_l",
+        "index_02_l",
+        "index_03_l"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "up_axis_0": "-y",
+      "up_reverse_0": false,
+      "world_up_obj": true
+    },
+    "index_metacarpal_r": {
+      "sequence": [
+        "index_metacarpal_r",
+        "index_01_r",
+        "index_02_r",
+        "index_03_r"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "up_axis_0": "y",
+      "up_reverse_0": true,
+      "world_up_obj": true
+    }
+  },
+  "leg": {
+    "thigh_l": {
+      "sequence": [
+        "thigh_l",
+        "calf_l",
+        "foot_l"
+      ],
+      "aim_axis": "-x",
+      "up_axis": "-y",
+      "up_reverse": true,
+      "world_up_obj": true
+    },
+    "thigh_r": {
+      "sequence": [
+        "thigh_r",
+        "calf_r",
+        "foot_r"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": false,
+      "world_up_obj": true
+    }
+  },
+  "foot": {
+    "foot_l": {
+      "sequence": [
+        "foot_l",
+        "ball_l"
+      ],
+      "aim_axis": "-y",
+      "rotate_axis": "z"
+    },
+    "foot_r": {
+      "sequence": [
+        "foot_r",
+        "ball_r"
+      ],
+      "aim_axis": "-y",
+      "rotate_axis": "z"
+    }
+  },
+  "spine": {
+    "spine_01": {
+      "sequence": [
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "spine_04",
+        "spine_05",
+        "neck_01",
+        "neck_02",
+        "head"
+      ],
+      "aim_axis": "x",
+      "up_axis": "-y",
+      "up_reverse": true
+    }
+  }
+}

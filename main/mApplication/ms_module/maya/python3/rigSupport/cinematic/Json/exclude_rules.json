@@ -1,0 +1,23 @@
+{
+  "aim": {
+    "self": [
+      "correctiveroot",
+      "twist_",
+      "hand",
+      "slide",
+      "half"
+    ],
+    "ancestor": [
+      "correctiveroot",
+      "twist_",
+      "half"
+    ]
+  },
+  "move": {
+    "self": [
+      "half",
+      "twistcor",
+      "correctiveroot"
+    ]
+  }
+}

@@ -39,10 +39,10 @@ def offset_(object_, w=None):
 num_ = 4
 axis_ = 'x'
 # type_ is 'up' or 'dn'
-type_ = 'dn'
+type_ = 'up'
 div_ = division(num_,1)
 sel = pm.ls(sl=1,fl=1,r=1)
-name_ = 'lower_arm_l'
+name_ = 'hairTail'
 
 
 # 선택한 오브젝트의 포지션값을 리스트로 저장

@@ -268,13 +268,13 @@ def hairDyn_(name_=None,jnts=None,crv=None):
     outCrv = hairsystem(crv,name_)
     ikh = ikh_(jnts,outCrv)
 
-# Curve�고 �행�주�요
+# Curve�고 �행�주�요
 sel = pm.ls(sl=1,fl=1,r=1)
-name_ = 'right_side_line'
-num_ = 3
+name_ = 'hairTail'
+num_ = 5
 jnts,crv = createJoint_(sel[0],name_,num_,oj_='xyz',sao_='yup',crvRvs=None)
 
-# 조인�리�트 값을 맞춰춬설�후 �행�니
+# 조인�리�트 값을 맞춰춬설�후 �행�니
 hairDyn_(name_,jnts,crv)
 
 
